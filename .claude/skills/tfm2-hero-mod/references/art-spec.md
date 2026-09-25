@@ -111,12 +111,15 @@ What worked for hok_arthur (this repo, `tools/art/`), without Aseprite:
   auto-outlined, with a pivot at its joint; far-side limbs are the same grid one shade darker;
 - a small rig places the parts per pose (hip, 2-bone sword arm, cape sway) and rotates the
   sword and arm with RotSprite (Scale2x x3, rotate, sample) so lines stay crisp;
-- **legs are drawn per pose (stand, stride front/back, lifted, crouch, kneel, tucked), never
-  rotated**: rotating a 5 px leg 25-40 deg shreds it, and the user called it out at once. Planted
-  legs keep their soles on the ground, their tops hide under the skirt/tasset; both legs use the
-  same grid and colours (a darkened far leg reads as a different armour);
-- lean/crouch moves the whole upper body **and** the hips together - sliding the torso over the
-  hips looks dislocated at this size;
+- **legs keep one shape and length in every frame.** Rotating a 5 px leg shreds it, and
+  separately drawn bent/stride legs looked like zigzags at this size - the user called both
+  out as deformation. A step only slants the leg (rows shift toward the foot), a lifted foot
+  drops hidden thigh rows so the knee stays visible, and both legs share grid and colours
+  (a darkened far leg reads as a different armour);
+- never lower the hips over planted legs: the skirt swallows the knees and the legs visibly
+  shrink. Lean/lunge moves the whole upper body and hips together sideways; only a kneel
+  changes the leg drawings;
+- deaths: kneel then fade (base knight/fighter fade too) instead of rotating the sprite;
 - swing smears, dash streaks and sword light are drawn into the body frames as solid shapes
   with hard colour ramps; the view effects use the same primitives (`fx_lib.py`);
 - design from the in-game model as well as the splash: players recognise the model's colours

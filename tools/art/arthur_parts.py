@@ -8,7 +8,7 @@ Every grid is the *fill* of a part; px.outline() adds the 1 px near-black outlin
 and points below are in fill coordinates and get +1 when the part is outlined.
 Palette characters are defined in px.PAL.
 """
-from px import Part, grid, outline
+from px import Part, grid, new, outline
 
 HEAD = [
     "......1221....",
@@ -73,91 +73,67 @@ TASSET = [  # gold skirt plates over the hips, red tabard in front
     "..EDttsttDE..",
     ".....utu.....",
 ]
-# Legs: every pose is drawn, not rotated (rotating 5 px limbs breaks them). Pivot = hip joint at
-# the top; the top rows hide under the tasset. Same grids and colours for the near and far leg.
-LEGS = {
-    "S": ([  # standing
-        "ZyxyZ.",
-        "ZyxyZ.",
-        "ZyxyZ.",
-        "ZyxyZ.",
-        "DCBBC.",
-        "DBAAB.",
-        "EDCCD.",
-        "ZyxxZ.",
-        "ZyxyZ.",
-        "DCBBC.",
-        "DCBBBC",
-        "EDDDDE",
-    ], (2, 0)),
-    "F": ([  # front leg of a stride / lunge: thigh forward, shin upright
-        "ZyxyZ...",
-        ".ZyxyZ..",
-        "..ZyxyZ.",
-        "..DCBBC.",
-        "..DBAAB.",
-        "..EDCCD.",
-        "..ZyxxZ.",
-        "..ZyxyZ.",
-        "..DCBBC.",
-        "..DCBBBC",
-        "..EDDDDE",
-    ], (2, 0)),
-    "B": ([  # back leg of a stride / lunge: straight, reaching back
-        "....ZyxyZ",
-        "...ZyxyZ.",
-        "...ZyxyZ.",
-        "..DCBBC..",
-        "..DBAAB..",
-        ".EDCCD...",
-        ".ZyxxZ...",
-        "ZyxyZ....",
-        "DCBBC....",
-        "DCBBBC...",
-        "EDDDDE...",
-    ], (6, 0)),
-    "P": ([  # passing / lifted leg
-        "ZyxyZ..",
-        "ZyxyZ..",
-        ".DCBBC.",
-        ".DBAAB.",
-        ".EDCCD.",
-        ".ZyxxZ.",
-        "ZyxyZ..",
-        "DCBBC..",
-        "EDDDDE.",
-    ], (2, 0)),
-    "C": ([  # crouch: knee forward, foot under the body
-        "ZyxyZ...",
-        ".ZyxyZ..",
-        "..DCBBC.",
-        "..DBAAB.",
-        "..EDCCD.",
-        ".ZyxxZ..",
-        ".ZyxyZ..",
-        "DCBBC...",
-        "DCBBBC..",
-        "EDDDDE..",
-    ], (2, 0)),
-    "K": ([  # kneel: knee on the ground, shin lying back
-        "....ZyxyZ",
-        "....ZyxyZ",
-        "....ZyxyZ",
-        "....DCBBC",
-        "DZzyyDBAAB",
-        "EDZzzEDCCD",
-    ], (6, 0)),
-    "T": ([  # tucked in the air
-        "ZyxyZ...",
-        ".ZyxyyZ.",
-        "..DCBBC.",
-        "..DBAAB.",
-        "..EDCCD.",
-        ".ZyxZ...",
-        "DCBBC...",
-        "EDDDE...",
-    ], (2, 0)),
-}
+# Legs. At 5 px wide a leg cannot be bent or rotated without looking broken, so the leg keeps
+# one shape and length: a step slants it (rows shift sideways toward the foot, see slanted_leg)
+# and a lifted foot drops hidden thigh rows so the knee always stays visible under the tasset.
+# Only kneeling uses different drawings. Near and far leg share grids and colours.
+LEG = [
+    "ZyxyZ.",   # thigh (hidden under the tasset)
+    "ZyxyZ.",
+    "ZyxyZ.",
+    "ZyxyZ.",
+    "DCBBC.",   # knee cop
+    "DBAAB.",
+    "EDCCD.",
+    "ZyxxZ.",   # greave
+    "ZyxyZ.",
+    "DCBBC.",   # sabaton
+    "DCBBBC",
+    "EDDDDE",
+]
+LEG_JOINT = (2, 0)
+LEG_FOOT_ROWS = 3
+KNEEL_BACK = [  # kneeling leg: knee on the ground, shin lying back
+    "....ZyxyZ",
+    "....ZyxyZ",
+    "....ZyxyZ",
+    "....DCBBC",
+    "DZzyyDBAAB",
+    "EDZzzEDCCD",
+]
+KNEEL_FRONT = [  # front leg of a kneel: knee up and forward, foot flat
+    "ZyxyZ...",
+    ".ZyxyZ..",
+    "..DCBBC.",
+    "..DBAAB.",
+    "..EDCCD.",
+    ".ZyxxZ..",
+    ".ZyxyZ..",
+    "DCBBC...",
+    "DCBBBC..",
+    "EDDDDE..",
+]
+_SLANT_CACHE = {}
+
+
+def slanted_leg(shear, drop=0):
+    """The standing leg with its foot moved `shear` px sideways (0 at the hip joint, full at the
+    sabaton) and `drop` hidden thigh rows removed (lifted foot). Returns (outlined image, pivot)."""
+    key = (int(shear), int(drop))
+    if key not in _SLANT_CACHE:
+        rows = LEG[drop:]
+        img = grid(rows)
+        h = img.height
+        span = max(1, h - LEG_FOOT_ROWS - 1)
+        pad = abs(key[0])
+        out = new(img.width + 2 * pad, h)
+        for r in range(h):
+            dx = int(round(key[0] * min(1.0, r / span)))
+            out.paste(img.crop((0, r, img.width, r + 1)), (pad + dx, r))
+        _SLANT_CACHE[key] = (outline(out, grow_canvas=True), (LEG_JOINT[0] + pad + 1, 1))
+    return _SLANT_CACHE[key]
+
+
 PAUL_N = [
     "..DCCBB..",
     ".DCBBAAB.",
@@ -277,7 +253,8 @@ def build():
         "head_shout": part(HEAD_SHOUT, (7, 12)),
         "torso": part(TORSO, (5, 8), {"neck": (6, 0), "sh_n": (1, 1), "sh_f": (9, 1)}),
         "tasset": part(TASSET, (6, 0)),
-        **{"leg_" + k: part(rows, pivot) for k, (rows, pivot) in LEGS.items()},
+        "leg_kneel_back": part(KNEEL_BACK, (6, 0)),
+        "leg_kneel_front": part(KNEEL_FRONT, (2, 0)),
         "paul_n": part(PAUL_N, (4, 2)),
         "paul_f": part(PAUL_F, (3, 2)),
         "upper_arm": part(UPPER_ARM, (1, 0), {"elbow": (1, 3)}),

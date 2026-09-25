@@ -6,14 +6,15 @@ screen in degrees:
   sword: 0 = pointing up, 90 = forward (right), 180 = down, 225 = down-back
 
 The body is locked together at the waist: `hip` moves the whole upper body *and* the tasset, so
-the torso never slides over the hips. Legs are separate drawn poses (arthur_parts.LEGS), never
-rotated: a planted leg keeps its sole on the ground wherever the hip goes (its top hides under the
-tasset), a hanging leg follows the hip (jumps, lifted feet).
+the torso never slides over the hips. Legs keep one shape and length: a leg is given by where its
+joint sits under the hip and where its foot stands, and is slanted to connect the two
+(arthur_parts.slanted_leg), so the knee is always visible and legs never shrink or bend out of
+shape. Keep hip y at 0 except for kneeling (the kneel has its own leg drawings).
 """
 import math
 
 import px
-from arthur_parts import build
+from arthur_parts import build, slanted_leg
 
 FW, FH = 111, 135          # frame size (odd so the pivot pixel is the centre)
 CX = FW // 2               # hip column = pivot column
@@ -33,14 +34,18 @@ J = {
     "cape": (-7, -8),
 }
 HANG_Y = 4                 # hanging legs: joint this far below the hip
-STAND_LEGS = (("S", -3, "plant"), ("S", 3, "plant"))
+# a leg: (kind, joint x from the hip, foot x from the standing hip, lift)
+#   kind "S": the one leg shape, slanted from joint to foot; lift = px the foot is off the ground,
+#             or "hang" (airborne: joint follows the hip, foot x is then relative to the joint)
+#   kind "kneel_back" / "kneel_front": kneeling drawings, placed at the joint, sole on the ground
+STAND_LEGS = (("S", -3, -3, 0), ("S", 3, 3, 0))
 
 DEFAULT = dict(
     root=(0, 0),            # whole-body offset, ground included (jumps use hanging legs)
     hip=(0, 0),             # hip offset: lean (x) and crouch (+y); upper body + tasset follow
     breath=0,               # shoulders, head, arm, shield and cape only (idle breathing)
     head="head", head_d=(0, 0),
-    legs=STAND_LEGS,        # (near, far): (pose key, x offset, "plant" | "hang")
+    legs=STAND_LEGS,        # (near, far), see STAND_LEGS
     arm=(0, 0),             # (upper arm angle, forearm angle)
     sword=230,
     sword_part="sword",
@@ -112,16 +117,21 @@ def pose_frame(anchors_out=None, **kw):
     px.place(f, cimg, cpiv, *at(up, "cape"), angle=crot)
 
     # legs: far first, near in front
-    for key, dx, mode in reversed(P["legs"]):
-        p = PARTS["leg_" + key]
-        if mode == "plant":
-            x = base[0] + dx - p.pivot[0]
-            y = ground - (p.img.height - 1)
-            top = y + 1                              # first fill row
-            assert top <= hip[1] + TASSET_BOTTOM + 1, f"leg {key} shows a gap under the tasset"
-            px.paste(f, p.img, x, y)
+    for kind, jdx, fdx, lift in reversed(P["legs"]):
+        if kind == "S" and lift == "hang":
+            img, pv = slanted_leg(fdx)
+            px.paste(f, img, hip[0] + jdx - pv[0], hip[1] + HANG_Y - pv[1])
+            continue
+        if kind == "S":
+            img, pv = slanted_leg((base[0] + fdx) - (hip[0] + jdx), drop=lift)
+            x = hip[0] + jdx - pv[0]
         else:
-            px.place(f, p.img, p.pivot, hip[0] + dx, hip[1] + HANG_Y)
+            p = PARTS["leg_" + kind]
+            img, pv, lift = p.img, p.pivot, 0
+            x = hip[0] + jdx - pv[0]
+        y = ground - lift - (img.height - 1)
+        assert y + 1 <= hip[1] + TASSET_BOTTOM + 1, f"leg {kind} leaves a gap under the tasset"
+        px.paste(f, img, x, y)
 
     put("tasset", at(hip, "tasset"))
     put("torso", at(hip, "torso"))
