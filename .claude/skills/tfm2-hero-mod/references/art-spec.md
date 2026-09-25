@@ -29,7 +29,7 @@ more colours - dark heroes (Nocturne, Shadow Fiend) are near-black bodies with g
 | Tag | Base (median frames @ ms) | oppi | Notes |
 |---|---|---|---|
 | idle | 4 @ 140-200 | 7 @ 100 | breathing / weapon sway |
-| run | 8 @ 80 | 6-9 @ 75-100 | |
+| run | 8 @ 80 | 6-9 @ 75-100 | the move loop; may be a walk (League Garen: 8 @ 117) |
 | attack | 5 @ 80 | 6-8 @ 75-85 | anticipation -> hit frame -> recovery |
 | skill / skill1, skill2, ult | 5 @ 80 | 6-13 @ 80-100 | any name, but it must equal the action's `action_name` |
 | hit | 1 @ 100 | often omitted | recommended |
@@ -95,8 +95,66 @@ The base game itself keeps high-res chibi concept art for its newest champions
 6. `python scripts/tfm2_ase.py metrics champions/<hero>.aseprite` and
    `python scripts/tfm2_ase.py render champions/<hero>.aseprite --out preview.png` to review.
 
-Automatic downscaling of HD art almost always fails the checks (hundreds of colours, soft edges,
-no outline); it can serve as a sketch layer, not as the final sprite.
+Plain downscaling of HD art fails the checks (hundreds of colours, soft edges, no outline).
+Generated art passes them only through the import below.
+
+## Generated art (image-model strips)
+
+The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>/PROMPTS.md`,
+16 generated PNGs (1 reference, 9 animations, 6 effects), `tools/art/import_<hero>.py` built on
+`scripts/strips.py`. What mattered:
+
+- **Prompts.** One row of N frames per animation, real transparent background, feet on the same
+  line in every cell, 3/4 view facing right. Generate a reference sheet first and attach it to
+  every character prompt, or the hero drifts between animations.
+- **Pose references from the source game.** Without one the model invents the motion: Garen's
+  first run trailed the sword and his idle rested it on the shoulder, while in League both hold
+  it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
+  `tools/lol/pose_ref.py` in TFM2-League-Heroes, reads SKN/SKL/ANM from the local client) and
+  attach them as a second image: "copy each frame's pose, draw it like the first image". Keep
+  such renders local; they show the game's model.
+- **Name the gait and time it from the clip.** The move tag is called `run`, but League's Garen
+  marches: upright, 0.93 s a cycle. Prompted as a run, he came out leaning into a sprint at
+  0.54 s and the user saw "running, not walking". Say WALK (upright, one foot always down) when
+  the clip is a walk, and take the frame times from it (Garen: 8 frames x 117 ms).
+- **Render the side that shows the chest.** Every base champion faces right with its front to the
+  viewer. League's Garen idles with his chest toward his own right, so a right-front camera
+  shows his back - round 2 came out as a back view and the user rejected it at once. Render his
+  left side and flip it (`pose_ref.py --mirror`), check the face and crest are visible, and say
+  "3/4 FRONT view ... never show his back" in the prompt. Effects: separate strips,
+  centred or with a fixed impact point, no outline, empty centre for rings around the hero.
+- **Frames are not on a grid.** The model shifts the body inside its cell to fit a long weapon,
+  and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
+  drifted about 0.5 px per frame). Split
+  at empty columns and keep connected blobs whole (`split_strip`); never place frames by cell.
+- **Scale per strip.** Every generated strip comes at its own size (Garen round 4: the Q strip at
+  half of idle's size, battle cry and hit far bigger). Pick a frame in idle's pose (the ready
+  stance most strips start or end in), render it next to idle at game size at a few scales and
+  choose by eye - head widths and hair-to-soles numbers were off by up to 2x on small or glowing
+  frames. 36 px suits a big human (base humans ~31 px, the ogre ~38); 42 px looked like a giant.
+- **One look per hero.** Strips from different generation rounds disagree on proportions (round
+  1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
+  it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
+  every strip in one batch with the newest frame as design and size reference.
+- **Horizontal pivot per frame.** Line the lowest ~12 px of legs up with idle frame 0
+  (`leg_band` + `best_shift`); loops that turn or run (spin, run) are pinned by the head. A sword
+  tip, smear or burst touching the ground gets matched as a foot: place those frames by the drawn
+  spacing, corrected like their aligned neighbours, then nudge so one foot stays planted.
+  Airborne frames keep their height above the strip's ground line.
+- **Better, for strips drawn from a League clip:** put each frame's head where League's skeleton
+  has it at the same frame time and camera (Garen's lunges and leaps then match the game).
+  Re-base clips that start away from the unit (Garen's R starts 12 px behind it), and pin the
+  feet's midpoint instead for a spin whose drawn lean is smaller than the clip's, or the body
+  wobbles.
+- **Pixels.** Premultiplied area downscale, alpha cut 0.5, one median-cut palette for all body
+  frames (64 colours), then a 1 px near-black edge except on glowing pixels, then drop lonely
+  pixels. Effects: alpha cut 0.4 plus tiny-spark keeping, own 32-colour palette, no outline.
+- **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
+  the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
+  Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
+  impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`).
+- **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
+  a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
 ## QA checklist
 

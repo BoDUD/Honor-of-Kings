@@ -1,0 +1,14 @@
+{
+  "entries": {
+    "league_garen": {
+      "face": {
+        "x": 1,
+        "y": -38
+      },
+      "center": {
+        "x": 0,
+        "y": -12
+      }
+    }
+  }
+}

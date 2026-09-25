@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_garen_sfx_r_cast",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_garen_vo_r",
+      "volume": 1.0
+    }
+  ]
+}

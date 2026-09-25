@@ -6,10 +6,10 @@
 {
   "en": {
     "description": {
-      "hok_libai": {"name": "Li Bai", "attack": "...", "skill": "...", "skill2": "...", "ult": "..."}
+      "league_garen": {"name": "Garen", "attack": "...", "skill": "...", "skill2": "...", "ult": "..."}
     },
     "skill_name": {
-      "hok_libai": {"skill1": "...", "skill2": "...", "ult": "..."}
+      "league_garen": {"skill1": "...", "skill2": "...", "ult": "..."}
     }
   },
   "zh-hans": { ... }
@@ -24,7 +24,7 @@
   `"description": "#asset/base/text/champion?description.<id>.<slot>"`.
 - Note the key asymmetry: descriptions use `skill`/`skill2`/`ult`, `skill_name` uses
   `skill1`/`skill2`/`ult`.
-- Use the franchise's **official localized names** per language (e.g. 李白 / Li Bai / 이백).
+- Use the franchise's **official localized names** per language (e.g. 盖伦 / 蓋倫 / Garen / 가렌 / ガレン).
 
 ### Rich text
 
@@ -59,7 +59,7 @@ Pattern: `<#ff9028ff>Skill Name<>: what it does, <#ff9028ff>150<> + <i#...:ad_0>
 ## style/champion_view.champion_view (merged into asset/base/style/champion_view)
 
 ```json
-{"entries": {"hok_libai": {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -12}}}}
+{"entries": {"league_garen": {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -12}}}}
 ```
 
 Offsets in sprite pixels measured **up from the feet** (negative y = higher). `center` is the
@@ -80,6 +80,12 @@ body centre (base default y -12, where hits/health bar anchor); `face` is the he
   `asset/base/sound/sfx/<name>` -> `asset/<mod_id>/sound/sfx/<name>` and
   `asset/base/sound/sfx/<clip>` -> `asset/<mod_id>/sound/sfx/<clip>`, both `"override"`.
 - Name sounds `<mod>_<hero>_<slot>_<cast|hit>` so they never collide.
+- **`<champion id>_attack` plays by itself.** 61 of 67 base attacks have no `Sfx` in their data,
+  yet each champion has a sound named `<id>_attack`: the engine plays it on every basic attack.
+  Do not also play `<id>_attack` from the attack's effect tree - it sounds twice (league_garen:
+  the explicit hit landed 10 ticks after the automatic one and players heard two swings). Name
+  explicit attack sounds `<id>_attack_hit` / `<id>_attack_cast` like base and the later LoL Reborn
+  heroes, or rely on the automatic one when the hit comes at `start_timing`.
 - Normalise loudness; packs use volume 0.4-1.0 per clip. Several `plays` entries with `delay`
   layer sounds (e.g. a cast whoosh then an impact).
 - No sound yet? Reuse base ones (`python scripts/bundle_tool.py sfx`), e.g. `fighter_attack`,

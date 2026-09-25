@@ -1,0 +1,19 @@
+{
+  "round": 5,
+  "file": "garen_run.png",
+  "action": "walk",
+  "frames": 8,
+  "dimensions": [
+    2172,
+    724
+  ],
+  "mode": "RGBA",
+  "has_transparency": true,
+  "transparent_fraction": 0.78035,
+  "sha256": "088ad7b203630b97d5f3ee826e1b6f2bed814abe64a9110afa0834630f1bec00",
+  "model_reference": "references/garen_ref_v3.png",
+  "pose_reference": "references/garen_pose_walk.png",
+  "delivery": "Original GPT-generated PNG; no scripted pixel editing",
+  "intended_cycle_seconds": 0.93,
+  "game_timing_changed": false
+}

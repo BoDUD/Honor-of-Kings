@@ -18,7 +18,7 @@ Contents
 
 | Field | Notes |
 |---|---|
-| `id` | Unique, namespaced (`hok_libai`). Also the key for text and champion_view. |
+| `id` | Unique, namespaced (`league_garen`). Also the key for text and champion_view. |
 | `category` | `Melee` \| `Range` \| `Magician` \| `Util` \| `Assassin` (drives UI filter + AI role) |
 | `tags` | Free strings used in packs: `AD` `AP` `Melee` `Range` `Tank` `CC` `Magic` `Heal` `Shield` `Dot` |
 | `sprite` | `asset/<mod_id>/champions/<hero>` (no extension) |
@@ -82,6 +82,8 @@ Cooldowns (ticks, median [IQR]): skill 240-420, skill2 300-480, ult 2400-3600 (a
   `casting_target: EnemyChampion` + a `range` (cast when an enemy champion is that close) - this
   is how Nocturne's shroud is wired. `AllyOnlySelf` + range 0 also exists (Aatrox ult).
 - `action_name` may be any tag: `ult_cast`, `skill2_dash`... Base uses this heavily.
+- `can_use_with_move` lets the unit cast without stopping. No base skill uses it (LoL Reborn
+  does), and it does not let the unit walk during a `CasterAnimation`.
 - `patch_type_name` only appears in base data (patch notes); skip it.
 
 ## 4. Effect catalogue
@@ -152,7 +154,8 @@ RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
 **Presentation**
 `ViewEffect {name}` (play a `view_effects` animation on the target/point),
 `CasterViewEffect {name}` (on the caster), `CasterAnimation {name, tick}` (force a sprite tag on
-the caster for `tick`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
+the caster for `tick`; the caster stays in place meanwhile, so move it from the effect tree with
+`MoveToTarget` / `MoveTo` / `RushTime`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
 `TargetSfx {name}` (at target). Base `ViewEffect` entries sometimes carry `range/speed/time/radius`.
 
 **Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`),
@@ -161,7 +164,7 @@ the caster for `tick`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster)
 ## 5. buff_state
 
 ```json
-{"name": "hok_libai_sword_intent", "duration": {"Time": {"tick": 300}}, "attack": 20, "move_speed_mult": 15}
+{"name": "league_garen_q_haste", "duration": {"Time": {"tick": 90}}, "move_speed_mult": 35}
 ```
 
 `duration`: `{"Time": {"tick": N}}` | `"Permanent"` | `"WithShield"` (lasts while the shield
@@ -182,9 +185,9 @@ Effects only simulate; nothing is drawn unless a view entry with the **same name
 the same champion file.
 
 ```json
-"view_projectiles": [{"type": "Animated", "name": "hok_libai_sword_qi", "anim": "asset/hok/fx/libai_sword_qi", "tag": "fly", "repeat": true, "z": 0}],
-"view_effects":     [{"type": "Animation", "name": "hok_libai_slash_hit", "anim": "asset/hok/effects/libai_slash", "tag": "hit", "z": -1, "is_follow": true}],
-"view_buffs":       [{"type": "Animated", "name": "hok_libai_sword_intent", "anim": "asset/hok/buffs/libai_aura", "tag": "loop", "z": -1}]
+"view_projectiles": [{"type": "Animated", "name": "league_garen_wave", "anim": "asset/league/fx/league_garen_wave", "tag": "fly", "repeat": true, "z": 0}],
+"view_effects":     [{"type": "Animation", "name": "league_garen_q_hit", "anim": "asset/league/effects/league_garen_hits", "tag": "q", "z": -1, "is_follow": true}],
+"view_buffs":       [{"type": "Animated", "name": "league_garen_judgment", "anim": "asset/league/effects/league_garen_spin", "tag": "loop", "z": 1}]
 ```
 
 - `view_projectiles` <- the `name` of any projectile/zone effect. Also `{"type": "Sprite", "name", "sprite"}` for a static image.
@@ -231,6 +234,18 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
 **Channel with its own animation.** `CasterAnimation {name, tick}` + `Delayed` hits +
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
 
+**Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
+spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short dash next
+to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion, effects:
+[MoveToTarget {speed: 1400, range: 60000, end_effects: []}]}`. Re-pick the target on every pulse:
+chasing only the cast target left Garen spinning in place once it died - at once when it was a
+minion. Cast it with `casting_target: EnemyChampion` so it opens on champions; minions still take
+the spin damage. See league_garen E.
+
+**`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
+actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
+in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` instead.
+
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
 
 ## 8. Gotchas
@@ -239,8 +254,14 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
 - Keep `start_timing <= duration`; long channels need a long `duration` (or `Delayed` effects).
-- Use namespaced names for every buff/projectile/effect (`hok_libai_*`) - names are global-ish
+- Use namespaced names for every buff/projectile/effect (`league_garen_*`) - names are global-ish
   and collisions with other mods are hard to debug.
 - Custom sounds must be injected with override entries or `Sfx` will not find them
   (see `text-audio.md`).
+- The engine plays `<champion id>_attack` on every basic attack by itself; never play that name
+  from the effect tree too (see `text-audio.md`).
+- A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
+  stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
+  play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in
+  `view_effects`); keep buff views for states that must vanish on consumption (Q ready).
 - Run `python scripts/lint_mod.py <mod>` after every edit.

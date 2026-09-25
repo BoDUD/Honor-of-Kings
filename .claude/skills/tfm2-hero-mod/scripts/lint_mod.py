@@ -194,6 +194,27 @@ def hint(name, candidates):
     return f" (did you mean '{close[0]}'?)" if close else ""
 
 
+def sfx_names(node):
+    """Every Sfx / TargetSfx name inside an effect tree."""
+    if isinstance(node, dict):
+        own = {node["name"]} if node.get("type") in ("Sfx", "TargetSfx") and node.get("name") else set()
+        return own.union(*(sfx_names(v) for v in node.values()))
+    if isinstance(node, list):
+        return set().union(*(sfx_names(v) for v in node))
+    return set()
+
+
+def untargeted_moves(node, under_random=False):
+    """Count MoveToTarget nodes that are not inside a RandomTarget (they need the action's target)."""
+    if isinstance(node, dict):
+        here = node.get("type") == "MoveToTarget" and not under_random
+        under = under_random or node.get("type") == "RandomTarget"
+        return int(here) + sum(untargeted_moves(v, under) for v in node.values())
+    if isinstance(node, list):
+        return sum(untargeted_moves(v, under_random) for v in node)
+    return 0
+
+
 def walk_effects(node, out):
     if isinstance(node, dict):
         t = node.get("type")
@@ -456,6 +477,12 @@ def main(argv=None):
                     elif miss:
                         rep.info(WA, f"text key missing in {len(miss)} language(s): {', '.join(miss)}")
             walk_effects(a.get("effect"), found)
+            if a.get("casting_type") == "None" and untargeted_moves(a.get("effect")):
+                rep.warn(WA, "MoveToTarget in a casting_type None action has no target and will not move - "
+                             "cast as Targeting or wrap it in RandomTarget")
+            if slot == "attack" and f"{cid}_attack" in sfx_names(a.get("effect")):
+                rep.warn(WA, f"Sfx '{cid}_attack': the engine already plays <id>_attack on every basic attack, "
+                             f"so it sounds twice - rename it (e.g. {cid}_attack_hit)")
 
         for t in found["types"]:
             if t in BASE_ONLY_EFFECTS:

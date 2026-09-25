@@ -1,0 +1,33 @@
+{
+  "version": "front-view-v3",
+  "assets": [
+    {
+      "file": "garen_idle.png",
+      "frames": 6,
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparent": true,
+      "sha256": "98f55b5f79f9d50fc332e420842e608c08b17601eb589b31379fe529c0ab17da",
+      "design_reference": "references/garen_ref.png",
+      "pose_reference": "references/garen_pose_idle.png"
+    },
+    {
+      "file": "garen_attack.png",
+      "frames": 6,
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparent": true,
+      "sha256": "4351e1e5e98d412d9715862147d059f613fac14a695afef767eb4e2e92c62254",
+      "design_reference": "references/garen_ref.png",
+      "pose_reference": "references/garen_pose_attack.png"
+    }
+  ],
+  "processing": "Original GPT PNGs; no scripted pixel edits",
+  "run": "Not regenerated; retain V2 run"
+}
