@@ -1,0 +1,14 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_ashe_sfx_w_cast",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "league_ashe_vo_w",
+      "volume": 1.0
+    }
+  ]
+}
