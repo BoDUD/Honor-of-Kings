@@ -459,7 +459,7 @@
       "name": "hok_arthur_ult_impact",
       "anim": "asset/hok/effects/hok_arthur_ult_impact",
       "tag": "impact",
-      "z": -1
+      "z": 1
     }
   ],
   "view_buffs": [
@@ -467,7 +467,8 @@
       "type": "Animated",
       "name": "hok_arthur_whirl",
       "anim": "asset/hok/effects/hok_arthur_whirl",
-      "tag": "loop"
+      "tag": "loop",
+      "z": 1
     },
     {
       "type": "Animated",

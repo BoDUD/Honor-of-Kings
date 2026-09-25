@@ -2,7 +2,7 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "sword_attack0",
+      "clip": "hok_arthur_sfx_attack",
       "volume": 0.9
     }
   ]

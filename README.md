@@ -20,6 +20,43 @@
 | `scripts/bundle_tool.py` | 只读浏览游戏本体资源：可引用的原版特效、音效名、官方英雄数据 |
 | `templates/mymod/` | 可直接复制的示例 mod，已通过校验 |
 
+## 英雄：亚瑟（`hok_arthur`）
+
+![亚瑟技能演示](docs/preview/arthur_showcase.gif)
+
+| 部分 | 内容 |
+|---|---|
+| 技能 | 普攻；一技能「誓约之盾」冲锋、沉默、强化普攻；二技能「回旋打击」三面火焰金盾环绕 5 秒；大招「圣剑裁决」跃击、击飞、留下圣印 |
+| 精灵图 | `hok/champions/hok_arthur`：8 个动画、49 帧，身高 40 px，逐像素绘制（金发、金甲大肩甲、红披风、狮面盾、银剑金护手） |
+| 特效 | `hok/effects/`：一技能金色十字斩、强化普攻斩击、火焰金盾环绕、圣剑光刃落地、地面圣印 |
+| 图标 | `hok/icons/`：官方技能图标缩到 64×64 |
+| 音频 | 官方语音 + 实录技能音效。版权属于腾讯，**不提交到仓库**，按下面的步骤在本地生成 |
+
+所有帧见 [docs/preview/arthur_frames.png](docs/preview/arthur_frames.png)。
+
+### 重新生成美术
+
+```bash
+pip install pillow numpy
+python tools/art/arthur_anim.py   # 角色精灵图 hok/champions/hok_arthur#sheet.png + #anim.fanim
+python tools/art/arthur_fx.py     # 特效 hok/effects/*
+python tools/art/showcase.py      # 预览图 docs/preview/*
+```
+
+身体每个部件都是手写的像素网格（`tools/art/arthur_parts.py`）。`arthur_rig.py` 把部件摆成姿势，剑用 RotSprite 旋转。`arthur_anim.py` 定义每个动作的关键帧和剑光。特效是纯色块加硬分层色阶，没有半透明像素。
+
+### 生成音频（不入库）
+
+```bash
+python tools/audio/fetch_official_audio.py              # 官方语音，从王者荣耀官网下载
+ffmpeg -i 亚瑟录屏.mp4 -vn -ac 1 -ar 44100 rec.wav
+python tools/audio/cut_recording_sfx.py rec.wav          # 从实机录屏切出 6 个技能音效
+```
+
+### 安装测试
+
+把 `hok` 文件夹复制到 `Teamfight Manager2/mods/hok`。开新局时，在「英雄设置 / 选择起始英雄」里用亚瑟替换 001 格斗家。
+
 ## 快速开始
 
 ```bash

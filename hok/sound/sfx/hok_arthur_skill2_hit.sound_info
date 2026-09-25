@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "shield_attack0",
-      "volume": 0.45
+      "clip": "hok_arthur_sfx_skill2",
+      "volume": 0.55
     }
   ]
 }

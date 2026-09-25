@@ -2,7 +2,7 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "white_mage_ult_resource2",
+      "clip": "hok_arthur_sfx_ult_hit",
       "volume": 1.0
     }
   ]

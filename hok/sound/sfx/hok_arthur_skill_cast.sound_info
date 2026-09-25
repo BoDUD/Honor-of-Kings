@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "knight_skill0",
-      "volume": 0.8
+      "clip": "hok_arthur_sfx_skill_cast",
+      "volume": 0.9
     },
     {
       "delay": 0.0,

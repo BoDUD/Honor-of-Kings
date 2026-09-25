@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "shield_bearer_skill2_resource",
-      "volume": 0.8
+      "clip": "hok_arthur_sfx_skill2",
+      "volume": 0.9
     },
     {
       "delay": 0.0,

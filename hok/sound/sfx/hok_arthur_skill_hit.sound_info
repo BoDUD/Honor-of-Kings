@@ -2,7 +2,7 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "sword_skill1",
+      "clip": "hok_arthur_sfx_skill_hit",
       "volume": 1.0
     }
   ]

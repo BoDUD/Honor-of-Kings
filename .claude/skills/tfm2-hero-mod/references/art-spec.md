@@ -68,6 +68,12 @@ The hit frame of `attack` should land around the action's `start_timing` (e.g. a
 - Mostly opaque pixels; semi-transparency only for fades, shields, ghostly clones.
 - 5-10 frames @ 65-125 ms; impact frames can flash white silhouettes.
 - Sizes: projectiles 25-75 px, impacts 100-250 px wide, ground zones drawn with `z: -1/-2`.
+- Area rings: the base game draws them as **true circles centred on the frame centre / unit
+  pivot** (knight and shield_bearer `skill2_effect`, 74-128 px), not squashed ellipses. Radius
+  in px ~ data radius / 1000 (LoL-pack zones: 34000 -> 29.5 px, 40000 -> 38.5 px).
+- `z` in view bindings: the LoL pack uses -3..10; negative draws behind the unit, positive in
+  front *(inferred from usage)*. A buff that should orbit *around* the hero (in front and
+  behind) can stay in front and cut out the hero's body box from the back half of the orbit.
 - Reuse base effects when they fit (`bundle_tool.py list --grep skill_effect/`).
 
 ## Skill icons
@@ -96,7 +102,19 @@ The base game itself keeps high-res chibi concept art for its newest champions
    `python scripts/tfm2_ase.py render champions/<hero>.aseprite --out preview.png` to review.
 
 Automatic downscaling of HD art almost always fails the checks (hundreds of colours, soft edges,
-no outline); it can serve as a sketch layer, not as the final sprite.
+no outline); it can serve as a sketch layer, not as the final sprite. Text-to-image pixel
+models (SDXL + pixel-art LoRA) were tried for hok_arthur and rejected by the user: the output
+is ~128 px tall "RPG chibi", off-model, and cannot be animated consistently.
+
+What worked for hok_arthur (this repo, `tools/art/`), without Aseprite:
+- every body part is a hand-written pixel grid in a 30-40 colour palette (`arthur_parts.py`),
+  auto-outlined, with a pivot at its joint; far-side limbs are the same grid one shade darker;
+- a small rig places the parts per pose (hip, lean, leg angles, 2-bone sword arm, cape sway)
+  and rotates weapons/limbs with RotSprite (Scale2x x3, rotate, sample) so lines stay crisp;
+- swing smears, dash streaks and sword light are drawn into the body frames as solid shapes
+  with hard colour ramps; the view effects use the same primitives (`fx_lib.py`);
+- design from the in-game model as well as the splash: players recognise the model's colours
+  (for Arthur: red cape, gold plate, silver sword), not the splash's details.
 
 ## QA checklist
 
