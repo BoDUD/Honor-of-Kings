@@ -98,8 +98,8 @@ def tick(n):
 def showcase(out, z=3, step=40):
     garen = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    W, H = 150, 120
-    gx, tx, gy = 58, 88, 78          # Garen, target (30 px apart ~ melee range), pivot row
+    W, H = 160, 120
+    gx, tx, gy = 56, 100, 78         # Garen, target (44 px apart so both swords stay readable), pivot row
     body, flinch, effects = [], [], []
     t = 0.0
 

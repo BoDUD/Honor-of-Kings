@@ -1,0 +1,45 @@
+{
+  "version": "pose-reference-v2",
+  "processing": "Original GPT-generated PNGs; no scripted pixel processing",
+  "assets": [
+    {
+      "file": "garen_idle.png",
+      "frames": 6,
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparent_fraction": 0.841712,
+      "sha256": "74a0cb1c4357fa35a0d8ca42b67889e8bb0b7c168810127357935aae0c18f4fa",
+      "design_reference": "references/garen_ref.png",
+      "pose_reference": "references/garen_pose_idle.png"
+    },
+    {
+      "file": "garen_run.png",
+      "frames": 6,
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparent_fraction": 0.895341,
+      "sha256": "aeeaaf18264c5973e782f0f686d782587309c4c959b2b53a59c69a861044883d",
+      "design_reference": "references/garen_ref.png",
+      "pose_reference": "references/garen_pose_run.png"
+    },
+    {
+      "file": "garen_attack.png",
+      "frames": 6,
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "transparent_fraction": 0.877035,
+      "sha256": "1f72466976281f7a0b77c006102badd196b46e554ce35237f36254031ebd889a",
+      "design_reference": "references/garen_ref.png",
+      "pose_reference": "references/garen_pose_attack.png"
+    }
+  ]
+}
