@@ -356,3 +356,23 @@ Pose reference: the SECOND attached image is a 3D render of Garen's real in-game
 Animation: DEATH, 7 frames, as in the pose reference: 1 staggers, sword lowered; 2 the greatsword drops from his hands and lies on the ground; 3 bends forward, sinking; 4 falls to his knees; 5 sits back, slumping; 6 collapses onto his side; 7 lies still on the ground next to his sword.
 Layout: one horizontal row of 7 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image (about 60% of the cell height when standing); ground line at 88% of the cell height in every cell; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
 ```
+
+## 第五轮：移动动画改成走路（1 张）
+
+第四轮的跑步上身前倾、低着头，像冲刺，一个循环只有 0.54 秒。英雄联盟里盖伦移动时上身直立、步伐稳重，一个循环约 0.93 秒，更像行军。这轮重画成 8 帧的走路。生成的文件名仍然是 `garen_run.png`（游戏里的移动动画就叫 run）。
+
+附两张图：第一张 `garen_ref_v3.png`（造型和大小），第二张 `garen_pose_walk.png`（英雄联盟原版移动动画的正面参考，8 帧）。
+
+```bash
+python tools/lol/pose_ref.py --anim _Run.anm --times 0,117,233,350,467,583,700,817 --yaw 55 --pitch 25 --size 360 --width 1.35 --fit 0.48 --shift -0.06 --bg 225,225,225 --no-labels --mirror --out ref
+```
+
+### 3e. `garen_run.png`：走路，8 帧循环
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game movement animation from League of Legends, seen from the front, 8 frames left to right. Copy each frame's leg and arm positions exactly. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: WALK to the right, 8 frames, seamless loop: a heavy, steady armored march - this is a WALK, NOT a run or a sprint. Upright torso, chest out, head up; do NOT lean forward or hunch. Moderate steps like the reference, one foot always on the ground (contact, down, passing, up for each leg); the body rises and sinks only 1 pixel. The greatsword is held low in front of him in his hand, blade pointing down and forward, swaying slightly with each step; the other arm swings a little; the cape sways behind him. The legs keep the same length and shape in every frame.
+Layout: one horizontal row of 8 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: about 60% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
