@@ -94,6 +94,8 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   and renders textured 3/4-view frames. Clip names come from
   `data/characters/<champ>/animations/skin0.bin` (Garen: `Idle1`, `Run`, `Run_Spell1`,
   `Attack_01/02`, `Crit`, `spell1/3/4`, `Death`). Attack clips are ~2 s with the swing in the
-  first ~0.4 s - pick frame times with `--times`.
+  first ~0.4 s - pick frame times with `--times`. Use `--mirror` when the pose turns the chest
+  toward the champion's right (Garen's idle and Attack_01): it renders the other side and flips
+  it, so the sprite still faces right with its front showing.
 - Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
   (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).

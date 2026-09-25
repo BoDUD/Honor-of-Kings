@@ -112,7 +112,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
   `tools/lol/pose_ref.py` in TFM2-League-Heroes, reads SKN/SKL/ANM from the local client) and
   attach them as a second image: "copy each frame's pose, draw it like the first image". Keep
-  such renders local; they show the game's model. Effects: separate strips,
+  such renders local; they show the game's model.
+- **Render the side that shows the chest.** Every base champion faces right with its front to the
+  viewer. League's Garen idles with his chest toward his own right, so a right-front camera
+  shows his back - round 2 came out as a back view and the user rejected it at once. Render his
+  left side and flip it (`pose_ref.py --mirror`), check the face and crest are visible, and say
+  "3/4 FRONT view ... never show his back" in the prompt. Effects: separate strips,
   centred or with a fixed impact point, no outline, empty centre for rings around the hero.
 - **Frames are not on a grid.** The model shifts the body inside its cell to fit a long weapon,
   and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing

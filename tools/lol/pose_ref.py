@@ -274,6 +274,9 @@ def main():
     ap.add_argument("--fit", type=float, default=0.62, help="bind-pose height as a fraction of --size")
     ap.add_argument("--shift", type=float, default=0.0, help="move the character right by this fraction of the cell")
     ap.add_argument("--ground", type=float, default=0.84, help="feet line as a fraction of the cell height")
+    ap.add_argument("--mirror", action="store_true",
+                    help="render the other side (yaw -> -yaw) and flip it, so a pose whose chest faces the "
+                         "champion's right still shows its front while facing right (TFM2 sprites show the front)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     champ = args.champ
@@ -312,8 +315,13 @@ def main():
             g = pose(joints, anim, t)
             pv = skin(verts, influences, bind_inv, g)
             pv[:, 1] -= rest[:, 1].min()
-            cells.append(render(pv, tris, verts["uv"], tex, args.yaw, args.pitch,
-                                (int(args.size * args.width), args.size), scale, ground, args.shift))
+            if args.mirror:
+                cell = render(pv, tris, verts["uv"], tex, -args.yaw, args.pitch,
+                              (int(args.size * args.width), args.size), scale, ground, -args.shift)
+                cells.append(cell.transpose(Image.FLIP_LEFT_RIGHT))
+            else:
+                cells.append(render(pv, tris, verts["uv"], tex, args.yaw, args.pitch,
+                                    (int(args.size * args.width), args.size), scale, ground, args.shift))
         cw, chh = cells[0].size
         bg = tuple(int(c) for c in args.bg.split(",")) + (255,)
         sheet = Image.new("RGBA", (cw * len(cells), chh + (0 if args.no_labels else 16)), bg)
