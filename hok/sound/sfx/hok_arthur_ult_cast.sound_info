@@ -3,6 +3,11 @@
     {
       "delay": 0.0,
       "clip": "knight_ult0",
+      "volume": 0.9
+    },
+    {
+      "delay": 0.0,
+      "clip": "hok_arthur_vo_ult",
       "volume": 1.0
     }
   ]

@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+# Official Honor of Kings audio (c) Tencent: rebuilt locally by tools/audio/fetch_official_audio.py, not committed
+hok/sound/sfx/*.wav
+hok/sound/sfx/*.mp3
+hok/sound/sfx/*.ogg

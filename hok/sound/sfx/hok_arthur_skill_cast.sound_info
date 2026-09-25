@@ -3,6 +3,11 @@
     {
       "delay": 0.0,
       "clip": "knight_skill0",
+      "volume": 0.8
+    },
+    {
+      "delay": 0.0,
+      "clip": "hok_arthur_vo_skill",
       "volume": 1.0
     }
   ]

@@ -34,5 +34,17 @@
   "asset/base/sound/sfx/hok_arthur_ult_hit": {
     "remapping": "asset/hok/sound/sfx/hok_arthur_ult_hit",
     "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_vo_skill": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_vo_skill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_vo_skill2": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_vo_skill2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_vo_ult": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_vo_ult",
+    "type": "override"
   }
 }
