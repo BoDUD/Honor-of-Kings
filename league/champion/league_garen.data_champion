@@ -534,18 +534,12 @@
           "name": "league_garen_r_cast"
         },
         {
-          "type": "Delayed",
-          "tick": 10,
-          "effects": [
-            {
-              "type": "ViewEffect",
-              "name": "league_garen_r_sword"
-            }
-          ]
+          "type": "ViewEffect",
+          "name": "league_garen_r_sword"
         },
         {
           "type": "Delayed",
-          "tick": 20,
+          "tick": 10,
           "effects": [
             {
               "type": "FixedAttack",

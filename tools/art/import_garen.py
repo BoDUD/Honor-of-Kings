@@ -10,11 +10,14 @@ Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred 
   league/effects/league_garen_spin    loop
   league/effects/league_garen_r       impact
 
-Body: each strip gets its own scale so Garen measures 36 px from hair to soles; the feet sit
-11.5 px below the frame centre (the base-game convention). Horizontally every frame is lined up
-by its feet with idle frame 0 (run and spin by the head, airborne frames follow their
-neighbours), so the generator's uneven frame spacing does not make him slide. Pixels: area
-downscale, hard alpha, one shared palette, 1 px dark outline.
+Body: every strip is drawn from the same design reference (garen_ref_v3.png) and, where League
+has the clip, from a front-view pose render of it (PROMPTS.md rounds 3-4). Each strip gets its own
+scale so Garen is as big as in idle (~36 px); the feet sit 11.5 px below the frame centre (the
+base-game convention). Horizontally, idle stands on the middle of its stance, skill and hit line
+their legs up with idle, and the League-drawn strips put each frame's head where League's skeleton
+has it for that frame (tools/lol/pose_ref.py, same camera), so their own body motion (lunges,
+leaps, the spin's lean) comes out as in the game. Pixels: area downscale, hard alpha, one shared
+palette, 1 px dark outline.
 Effects: own palette each, no outline, anchored on their impact point / ring centre.
 --review DIR writes one alignment sheet per strip (pivot + feet lines, idle silhouette in red).
 """
@@ -30,8 +33,6 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 import strips as G  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "garen")
-# the round-1 idle stays as the leg reference of the strips drawn together with it
-V1_IDLE, V1_IDLE_TALL = os.path.join(SRC, "v1", "garen_idle.png"), 272
 MOD = os.path.join(ROOT, "league")
 
 HEIGHT = 36.0   # px from hair to soles, standing (base humans ~31, ogre ~38: a big knight)
@@ -39,42 +40,41 @@ FEET = 11.5     # feet (bottom edge) below the pivot
 SUP = 4         # alignment works at 4x game resolution
 BAND = 12       # px of legs used to line frames up
 
-# tall: source px from hair to soles in that strip (measured on a standing frame)
-# anchor: feet = line the legs up with idle f0; head = put the head at
-#         head=("idle", dx): dx px ahead of idle's head, ("abs", x): x px from the pivot, or
-#         ("track", [x per frame]): follow League's own head path (tools/lol/pose_ref.py clips)
-# pivot_head (idle only): put the pivot so idle f0's head sits there instead of mid-stance
-# round=1: drawn in the first batch, so its legs are matched against the round-1 idle (their
-#          frame-to-frame placement stays as verified in-game)
-# start_head="idle": shift the whole strip so frame head_frame (default 0) has its head where idle
-#             f0's is, so leaving idle does not jump; the strip's own motion is kept
-# free: frames placed by the drawn spacing, corrected like their aligned neighbours (used where
-#       a sword tip or burst touches the ground and would be mistaken for a foot)
-# dx: extra shift per frame in source px (+ = right), to keep the planted foot still
-# ground: per-frame lowest pixel, or "strip" = the strip's median (keeps the run bounce; ignores a
-#         sword tip that dips below the feet)
-# drop: frames left out of the sprite (ms lists only the kept frames)
-# idle/attack (round 3, front view) and run (round 2) are drawn from League's own animations
-# (PROMPTS.md); the sword is held in front, so the old sword-on-shoulder endings of q_attack and ult
-# are dropped
+# tall: source px that make Garen as big as in idle (head, pauldrons and height compared by eye
+#       against idle at game size - one number per strip, GPT drew each strip at its own size)
+# anchor: feet = line the legs up with idle f0 (idle f0 itself: middle of its stance)
+#         feetmid = head=("track", [x per frame]): put the middle of both feet there instead (the
+#                spin: its body leans less than League's, so the head path would make it wobble)
+#         head = head=("track", [x per frame]): put each frame's head x px from the pivot, taken
+#                from League's skeleton for the frame times of the pose reference (mirrored yaw
+#                55: the camera of every reference); R and death are re-based so their first
+#                frame starts where idle stands (League starts R 12 px behind the unit)
+# ground: per-frame lowest pixel, or "strip" = median of the grounded frames (keeps a run
+#         bounce; ignores a sword tip or burst below the feet)
+# air: frames in the air; they keep their drawn height above the ground of the others
 CHAR = {
-    # later rounds are scaled by height (~35 px standing), heads within the usual spread
     "idle":     dict(n=6, tall=250, ms=[150] * 6, anchor="feet"),
-    "run":      dict(n=6, tall=240, ms=[90] * 6, anchor="head", head=("abs", 4.7), ground="strip"),
-    # Attack_01 at 0/300/333/367/400/560 ms, seen like the reference (mirrored yaw 55): head path
-    # relative to the unit in sprite px; run: League Run at yaw 70
+    # League Run 0-778 ms
+    "run":      dict(n=6, tall=285, ms=[90] * 6, anchor="head", ground="strip",
+                     head=("track", [4.0, 4.5, 3.6, 3.6, 3.9, 3.4])),
+    # Attack_01 0/300/333/367/400/560 ms; damage lands in the slash frame (tick 13)
     "attack":   dict(n=6, tall=226, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
                      head=("track", [-3.5, 0.3, 2.2, 6.8, 7.3, 7.1])),
-    "q_attack": dict(n=7, tall=272, ms=[50, 50, 55, 55, 90, 200], anchor="feet", free=[1, 2, 3, 4], drop=[6],
-                     round=1, start_head="idle"),
-    "skill":    dict(n=4, tall=355, ms=[80, 90, 80, 83], anchor="feet", round=1, start_head="idle"),
-    "spin":     dict(n=8, tall=196, ms=[54] * 8, anchor="head", head=("abs", 1.0)),
-    "ult":      dict(n=8, tall=267, ms=[80, 80, 90, 80, 70, 90, 177], anchor="feet", drop=[7], round=1,
-                     start_head="idle"),
-    "hit":      dict(n=2, tall=560, ms=[70, 70], anchor="feet", free=[0], dx=[-120, 0],  # back foot planted
-                     round=1, start_head="idle", head_frame=1),                   # f0 leans back from there
-    "dead":     dict(n=7, tall=285, ms=[100, 100, 120, 160, 120, 120, 400], anchor="feet", free=[5, 6],
-                     round=1, start_head="idle"),
+    # spell1 (Decisive Strike) 0-810 ms; 500 ms = the 30-tick CasterAnimation, impact at 200 ms
+    "q_attack": dict(n=7, tall=177, ms=[45, 45, 50, 60, 90, 110, 100], anchor="head", ground="strip",
+                     air=[0, 1, 2, 3], head=("track", [-3.5, -3.5, -3.3, -2.5, 6.3, 5.2, 1.2])),
+    "skill":    dict(n=4, tall=357, ms=[80, 90, 80, 83], anchor="feet"),
+    # spell3 one turn (8 x 45 deg); League's pelvis stays put and the feet's middle within 2 px
+    "spin":     dict(n=8, tall=182, ms=[50] * 8, anchor="feetmid", ground="strip",
+                     head=("track", [-0.4, 0.6, 1.3, 1.0, 0.2, -1.0, -1.8, -1.8])),
+    # spell4: lunge forward and slam (League's 12 px step compressed to start and end in place);
+    # the slam frame (4th) comes at 320 ms, when the giant sword lands
+    "ult":      dict(n=8, tall=198, ms=[90, 110, 120, 90, 90, 80, 50, 37], anchor="head", ground="strip",
+                     air=[2], head=("track", [-4.2, -8.9, 2.4, 15.3, 15.1, 15.1, 12.3, 3.1])),
+    "hit":      dict(n=2, tall=560, ms=[70, 70], anchor="feet", ground="strip"),
+    # Death 0-2340 ms, re-based so the first frame stands where idle does
+    "dead":     dict(n=7, tall=238, ms=[120, 150, 150, 160, 160, 200, 400], anchor="head",
+                     head=("track", [5.9, -1.7, -4.5, -6.4, -5.6, 4.8, 6.2])),
 }
 CHAR_COLORS = 64
 
@@ -106,76 +106,45 @@ def head_x(fr):
 
 # ----------------------------------------------------------------------------- characters
 def load_char():
-    """-> {tag: dict(frames, s, gy, pitch, ax)}: per frame the ground edge gy and the strip x
-    that becomes the pivot column."""
+    """-> {tag: dict(frames, s, gy, ax)}: per frame the ground edge gy and the strip x that
+    becomes the pivot column."""
     strips = {}
     for tag, c in CHAR.items():
-        img = G.load_rgba(src(tag))
-        frames = G.split_strip(img, c["n"])
-        s = HEIGHT / c["tall"]
+        frames = G.split_strip(G.load_rgba(src(tag)), c["n"])
+        air = set(c.get("air", []))
         grounds = [f.ground for f in frames]
-        free = set(c.get("free", []))
-        fixed = [g for i, g in enumerate(grounds) if i not in free]
+        base = float(np.median([g for i, g in enumerate(grounds) if i not in air]))
         if c.get("ground") == "strip":
-            grounds = [float(np.median(fixed))] * len(frames)
-        elif tag == "q_attack":     # airborne frames keep their height above the landing ground
-            grounds = [g if i not in free else float(np.median(fixed)) for i, g in enumerate(grounds)]
-        pitch = img.shape[1] / c["n"]
-        strips[tag] = dict(frames=frames, s=s, gy=grounds, pitch=pitch)
-    # idle f0 defines the pivot: the middle of its stance
+            grounds = [base] * len(frames)
+        else:
+            grounds = [base if i in air else g for i, g in enumerate(grounds)]
+        strips[tag] = dict(frames=frames, s=HEIGHT / c["tall"], gy=grounds)
     idle = strips["idle"]
     f0 = idle["frames"][0]
-    if "pivot_head" in CHAR["idle"]:
-        idle_ax0 = head_x(f0) - CHAR["idle"]["pivot_head"] / idle["s"]
-    else:
-        idle_ax0 = G.feet_mid(f0, idle["s"])
-    ref = G.leg_band(f0, idle["s"], idle_ax0, idle["gy"][0], BAND, sup=SUP)
-    v1 = G.split_strip(G.load_rgba(V1_IDLE), 6)[0]
-    s1 = HEIGHT / V1_IDLE_TALL
-    ref_v1 = G.leg_band(v1, s1, G.feet_mid(v1, s1), v1.ground, BAND, sup=SUP)
-    idle_head = (head_x(f0) - idle_ax0) * idle["s"]         # head position in px, pivot-relative
-
+    ref = G.leg_band(f0, idle["s"], G.feet_mid(f0, idle["s"]), idle["gy"][0], BAND, sup=SUP)
     for tag, st in strips.items():
         c, s = CHAR[tag], st["s"]
-        n = len(st["frames"])
-        free = set(c.get("free", []))
-        ax = [None] * n
         if c["anchor"] == "head":
-            ref_kind, dx = c["head"]
-            for i, fr in enumerate(st["frames"]):
-                at = dx[i] if ref_kind == "track" else (idle_head if ref_kind == "idle" else 0.0) + dx
-                ax[i] = head_x(fr) - at / s
+            track = c["head"][1]
+            st["ax"] = [head_x(fr) - track[i] / s for i, fr in enumerate(st["frames"])]
+        elif c["anchor"] == "feetmid":
+            track = c["head"][1]
+            st["ax"] = [G.feet_mid(fr, s, px=3.0) - track[i] / s for i, fr in enumerate(st["frames"])]
         else:
+            ax = []
             for i, fr in enumerate(st["frames"]):
-                if i in free:
-                    continue
                 guess = G.feet_mid(fr, s)
                 band = G.leg_band(fr, s, guess, st["gy"][i], BAND, sup=SUP)
-                legs = ref_v1 if c.get("round") == 1 else ref
-                ax[i] = guess + G.best_shift(legs, band, 10 * SUP) / (SUP * s)
-            # free frames: drawn spacing plus the correction of the aligned neighbours
-            grid = [(i + 0.5) * st["pitch"] for i in range(n)]
-            known = [i for i in range(n) if ax[i] is not None]
-            corr = np.interp(range(n), known, [ax[i] - grid[i] for i in known])
-            for i in free:
-                ax[i] = grid[i] + corr[i]
-        for i, d in enumerate(c.get("dx", [])):
-            ax[i] -= d
-        if "start_head" in c:
-            k = c.get("head_frame", 0)
-            at = idle_head if c["start_head"] == "idle" else c["start_head"]
-            shift = head_x(st["frames"][k]) - at / s - ax[k]
-            ax = [a + shift for a in ax]
-        st["ax"] = ax
+                ax.append(guess + G.best_shift(ref, band, 10 * SUP) / (SUP * s))
+            st["ax"] = ax
     return strips
 
 
 def build_char(strips):
     raw = {}
     for tag, st in strips.items():
-        drop = set(CHAR[tag].get("drop", []))
         raw[tag] = [G.render(fr, st["s"], st["s"], st["ax"][i], st["gy"][i], 0.0, FEET, cut=0.5)
-                    for i, fr in enumerate(st["frames"]) if i not in drop]
+                    for i, fr in enumerate(st["frames"])]
         assert len(raw[tag]) == len(CHAR[tag]["ms"]), tag
     pal = G.Palette([r[0] for rs in raw.values() for r in rs], colors=CHAR_COLORS)
     out = {}
@@ -329,8 +298,7 @@ def main():
     args = ap.parse_args()
     strips = load_char()
     for tag, st in strips.items():
-        rel = [f"{(a - (i + 0.5) * st['pitch']) * st['s']:+.1f}" for i, a in enumerate(st["ax"])]
-        print(f"{tag:9s} scale {st['s']:.4f}  pivot vs cell centre (px): {' '.join(rel)}")
+        print(f"{tag:9s} scale {st['s']:.4f}  {len(st['frames'])} frames")
     char = build_char(strips)
     w, h = G.write_sheet(os.path.join(MOD, "champions", "league_garen"), char)
     print(f"league/champions/league_garen#sheet.png {w}x{h}, "

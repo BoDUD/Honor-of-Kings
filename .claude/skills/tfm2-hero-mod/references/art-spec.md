@@ -123,13 +123,25 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
   drifted about 0.5 px per frame). Split
   at empty columns and keep connected blobs whole (`split_strip`); never place frames by cell.
-- **Scale per strip.** Measure hair-to-soles on a standing frame of each strip. 36 px suits a big
-  human (base humans ~31 px, the ogre ~38); 42 px looked like a giant next to base champions.
+- **Scale per strip.** Every generated strip comes at its own size (Garen round 4: the Q strip at
+  half of idle's size, battle cry and hit far bigger). Pick a frame in idle's pose (the ready
+  stance most strips start or end in), render it next to idle at game size at a few scales and
+  choose by eye - head widths and hair-to-soles numbers were off by up to 2x on small or glowing
+  frames. 36 px suits a big human (base humans ~31 px, the ogre ~38); 42 px looked like a giant.
+- **One look per hero.** Strips from different generation rounds disagree on proportions (round
+  1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
+  it - in-game he visibly grew and shrank between animations. When the look changes, regenerate
+  every strip in one batch with the newest frame as design and size reference.
 - **Horizontal pivot per frame.** Line the lowest ~12 px of legs up with idle frame 0
   (`leg_band` + `best_shift`); loops that turn or run (spin, run) are pinned by the head. A sword
   tip, smear or burst touching the ground gets matched as a foot: place those frames by the drawn
   spacing, corrected like their aligned neighbours, then nudge so one foot stays planted.
   Airborne frames keep their height above the strip's ground line.
+- **Better, for strips drawn from a League clip:** put each frame's head where League's skeleton
+  has it at the same frame time and camera (Garen's lunges and leaps then match the game).
+  Re-base clips that start away from the unit (Garen's R starts 12 px behind it), and pin the
+  feet's midpoint instead for a spin whose drawn lean is smaller than the clip's, or the body
+  wobbles.
 - **Pixels.** Premultiplied area downscale, alpha cut 0.5, one median-cut palette for all body
   frames (64 colours), then a 1 px near-black edge except on glowing pixels, then drop lonely
   pixels. Effects: alpha cut 0.4 plus tiny-spark keeping, own 32-colour palette, no outline.

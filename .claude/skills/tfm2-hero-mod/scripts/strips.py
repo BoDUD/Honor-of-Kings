@@ -156,10 +156,10 @@ def split_strip(img, n, blob_thresh=0.12, margin=6):
 
 
 # ----------------------------------------------------------------------------- alignment
-def feet_mid(fr, s):
-    """Middle of the solid pixels in the lowest 1.2 game px of the frame (strip x); s = scale."""
+def feet_mid(fr, s, px=1.2):
+    """Middle of the solid pixels in the lowest `px` game px of the frame (strip x); s = scale."""
     x0, y0, x1, y1 = fr.bbox()
-    h = max(3, int(round(1.2 / s)))
+    h = max(3, int(round(px / s)))
     band = fr.a[y1 - fr.oy - h:y1 - fr.oy, :, 3] > 0.5
     xs = np.nonzero(band.any(0))[0]
     return (xs.min() + xs.max() + 1) / 2.0 + fr.ox

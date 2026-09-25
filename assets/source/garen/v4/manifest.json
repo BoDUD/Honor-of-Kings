@@ -1,0 +1,112 @@
+{
+  "round": 4,
+  "delivery": "Original GPT-generated PNGs; no scripted pixel editing",
+  "model_reference_sha256": "b15593e49a081ab95ed3e374094d7d8f7ae522fb0b88096f4e30c6ccf0c44fdd",
+  "assets": [
+    {
+      "file": "garen_run.png",
+      "frames": 6,
+      "action": "跑步",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.818874,
+      "sha256": "28c04f0411608f3f0e549061b1915ed4e562f4daa4a6497a3e507db7e8adbdf3",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": "references/garen_pose_run.png"
+    },
+    {
+      "file": "garen_q_attack.png",
+      "frames": 7,
+      "action": "Q 跃斩",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.895836,
+      "sha256": "ceee50216e5741aec958b821c6980e35b334c32c15c68da71d2990bbf8e3ca34",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": "references/garen_pose_q_attack.png"
+    },
+    {
+      "file": "garen_skill.png",
+      "frames": 4,
+      "action": "战吼",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.706138,
+      "sha256": "6acffe9da5ec4ee73ca493f878f18e1ad7b441cbe4274df03bba3bb48104c02c",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": null
+    },
+    {
+      "file": "garen_spin.png",
+      "frames": 8,
+      "action": "E 旋转",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.887327,
+      "sha256": "83dd251baab8ebe10dbfe1753d701af6a4f7fb74743518eb7d879e04ee38dff9",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": "references/garen_pose_spin.png"
+    },
+    {
+      "file": "garen_ult.png",
+      "frames": 8,
+      "action": "R 插剑落地",
+      "dimensions": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.827869,
+      "sha256": "790fca1fd086e4990769584651697db1b88a4eeb1537ccf9a53444d67fc2f95f",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": "references/garen_pose_ult.png"
+    },
+    {
+      "file": "garen_hit.png",
+      "frames": 2,
+      "action": "受击",
+      "dimensions": [
+        1774,
+        887
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.681496,
+      "sha256": "14df1dfa81f3b0de4c505da383688bcf61e40b3779f8b01ee80ef40e14462de4",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": null
+    },
+    {
+      "file": "garen_dead.png",
+      "frames": 7,
+      "action": "死亡",
+      "dimensions": [
+        2164,
+        727
+      ],
+      "mode": "RGBA",
+      "has_transparency": true,
+      "transparent_fraction": 0.843131,
+      "sha256": "f2bf5ec5519da12d29fb4480d7fae7e962c232ed0516499b2db2dbfa62a2f764",
+      "model_reference": "references/garen_ref_v3.png",
+      "pose_reference": "references/garen_pose_dead.png"
+    }
+  ]
+}
