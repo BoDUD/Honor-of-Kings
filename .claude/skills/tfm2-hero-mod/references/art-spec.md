@@ -112,7 +112,10 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
   `tools/lol/pose_ref.py` in TFM2-League-Heroes, reads SKN/SKL/ANM from the local client) and
   attach them as a second image: "copy each frame's pose, draw it like the first image". Keep
-  such renders local; they show the game's model.
+  such renders local; they show the game's model. Make the first and last frame of an action a
+  half-way blend with idle (`pose_ref.py --frame "idle@0>attack@0:0.5"`) so the strip starts and
+  ends near the idle pose, and render every clip of a hero from the same side (Ashe:
+  `ashe_pose_*` in `assets/source/ashe/PROMPTS.md`).
 - **Name the gait and time it from the clip.** The move tag is called `run`, but League's Garen
   marches: upright, 0.93 s a cycle. Prompted as a run, he came out leaning into a sprint at
   0.54 s and the user saw "running, not walking". Say WALK (upright, one foot always down) when

@@ -248,6 +248,15 @@ in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` in
 
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
 
+**Projectiles at random enemies (volley).** `RandomTarget {range, casting_target, effects:
+[TargetProjectile]}` fires from the caster at the picked unit (LoL Reborn Ezreal E, league_ashe W:
+one arrow at the target plus four `RandomTarget` arrows). A unit can be picked more than once.
+
+**Burst where a skillshot stops.** `LinearProjectile {penetrate: false, applied_target:
+EnemyChampion}` stops on the first champion; its `end_effects` run where it stopped, so a
+`RangeProjectile {delay: 1, apply: 1, shape}` there is the splash (LoL Reborn Jinx R, Fizz R;
+league_ashe R). It also fires at the end of the range when nothing was hit.
+
 ## 8. Gotchas
 
 - `action_name` / `CasterAnimation.name` must be real sprite tags. Two LoL Reborn heroes use
