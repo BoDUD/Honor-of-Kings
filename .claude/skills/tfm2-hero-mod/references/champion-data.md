@@ -260,4 +260,8 @@ in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` in
   (see `text-audio.md`).
 - The engine plays `<champion id>_attack` on every basic attack by itself; never play that name
   from the effect tree too (see `text-audio.md`).
+- A buff's view can outlive its unit: Garen died mid-spin and the whirl of his 3 s caster buff
+  stayed on the body (no view_buffs option covers death). For a purely visual timed effect,
+  play `CasterViewEffect` on a timer instead (one per `Delayed` pulse, `is_follow: true` in
+  `view_effects`); keep buff views for states that must vanish on consumption (Q ready).
 - Run `python scripts/lint_mod.py <mod>` after every edit.
