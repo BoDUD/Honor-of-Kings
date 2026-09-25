@@ -89,5 +89,11 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   vgmstream decodes the .wem. Ability icons are `ASSETS/Characters/<Champ>/HUD/Icons2D/*.dds`.
 - Chinese voice: `<Champ>.zh_CN.wad.client` in the Tencent (WeGame) client; inside it the banks
   keep the `vo/en_us/` path.
+- Real animations as pose references: `tools/lol/pose_ref.py --anim Run --frames 6` skins the
+  champion's `.skn`/`.skl` with an `.anm` clip (compressed `r3d2canm` or legacy `r3d2anmd` v5)
+  and renders textured 3/4-view frames. Clip names come from
+  `data/characters/<champ>/animations/skin0.bin` (Garen: `Idle1`, `Run`, `Run_Spell1`,
+  `Attack_01/02`, `Crit`, `spell1/3/4`, `Death`). Attack clips are ~2 s with the swing in the
+  first ~0.4 s - pick frame times with `--times`.
 - Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
   (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).

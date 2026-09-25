@@ -31,6 +31,8 @@ python tools/lol/extract_garen.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 - 中文语音来自国服（WeGame）客户端的 `Garen.zh_CN.wad.client`。
 - 只读取游戏文件，不修改。
 
+`tools/lol/pose_ref.py` 从客户端读取英雄的模型、骨骼和动画，渲染真实动作的关键帧（3/4 视角朝右），作为 GPT 生图时的姿势参考。渲染图是 Riot 的模型，只在本地用，不入库。
+
 `tools/lol/riot.py` 负责：
 - 读取 WAD 包。
 - 解析 Wwise 音频包。

@@ -179,3 +179,51 @@ Layout: one horizontal row of 9 equal TALL cells (width:height = 1:2), the groun
 | `garen_fx_r.png` | 9 | `league_garen_r:impact`（高格子，落点固定） |
 
 `garen_ref.png` 只用来保持造型一致，不进游戏。
+
+## 第二轮：按英雄联盟原版动作重画待机、跑步、普攻（3 张）
+
+实测后发现这三个动作和游戏里的盖伦不一样。游戏里盖伦待机和跑步时，剑都是平端在身前、指向前方，不是扛在肩上或拖在身后；普攻是扭身蓄力后从右肩上方劈下。
+
+姿势参考图从本地客户端渲染：
+
+```bash
+python tools/lol/pose_ref.py --anim Idle1 --times 0,356,711,1067,1422,1778 --shift -0.12 --yaw 70 --pitch 15 --size 360 --width 1.3 --fit 0.5 --bg 225,225,225 --no-labels --out ref
+python tools/lol/pose_ref.py --anim _Run.anm --times 0,156,311,467,622,778 --shift -0.12 --yaw 70 --pitch 15 --size 360 --width 1.3 --fit 0.5 --bg 225,225,225 --no-labels --out ref
+python tools/lol/pose_ref.py --anim Attack_01 --times 0,300,333,367,400,560 --ground 0.74 --yaw 70 --pitch 15 --size 360 --width 1.3 --fit 0.5 --bg 225,225,225 --no-labels --out ref
+```
+
+渲染出来的是 Riot 的模型，只在本地用，不提交到仓库。
+
+每张图发给 GPT 时附两张图：第一张 `garen_ref.png`（造型），第二张对应的姿势参考图（动作）。生成结果覆盖 `assets/source/garen/` 里的同名文件。
+
+### 2b. `garen_idle.png`：待机，6 帧循环（附 `garen_pose_idle.png`）
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends): big Demacian knight, silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions (head about one third of the height), 3/4 view facing right. Same colors and proportions as the first image.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game idle animation from League of Legends, 6 frames left to right. Copy each frame's pose exactly - stance, lean, legs, arms and where the sword points. Take only the poses from it: draw the character like the first image, in the pixel-art style above, not like the render (ignore its colors, lighting and low-poly look). Do NOT put the sword on his shoulder.
+Animation: IDLE, 6 frames, seamless loop, as in the pose reference: a ready combat stance, knees slightly bent, feet apart, body turned toward the right; he holds the greatsword in his right hand at waist height with the blade pointing FORWARD to the right, almost level; left fist near his belt; subtle breathing (shoulders rise and fall 1-2 pixels), cape and blue scarf sway gently. Feet stay planted.
+Layout: one horizontal row of 6 equal square cells, no gaps, no borders, no labels. In every cell the character has exactly the same size: about 55% of the cell height, feet on an invisible ground line at 88% of the cell height; place the body a little left of center so the forward-pointing sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 3b. `garen_run.png`：跑步，6 帧循环（附 `garen_pose_run.png`）
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends): big Demacian knight, silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions (head about one third of the height), 3/4 view facing right. Same colors and proportions as the first image.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game run cycle from League of Legends, 6 frames left to right. Copy each frame's pose exactly - leg positions, forward lean, arms and where the sword points. Take only the poses from it: draw the character like the first image, in the pixel-art style above, not like the render (ignore its colors, lighting and low-poly look). The sword must NOT trail behind him.
+Animation: RUN to the right, 6 frames, seamless loop, as in the pose reference: body leaning forward, the greatsword held in his right hand at hip height with the blade pointing FORWARD in the running direction and slightly down, left arm swinging, cape and blue scarf streaming back, long strides (contact, passing, contact, passing), slight up-down bounce. The legs keep the same length and shape in every frame.
+Layout: one horizontal row of 6 equal square cells, no gaps, no borders, no labels. In every cell the character has exactly the same size: about 55% of the cell height, feet on an invisible ground line at 88% of the cell height; place the body a little left of center so the forward-pointing sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 4b. `garen_attack.png`：普攻，6 帧（附 `garen_pose_attack.png`）
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends): big Demacian knight, silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions (head about one third of the height), 3/4 view facing right. Same colors and proportions as the first image.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game basic attack from League of Legends, 6 frames left to right. Copy each frame's pose exactly - body twist, stance, arms and where the sword points. Take only the poses from it: draw the character like the first image, in the pixel-art style above, not like the render (ignore its colors, lighting and low-poly look).
+Animation: BASIC ATTACK, a big overhead chop, 6 frames, as in the pose reference: 1 wind-up: torso twisted away from the target, greatsword raised over his right shoulder; 2 the sword pulled far back behind his head, body coiled; 3 the sword swung up overhead, body turning forward; 4 the slash: the blade sweeps forward to the right at waist height with a bright silver-white arc smear, strong lunge; 5 impact: the blade driven down in front of him, tip near the ground, knees bent; 6 recovery: standing, sword held low in front pointing down. Feet stay on the ground line.
+Layout: one horizontal row of 6 equal square cells, no gaps, no borders, no labels. In every cell the character has exactly the same size: about 55% of the cell height, feet on an invisible ground line at 88% of the cell height, body horizontally centered; the whole sword and the smear must stay inside their own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+帧数和文件名都不变，导入工具不用改接口；对齐参数会按新图重新校准。

@@ -106,7 +106,13 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 
 - **Prompts.** One row of N frames per animation, real transparent background, feet on the same
   line in every cell, 3/4 view facing right. Generate a reference sheet first and attach it to
-  every character prompt, or the hero drifts between animations. Effects: separate strips,
+  every character prompt, or the hero drifts between animations.
+- **Pose references from the source game.** Without one the model invents the motion: Garen's
+  first run trailed the sword and his idle rested it on the shoulder, while in League both hold
+  it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
+  `tools/lol/pose_ref.py` in TFM2-League-Heroes, reads SKN/SKL/ANM from the local client) and
+  attach them as a second image: "copy each frame's pose, draw it like the first image". Keep
+  such renders local; they show the game's model. Effects: separate strips,
   centred or with a fixed impact point, no outline, empty centre for rings around the hero.
 - **Frames are not on a grid.** The model shifts the body inside its cell to fit a long weapon,
   and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
