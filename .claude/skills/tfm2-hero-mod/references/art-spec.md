@@ -109,8 +109,14 @@ is ~128 px tall "RPG chibi", off-model, and cannot be animated consistently.
 What worked for hok_arthur (this repo, `tools/art/`), without Aseprite:
 - every body part is a hand-written pixel grid in a 30-40 colour palette (`arthur_parts.py`),
   auto-outlined, with a pivot at its joint; far-side limbs are the same grid one shade darker;
-- a small rig places the parts per pose (hip, lean, leg angles, 2-bone sword arm, cape sway)
-  and rotates weapons/limbs with RotSprite (Scale2x x3, rotate, sample) so lines stay crisp;
+- a small rig places the parts per pose (hip, 2-bone sword arm, cape sway) and rotates the
+  sword and arm with RotSprite (Scale2x x3, rotate, sample) so lines stay crisp;
+- **legs are drawn per pose (stand, stride front/back, lifted, crouch, kneel, tucked), never
+  rotated**: rotating a 5 px leg 25-40 deg shreds it, and the user called it out at once. Planted
+  legs keep their soles on the ground, their tops hide under the skirt/tasset; both legs use the
+  same grid and colours (a darkened far leg reads as a different armour);
+- lean/crouch moves the whole upper body **and** the hips together - sliding the torso over the
+  hips looks dislocated at this size;
 - swing smears, dash streaks and sword light are drawn into the body frames as solid shapes
   with hard colour ramps; the view effects use the same primitives (`fx_lib.py`);
 - design from the in-game model as well as the splash: players recognise the model's colours

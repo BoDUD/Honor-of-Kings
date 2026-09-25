@@ -8,7 +8,7 @@ Every grid is the *fill* of a part; px.outline() adds the 1 px near-black outlin
 and points below are in fill coordinates and get +1 when the part is outlined.
 Palette characters are defined in px.PAL.
 """
-from px import Part, outline, grid, recolor
+from px import Part, grid, outline
 
 HEAD = [
     "......1221....",
@@ -66,49 +66,98 @@ TORSO = [
     "otmmCBCmmto",
     "oommDCDmmoo",
 ]
-TASSET = [
-    "DCBBCDsDCBBCD",
+TASSET = [  # gold skirt plates over the hips, red tabard in front
     "DCBACDsDCABCD",
     "EDCCDtstDCCDE",
     ".EDCDtstDCDE.",
     "..EDttsttDE..",
     ".....utu.....",
 ]
-LEG = [
-    "ZyxyZ.",
-    "ZyxyZ.",
-    "DCBBC.",
-    "DBAAB.",
-    "EDCCD.",
-    "ZyxxZ.",
-    "ZyxyZ.",
-    "ZzyyZ.",
-    "DCBBC.",
-    "DCBBBC",
-    "EDDDDE",
-]
-LEG_BENT = [  # knee forward (run passing pose, crouch)
-    "ZyxyZ..",
-    "ZyxyZZ.",
-    ".DCBBC.",
-    ".DBAAB.",
-    ".EDCCDZ",
-    "..ZyxxZ",
-    ".ZyxyZ.",
-    ".ZzyZ..",
-    "DCBBC..",
-    "DCBBBC.",
-    "EDDDDE.",
-]
-LEG_KNEEL = [  # shin on the ground, pointing back (left)
-    "ZyxyZ....",
-    "ZyxyZ....",
-    "DCBBC....",
-    "DBAAB....",
-    "EDCCDyyzZ",
-    ".EZyxxyzZ",
-    "EDCZzzzZ.",
-]
+# Legs: every pose is drawn, not rotated (rotating 5 px limbs breaks them). Pivot = hip joint at
+# the top; the top rows hide under the tasset. Same grids and colours for the near and far leg.
+LEGS = {
+    "S": ([  # standing
+        "ZyxyZ.",
+        "ZyxyZ.",
+        "ZyxyZ.",
+        "ZyxyZ.",
+        "DCBBC.",
+        "DBAAB.",
+        "EDCCD.",
+        "ZyxxZ.",
+        "ZyxyZ.",
+        "DCBBC.",
+        "DCBBBC",
+        "EDDDDE",
+    ], (2, 0)),
+    "F": ([  # front leg of a stride / lunge: thigh forward, shin upright
+        "ZyxyZ...",
+        ".ZyxyZ..",
+        "..ZyxyZ.",
+        "..DCBBC.",
+        "..DBAAB.",
+        "..EDCCD.",
+        "..ZyxxZ.",
+        "..ZyxyZ.",
+        "..DCBBC.",
+        "..DCBBBC",
+        "..EDDDDE",
+    ], (2, 0)),
+    "B": ([  # back leg of a stride / lunge: straight, reaching back
+        "....ZyxyZ",
+        "...ZyxyZ.",
+        "...ZyxyZ.",
+        "..DCBBC..",
+        "..DBAAB..",
+        ".EDCCD...",
+        ".ZyxxZ...",
+        "ZyxyZ....",
+        "DCBBC....",
+        "DCBBBC...",
+        "EDDDDE...",
+    ], (6, 0)),
+    "P": ([  # passing / lifted leg
+        "ZyxyZ..",
+        "ZyxyZ..",
+        ".DCBBC.",
+        ".DBAAB.",
+        ".EDCCD.",
+        ".ZyxxZ.",
+        "ZyxyZ..",
+        "DCBBC..",
+        "EDDDDE.",
+    ], (2, 0)),
+    "C": ([  # crouch: knee forward, foot under the body
+        "ZyxyZ...",
+        ".ZyxyZ..",
+        "..DCBBC.",
+        "..DBAAB.",
+        "..EDCCD.",
+        ".ZyxxZ..",
+        ".ZyxyZ..",
+        "DCBBC...",
+        "DCBBBC..",
+        "EDDDDE..",
+    ], (2, 0)),
+    "K": ([  # kneel: knee on the ground, shin lying back
+        "....ZyxyZ",
+        "....ZyxyZ",
+        "....ZyxyZ",
+        "....DCBBC",
+        "DZzyyDBAAB",
+        "EDZzzEDCCD",
+    ], (6, 0)),
+    "T": ([  # tucked in the air
+        "ZyxyZ...",
+        ".ZyxyyZ.",
+        "..DCBBC.",
+        "..DBAAB.",
+        "..EDCCD.",
+        ".ZyxZ...",
+        "DCBBC...",
+        "EDDDE...",
+    ], (2, 0)),
+}
 PAUL_N = [
     "..DCCBB..",
     ".DCBBAAB.",
@@ -206,15 +255,13 @@ CAPE = [
 ]
 CAPE_ATTACH = (10, 0)  # top right of the cape, sits behind the near shoulder
 
-# far-side parts sit in shadow: one step darker, gold stays gold
-FAR = {"x": "y", "y": "z", "z": "Z", "A": "B", "B": "C", "C": "D", "n": "m", "m": "o", "s": "t", "t": "u"}
 
+def part(rows, pivot, points=None):
+    """Outlined Part from fill rows; pivot/points given in fill coordinates.
 
-def part(rows, pivot, points=None, darken=False):
-    """Outlined Part from fill rows; pivot/points given in fill coordinates."""
+    Near and far limbs share grids and colours; the outline alone separates them.
+    """
     img = outline(grid(rows), grow_canvas=True)
-    if darken:
-        img = recolor(img, FAR)
     p = Part.__new__(Part)
     p.img = img
     p.pivot = (pivot[0] + 1, pivot[1] + 1)
@@ -230,12 +277,7 @@ def build():
         "head_shout": part(HEAD_SHOUT, (7, 12)),
         "torso": part(TORSO, (5, 8), {"neck": (6, 0), "sh_n": (1, 1), "sh_f": (9, 1)}),
         "tasset": part(TASSET, (6, 0)),
-        "leg_n": part(LEG, (2, 0)),
-        "leg_f": part(LEG, (2, 0), darken=True),
-        "leg_n_bent": part(LEG_BENT, (2, 0)),
-        "leg_f_bent": part(LEG_BENT, (2, 0), darken=True),
-        "leg_n_kneel": part(LEG_KNEEL, (2, 0)),
-        "leg_f_kneel": part(LEG_KNEEL, (2, 0), darken=True),
+        **{"leg_" + k: part(rows, pivot) for k, (rows, pivot) in LEGS.items()},
         "paul_n": part(PAUL_N, (4, 2)),
         "paul_f": part(PAUL_F, (3, 2)),
         "upper_arm": part(UPPER_ARM, (1, 0), {"elbow": (1, 3)}),

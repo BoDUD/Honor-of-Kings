@@ -4,6 +4,8 @@
 
 Writes hok/champions/hok_arthur#sheet.png + #anim.fanim. Timings follow the champion data:
 attack 22 ticks (hit at 13), skill 30 (dash from 8), skill2 20 (cast at 6), ult 40 (leap from 10).
+The basic attack follows Arthur's HoK attack: sword raised upright at his side, then a diagonal
+slash down in front of him with a lunge (checked frame by frame on gameplay footage).
 """
 import argparse
 import math
@@ -13,17 +15,18 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fx_lib as fx  # noqa: E402
 import px  # noqa: E402
-from arthur_rig import FH, FW, GROUND, pose_frame, sword_only  # noqa: E402
+from arthur_rig import FH, FW, GROUND, STAND_LEGS, pose_frame, sword_only  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 
-STAND = dict(leg_n=("leg_n", 4, (0, 0)), leg_f=("leg_f", -6, (0, 0)))
-
-
-def P(**kw):
-    d = dict(STAND)
-    d.update(kw)
-    return pose_frame(**d)
+# lower-body poses: (near leg, far leg), each (drawn pose, x offset, plant | hang)
+STAND = STAND_LEGS
+LUNGE = (("B", -5, "plant"), ("F", 4, "plant"))       # back leg reaching back, front knee forward
+WIDE = (("B", -4, "plant"), ("S", 3, "plant"))
+CROUCH = (("C", -4, "plant"), ("C", 2, "plant"))
+KNEEL = (("K", -3, "plant"), ("C", 3, "plant"))
+AIR = (("T", -3, "hang"), ("T", 2, "hang"))
+FALLING = (("P", -3, "hang"), ("S", 2, "hang"))
 
 
 # ----------------------------------------------------------------------------- effects
@@ -45,8 +48,7 @@ def combo(*fns):
 
 def tip_sparkle(size=2):
     def draw(f, an):
-        if "tip" in an:
-            fx.sparkle(f, an["tip"][0], an["tip"][1], size)
+        fx.sparkle(f, an["tip"][0], an["tip"][1], size)
     return draw
 
 
@@ -72,130 +74,120 @@ def speed_lines(seed):
 
 def ground_flash(r, seed=0):
     def draw(f, an):
-        fx.burst(f, an["tip"][0], GROUND - 1, 2, r, 9, fx.HOLY, seed=seed, ry_scale=0.45)
+        fx.burst(f, an["tip"][0], an["ground"] - 1, 2, r, 9, fx.HOLY, seed=seed, ry_scale=0.45)
     return draw
 
 
 # ----------------------------------------------------------------------------- animations
 def idle():
-    frames = []
-    bob = [0, 0, 1, 1, 1, 0]
+    breath = [0, 0, 1, 1, 1, 0]
     hem = [0, -1, -2, -2, -1, 0]
-    for i in range(6):
-        frames.append((P(up=(0, bob[i]), cape=("cape", 0, hem[i])), 120))
-    return frames
+    return [(pose_frame(breath=breath[i], cape=("cape", 0, hem[i])), 120) for i in range(6)]
 
 
 def run():
-    near = [(-26, "leg_n"), (-12, "leg_n"), (2, "leg_n"), (16, "leg_n"), (28, "leg_n"), (8, "leg_n_bent"), (-14, "leg_n_bent"), (-24, "leg_n")]
-    far = [(26, "leg_f"), (6, "leg_f_bent"), (-16, "leg_f_bent"), (-24, "leg_f"), (-26, "leg_f"), (-12, "leg_f"), (2, "leg_f"), (16, "leg_f")]
-    hip_dy = [1, 0, -1, 0, 1, 0, -1, 0]
-    flap = [0, 2, 3, 1, 0, 2, 3, 1]
-    arm = [8, 4, 0, -4, -8, -4, 0, 4]
-    frames = []
-    for i in range(8):
-        frames.append((pose_frame(
-            hip=(0, hip_dy[i]), up=(1, 0),
-            leg_n=(near[i][1], near[i][0], (0, 0)), leg_f=(far[i][1], far[i][0], (0, 0)),
-            arm=(arm[i], arm[i] + 10), sword=238 + arm[i],
-            shield_d=(1, 0), cape=("cape", 38 + flap[i] * 2, flap[i]),
-        ), 80))
-    return frames
+    legs = [
+        (("F", -1, "plant"), ("B", 3, "plant")),   # contact: near leg in front
+        (("F", -1, "plant"), ("B", 3, "plant")),   # down
+        (("S", -2, "plant"), ("P", 3, "hang")),    # passing: far leg swings through
+        (("B", -3, "plant"), ("F", 2, "plant")),   # contact: far leg in front
+        (("B", -3, "plant"), ("F", 2, "plant")),   # down
+        (("P", -2, "hang"), ("S", 2, "plant")),    # passing: near leg swings through
+    ]
+    hip = [(1, 1), (1, 2), (1, 0), (1, 1), (1, 2), (1, 0)]
+    arm = [6, 3, 0, -6, -3, 0]
+    flap = [0, 2, 3, 0, 2, 3]
+    return [(pose_frame(legs=legs[i], hip=hip[i], arm=(arm[i], arm[i] + 10), sword=238 + arm[i],
+                        shield_d=(1, 0), cape=("cape", 38 + flap[i] * 2, flap[i])), 85) for i in range(6)]
 
 
 def attack():
+    """HoK Arthur: sword raised upright at his side, diagonal slash down in front, lunge."""
     return [
-        (P(up=(-1, 0), arm=(140, 165), sword=300, leg_n=("leg_n", 10, (0, 0)), leg_f=("leg_f", -12, (0, 0)),
-           cape=("cape", 4, -1)), 70),
-        (P(up=(-2, 0), arm=(160, 185), sword=285, leg_n=("leg_n", 12, (0, 0)), leg_f=("leg_f", -14, (0, 0)),
-           cape=("cape", 6, -2)), 70),
-        (P(up=(1, 0), arm=(230, 250), sword=45, leg_n=("leg_n", 14, (0, 0)), leg_f=("leg_f", -18, (0, 0)),
-           cape=("cape", 14, 1), fx_back=smear(-160, -55, 5, r=20)), 50),
-        (P(up=(3, 1), arm=(290, 280), sword=118, head="head_shout", leg_n=("leg_n", 18, (0, 0)),
-           leg_f=("leg_f", -24, (0, 0)), shield_d=(-1, 0), cape=("cape", 22, 2),
-           fx_front=smear(-120, 40, 6, r=22, dx=3, dy=2)), 60),
-        (P(up=(2, 1), arm=(310, 300), sword=140, leg_n=("leg_n", 16, (0, 0)), leg_f=("leg_f", -22, (0, 0)),
-           cape=("cape", 16, 1), fx_front=smear(-20, 55, 3, r=22, dx=3, dy=2, ramp=fx.GOLD[1:])), 60),
-        (P(up=(1, 0), arm=(340, 330), sword=170, cape=("cape", 8, 0)), 60),
+        (pose_frame(hip=(-1, 0), arm=(165, 180), sword=-8, cape=("cape", 2, -1)), 80),
+        (pose_frame(hip=(-1, 0), legs=WIDE, arm=(155, 170), sword=-28, cape=("cape", 4, -2)), 70),
+        (pose_frame(hip=(1, 0), legs=WIDE, arm=(225, 250), sword=62, cape=("cape", 10, 1),
+                    fx_back=smear(-100, -25, 5, r=22, dx=1)), 50),
+        (pose_frame(hip=(2, 1), legs=LUNGE, arm=(300, 292), sword=128, head="head_shout", shield_d=(-1, 0),
+                    cape=("cape", 18, 2), fx_front=smear(-95, 55, 7, r=23, dx=2, dy=1)), 70),
+        (pose_frame(hip=(2, 1), legs=LUNGE, arm=(318, 328), sword=158, cape=("cape", 14, 1),
+                    fx_front=smear(5, 70, 3, r=23, dx=2, dy=1, ramp=fx.GOLD[1:])), 60),
+        (pose_frame(hip=(1, 0), legs=WIDE, arm=(345, 350), sword=200, cape=("cape", 6, 0)), 40),
     ]
 
 
 def skill():
-    dash = dict(hip=(2, 1), up=(3, 1), head="head_shout",
-                leg_n=("leg_n", 38, (0, 0)), leg_f=("leg_f_bent", -30, (0, 0)),
-                arm=(70, 55), sword=262, shield_d=(3, -1))
-    return [
-        (P(hip=(0, 2), up=(-1, 1), head="head_shout", leg_n=("leg_n_bent", 8, (0, 0)), leg_f=("leg_f_bent", -8, (0, 0)),
-           arm=(60, 40), sword=250, shield_d=(1, -1), cape=("cape", 6, -1)), 70),
-        (pose_frame(**dash, cape=("cape", 52, 2), fx_back=speed_lines(1)), 60),
-        (pose_frame(**dash, cape=("cape", 58, 4), fx_back=speed_lines(2)), 80),
-        (pose_frame(**dash, cape=("cape", 54, 2), fx_back=speed_lines(3)), 80),
-        (P(up=(3, 0), head="head_shout", arm=(235, 215), sword=55, leg_n=("leg_n", 20, (0, 0)), leg_f=("leg_f", -22, (0, 0)),
-           shield_d=(1, 0), cape=("cape", 30, 2), fx_front=smear(150, 300, 7, r=21)), 70),
-        (P(up=(2, 0), arm=(200, 190), sword=25, leg_n=("leg_n", 14, (0, 0)), leg_f=("leg_f", -18, (0, 0)),
-           cape=("cape", 16, 1), fx_front=smear(215, 305, 3, r=21, ramp=fx.GOLD[1:])), 70),
-        (P(up=(1, 0), arm=(60, 50), sword=230, cape=("cape", 6, 0)), 70),
+    """Valiant Charge: brace behind the shield, charge, hop and chop down on the target."""
+    dash = [(("B", -4, "plant"), ("P", 3, "hang")), (("P", -2, "hang"), ("F", 3, "plant")),
+            (("B", -4, "plant"), ("P", 3, "hang"))]
+    frames = [(pose_frame(hip=(0, 2), legs=CROUCH, head="head_shout", arm=(60, 40), sword=250,
+                          shield_d=(1, -1), cape=("cape", 6, -1)), 70)]
+    for k, ms in enumerate((60, 70, 70)):
+        frames.append((pose_frame(hip=(3, 1), legs=dash[k], head="head_shout", arm=(70, 55), sword=262,
+                                  shield_d=(3, -1), cape=("cape", 52 + 3 * k, 2 + k),
+                                  fx_back=speed_lines(k + 1)), ms))
+    frames += [
+        (pose_frame(root=(1, -3), legs=AIR, head="head_shout", arm=(175, 185), sword=-5, shield_d=(1, 0),
+                    cape=("cape", 20, 2), fx_front=tip_sparkle(2)), 60),
+        (pose_frame(hip=(2, 1), legs=LUNGE, head="head_shout", arm=(305, 298), sword=135, cape=("cape", 24, 2),
+                    fx_front=smear(-95, 60, 8, r=24, dx=2, dy=1, ramp=fx.HOLY)), 90),
+        (pose_frame(hip=(1, 0), legs=WIDE, arm=(335, 340), sword=190, cape=("cape", 8, 0)), 80),
     ]
+    return frames
 
 
 def skill2():
-    up = dict(head="head_shout", arm=(180, 180), sword=0, up=(0, -1))
+    up = dict(head="head_shout", arm=(180, 180), sword=0, hip=(0, -1))
     return [
-        (P(**up, cape=("cape", 4, -1), fx_front=tip_sparkle(2)), 60),
-        (P(**up, cape=("cape", 6, -2), fx_back=excalibur(22, 5), fx_front=tip_sparkle(3)), 70),
-        (P(arm=(265, 270), sword=90, up=(1, 0), head="head_shout", leg_n=("leg_n", 12, (0, 0)), leg_f=("leg_f", -14, (0, 0)),
-           cape=("cape", 20, 2), fx_front=smear(-200, 20, 6, r=22, ry=0.45, dy=8)), 70),
-        (P(arm=(300, 310), sword=150, up=(1, 0), cape=("cape", 12, 1),
-           fx_front=smear(-60, 60, 3, r=22, ry=0.45, dy=8, ramp=fx.GOLD[1:])), 60),
-        (P(arm=(20, 30), sword=220, cape=("cape", 4, 0)), 73),
+        (pose_frame(**up, cape=("cape", 4, -1), fx_front=tip_sparkle(2)), 60),
+        (pose_frame(**up, cape=("cape", 6, -2), fx_back=excalibur(22, 5), fx_front=tip_sparkle(3)), 70),
+        (pose_frame(arm=(265, 270), sword=90, hip=(1, 0), legs=WIDE, head="head_shout", cape=("cape", 20, 2),
+                    fx_front=smear(-200, 20, 6, r=22, ry=0.45, dy=8)), 70),
+        (pose_frame(arm=(300, 310), sword=150, hip=(1, 0), legs=WIDE, cape=("cape", 12, 1),
+                    fx_front=smear(-60, 60, 3, r=22, ry=0.45, dy=8, ramp=fx.GOLD[1:])), 60),
+        (pose_frame(arm=(20, 30), sword=220, cape=("cape", 4, 0)), 73),
     ]
 
 
 def ult():
-    tuck = dict(leg_n=("leg_n_bent", -20, (0, 0)), leg_f=("leg_f_bent", -30, (0, 0)))
     raised = dict(arm=(180, 182), sword=2, head="head_shout")
+    slam = dict(root=(3, 0), hip=(0, 4), legs=KNEEL, head="head_shout", arm=(320, 350), sword=178,
+                sword_clip=GROUND + 1)
     return [
-        (P(hip=(0, 3), up=(-1, 1), head="head_shout", leg_n=("leg_n_bent", 14, (0, 0)), leg_f=("leg_f_bent", -10, (0, 0)),
-           arm=(75, 60), sword=245, cape=("cape", 4, -2)), 80),
-        (pose_frame(root=(0, -8), **tuck, **raised, cape=("cape", -18, 3), fx_front=excalibur(24, 5, 2)), 80),
-        (pose_frame(root=(1, -13), **tuck, **raised, cape=("cape", -26, 4), fx_front=excalibur(34, 7, 3)), 80),
-        (pose_frame(root=(2, -7), up=(2, 0), leg_n=("leg_n_bent", -10, (0, 0)), leg_f=("leg_f", -20, (0, 0)),
-                    arm=(250, 240), sword=70, head="head_shout", cape=("cape", -10, 2),
+        (pose_frame(hip=(0, 2), legs=CROUCH, head="head_shout", arm=(75, 60), sword=245, cape=("cape", 4, -2)), 80),
+        (pose_frame(root=(0, -8), legs=AIR, **raised, cape=("cape", -18, 3), fx_front=excalibur(24, 5, 2)), 80),
+        (pose_frame(root=(1, -13), legs=AIR, **raised, cape=("cape", -26, 4), fx_front=excalibur(34, 7, 3)), 80),
+        (pose_frame(root=(2, -7), legs=FALLING, arm=(250, 240), sword=70, head="head_shout", cape=("cape", -10, 2),
                     fx_front=combo(smear(-110, -10, 6, r=22, ramp=fx.HOLY), excalibur(30, 6))), 60),
-        (P(root=(3, 0), hip=(0, 4), up=(2, 2), head="head_shout", leg_n=("leg_n_kneel", 0, (0, -1)),
-           leg_f=("leg_f_bent", -18, (0, 0)), arm=(320, 350), sword=178, sword_clip=GROUND + 1, cape=("cape", 10, 2),
-           fx_front=combo(smear(-40, 70, 5, r=22, ramp=fx.HOLY), ground_flash(14, 1))), 80),
-        (P(root=(3, 0), hip=(0, 4), up=(2, 2), head="head_shout", leg_n=("leg_n_kneel", 0, (0, -1)),
-           leg_f=("leg_f_bent", -18, (0, 0)), arm=(320, 350), sword=178, sword_clip=GROUND + 1, cape=("cape", 6, 1),
-           fx_front=ground_flash(9, 2)), 110),
-        (P(root=(2, 0), hip=(0, 2), up=(1, 1), leg_n=("leg_n_bent", 6, (0, 0)), leg_f=("leg_f_bent", -10, (0, 0)),
-           arm=(330, 345), sword=190, cape=("cape", 3, 0)), 90),
-        (P(root=(1, 0), arm=(10, 15), sword=215), 87),
+        (pose_frame(**slam, cape=("cape", 10, 2),
+                    fx_front=combo(smear(-40, 70, 5, r=22, ramp=fx.HOLY), ground_flash(14, 1))), 80),
+        (pose_frame(**slam, cape=("cape", 6, 1), fx_front=ground_flash(9, 2)), 110),
+        (pose_frame(root=(2, 0), hip=(0, 2), legs=CROUCH, arm=(330, 345), sword=190, cape=("cape", 3, 0)), 90),
+        (pose_frame(root=(1, 0), arm=(10, 15), sword=215), 87),
     ]
 
 
 def hit():
-    return [(P(up=(-2, 0), head="head_hurt", arm=(25, 30), sword=232, shield_d=(-1, 0),
-               leg_n=("leg_n", 12, (0, 0)), cape=("cape", -4, 1)), 100)]
+    return [(pose_frame(hip=(-1, 0), legs=WIDE, head="head_hurt", arm=(25, 30), sword=232, shield_d=(-1, 0),
+                        cape=("cape", -4, 1)), 100)]
 
 
 def dead():
     an = {}
-    kneel = pose_frame(anchors_out=an, hip=(0, 4), up=(-1, 2), head="head_hurt", leg_n=("leg_n_kneel", 0, (0, -1)),
-                       leg_f=("leg_f_bent", -14, (0, 0)), arm=(-10, -5), sword=175, sword_clip=GROUND + 1,
-                       cape=("cape", 6, 1))
+    kneel_pose = dict(hip=(-1, 4), legs=KNEEL, head="head_hurt", arm=(-10, -5), sword=175)
+    kneel = pose_frame(anchors_out=an, **kneel_pose, sword_clip=GROUND + 1, cape=("cape", 6, 1))
     planted = sword_only(an["hand"], 175, GROUND + 1)
     frames = [
-        (P(up=(-2, 0), head="head_hurt", arm=(25, 30), sword=232, shield_d=(-1, 0), leg_n=("leg_n", 12, (0, 0))), 100),
-        (P(hip=(-1, 1), up=(-3, 1), head="head_hurt", leg_n=("leg_n_bent", 16, (0, 0)), leg_f=("leg_f", -8, (0, 0)),
-           arm=(40, 30), sword=225, shield_d=(-1, 1), cape=("cape", -6, 1)), 100),
+        (hit()[0][0], 100),
+        (pose_frame(hip=(-2, 1), legs=(("B", -5, "plant"), ("C", 2, "plant")), head="head_hurt", arm=(40, 30),
+                    sword=225, shield_d=(-1, 1), cape=("cape", -6, 1)), 100),
         (kneel, 120),
         (kneel, 140),
     ]
-    # topple backwards about the back knee, then lie flat on the back (head to the left)
+    # topple backwards about the back knee, then lie flat on the back (head to the left);
+    # the sword stays planted where he knelt
     pivot = (FW // 2 - 6, GROUND)
-    body = pose_frame(hip=(0, 4), up=(-1, 2), head="head_hurt", leg_n=("leg_n_kneel", 0, (0, -1)),
-                      leg_f=("leg_f_bent", -14, (0, 0)), arm=(-10, -5), sword=175, show_sword=False)
+    body = pose_frame(**kneel_pose, show_sword=False)
     for ang in (-35, -65):
         img, pv = px.rotsprite(body, ang, pivot)
         f = px.new(FW, FH)
@@ -203,8 +195,7 @@ def dead():
         f = _settle(f)
         f.alpha_composite(planted)
         frames.append((f, 100))
-    flat = pose_frame(head="head_hurt", leg_n=("leg_n", 6, (0, 0)), leg_f=("leg_f", -4, (0, 0)),
-                      arm=(20, 10), sword=200, show_sword=False, cape=("cape", 0, 0))
+    flat = pose_frame(head="head_hurt", arm=(20, 10), show_sword=False, cape=("cape", 0, 0))
     img, pv = px.rotsprite(flat, -90, (FW // 2, GROUND))
     lying = px.new(FW, FH)
     px.paste(lying, img, FW // 2 + 4 - pv[0], GROUND - pv[1])

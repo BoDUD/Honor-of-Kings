@@ -78,9 +78,18 @@
             ]
           },
           "effect_none": {
-            "type": "Attack",
-            "damage": 0,
-            "attack_ratio": 100
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100
+              },
+              {
+                "type": "ViewEffect",
+                "name": "hok_arthur_attack_hit"
+              }
+            ]
           }
         }
       ]
@@ -442,6 +451,12 @@
     }
   ],
   "view_effects": [
+    {
+      "type": "Animation",
+      "name": "hok_arthur_attack_hit",
+      "anim": "asset/hok/effects/hok_arthur_slash",
+      "tag": "spark"
+    },
     {
       "type": "Animation",
       "name": "hok_arthur_skill_hit",

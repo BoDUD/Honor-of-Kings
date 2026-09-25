@@ -1,9 +1,14 @@
 """Pose Arthur's pixel parts into animation frames.
 
-A pose is a dict of joint settings (see DEFAULT). Positions are in pixels relative to the hip
-(the bottom centre of the breastplate); angles are clockwise on screen in degrees:
-  limbs: 0 = hanging down, 90 = pointing back (left), -90 = pointing forward (right)
+A pose is a dict of settings (see DEFAULT). Positions are in pixels; angles are clockwise on
+screen in degrees:
+  arm:   0 = hanging down, 90 = pointing back (left), 180 = up, 270 = pointing forward (right)
   sword: 0 = pointing up, 90 = forward (right), 180 = down, 225 = down-back
+
+The body is locked together at the waist: `hip` moves the whole upper body *and* the tasset, so
+the torso never slides over the hips. Legs are separate drawn poses (arthur_parts.LEGS), never
+rotated: a planted leg keeps its sole on the ground wherever the hip goes (its top hides under the
+tasset), a hanging leg follows the hip (jumps, lifted feet).
 """
 import math
 
@@ -12,30 +17,32 @@ from arthur_parts import build
 
 FW, FH = 111, 135          # frame size (odd so the pivot pixel is the centre)
 CX = FW // 2               # hip column = pivot column
-GROUND = FH // 2 + 11      # last row of the soles (bottom edge = centre + 11.5)
-HIP_Y = GROUND - 16        # hip row when standing
+GROUND = FH // 2 + 11      # outline row under the soles (bottom edge = centre + 11.5)
+HIP_Y = GROUND - 16        # hip row when standing (bottom row of the breastplate)
+TASSET_BOTTOM = 6          # last tasset fill row, relative to the hip
 
 PARTS = build()
 
-# joint positions relative to the hip in the neutral stance
+# attachment points relative to the hip
 J = {
-    "torso": (0, 0), "tasset": (-1, 0),
-    "leg_n": (-2, 5), "leg_f": (5, 5),
-    "neck": (1, -8), "head": (1, -10),
+    "torso": (0, 0), "tasset": (-1, 2),
+    "head": (1, -10),
     "paul_n": (-6, -8), "paul_f": (6, -8),
     "shoulder": (-7, -6),
     "shield": (10, 0),
     "cape": (-7, -8),
 }
+HANG_Y = 4                 # hanging legs: joint this far below the hip
+STAND_LEGS = (("S", -3, "plant"), ("S", 3, "plant"))
 
 DEFAULT = dict(
-    root=(0, 0),            # whole body offset (jumps, knock-back)
-    hip=(0, 0),             # hip offset (crouch = +y)
-    up=(0, 0),              # upper body offset relative to the hip (lean / breathing)
+    root=(0, 0),            # whole-body offset, ground included (jumps use hanging legs)
+    hip=(0, 0),             # hip offset: lean (x) and crouch (+y); upper body + tasset follow
+    breath=0,               # shoulders, head, arm, shield and cape only (idle breathing)
     head="head", head_d=(0, 0),
-    leg_n=("leg_n", 0, (0, 0)), leg_f=("leg_f", 0, (0, 0)),
+    legs=STAND_LEGS,        # (near, far): (pose key, x offset, "plant" | "hang")
     arm=(0, 0),             # (upper arm angle, forearm angle)
-    sword=225,
+    sword=230,
     sword_part="sword",
     shield_d=(0, 0), shield_a=0,
     cape=("cape", 0, 0),    # (part, rotation, hem sway px)
@@ -71,16 +78,18 @@ def pose_frame(anchors_out=None, **kw):
     P = dict(DEFAULT)
     P.update(kw)
     f = px.new(FW, FH)
-    hip = add((CX, HIP_Y), P["root"], P["hip"])
-    up = add(hip, P["up"])
-    anchors = {"hip": hip, "up": up}
+    base = add((CX, HIP_Y), P["root"])          # standing hip (feet reference)
+    hip = add(base, P["hip"])
+    ground = GROUND + P["root"][1]
+    up = add(hip, (0, P["breath"]))             # things that breathe
+    anchors = {"hip": hip, "base": base, "ground": ground}
 
-    def at(base, key, d=(0, 0)):
-        return add(base, J[key], d)
+    def at(origin, key, d=(0, 0)):
+        return add(origin, J[key], d)
 
-    def put(name, pos, angle=0.0, flip=False):
+    def put(name, pos, angle=0.0):
         p = PARTS[name]
-        px.place(f, p.img, p.pivot, pos[0], pos[1], angle=angle, flip=flip)
+        px.place(f, p.img, p.pivot, pos[0], pos[1], angle=angle)
 
     # joint positions first, so effects drawn behind the body can use them
     ua, fa = P["arm"]
@@ -102,13 +111,20 @@ def pose_frame(anchors_out=None, **kw):
     cpiv = (cp.pivot[0] + (4 if csway else 0), cp.pivot[1])
     px.place(f, cimg, cpiv, *at(up, "cape"), angle=crot)
 
-    # legs
-    for key in ("leg_f", "leg_n"):
-        name, ang, d = P[key]
-        put(name, at(hip, key, d), ang)
+    # legs: far first, near in front
+    for key, dx, mode in reversed(P["legs"]):
+        p = PARTS["leg_" + key]
+        if mode == "plant":
+            x = base[0] + dx - p.pivot[0]
+            y = ground - (p.img.height - 1)
+            top = y + 1                              # first fill row
+            assert top <= hip[1] + TASSET_BOTTOM + 1, f"leg {key} shows a gap under the tasset"
+            px.paste(f, p.img, x, y)
+        else:
+            px.place(f, p.img, p.pivot, hip[0] + dx, hip[1] + HANG_Y)
 
-    put("torso", at(up, "torso"))
-    put("tasset", at(hip, "tasset", (P["up"][0] // 2, 0)))
+    put("tasset", at(hip, "tasset"))
+    put("torso", at(hip, "torso"))
     put("paul_f", at(up, "paul_f"))
     put("shield", at(up, "shield", P["shield_d"]), P["shield_a"])
     put(P["head"], at(up, "head", P["head_d"]))

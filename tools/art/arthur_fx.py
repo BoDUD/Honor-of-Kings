@@ -105,6 +105,27 @@ def slash_small():
     return frames
 
 
+def slash_spark():
+    """Every basic attack: the yellow-white flash HoK shows on the target (a short diagonal cut)."""
+    frames = []
+    for i in range(4):
+        f, cx, cy = frame(91, 91)
+        if i == 0:
+            fx.burst(f, cx, cy, 2, 9, 4, fx.HOLY, seed=11, rot=45, sharp=10)
+            slash_arc(f, cx, cy, 125, 22, 2, fx.WHITE, bend=26)
+        elif i == 1:
+            fx.burst(f, cx, cy, 3, 12, 8, fx.HOLY, seed=12, rot=20, sharp=8)
+            slash_arc(f, cx, cy, 125, 26, 3, fx.HOLY, bend=26)
+        elif i == 2:
+            fx.burst(f, cx, cy, 2, 7, 8, cool(fx.HOLY, 1), seed=13, rot=30, sharp=8)
+            fx.particles(f, cx, cy, 6, 3, 14, 0.5, fx.GOLD, seed=14)
+        else:
+            fx.particles(f, cx, cy, 6, 3, 16, 0.9, fx.GOLD, seed=14)
+            f = px.dissolve(f, 0.5, 1)
+        frames.append((f, 45))
+    return frames
+
+
 # ----------------------------------------------------------------------------- ult: Excalibur strike
 def ult_impact():
     W, H = 141, 181
@@ -255,7 +276,7 @@ def oath():
 
 
 EFFECTS = {
-    "hok_arthur_slash": [("hit", slash_hit), ("small", slash_small)],
+    "hok_arthur_slash": [("hit", slash_hit), ("small", slash_small), ("spark", slash_spark)],
     "hok_arthur_ult_impact": [("impact", ult_impact)],
     "hok_arthur_seal": [("loop", seal)],
     "hok_arthur_whirl": [("loop", whirl)],
