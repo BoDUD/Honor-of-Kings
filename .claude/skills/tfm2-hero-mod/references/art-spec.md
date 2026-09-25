@@ -29,7 +29,7 @@ more colours - dark heroes (Nocturne, Shadow Fiend) are near-black bodies with g
 | Tag | Base (median frames @ ms) | oppi | Notes |
 |---|---|---|---|
 | idle | 4 @ 140-200 | 7 @ 100 | breathing / weapon sway |
-| run | 8 @ 80 | 6-9 @ 75-100 | |
+| run | 8 @ 80 | 6-9 @ 75-100 | the move loop; may be a walk (League Garen: 8 @ 117) |
 | attack | 5 @ 80 | 6-8 @ 75-85 | anticipation -> hit frame -> recovery |
 | skill / skill1, skill2, ult | 5 @ 80 | 6-13 @ 80-100 | any name, but it must equal the action's `action_name` |
 | hit | 1 @ 100 | often omitted | recommended |
@@ -113,6 +113,10 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   `tools/lol/pose_ref.py` in TFM2-League-Heroes, reads SKN/SKL/ANM from the local client) and
   attach them as a second image: "copy each frame's pose, draw it like the first image". Keep
   such renders local; they show the game's model.
+- **Name the gait and time it from the clip.** The move tag is called `run`, but League's Garen
+  marches: upright, 0.93 s a cycle. Prompted as a run, he came out leaning into a sprint at
+  0.54 s and the user saw "running, not walking". Say WALK (upright, one foot always down) when
+  the clip is a walk, and take the frame times from it (Garen: 8 frames x 117 ms).
 - **Render the side that shows the chest.** Every base champion faces right with its front to the
   viewer. League's Garen idles with his chest toward his own right, so a right-front camera
   shows his back - round 2 came out as a back view and the user rejected it at once. Render his

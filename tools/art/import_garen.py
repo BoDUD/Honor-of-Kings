@@ -11,7 +11,7 @@ Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred 
   league/effects/league_garen_r       impact
 
 Body: every strip is drawn from the same design reference (garen_ref_v3.png) and, where League
-has the clip, from a front-view pose render of it (PROMPTS.md rounds 3-4). Each strip gets its own
+has the clip, from a front-view pose render of it (PROMPTS.md rounds 3-5). Each strip gets its own
 scale so Garen is as big as in idle (~36 px); the feet sit 11.5 px below the frame centre (the
 base-game convention). Horizontally, idle stands on the middle of its stance, skill and hit line
 their legs up with idle, and the League-drawn strips put each frame's head where League's skeleton
@@ -54,9 +54,9 @@ BAND = 12       # px of legs used to line frames up
 # air: frames in the air; they keep their drawn height above the ground of the others
 CHAR = {
     "idle":     dict(n=6, tall=250, ms=[150] * 6, anchor="feet"),
-    # League Run 0-778 ms
-    "run":      dict(n=6, tall=285, ms=[90] * 6, anchor="head", ground="strip",
-                     head=("track", [4.0, 4.5, 3.6, 3.6, 3.9, 3.4])),
+    # League Run: a walk, 8 frames over its 0.933 s cycle (0-817 ms)
+    "run":      dict(n=8, tall=250, ms=[117] * 8, anchor="head", ground="strip",
+                     head=("track", [4.0, 4.6, 4.2, 3.4, 3.6, 4.0, 3.7, 3.3])),
     # Attack_01 0/300/333/367/400/560 ms; damage lands in the slash frame (tick 13)
     "attack":   dict(n=6, tall=226, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
                      head=("track", [-3.5, 0.3, 2.2, 6.8, 7.3, 7.1])),

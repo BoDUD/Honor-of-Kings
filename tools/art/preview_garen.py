@@ -7,7 +7,7 @@ sheets load).
   league_garen_frames.png    every animation, frame by frame, 3x on the arena colour
   league_garen_effects.png   every effect animation, 3x
   league_garen_showcase.gif  a scripted fight against a mirrored Garen, timed like the kit
-                             (attack, Q + W, empowered hit, E, R, death), 3x
+                             (walk in, attack, Q + W, empowered hit, E, R, death), 3x
 """
 import argparse
 import os
@@ -69,14 +69,18 @@ def contact(sprites, out, z=3, label_w=90):
 
 # ----------------------------------------------------------------------------- showcase
 class Anim:
-    """A playing animation: frames + durations (ms), optional loop, position, mirror, z."""
+    """A playing animation: frames + durations (ms), optional loop, position (moving at vx
+    px/ms), mirror, z."""
 
-    def __init__(self, sp, tag, t0, x, y, loop=False, until=None, flip=False, z=0):
+    def __init__(self, sp, tag, t0, x, y, loop=False, until=None, flip=False, z=0, vx=0.0):
         self.fr = frames_of(sp, tag)
-        self.t0, self.x, self.y, self.loop, self.flip, self.z = t0, x, y, loop, flip, z
+        self.t0, self.x, self.y, self.loop, self.flip, self.z, self.vx = t0, x, y, loop, flip, z, vx
         total = sum(ms for _, ms in self.fr)
         self.until = until if until is not None else (None if loop else t0 + total)
         self.total = total
+
+    def xat(self, t):
+        return int(round(self.x + self.vx * (t - self.t0)))
 
     def frame(self, t):
         if t < self.t0 or (self.until is not None and t >= self.until):
@@ -114,7 +118,10 @@ def showcase(out, z=3, step=40):
         if sprite:
             effects.append(Anim(fx[sprite], tag, at, tx, gy, z=1))
 
-    g("idle", 700, loop=True)
+    walk = 1200                                          # walk in: move_speed 1000 ~ 1 px a tick
+    body.append(Anim(garen, "run", t, gx - 72, gy, loop=True, until=t + walk, vx=72 / walk))
+    t += walk
+    g("idle", 500, loop=True)
     for _ in range(2):                                   # basic attacks: 22 ticks, hit at 13
         start = t
         g("attack")
@@ -188,7 +195,7 @@ def showcase(out, z=3, step=40):
         for a in body:
             f = a.frame(tt)
             if f is not None:
-                place(img, f, gx, gy)
+                place(img, f, a.xat(tt), gy)
                 break
         for a in effects:
             f = a.frame(tt) if a.z >= 0 else None
