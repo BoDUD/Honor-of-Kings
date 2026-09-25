@@ -1,0 +1,56 @@
+{
+  "zh-hans": {
+    "description": {
+      "hok_arthur": {
+        "name": "亚瑟",
+        "attack": "<#ff9028ff>圣光守护<>（被动）：亚瑟持续回复生命值。普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%攻击力<>的<#ff9028ff>物理伤害<>；<#ff9028ff>誓约<>生效期间，普攻额外造成<#6aff55ff>目标最大生命值1%<>的<#a974ffff>法术伤害<>。",
+        "skill": "<#ff9028ff>誓约之盾<>：亚瑟获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30%移动速度<>，持续<#ffb900ff>3秒<>，并跃向目标敌方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%攻击力<>的<#ff9028ff>物理伤害<>，使其<#ef5350ff>沉默<><#ffb900ff>1.25秒<>。随后亚瑟进入<#ff9028ff>誓约<>状态<#ffb900ff>5秒<>，附近友方英雄获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>10%移动速度<>。",
+        "skill2": "<#ff9028ff>回旋打击<>：圣盾环绕亚瑟旋转<#ffb900ff>5秒<>，每秒对周围敌人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%攻击力<>的<#ff9028ff>物理伤害<>。施放期间可以移动。",
+        "ult": "<#ff9028ff>圣剑裁决<>：亚瑟举起圣剑跃向敌方英雄，造成<#a974ffff>60<> + <#6aff55ff>目标最大生命值12%<>的<#a974ffff>法术伤害<>，将周围敌人<#ef5350ff>击飞<><#ffb900ff>0.5秒<>，并留下圣印，<#ffb900ff>5秒<>内每秒对范围内敌人造成<#a974ffff>30<>点<#a974ffff>法术伤害<>。"
+      }
+    },
+    "skill_name": {
+      "hok_arthur": {
+        "skill1": "誓约之盾",
+        "skill2": "回旋打击",
+        "ult": "圣剑裁决"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "hok_arthur": {
+        "name": "亞瑟",
+        "attack": "<#ff9028ff>聖光守護<>（被動）：亞瑟持續回復生命值。普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%攻擊力<>的<#ff9028ff>物理傷害<>；<#ff9028ff>誓約<>生效期間，普攻額外造成<#6aff55ff>目標最大生命值1%<>的<#a974ffff>法術傷害<>。",
+        "skill": "<#ff9028ff>誓約之盾<>：亞瑟獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30%移動速度<>，持續<#ffb900ff>3秒<>，並躍向目標敵方英雄，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%攻擊力<>的<#ff9028ff>物理傷害<>，使其<#ef5350ff>沉默<><#ffb900ff>1.25秒<>。隨後亞瑟進入<#ff9028ff>誓約<>狀態<#ffb900ff>5秒<>，附近友方英雄獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>10%移動速度<>。",
+        "skill2": "<#ff9028ff>迴旋打擊<>：聖盾環繞亞瑟旋轉<#ffb900ff>5秒<>，每秒對周圍敵人造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%攻擊力<>的<#ff9028ff>物理傷害<>。施放期間可以移動。",
+        "ult": "<#ff9028ff>聖劍裁決<>：亞瑟舉起聖劍躍向敵方英雄，造成<#a974ffff>60<> + <#6aff55ff>目標最大生命值12%<>的<#a974ffff>法術傷害<>，將周圍敵人<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>，並留下聖印，<#ffb900ff>5秒<>內每秒對範圍內敵人造成<#a974ffff>30<>點<#a974ffff>法術傷害<>。"
+      }
+    },
+    "skill_name": {
+      "hok_arthur": {
+        "skill1": "誓約之盾",
+        "skill2": "迴旋打擊",
+        "ult": "聖劍裁決"
+      }
+    }
+  },
+  "en": {
+    "description": {
+      "hok_arthur": {
+        "name": "Arthur",
+        "attack": "<#ff9028ff>Holy Vanguard<> (passive): Arthur constantly regenerates health. Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. While <#ff9028ff>Oath<> is active they also deal <#a974ffff>magic damage<> equal to <#6aff55ff>1% of the target's max health<>.",
+        "skill": "<#ff9028ff>Valiant Charge<>: Arthur gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% movement speed<> for <#ffb900ff>3s<> and leaps at the target enemy champion, dealing <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>silencing<> it for <#ffb900ff>1.25s<>. He then gains <#ff9028ff>Oath<> for <#ffb900ff>5s<> and nearby allied champions gain <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>10% movement speed<>.",
+        "skill2": "<#ff9028ff>Whirling Strike<>: Holy shields circle Arthur for <#ffb900ff>5s<>, dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30% AD<> <#ff9028ff>physical damage<> to nearby enemies every second. Arthur can move while it lasts.",
+        "ult": "<#ff9028ff>Might of Excalibur<>: Arthur leaps onto an enemy champion with the holy sword, dealing <#a974ffff>60<> + <#6aff55ff>12% of its max health<> as <#a974ffff>magic damage<>, knocking nearby enemies <#ef5350ff>airborne<> for <#ffb900ff>0.5s<> and leaving a holy seal that deals <#a974ffff>30 magic damage<> per second for <#ffb900ff>5s<>."
+      }
+    },
+    "skill_name": {
+      "hok_arthur": {
+        "skill1": "Valiant Charge",
+        "skill2": "Whirling Strike",
+        "ult": "Might of Excalibur"
+      }
+    }
+  }
+}

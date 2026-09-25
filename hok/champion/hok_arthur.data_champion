@@ -1,0 +1,480 @@
+{
+  "id": "hok_arthur",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "sprite": "asset/hok/champions/hok_arthur",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/hok/icons/hok_arthur_skill",
+    "asset/hok/icons/hok_arthur_skill2",
+    "asset/hok/icons/hok_arthur_ult"
+  ],
+  "stat": {
+    "attack": 95,
+    "magic_power": 0,
+    "hp": 1000,
+    "defence": 32,
+    "magic_resistance": 22,
+    "move_speed": 1000,
+    "hp_regen": 5,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 9,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 1,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.hok_arthur.attack",
+    "duration": 22,
+    "cooltime": 65,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "hok_arthur_attack"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "hok_arthur_oath",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100
+              },
+              {
+                "type": "ApAttack",
+                "damage": 0,
+                "attack_ratio": 0,
+                "target_hp_ratio": 1
+              },
+              {
+                "type": "ViewEffect",
+                "name": "hok_arthur_oath_hit"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.hok_arthur.skill",
+    "duration": 30,
+    "cooltime": 360,
+    "start_timing": 8,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "hok_arthur_skill_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "hok_arthur_valiant_speed",
+            "duration": {
+              "Time": {
+                "tick": 180
+              }
+            },
+            "move_speed_mult": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4200,
+          "range": 40000,
+          "end_effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 70,
+                  "attack_ratio": 100
+                },
+                {
+                  "type": "BlockSkill",
+                  "tick": 75
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "hok_arthur_skill_hit"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "hok_arthur_skill_hit"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "hok_arthur_oath",
+                    "duration": {
+                      "Time": {
+                        "tick": 300
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 45000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "hok_arthur_oath_ally_speed",
+                        "duration": {
+                          "Time": {
+                            "tick": 300
+                          }
+                        },
+                        "move_speed_mult": 10
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.hok_arthur.skill2",
+    "duration": 20,
+    "cooltime": 540,
+    "start_timing": 6,
+    "cancelable": true,
+    "range": 30000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "can_use_with_move": true,
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "hok_arthur_skill2_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "hok_arthur_whirl",
+            "duration": {
+              "Time": {
+                "tick": 300
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 28000
+            }
+          },
+          "target": "EnemyWithoutTower",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 20,
+              "attack_ratio": 30
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 60,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "hok_arthur_skill2_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 20,
+                  "attack_ratio": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 120,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "hok_arthur_skill2_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 20,
+                  "attack_ratio": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 180,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "hok_arthur_skill2_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 20,
+                  "attack_ratio": 30
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 240,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "hok_arthur_skill2_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 28000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 20,
+                  "attack_ratio": 30
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.hok_arthur.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 10,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "hok_arthur_ult_cast"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 5000,
+          "range": 50000,
+          "end_effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "hok_arthur_ult_hit"
+                },
+                {
+                  "type": "ApAttack",
+                  "damage": 60,
+                  "attack_ratio": 0,
+                  "target_hp_ratio": 12
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "hok_arthur_ult_impact"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 24000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Airborne",
+                      "duration": 30
+                    }
+                  ]
+                },
+                {
+                  "type": "RangePeriodProjectile",
+                  "name": "hok_arthur_seal",
+                  "tick": 300,
+                  "period": 60,
+                  "first_delay": 30,
+                  "shape": {
+                    "Circle": {
+                      "radius": 26000
+                    }
+                  },
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 30,
+                        "attack_ratio": 0
+                      }
+                    }
+                  ],
+                  "end_effects": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "hok_arthur_seal",
+      "anim": "asset/hok/effects/hok_arthur_seal",
+      "tag": "loop",
+      "repeat": true,
+      "z": -2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "hok_arthur_skill_hit",
+      "anim": "asset/hok/effects/hok_arthur_slash",
+      "tag": "hit"
+    },
+    {
+      "type": "Animation",
+      "name": "hok_arthur_oath_hit",
+      "anim": "asset/hok/effects/hok_arthur_slash",
+      "tag": "small"
+    },
+    {
+      "type": "Animation",
+      "name": "hok_arthur_ult_impact",
+      "anim": "asset/hok/effects/hok_arthur_ult_impact",
+      "tag": "impact",
+      "z": -1
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "hok_arthur_whirl",
+      "anim": "asset/hok/effects/hok_arthur_whirl",
+      "tag": "loop"
+    },
+    {
+      "type": "Animated",
+      "name": "hok_arthur_oath",
+      "anim": "asset/hok/effects/hok_arthur_oath",
+      "tag": "loop",
+      "z": -1
+    }
+  ]
+}

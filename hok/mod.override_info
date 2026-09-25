@@ -1,0 +1,38 @@
+{
+  "asset/base/text/champion": {
+    "remapping": "asset/hok/text/champion",
+    "type": "merge"
+  },
+  "asset/base/style/champion_view": {
+    "remapping": "asset/hok/style/champion_view",
+    "type": "merge"
+  },
+  "asset/base/sound/sfx/hok_arthur_attack": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_attack",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_skill_cast": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_skill_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_skill_hit": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_skill_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_skill2_cast": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_skill2_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_skill2_hit": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_skill2_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_ult_cast": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_ult_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/hok_arthur_ult_hit": {
+    "remapping": "asset/hok/sound/sfx/hok_arthur_ult_hit",
+    "type": "override"
+  }
+}

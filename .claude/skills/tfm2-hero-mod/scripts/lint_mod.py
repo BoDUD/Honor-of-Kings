@@ -343,7 +343,13 @@ def main(argv=None):
                 rep.error(mod.rel(p), "play without 'clip'")
                 continue
             if not any(os.path.isfile(os.path.join(sfx_dir, clip + e)) for e in AUDIO_EXT):
-                rep.error(mod.rel(p), f"clip '{clip}' has no audio file ({'/'.join(AUDIO_EXT)}) next to it")
+                base_path = f"asset/base/sound/sfx/{clip}"
+                if bundle is not None and (bundle.has(base_path, "mp3") or bundle.has(base_path, "wav")):
+                    rep.info(mod.rel(p), f"clip '{clip}' is a base-game clip (reused or placeholder)")
+                elif bundle is None:
+                    rep.warn(mod.rel(p), f"clip '{clip}' is not in the mod; it may be a base clip (pass --game to verify)")
+                else:
+                    rep.error(mod.rel(p), f"clip '{clip}' is neither next to the sound_info nor a base-game clip")
             elif f"asset/base/sound/sfx/{clip}" not in mod.override:
                 rep.info(mod.rel(p), f"clip '{clip}' has no override entry (published packs add one per clip too)")
 

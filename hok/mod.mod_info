@@ -1,0 +1,14 @@
+{
+  "author": "BoDUD",
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    }
+  ],
+  "description": "Honor of Kings heroes for Teamfight Manager 2, rebuilt for TFM2 with custom pixel sprites. Hero 1: Arthur. Non-commercial fan project; Honor of Kings (c) Tencent.",
+  "last_updated": "2026-09-25",
+  "mod_id": "hok",
+  "name": "Honor of Kings Heroes",
+  "version": "0.1.0"
+}
