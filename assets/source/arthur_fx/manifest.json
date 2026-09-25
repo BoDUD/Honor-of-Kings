@@ -1,0 +1,742 @@
+{
+  "schema_version": 1,
+  "status": "generated_source_art_for_claude_import",
+  "generator": "gpt-image-2 via gpt-image-bridge (native endpoint returned HTTP 404)",
+  "notes": [
+    "Original generated PNGs preserved without pixel edits.",
+    "Suggested source rectangles divide the complete canvas horizontally; they are not normalized game cells.",
+    "Canvas padding, fractional division and partial alpha require downstream slicing, anchor alignment, palette quantization and nearest-neighbor scaling.",
+    "Loop smoothness and final gameplay timing must be checked during import."
+  ],
+  "assets": [
+    {
+      "file": "hit_spark.png",
+      "sha256": "8255323cd380e5cefdd3bf81d7429062d3b6073ddd8ac326ff04b0d32ec09937",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 4,
+      "rows": 1,
+      "loop_intended": false,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1508942,
+      "partial_alpha_pixels": 62884,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            245,
+            327,
+            54,
+            52
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            678,
+            193,
+            274,
+            305
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1237,
+            237,
+            239,
+            230
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1812,
+            260,
+            177,
+            183
+          ]
+        }
+      ]
+    },
+    {
+      "file": "oath_slash.png",
+      "sha256": "3b8b007e1b168bc3704ba95c957211cdc07525125969fb72f2e177fcad6f5bc4",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 5,
+      "rows": 1,
+      "loop_intended": false,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1426044,
+      "partial_alpha_pixels": 145994,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            434,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            53,
+            178,
+            344,
+            347
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            434,
+            0,
+            435,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            454,
+            151,
+            396,
+            382
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            869,
+            0,
+            434,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            892,
+            159,
+            377,
+            370
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            1303,
+            0,
+            435,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1350,
+            177,
+            305,
+            341
+          ]
+        },
+        {
+          "index": 4,
+          "suggested_source_rect_xywh": [
+            1738,
+            0,
+            434,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1803,
+            185,
+            305,
+            325
+          ]
+        }
+      ]
+    },
+    {
+      "file": "cross_slash.png",
+      "sha256": "53c7064e4559816b0a44c4fe4abe28409893f1d84c74fdd1855e00dfdd82fc37",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 7,
+      "rows": 1,
+      "loop_intended": false,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1325542,
+      "partial_alpha_pixels": 246742,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            310,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            24,
+            214,
+            243,
+            255
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            310,
+            0,
+            311,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            324,
+            214,
+            248,
+            261
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            621,
+            0,
+            310,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            628,
+            183,
+            286,
+            325
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            931,
+            0,
+            310,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            946,
+            213,
+            269,
+            271
+          ]
+        },
+        {
+          "index": 4,
+          "suggested_source_rect_xywh": [
+            1241,
+            0,
+            310,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1267,
+            218,
+            252,
+            266
+          ]
+        },
+        {
+          "index": 5,
+          "suggested_source_rect_xywh": [
+            1551,
+            0,
+            311,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1586,
+            218,
+            235,
+            256
+          ]
+        },
+        {
+          "index": 6,
+          "suggested_source_rect_xywh": [
+            1862,
+            0,
+            310,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1890,
+            223,
+            236,
+            256
+          ]
+        }
+      ]
+    },
+    {
+      "file": "flaming_shield.png",
+      "sha256": "121761e23666f3f6ea162e4ad0d79b93b78871676b896d14cabd5e2101ac95c5",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 4,
+      "rows": 1,
+      "loop_intended": true,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1095088,
+      "partial_alpha_pixels": 476633,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            40,
+            155,
+            467,
+            373
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            571,
+            140,
+            478,
+            388
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1118,
+            165,
+            472,
+            364
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1652,
+            150,
+            481,
+            379
+          ]
+        }
+      ]
+    },
+    {
+      "file": "whirl_ring.png",
+      "sha256": "3e20c5d40b863353f89531ace96b3370cc52db347bd00f0f8bd57675f955695e",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 4,
+      "rows": 1,
+      "loop_intended": true,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1449164,
+      "partial_alpha_pixels": 122028,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            123,
+            149,
+            348,
+            362
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            648,
+            177,
+            364,
+            329
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1173,
+            174,
+            346,
+            357
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1688,
+            174,
+            360,
+            332
+          ]
+        }
+      ]
+    },
+    {
+      "file": "excalibur.png",
+      "sha256": "4bab9dafa41bfdffc55f65cc1351c312b57bfe8b780bd72c5c0dcc2184615e1c",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 8,
+      "rows": 1,
+      "loop_intended": false,
+      "requested_final_cell_ratio_wh": [
+        1,
+        2
+      ],
+      "transparent_pixels": 1260058,
+      "partial_alpha_pixels": 312459,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            272,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            93,
+            63,
+            92,
+            269
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            272,
+            0,
+            271,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            355,
+            128,
+            102,
+            383
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            543,
+            0,
+            271,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            566,
+            238,
+            210,
+            415
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            814,
+            0,
+            272,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            825,
+            135,
+            253,
+            536
+          ]
+        },
+        {
+          "index": 4,
+          "suggested_source_rect_xywh": [
+            1086,
+            0,
+            272,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1114,
+            200,
+            214,
+            467
+          ]
+        },
+        {
+          "index": 5,
+          "suggested_source_rect_xywh": [
+            1358,
+            0,
+            271,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1378,
+            236,
+            227,
+            431
+          ]
+        },
+        {
+          "index": 6,
+          "suggested_source_rect_xywh": [
+            1629,
+            0,
+            271,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1658,
+            294,
+            217,
+            367
+          ]
+        },
+        {
+          "index": 7,
+          "suggested_source_rect_xywh": [
+            1900,
+            0,
+            272,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1945,
+            385,
+            182,
+            266
+          ]
+        }
+      ]
+    },
+    {
+      "file": "holy_seal.png",
+      "sha256": "94897b8f10d158c30e398b8ce81ac4bcf3a4787c9ff4785fbc3ffd1058b7a794",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 4,
+      "rows": 1,
+      "loop_intended": true,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1338666,
+      "partial_alpha_pixels": 230541,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            117,
+            182,
+            333,
+            339
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            543,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            649,
+            182,
+            336,
+            339
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            1086,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1184,
+            182,
+            336,
+            339
+          ]
+        },
+        {
+          "index": 3,
+          "suggested_source_rect_xywh": [
+            1629,
+            0,
+            543,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1720,
+            182,
+            335,
+            339
+          ]
+        }
+      ]
+    },
+    {
+      "file": "slash_arc.png",
+      "sha256": "a5e1dcd82ae70d96a828fccdfdee70b23ef9dd59c858f371b6f286094cc16ff6",
+      "width": 2172,
+      "height": 724,
+      "mode": "RGBA",
+      "frames": 3,
+      "rows": 1,
+      "loop_intended": false,
+      "requested_final_cell_ratio_wh": [
+        1,
+        1
+      ],
+      "transparent_pixels": 1360192,
+      "partial_alpha_pixels": 210420,
+      "source_cells": [
+        {
+          "index": 0,
+          "suggested_source_rect_xywh": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            244,
+            83,
+            259,
+            534
+          ]
+        },
+        {
+          "index": 1,
+          "suggested_source_rect_xywh": [
+            724,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            862,
+            40,
+            486,
+            615
+          ]
+        },
+        {
+          "index": 2,
+          "suggested_source_rect_xywh": [
+            1448,
+            0,
+            724,
+            724
+          ],
+          "opaque_bounds_in_source_xywh": [
+            1638,
+            40,
+            400,
+            625
+          ]
+        }
+      ]
+    }
+  ]
+}
