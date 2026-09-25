@@ -1,0 +1,74 @@
+{
+  "en": {
+    "description": {
+      "mymod_hero": {
+        "name": "Hero",
+        "attack": "Basic attacks deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Every <#ffb900ff>3rd<> attack deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% AD<> instead.",
+        "skill": "<#ff9028ff>Blade Wave<>: Sends a wave forward that deals <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<> to every enemy hit and <#ef5350ff>slows<> them by 30% for <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Guard<>: Gains a <#e8d44dff>shield<> of <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> and <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% movement speed<> for <#ffb900ff>3s<>.",
+        "ult": "<#ff9028ff>Final Strike<>: Leaps to the target enemy champion, dealing <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> <#ff9028ff>physical damage<> to nearby enemies and <#ef5350ff>stunning<> them for <#ffb900ff>1s<>."
+      }
+    },
+    "skill_name": {
+      "mymod_hero": {
+        "skill1": "Blade Wave",
+        "skill2": "Guard",
+        "ult": "Final Strike"
+      }
+    }
+  },
+  "zh-hans": {
+    "description": {
+      "mymod_hero": {
+        "name": "英雄",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。每第<#ffb900ff>3<>次普攻改为造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% 攻击力<>。",
+        "skill": "<#ff9028ff>剑气<>：向前方释放剑气，对命中的所有敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>，并使其<#ef5350ff>减速<>30%，持续<#ffb900ff>1.5秒<>。",
+        "skill2": "<#ff9028ff>守势<>：获得<#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#e8d44dff>护盾<>，并获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移动速度<>，持续<#ffb900ff>3秒<>。",
+        "ult": "<#ff9028ff>终结一击<>：跃向目标敌方英雄，对附近敌人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。"
+      }
+    },
+    "skill_name": {
+      "mymod_hero": {
+        "skill1": "剑气",
+        "skill2": "守势",
+        "ult": "终结一击"
+      }
+    }
+  },
+  "zh-hant": {
+    "description": {
+      "mymod_hero": {
+        "name": "英雄",
+        "attack": "普攻造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。每第<#ffb900ff>3<>次普攻改為造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160% 攻擊力<>。",
+        "skill": "<#ff9028ff>劍氣<>：向前方釋放劍氣，對命中的所有敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>，並使其<#ef5350ff>緩速<>30%，持續<#ffb900ff>1.5秒<>。",
+        "skill2": "<#ff9028ff>守勢<>：獲得<#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#e8d44dff>護盾<>，並獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>20% 移動速度<>，持續<#ffb900ff>3秒<>。",
+        "ult": "<#ff9028ff>終結一擊<>：躍向目標敵方英雄，對附近敵人造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。"
+      }
+    },
+    "skill_name": {
+      "mymod_hero": {
+        "skill1": "劍氣",
+        "skill2": "守勢",
+        "ult": "終結一擊"
+      }
+    }
+  },
+  "ko": {
+    "description": {
+      "mymod_hero": {
+        "name": "영웅",
+        "attack": "기본 공격은 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 줍니다. <#ffb900ff>3<>번째 공격마다 대신 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 160%<> 피해를 줍니다.",
+        "skill": "<#ff9028ff>검기<>: 앞으로 검기를 날려 적중한 모든 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>를 주고 <#ffb900ff>1.5초<> 동안 30% <#ef5350ff>둔화<>시킵니다.",
+        "skill2": "<#ff9028ff>수비 태세<>: <#ffb900ff>3초<> 동안 <#e8d44dff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<>의 <#e8d44dff>보호막<>과 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 20%<>를 얻습니다.",
+        "ult": "<#ff9028ff>마무리 일격<>: 대상 적 챔피언에게 도약해 주변 적에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> <#ff9028ff>물리 피해<>를 주고 <#ffb900ff>1초<> 동안 <#ef5350ff>기절<>시킵니다."
+      }
+    },
+    "skill_name": {
+      "mymod_hero": {
+        "skill1": "검기",
+        "skill2": "수비 태세",
+        "ult": "마무리 일격"
+      }
+    }
+  }
+}

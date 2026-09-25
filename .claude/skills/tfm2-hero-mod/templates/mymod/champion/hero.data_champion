@@ -1,0 +1,325 @@
+{
+  "id": "mymod_hero",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC"
+  ],
+  "sprite": "asset/base/aseprite_resources/champions/fighter",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/mymod/icons/hero_skill",
+    "asset/mymod/icons/hero_skill2",
+    "asset/mymod/icons/hero_ult"
+  ],
+  "stat": {
+    "attack": 95,
+    "magic_power": 0,
+    "hp": 1000,
+    "defence": 30,
+    "magic_resistance": 25,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 19,
+    "magic_power": 0,
+    "hp": 100,
+    "defence": 9,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.mymod_hero.attack",
+    "duration": 22,
+    "cooltime": 65,
+    "start_timing": 14,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "fighter_attack"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "mymod_hero_stack_2",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 30,
+                "attack_ratio": 160
+              },
+              {
+                "type": "ViewEffect",
+                "name": "mymod_hero_empowered_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "fighter_skill_hit"
+              },
+              {
+                "type": "RemoveCasterBuff",
+                "name": "mymod_hero_stack_2"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "mymod_hero_stack_1",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "mymod_hero_stack_1"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "mymod_hero_stack_2",
+                    "duration": "Permanent",
+                    "is_hidden": true
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "mymod_hero_stack_1",
+                    "duration": "Permanent",
+                    "is_hidden": true
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.mymod_hero.skill",
+    "duration": 20,
+    "cooltime": 300,
+    "start_timing": 8,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "fighter_skill"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "mymod_hero_wave",
+          "speed": 4500,
+          "range": 55000,
+          "penetrate": true,
+          "shape": {
+            "Circle": {
+              "radius": 9000
+            }
+          },
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Attack",
+                    "damage": 60,
+                    "attack_ratio": 90
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "mymod_hero_wave_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -30
+                    }
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "fighter_skill_hit"
+                  }
+                ]
+              }
+            }
+          ],
+          "end_effects": []
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.mymod_hero.skill2",
+    "duration": 20,
+    "cooltime": 360,
+    "start_timing": 6,
+    "cancelable": true,
+    "range": 30000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "can_use_with_move": true,
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "fighter_skill2"
+        },
+        {
+          "type": "Shield",
+          "amount": 100,
+          "attack_ratio": 50,
+          "ap_ratio": 0,
+          "hp_ratio": 0,
+          "tick": 180
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "mymod_hero_guard",
+            "duration": {
+              "Time": {
+                "tick": 180
+              }
+            },
+            "move_speed_mult": 20
+          },
+          "only_to_enemy": false
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.mymod_hero.ult",
+    "duration": 36,
+    "cooltime": 3000,
+    "start_timing": 10,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "fighter_ult"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 4000,
+          "range": 45000,
+          "end_effects": [
+            {
+              "type": "ViewEffect",
+              "name": "mymod_hero_ult_impact"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 25000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 150,
+                  "attack_ratio": 120
+                },
+                {
+                  "type": "Stun",
+                  "duration": 60
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "mymod_hero_wave",
+      "anim": "asset/base/aseprite_resources/skill_effect/swordman_effect",
+      "tag": "skill_projectile",
+      "repeat": true
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "mymod_hero_empowered_hit",
+      "anim": "asset/base/aseprite_resources/skill_effect/swordman_effect",
+      "tag": "skill"
+    },
+    {
+      "type": "Animation",
+      "name": "mymod_hero_ult_impact",
+      "anim": "asset/base/aseprite_resources/skill_effect/swordman_effect",
+      "tag": "ult",
+      "z": -1
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "mymod_hero_guard",
+      "anim": "asset/base/aseprite_resources/skill_effect/shield_receive_effect",
+      "tag": "shield_receive"
+    }
+  ]
+}
