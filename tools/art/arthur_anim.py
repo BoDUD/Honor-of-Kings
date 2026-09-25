@@ -87,11 +87,11 @@ def idle():
 
 def run():
     legs = [
-        (("F", -1, "plant"), ("B", 3, "plant")),   # contact: near leg in front
-        (("F", -1, "plant"), ("B", 3, "plant")),   # down
+        (("F", 2, "plant"), ("B", 0, "plant")),    # contact: near foot ahead, far foot behind
+        (("F", 2, "plant"), ("B", 0, "plant")),    # down
         (("S", -2, "plant"), ("P", 3, "hang")),    # passing: far leg swings through
-        (("B", -3, "plant"), ("F", 2, "plant")),   # contact: far leg in front
-        (("B", -3, "plant"), ("F", 2, "plant")),   # down
+        (("B", -2, "plant"), ("F", 3, "plant")),   # contact: far foot ahead, near foot behind
+        (("B", -2, "plant"), ("F", 3, "plant")),   # down
         (("P", -2, "hang"), ("S", 2, "plant")),    # passing: near leg swings through
     ]
     hip = [(1, 1), (1, 2), (1, 0), (1, 1), (1, 2), (1, 0)]
