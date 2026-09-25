@@ -258,3 +258,101 @@ Pose reference: the SECOND attached image is a 3D render of Garen's real in-game
 Animation: BASIC ATTACK, a heavy diagonal slash, 6 frames, as in the pose reference: 1 facing the viewer, the greatsword swung low behind him to the left; 2 the sword raised high up and back to the left, body coiled; 3 top of the backswing, the blade level behind his head; 4 the slash: the blade sweeps diagonally down to the right with a bright silver-white arc smear, strong lunge forward; 5 impact: the blade driven forward to the right at waist height, knees bent; 6 recovery: sword held forward to the right, lowering. Feet stay on the ground line.
 Layout: one horizontal row of 6 equal square cells, no gaps, no borders, no labels. In every cell the character has exactly the same size: about 60% of the cell height, feet on an invisible ground line at 88% of the cell height, body horizontally centered; the whole sword and the smear must stay inside their own cell. Transparent background (if not possible: solid #FF00FF magenta).
 ```
+
+## 第四轮：跑步和技能动作全部按第三轮的造型重画（7 张）
+
+第三轮之后还有两个问题：
+- 跑步还是第二轮从侧后方画的，一跑就露背。
+- 各轮 GPT 画出的比例不同：第一轮的技能图头大肩宽，第三轮的待机头小一些，放技能时看起来忽大忽小。
+
+所以跑步和第一轮留下的 6 个动作都重画。每张都附第三轮待机截出来的 `garen_ref_v3.png` 作为造型和大小基准，有英雄联盟原版动画的再附正面姿势参考图（从客户端渲染、翻转成朝右）。战吼和受击在英雄联盟里没有对应动画，只附造型图。
+
+| 生成文件 | 帧数 | 第一张图 | 第二张图 |
+|---|---:|---|---|
+| `garen_run.png` | 6 | garen_ref_v3.png | garen_pose_run.png |
+| `garen_q_attack.png` | 7 | garen_ref_v3.png | garen_pose_q_attack.png |
+| `garen_skill.png` | 4 | garen_ref_v3.png | 无 |
+| `garen_spin.png` | 8 | garen_ref_v3.png | garen_pose_spin.png |
+| `garen_ult.png` | 8 | garen_ref_v3.png | garen_pose_ult.png |
+| `garen_hit.png` | 2 | garen_ref_v3.png | 无 |
+| `garen_dead.png` | 7 | garen_ref_v3.png | garen_pose_dead.png |
+
+姿势参考图的渲染命令（都加 `--yaw 55 --pitch 25 --size 360 --width 1.35 --bg 225,225,225 --no-labels --mirror`）：
+
+```bash
+python tools/lol/pose_ref.py --anim _Run.anm --times 0,156,311,467,622,778 --fit 0.48 --shift -0.06 --out ref
+python tools/lol/pose_ref.py --anim Garen_2013_spell1 --times 0,90,180,270,360,540,810 --fit 0.3 --ground 0.82 --out ref
+python tools/lol/pose_ref.py --anim spell3_0 --times 0,33,67,100,133,167,200,233 --fit 0.48 --ground 0.8 --out ref
+python tools/lol/pose_ref.py --anim spell4 --times 0,150,250,330,600,900,1150,1300 --fit 0.4 --ground 0.8 --out ref
+python tools/lol/pose_ref.py --anim Death --times 0,260,520,780,1040,1560,2340 --fit 0.46 --ground 0.8 --out ref
+```
+
+E 在英雄联盟里转一圈 0.27 秒，每帧 45°，所以取连续 8 帧正好一圈。
+
+### 3d. `garen_run.png`：跑步，6 帧循环
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game run cycle from League of Legends, seen from the front, 6 frames left to right. Copy each frame's pose exactly - lean, legs, arms and where the sword points. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: RUN to the right, 6 frames, seamless loop, as in the pose reference: body leaning forward, the greatsword held low in front of him pointing down and forward, long strides (contact, passing, contact, passing), the cape streaming behind him, slight up-down bounce. The legs keep the same length and shape in every frame.
+Layout: one horizontal row of 6 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: when standing about 60% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 5d. `garen_q_attack.png`：Q「致命打击」跃起重劈，7 帧
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game Decisive Strike from League of Legends, seen from the front, 7 frames left to right. Copy each frame's pose exactly - body, legs, arms, where the sword points and how high he is in the air. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: DECISIVE STRIKE, a leaping overhead blow, 7 frames, as in the pose reference: 1 leaping up, knees tucked, sword held back; 2 rising higher, the blade starting to glow gold; 3 top of the leap, sword cocked back; 4 diving down with the greatsword raised high overhead, blade glowing gold; 5 IMPACT: landing in a deep crouch, the sword slammed down in front of him with a bright gold flash and burst at the blade; 6 crouched recovery, sword in front; 7 rising back into the ready stance of the first image. The ground line is the same in every cell; he is in the air in frames 1-4.
+Layout: one horizontal row of 7 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: when standing about 55% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword and the gold flash stay inside their own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 6d. `garen_skill.png`：Q 施放（战吼），4 帧（只附第一张图）
+
+```text
+Same character as the ATTACHED image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the attached image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Animation: BATTLE CRY, 4 frames, starting and ending in the ready stance of the attached image: 1 raises the greatsword straight up toward the sky with his right arm, feet apart; 2 shouts, mouth open, the blade flashing gold with small sparkles; 3 holds the pose, cape blown back; 4 lowers the sword back into the ready stance of the attached image. Feet stay on the ground line.
+Layout: one horizontal row of 4 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the attached image: about 55% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the raised sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 7d. `garen_spin.png`：E「审判」旋转，8 帧循环（一整圈）
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 view, same camera as the first image.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game Judgment spin from League of Legends, seen from the front, 8 frames left to right - exactly one full turn. Copy each frame's pose exactly - body turn, legs, arms and where the sword points. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: JUDGMENT SPIN, 8 frames, seamless loop, one full turn, as in the pose reference: he spins in place with the greatsword held out flat around waist height; from frame to frame the sword sweeps all the way around him and his body turns with it, so some frames show his side or back exactly as in the reference; the cape swirls. Feet stay on the ground line.
+Layout: one horizontal row of 8 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: about 55% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the extended sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 8d. `garen_ult.png`：R「德玛西亚正义」，8 帧
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game Demacian Justice from League of Legends, seen from the front, 8 frames left to right. Copy each frame's pose exactly - body, legs, arms, where the sword points and how high he jumps. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: DEMACIAN JUSTICE, 8 frames, as in the pose reference: 1 standing, greatsword lowered at his side; 2 raising the sword, the blade starting to glow gold; 3 leaping up with the sword raised high, blade blazing gold; 4 slamming the sword point-down into the ground in front of him, landing in a crouch; 5 holding, crouched over the planted glowing sword; 6 holding, gold light fading; 7 pulling the sword out, rising; 8 back in the ready stance of the first image. The ground line is the same in every cell; he is in the air only in frame 3.
+Layout: one horizontal row of 8 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: when standing about 55% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword and its glow stay inside their own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 9d. `garen_hit.png`：受击，2 帧（只附第一张图）
+
+```text
+Same character as the ATTACHED image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the attached image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Animation: HIT REACTION, 2 frames, based on the ready stance of the attached image: 1 flinches from a blow: upper body jolted back, grimacing, sword lowered, feet planted; 2 recovering, almost back in the ready stance of the attached image.
+Layout: one horizontal row of 2 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the attached image: about 60% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
+
+### 10d. `garen_dead.png`：死亡，7 帧
+
+```text
+Same character as the FIRST attached image (Garen, League of Legends) - copy his exact design, colors, proportions and size: big Demacian knight in silver plate armor with royal-blue cloth and gold trim, huge silver pauldrons, gold Demacia crest on the chest, royal-blue cape, short brown hair, massive silver greatsword with gold crossguard.
+Style: pixel art sprite like Teamfight Manager 2, exactly like the first image: chunky square pixels, hard edges, 1-pixel black outline, flat cel shading 3-4 tones, no anti-aliasing, no gradients, about 32 colors, chibi proportions. 3/4 FRONT view facing right: we see his face, his chest and the gold crest; the cape hangs behind him. Never show his back.
+Pose reference: the SECOND attached image is a 3D render of Garen's real in-game death from League of Legends, seen from the front, 7 frames left to right. Copy each frame's pose exactly. Take only the poses from it: draw the character like the first image, in the same pixel-art style, not like the render (ignore its colors, lighting and low-poly look).
+Animation: DEATH, 7 frames, as in the pose reference: 1 staggers, sword lowered; 2 the greatsword drops from his hands and lies on the ground; 3 bends forward, sinking; 4 falls to his knees; 5 sits back, slumping; 6 collapses onto his side; 7 lies still on the ground next to his sword.
+Layout: one horizontal row of 7 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image (about 60% of the cell height when standing); ground line at 88% of the cell height in every cell; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
+```
