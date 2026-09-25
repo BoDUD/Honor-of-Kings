@@ -43,36 +43,38 @@ BAND = 12       # px of legs used to line frames up
 # anchor: feet = line the legs up with idle f0; head = put the head at
 #         head=("idle", dx): dx px ahead of idle's head, ("abs", x): x px from the pivot, or
 #         ("track", [x per frame]): follow League's own head path (tools/lol/pose_ref.py clips)
-# pivot_head (idle only): where idle f0's head sits, px right of the pivot (League: +2.7)
+# pivot_head (idle only): put the pivot so idle f0's head sits there instead of mid-stance
 # round=1: drawn in the first batch, so its legs are matched against the round-1 idle (their
 #          frame-to-frame placement stays as verified in-game)
-# start_head: shift the whole strip so frame head_frame (default 0) has its head there (px from
-#             the pivot), so leaving idle does not jump; the strip's own motion is kept
+# start_head="idle": shift the whole strip so frame head_frame (default 0) has its head where idle
+#             f0's is, so leaving idle does not jump; the strip's own motion is kept
 # free: frames placed by the drawn spacing, corrected like their aligned neighbours (used where
 #       a sword tip or burst touches the ground and would be mistaken for a foot)
 # dx: extra shift per frame in source px (+ = right), to keep the planted foot still
 # ground: per-frame lowest pixel, or "strip" = the strip's median (keeps the run bounce; ignores a
 #         sword tip that dips below the feet)
 # drop: frames left out of the sprite (ms lists only the kept frames)
-# idle/run/attack are the round-2 strips drawn from League's own animations (PROMPTS.md): the sword is
-# held forward, so the old sword-on-shoulder endings of q_attack and ult are dropped
+# idle/attack (round 3, front view) and run (round 2) are drawn from League's own animations
+# (PROMPTS.md); the sword is held in front, so the old sword-on-shoulder endings of q_attack and ult
+# are dropped
 CHAR = {
-    # round-2 Garen is drawn less chibi (longer legs): scaled so his height, not his head, matches
-    "idle":     dict(n=6, tall=250, ms=[150] * 6, anchor="feet", pivot_head=2.7),
-    "run":      dict(n=6, tall=240, ms=[90] * 6, anchor="head", head=("idle", 2.0), ground="strip"),
-    # Attack_01 at 0/300/333/367/400/560 ms: head path relative to the unit, in sprite px
-    "attack":   dict(n=6, tall=250, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
-                     head=("track", [-3.6, -3.0, -0.6, 4.7, 4.8, 4.8])),
+    # later rounds are scaled by height (~35 px standing), heads within the usual spread
+    "idle":     dict(n=6, tall=250, ms=[150] * 6, anchor="feet"),
+    "run":      dict(n=6, tall=240, ms=[90] * 6, anchor="head", head=("abs", 4.7), ground="strip"),
+    # Attack_01 at 0/300/333/367/400/560 ms, seen like the reference (mirrored yaw 55): head path
+    # relative to the unit in sprite px; run: League Run at yaw 70
+    "attack":   dict(n=6, tall=226, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
+                     head=("track", [-3.5, 0.3, 2.2, 6.8, 7.3, 7.1])),
     "q_attack": dict(n=7, tall=272, ms=[50, 50, 55, 55, 90, 200], anchor="feet", free=[1, 2, 3, 4], drop=[6],
-                     round=1, start_head=2.7),
-    "skill":    dict(n=4, tall=355, ms=[80, 90, 80, 83], anchor="feet", round=1, start_head=2.7),
+                     round=1, start_head="idle"),
+    "skill":    dict(n=4, tall=355, ms=[80, 90, 80, 83], anchor="feet", round=1, start_head="idle"),
     "spin":     dict(n=8, tall=196, ms=[54] * 8, anchor="head", head=("abs", 1.0)),
     "ult":      dict(n=8, tall=267, ms=[80, 80, 90, 80, 70, 90, 177], anchor="feet", drop=[7], round=1,
-                     start_head=2.7),
+                     start_head="idle"),
     "hit":      dict(n=2, tall=560, ms=[70, 70], anchor="feet", free=[0], dx=[-120, 0],  # back foot planted
-                     round=1, start_head=2.7, head_frame=1),                   # f0 leans back from there
+                     round=1, start_head="idle", head_frame=1),                   # f0 leans back from there
     "dead":     dict(n=7, tall=285, ms=[100, 100, 120, 160, 120, 120, 400], anchor="feet", free=[5, 6],
-                     round=1, start_head=2.7),
+                     round=1, start_head="idle"),
 }
 CHAR_COLORS = 64
 
@@ -161,7 +163,8 @@ def load_char():
             ax[i] -= d
         if "start_head" in c:
             k = c.get("head_frame", 0)
-            shift = head_x(st["frames"][k]) - c["start_head"] / s - ax[k]
+            at = idle_head if c["start_head"] == "idle" else c["start_head"]
+            shift = head_x(st["frames"][k]) - at / s - ax[k]
             ax = [a + shift for a in ax]
         st["ax"] = ax
     return strips
