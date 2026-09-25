@@ -185,6 +185,46 @@
               "tick": 120
             }
           ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 0,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_courage"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 30,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_courage"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 60,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_courage"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 90,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_courage"
+            }
+          ]
         }
       ]
     }
@@ -214,21 +254,13 @@
           "tick": 180
         },
         {
-          "type": "AddCasterBuff",
-          "buff_state": {
-            "name": "league_garen_judgment",
-            "duration": {
-              "Time": {
-                "tick": 180
-              }
-            }
-          },
-          "only_to_enemy": false
-        },
-        {
           "type": "Delayed",
           "tick": 0,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "RandomTarget",
               "range": 60000,
@@ -271,6 +303,10 @@
           "tick": 26,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "RandomTarget",
               "range": 60000,
               "casting_target": "EnemyChampion",
@@ -307,6 +343,10 @@
           "type": "Delayed",
           "tick": 51,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "RandomTarget",
               "range": 60000,
@@ -349,6 +389,10 @@
           "tick": 77,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "RandomTarget",
               "range": 60000,
               "casting_target": "EnemyChampion",
@@ -385,6 +429,10 @@
           "type": "Delayed",
           "tick": 103,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "RandomTarget",
               "range": 60000,
@@ -427,6 +475,10 @@
           "tick": 129,
           "effects": [
             {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
+            {
               "type": "RandomTarget",
               "range": 60000,
               "casting_target": "EnemyChampion",
@@ -463,6 +515,10 @@
           "type": "Delayed",
           "tick": 154,
           "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_garen_spin"
+            },
             {
               "type": "RandomTarget",
               "range": 60000,
@@ -580,6 +636,22 @@
       "tag": "impact",
       "z": 1,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_garen_spin",
+      "anim": "asset/league/effects/league_garen_spin",
+      "tag": "loop",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_garen_courage",
+      "anim": "asset/league/effects/league_garen_buffs",
+      "tag": "courage",
+      "z": 1,
+      "is_follow": true
     }
   ],
   "view_buffs": [
@@ -589,20 +661,6 @@
       "anim": "asset/league/effects/league_garen_buffs",
       "tag": "decisive",
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_garen_courage",
-      "anim": "asset/league/effects/league_garen_buffs",
-      "tag": "courage",
-      "z": 1
-    },
-    {
-      "type": "Animated",
-      "name": "league_garen_judgment",
-      "anim": "asset/league/effects/league_garen_spin",
-      "tag": "loop",
-      "z": 1
     }
   ]
 }
