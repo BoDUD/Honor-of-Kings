@@ -197,7 +197,7 @@
     "start_timing": 2,
     "cancelable": false,
     "range": 28000,
-    "casting_type": "None",
+    "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "can_use_with_move": true,

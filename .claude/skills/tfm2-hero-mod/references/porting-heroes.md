@@ -75,7 +75,8 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   shield/taunt; Alistar: R + E heal). Silverbear's simpler heroes just drop them.
 - Example (league_garen): Q Decisive Strike + W Courage (shield, damage reduction, tenacity) ->
   `skill`; E Judgment (`CasterAnimation spin` for 3 s, plus a short `MoveToTarget` in each of the
-  7 damage pulses because the forced animation holds him still) -> `skill2`, with
+  7 damage pulses because the forced animation holds him still; cast as `Targeting` so the dashes
+  have a target) -> `skill2`, with
   Perseverance as high `hp_regen` noted in its text; R Demacian Justice -> `ult` (true damage;
   missing-HP scaling exists only in base-only Native effects, so use `target_hp_ratio`).
 - Ids: `<mod_id>_<champion>` (`league_garen`). The user's own `lol_mod` uses `lol_*`, so keep a

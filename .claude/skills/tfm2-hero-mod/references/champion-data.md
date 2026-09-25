@@ -236,9 +236,12 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
 
 **Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
 spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short
-`MoveToTarget {speed: 1400, range: 60000, end_effects: []}` next to its `RangeEffect`. Works with
-`casting_type: None`: the target is the enemy that triggered the cast (LoL Reborn Jax Q). See
-league_garen E.
+`MoveToTarget {speed: 1400, range: 60000, end_effects: []}` next to its `RangeEffect`, and cast
+with `casting_type: Targeting` (`Delayed` keeps the target, as in Nocturne R). See league_garen E.
+
+**`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
+actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
+in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` instead.
 
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
 
