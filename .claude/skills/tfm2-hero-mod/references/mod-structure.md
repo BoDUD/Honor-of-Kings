@@ -46,8 +46,8 @@ resetting `config/game/mods.json` (enabled list / order) is the known fix.
   "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}],
   "description": "One line shown in the in-game mod list.",
   "last_updated": "2026-09-25",
-  "mod_id": "hok",
-  "name": "Honor of Kings Heroes",
+  "mod_id": "league",
+  "name": "League of Legends Heroes",
   "version": "0.1.0"
 }
 ```
@@ -64,10 +64,10 @@ Maps a **base** asset path to one of **your** files:
 
 ```json
 {
-  "asset/base/text/champion":        {"remapping": "asset/hok/text/champion",        "type": "merge"},
-  "asset/base/style/champion_view":  {"remapping": "asset/hok/style/champion_view",  "type": "merge"},
-  "asset/base/sound/sfx/hok_libai_skill_cast":      {"remapping": "asset/hok/sound/sfx/hok_libai_skill_cast",      "type": "override"},
-  "asset/base/sound/sfx/hok_libai_skill_cast_clip": {"remapping": "asset/hok/sound/sfx/hok_libai_skill_cast_clip", "type": "override"}
+  "asset/base/text/champion":        {"remapping": "asset/league/text/champion",        "type": "merge"},
+  "asset/base/style/champion_view":  {"remapping": "asset/league/style/champion_view",  "type": "merge"},
+  "asset/base/sound/sfx/league_garen_q_cast":   {"remapping": "asset/league/sound/sfx/league_garen_q_cast",   "type": "override"},
+  "asset/base/sound/sfx/league_garen_vo_q":     {"remapping": "asset/league/sound/sfx/league_garen_vo_q",     "type": "override"}
 }
 ```
 

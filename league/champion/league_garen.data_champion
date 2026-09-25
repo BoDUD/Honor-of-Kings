@@ -1,0 +1,506 @@
+{
+  "id": "league_garen",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_garen",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_garen_skill",
+    "asset/league/icons/league_garen_skill2",
+    "asset/league/icons/league_garen_ult"
+  ],
+  "stat": {
+    "attack": 88,
+    "magic_power": 0,
+    "hp": 1100,
+    "defence": 34,
+    "magic_resistance": 28,
+    "move_speed": 1000,
+    "hp_regen": 8,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 0,
+    "hp": 110,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 3,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_garen.attack",
+    "duration": 22,
+    "cooltime": 62,
+    "start_timing": 3,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_garen_decisive",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "CasterAnimation",
+            "name": "q_attack",
+            "tick": 30
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_garen_decisive"
+          },
+          {
+            "type": "Delayed",
+            "tick": 13,
+            "effects": [
+              {
+                "type": "Attack",
+                "damage": 40,
+                "attack_ratio": 150
+              },
+              {
+                "type": "BlockSkill",
+                "tick": 90
+              },
+              {
+                "type": "TargetSfx",
+                "name": "league_garen_q_hit"
+              },
+              {
+                "type": "ViewEffect",
+                "name": "league_garen_q_hit"
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 10,
+        "effects": [
+          {
+            "type": "Attack",
+            "damage": 0,
+            "attack_ratio": 100
+          },
+          {
+            "type": "Sfx",
+            "name": "league_garen_attack"
+          },
+          {
+            "type": "ViewEffect",
+            "name": "league_garen_attack_hit"
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_garen.skill",
+    "duration": 20,
+    "cooltime": 480,
+    "start_timing": 4,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "can_use_with_move": true,
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_garen_q_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_garen_q_haste",
+            "duration": {
+              "Time": {
+                "tick": 90
+              }
+            },
+            "move_speed_mult": 35
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_garen_decisive",
+            "duration": {
+              "Time": {
+                "tick": 270
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_garen_courage",
+            "duration": {
+              "Time": {
+                "tick": 120
+              }
+            },
+            "damaged_reduce": 30,
+            "toughness": 60
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 10000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 60,
+              "attack_ratio": 0,
+              "ap_ratio": 0,
+              "hp_ratio": 6,
+              "tick": 120
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "spin",
+    "description": "#asset/base/text/champion?description.league_garen.skill2",
+    "duration": 20,
+    "cooltime": 540,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 28000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "can_use_with_move": true,
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_garen_e_cast"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "spin",
+          "tick": 180
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_garen_judgment",
+            "duration": {
+              "Time": {
+                "tick": 180
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 0,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_garen_e_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 26,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 51,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_garen_e_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 77,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 103,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_garen_e_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 129,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 154,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_garen_e_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 12,
+                  "attack_ratio": 32
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_garen_judgment_shred",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "defence_mult": -25
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_garen.ult",
+    "duration": 40,
+    "cooltime": 3000,
+    "start_timing": 10,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_garen_r_cast"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_garen_r_sword"
+        },
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "FixedAttack",
+              "damage": 150,
+              "attack_ratio": 120,
+              "target_hp_ratio": 12
+            },
+            {
+              "type": "TargetSfx",
+              "name": "league_garen_r_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_garen_attack_hit",
+      "anim": "asset/league/effects/league_garen_hits",
+      "tag": "spark"
+    },
+    {
+      "type": "Animation",
+      "name": "league_garen_q_hit",
+      "anim": "asset/league/effects/league_garen_hits",
+      "tag": "q"
+    },
+    {
+      "type": "Animation",
+      "name": "league_garen_r_sword",
+      "anim": "asset/league/effects/league_garen_r",
+      "tag": "impact",
+      "z": 1
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_garen_decisive",
+      "anim": "asset/league/effects/league_garen_buffs",
+      "tag": "decisive",
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_garen_courage",
+      "anim": "asset/league/effects/league_garen_buffs",
+      "tag": "courage",
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_garen_judgment",
+      "anim": "asset/league/effects/league_garen_spin",
+      "tag": "loop",
+      "z": 1
+    }
+  ]
+}

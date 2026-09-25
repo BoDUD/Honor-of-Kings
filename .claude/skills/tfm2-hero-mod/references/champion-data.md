@@ -18,7 +18,7 @@ Contents
 
 | Field | Notes |
 |---|---|
-| `id` | Unique, namespaced (`hok_libai`). Also the key for text and champion_view. |
+| `id` | Unique, namespaced (`league_garen`). Also the key for text and champion_view. |
 | `category` | `Melee` \| `Range` \| `Magician` \| `Util` \| `Assassin` (drives UI filter + AI role) |
 | `tags` | Free strings used in packs: `AD` `AP` `Melee` `Range` `Tank` `CC` `Magic` `Heal` `Shield` `Dot` |
 | `sprite` | `asset/<mod_id>/champions/<hero>` (no extension) |
@@ -161,7 +161,7 @@ the caster for `tick`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster)
 ## 5. buff_state
 
 ```json
-{"name": "hok_libai_sword_intent", "duration": {"Time": {"tick": 300}}, "attack": 20, "move_speed_mult": 15}
+{"name": "league_garen_q_haste", "duration": {"Time": {"tick": 90}}, "move_speed_mult": 35}
 ```
 
 `duration`: `{"Time": {"tick": N}}` | `"Permanent"` | `"WithShield"` (lasts while the shield
@@ -182,9 +182,9 @@ Effects only simulate; nothing is drawn unless a view entry with the **same name
 the same champion file.
 
 ```json
-"view_projectiles": [{"type": "Animated", "name": "hok_libai_sword_qi", "anim": "asset/hok/fx/libai_sword_qi", "tag": "fly", "repeat": true, "z": 0}],
-"view_effects":     [{"type": "Animation", "name": "hok_libai_slash_hit", "anim": "asset/hok/effects/libai_slash", "tag": "hit", "z": -1, "is_follow": true}],
-"view_buffs":       [{"type": "Animated", "name": "hok_libai_sword_intent", "anim": "asset/hok/buffs/libai_aura", "tag": "loop", "z": -1}]
+"view_projectiles": [{"type": "Animated", "name": "league_garen_wave", "anim": "asset/league/fx/league_garen_wave", "tag": "fly", "repeat": true, "z": 0}],
+"view_effects":     [{"type": "Animation", "name": "league_garen_q_hit", "anim": "asset/league/effects/league_garen_hits", "tag": "q", "z": -1, "is_follow": true}],
+"view_buffs":       [{"type": "Animated", "name": "league_garen_judgment", "anim": "asset/league/effects/league_garen_spin", "tag": "loop", "z": 1}]
 ```
 
 - `view_projectiles` <- the `name` of any projectile/zone effect. Also `{"type": "Sprite", "name", "sprite"}` for a static image.
@@ -239,7 +239,7 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
   `action_name: "skill"` while their sprites only have `skill1`.
 - `SwitchByBuff` checks the caster; the buff must be added somewhere in the same kit.
 - Keep `start_timing <= duration`; long channels need a long `duration` (or `Delayed` effects).
-- Use namespaced names for every buff/projectile/effect (`hok_libai_*`) - names are global-ish
+- Use namespaced names for every buff/projectile/effect (`league_garen_*`) - names are global-ish
   and collisions with other mods are hard to debug.
 - Custom sounds must be injected with override entries or `Sfx` will not find them
   (see `text-audio.md`).

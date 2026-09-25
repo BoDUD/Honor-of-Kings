@@ -6,10 +6,10 @@
 {
   "en": {
     "description": {
-      "hok_libai": {"name": "Li Bai", "attack": "...", "skill": "...", "skill2": "...", "ult": "..."}
+      "league_garen": {"name": "Garen", "attack": "...", "skill": "...", "skill2": "...", "ult": "..."}
     },
     "skill_name": {
-      "hok_libai": {"skill1": "...", "skill2": "...", "ult": "..."}
+      "league_garen": {"skill1": "...", "skill2": "...", "ult": "..."}
     }
   },
   "zh-hans": { ... }
@@ -24,7 +24,7 @@
   `"description": "#asset/base/text/champion?description.<id>.<slot>"`.
 - Note the key asymmetry: descriptions use `skill`/`skill2`/`ult`, `skill_name` uses
   `skill1`/`skill2`/`ult`.
-- Use the franchise's **official localized names** per language (e.g. 李白 / Li Bai / 이백).
+- Use the franchise's **official localized names** per language (e.g. 盖伦 / 蓋倫 / Garen / 가렌 / ガレン).
 
 ### Rich text
 
@@ -59,7 +59,7 @@ Pattern: `<#ff9028ff>Skill Name<>: what it does, <#ff9028ff>150<> + <i#...:ad_0>
 ## style/champion_view.champion_view (merged into asset/base/style/champion_view)
 
 ```json
-{"entries": {"hok_libai": {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -12}}}}
+{"entries": {"league_garen": {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -12}}}}
 ```
 
 Offsets in sprite pixels measured **up from the feet** (negative y = higher). `center` is the

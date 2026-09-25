@@ -1,4 +1,4 @@
-# Porting heroes from another MOBA (Honor of Kings, LoL, Dota 2, ...)
+# Porting heroes from another MOBA (League of Legends, Dota 2, ...)
 
 The two principles every successful pack writes in its description:
 
@@ -11,8 +11,7 @@ The two principles every successful pack writes in its description:
 
 | Source game | TFM2 |
 |---|---|
-| Honor of Kings: passive + skill 1 + skill 2 + ultimate | `attack` (+passive via buffs) / `skill` / `skill2` / `ult` - maps 1:1 |
-| League of Legends: passive + Q W E R | drop or merge one basic ability; R -> `ult` |
+| League of Legends: passive + Q W E R | two basics -> `skill` / `skill2`, R -> `ult`; fold the third basic and the passive in (see below) |
 | Dota 2: 3 basics + ultimate (+ facets/aghs) | pick the 2 most iconic basics |
 
 Roles: tank / fighter -> `Melee` (tags `Tank`, `CC`), assassin -> `Assassin`,
@@ -67,15 +66,26 @@ translate relative strengths: if the source hero's skill is its main damage, giv
 larger ratio; long source cooldowns stay long relative to the hero's other skills. Ultimates
 sit at 2400-3600 ticks. Never copy raw numbers from the source game.
 
-## Honor of Kings specifics
+## League of Legends specifics
 
-- Kits are passive + 2 skills + ultimate: the cleanest 1:1 mapping of any big MOBA.
-- Ids: `hok_<pinyin>` (e.g. `hok_libai`, `hok_houyi`); the mod_id doubles as namespace.
-- Text: zh-hans uses the official Chinese names/skill names; `en` uses the official global
-  (Honor of Kings, 2024) names; zh-hant uses the traditional-script forms.
-- Many HoK kits have multi-stage recasts, dashes and brief untargetable windows (common in
-  assassins/fighters) - see the ~ rows above; marksmen and mages are usually the most direct ports.
-- Recognition lives in default skins and official art: sprite from the default skin, icons from
-  the official skill icons (oppi style), thumbnail from the official splash.
-- Add the fan-mod disclaimer the packs use: non-commercial, characters belong to their owner
-  (Honor of Kings (c) Tencent / TiMi Studio Group).
+How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slots:
+- `ult` is always R. `skill` / `skill2` are the two most iconic basics.
+- The third basic and the passive are **folded in**, written as "Passive: ..." or as an extra
+  effect of one of the two skills (Jax: E + passive stacks; Vi: Q + Blast Shield; Galio: E + W
+  shield/taunt; Alistar: R + E heal). Silverbear's simpler heroes just drop them.
+- Example (league_garen): Q Decisive Strike + W Courage (shield, damage reduction, tenacity) ->
+  `skill`; E Judgment (spin while moving via `CasterAnimation spin` for 3 s) -> `skill2`, with
+  Perseverance as high `hp_regen` noted in its text; R Demacian Justice -> `ult` (true damage;
+  missing-HP scaling exists only in base-only Native effects, so use `target_hp_ratio`).
+- Ids: `<mod_id>_<champion>` (`league_garen`). The user's own `lol_mod` uses `lol_*`, so keep a
+  different prefix for anything that may be installed next to it.
+- Text: official names per language (zh-hans from the Chinese client, zh-hant, en, ko, ja).
+- Assets come from the local client, read-only: `tools/lol/riot.py` reads WAD 3.x (xxh64 path
+  hashes, zstd via Python 3.14 `compression.zstd`), Riot WPK packs and Wwise banks (bank version
+  145: events -> actions -> sounds/containers), and resolves `Play_sfx_<Champ>_*` /
+  `Play_vo_<Champ>_*` event names (plain strings in the champion `.bin` files) to .wem media;
+  vgmstream decodes the .wem. Ability icons are `ASSETS/Characters/<Champ>/HUD/Icons2D/*.dds`.
+- Chinese voice: `<Champ>.zh_CN.wad.client` in the Tencent (WeGame) client; inside it the banks
+  keep the `vo/en_us/` path.
+- Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
+  (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).

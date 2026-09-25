@@ -6,7 +6,7 @@ description: >-
   champion/*.data_champion JSON kits, Aseprite pixel sprites (.aseprite or #sheet.png +
   #anim.fanim), 64x64 skill icons, champion.i18n text, champion_view offsets and sfx
   .sound_info files, plus the Steam Workshop page. Use this skill whenever the user wants to add
-  heroes from another game (王者荣耀/Honor of Kings, League of Legends, Dota 2, anime...) to TFM2,
+  heroes from another game (League of Legends / 英雄联盟, Dota 2, anime...) to TFM2,
   design or balance a TFM2 skill kit or effect tree, draw or check TFM2-style pixel sprites or VFX,
   write TFM2 localization, debug a mod hero that does not load / shows no animation / has invisible
   effects or silent sounds, or prepare a Workshop release - even if they only say
@@ -84,7 +84,7 @@ empty tooltip). That is why the linter exists - run it after every edit.
 | `references/champion-data.md` | full schema, units, base balance ranges, effect catalogue, buff fields, view bindings, proven patterns |
 | `references/art-spec.md` | sprite/VFX/icon spec with measured numbers, animation tags and timings, anchoring, QA |
 | `references/text-audio.md` | i18n structure, rich-text colours and icons, champion_view, sound_info |
-| `references/porting-heroes.md` | adapting HoK / LoL / Dota kits, mechanic->effect feasibility, hero scoring |
+| `references/porting-heroes.md` | adapting LoL / Dota kits, mechanic->effect feasibility, hero scoring, LoL file extraction |
 | `references/workshop-page.md` | thumbnail, showcase GIF, collection page, BBCode description, change notes |
 | `scripts/lint_mod.py` | static validation of a whole mod folder (exit 1 on errors) |
 | `scripts/tfm2_ase.py` | `info` / `render` / `metrics` for .aseprite, exported sheets, or base sprites by asset path |
