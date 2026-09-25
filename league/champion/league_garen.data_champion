@@ -198,7 +198,7 @@
     "cancelable": false,
     "range": 28000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyWithoutTower",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "can_use_with_move": true,
     "effect": {
@@ -230,10 +230,18 @@
           "tick": 0,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "Sfx",
@@ -263,10 +271,18 @@
           "tick": 26,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "RangeEffect",
@@ -292,10 +308,18 @@
           "tick": 51,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "Sfx",
@@ -325,10 +349,18 @@
           "tick": 77,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "RangeEffect",
@@ -354,10 +386,18 @@
           "tick": 103,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "Sfx",
@@ -387,10 +427,18 @@
           "tick": 129,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "RangeEffect",
@@ -416,10 +464,18 @@
           "tick": 154,
           "effects": [
             {
-              "type": "MoveToTarget",
-              "speed": 1400,
+              "type": "RandomTarget",
               "range": 60000,
-              "end_effects": []
+              "casting_target": "EnemyChampion",
+              "from_projectile": false,
+              "effects": [
+                {
+                  "type": "MoveToTarget",
+                  "speed": 1400,
+                  "range": 60000,
+                  "end_effects": []
+                }
+              ]
             },
             {
               "type": "Sfx",

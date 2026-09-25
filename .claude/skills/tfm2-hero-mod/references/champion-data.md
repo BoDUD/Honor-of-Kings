@@ -235,9 +235,12 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
 
 **Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
-spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short
-`MoveToTarget {speed: 1400, range: 60000, end_effects: []}` next to its `RangeEffect`, and cast
-with `casting_type: Targeting` (`Delayed` keeps the target, as in Nocturne R). See league_garen E.
+spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short dash next
+to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion, effects:
+[MoveToTarget {speed: 1400, range: 60000, end_effects: []}]}`. Re-pick the target on every pulse:
+chasing only the cast target left Garen spinning in place once it died - at once when it was a
+minion. Cast it with `casting_target: EnemyChampion` so it opens on champions; minions still take
+the spin damage. See league_garen E.
 
 **`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
 actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
