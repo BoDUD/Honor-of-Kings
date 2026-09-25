@@ -82,6 +82,8 @@ Cooldowns (ticks, median [IQR]): skill 240-420, skill2 300-480, ult 2400-3600 (a
   `casting_target: EnemyChampion` + a `range` (cast when an enemy champion is that close) - this
   is how Nocturne's shroud is wired. `AllyOnlySelf` + range 0 also exists (Aatrox ult).
 - `action_name` may be any tag: `ult_cast`, `skill2_dash`... Base uses this heavily.
+- `can_use_with_move` lets the unit cast without stopping. No base skill uses it (LoL Reborn
+  does), and it does not let the unit walk during a `CasterAnimation`.
 - `patch_type_name` only appears in base data (patch notes); skip it.
 
 ## 4. Effect catalogue
@@ -152,7 +154,8 @@ RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
 **Presentation**
 `ViewEffect {name}` (play a `view_effects` animation on the target/point),
 `CasterViewEffect {name}` (on the caster), `CasterAnimation {name, tick}` (force a sprite tag on
-the caster for `tick`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
+the caster for `tick`; the caster stays in place meanwhile, so move it from the effect tree with
+`MoveToTarget` / `MoveTo` / `RushTime`), `RemoveCasterAnimation {name}`, `Sfx {name}` (at caster),
 `TargetSfx {name}` (at target). Base `ViewEffect` entries sometimes carry `range/speed/time/radius`.
 
 **Base only - do not use in mods:** `Native` (calls hard-coded logic via `effect_ref`),
@@ -231,6 +234,12 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
 **Channel with its own animation.** `CasterAnimation {name, tick}` + `Delayed` hits +
 `RemoveCasterAnimation` at the end (Nocturne ult, Marisa laser).
 
+**Spin that keeps chasing.** The forced animation holds the caster still (seen in-game: a 3 s
+spin with only `can_use_with_move` stood in place), so give every `Delayed` pulse a short
+`MoveToTarget {speed: 1400, range: 60000, end_effects: []}` next to its `RangeEffect`. Works with
+`casting_type: None`: the target is the enemy that triggered the cast (LoL Reborn Jax Q). See
+league_garen E.
+
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
 
 ## 8. Gotchas
@@ -243,4 +252,6 @@ caster buff with `cc_immune` / `damaged_reduce` if needed.
   and collisions with other mods are hard to debug.
 - Custom sounds must be injected with override entries or `Sfx` will not find them
   (see `text-audio.md`).
+- The engine plays `<champion id>_attack` on every basic attack by itself; never play that name
+  from the effect tree too (see `text-audio.md`).
 - Run `python scripts/lint_mod.py <mod>` after every edit.

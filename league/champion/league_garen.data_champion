@@ -98,7 +98,7 @@
           },
           {
             "type": "Sfx",
-            "name": "league_garen_attack"
+            "name": "league_garen_attack_hit"
           },
           {
             "type": "ViewEffect",
@@ -230,6 +230,12 @@
           "tick": 0,
           "effects": [
             {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
+            {
               "type": "Sfx",
               "name": "league_garen_e_hit"
             },
@@ -257,6 +263,12 @@
           "tick": 26,
           "effects": [
             {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
+            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -279,6 +291,12 @@
           "type": "Delayed",
           "tick": 51,
           "effects": [
+            {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
             {
               "type": "Sfx",
               "name": "league_garen_e_hit"
@@ -307,6 +325,12 @@
           "tick": 77,
           "effects": [
             {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
+            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -329,6 +353,12 @@
           "type": "Delayed",
           "tick": 103,
           "effects": [
+            {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
             {
               "type": "Sfx",
               "name": "league_garen_e_hit"
@@ -357,6 +387,12 @@
           "tick": 129,
           "effects": [
             {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
+            {
               "type": "RangeEffect",
               "shape": {
                 "Circle": {
@@ -379,6 +415,12 @@
           "type": "Delayed",
           "tick": 154,
           "effects": [
+            {
+              "type": "MoveToTarget",
+              "speed": 1400,
+              "range": 60000,
+              "end_effects": []
+            },
             {
               "type": "Sfx",
               "name": "league_garen_e_hit"

@@ -7,8 +7,8 @@
     "remapping": "asset/league/style/champion_view",
     "type": "merge"
   },
-  "asset/base/sound/sfx/league_garen_attack": {
-    "remapping": "asset/league/sound/sfx/league_garen_attack",
+  "asset/base/sound/sfx/league_garen_attack_hit": {
+    "remapping": "asset/league/sound/sfx/league_garen_attack_hit",
     "type": "override"
   },
   "asset/base/sound/sfx/league_garen_q_cast": {

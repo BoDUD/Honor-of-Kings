@@ -80,6 +80,12 @@ body centre (base default y -12, where hits/health bar anchor); `face` is the he
   `asset/base/sound/sfx/<name>` -> `asset/<mod_id>/sound/sfx/<name>` and
   `asset/base/sound/sfx/<clip>` -> `asset/<mod_id>/sound/sfx/<clip>`, both `"override"`.
 - Name sounds `<mod>_<hero>_<slot>_<cast|hit>` so they never collide.
+- **`<champion id>_attack` plays by itself.** 61 of 67 base attacks have no `Sfx` in their data,
+  yet each champion has a sound named `<id>_attack`: the engine plays it on every basic attack.
+  Do not also play `<id>_attack` from the attack's effect tree - it sounds twice (league_garen:
+  the explicit hit landed 10 ticks after the automatic one and players heard two swings). Name
+  explicit attack sounds `<id>_attack_hit` / `<id>_attack_cast` like base and the later LoL Reborn
+  heroes, or rely on the automatic one when the hit comes at `start_timing`.
 - Normalise loudness; packs use volume 0.4-1.0 per clip. Several `plays` entries with `delay`
   layer sounds (e.g. a cast whoosh then an impact).
 - No sound yet? Reuse base ones (`python scripts/bundle_tool.py sfx`), e.g. `fighter_attack`,
