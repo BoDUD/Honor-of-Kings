@@ -4,6 +4,8 @@
 
 第一个英雄：盖伦（`league_garen`）。
 
+![盖伦演示：普攻、Q+W、强化普攻、E 旋转、R 德玛西亚正义](docs/preview/league_garen_showcase.gif)
+
 ## 英雄：盖伦
 
 技能按创意工坊 *League of Legends Reborn* 的做法处理。团战经理2 只有「技能1、技能2、大招」三个技能位，所以大招放 R，两个技能位放最有代表性的两个小技能，剩下的小技能和被动合并进去。
@@ -13,7 +15,8 @@
 | 技能1 | Q「致命打击」：加速；下一次普攻变成跃起重击并沉默目标。合并 W「勇气」：减伤、韧性、护盾 |
 | 技能2 | E「审判」：旋转 3 秒，可以边转边走，共 7 次伤害，最后一次降低护甲。被动「坚韧」：高生命回复 |
 | 大招 | R「德玛西亚正义」：巨剑从天而降，造成真实伤害 |
-| 精灵图、特效 | 由 GPT 按 [`assets/source/garen/PROMPTS.md`](assets/source/garen/PROMPTS.md) 生成，再导入成游戏尺寸的像素图（**待生成**） |
+| 精灵图 | 9 个动作 54 帧：待机、跑、普攻、Q 跃斩、战吼、E 旋转、R 施放、受击、死亡。身高 36 px（原版人类英雄约 31 px） |
+| 特效 | 命中火花、Q 重击与沉默、Q 强化光环、W 护盾、E 剑风、R 天降巨剑 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 | 音频 | 从本地客户端提取的 9 条技能音效和 4 条中文语音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 
@@ -35,9 +38,29 @@ python tools/lol/extract_garen.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 
 以后做别的英雄也能直接用。
 
+### 美术：GPT 生成，再导入成像素图
+
+16 张原图在 [`assets/source/garen/`](assets/source/garen/)。提示词见 [`PROMPTS.md`](assets/source/garen/PROMPTS.md)，生成记录见 `GENERATION_PROMPTS.md` 和 `HANDOFF.md`。
+
+```bash
+pip install pillow numpy
+python tools/art/import_garen.py          # 写出 league/champions 和 league/effects 里的精灵图
+python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图和演示动图
+```
+
+导入脚本做这些事：
+- 切帧：按空白列切开，连在一起的剑、光效整块归到同一帧。
+- 缩放：每张图单独缩放，保证身高一致。
+- 对齐：脚底统一放在帧中心下方 11.5 px（和原版一致）。每帧按腿部和待机第一帧对齐。跑步和旋转按头部对齐。
+- 像素化：硬边、共享 64 色调色板、1 px 黑描边。
+
+通用部分在 skill 的 `scripts/strips.py`，以后做别的英雄可以直接用。
+
+逐帧预览：[`docs/preview/league_garen_frames.png`](docs/preview/league_garen_frames.png)，特效：[`docs/preview/league_garen_effects.png`](docs/preview/league_garen_effects.png)。
+
 ### 安装测试
 
-美术导入后，把 `league` 文件夹复制到 `Teamfight Manager2/mods/league`。
+把 `league` 文件夹复制到 `Teamfight Manager2/mods/league`，在游戏的 Mods 菜单里启用。音频要先按上面的命令在本地提取。
 
 ## 仓库里的 skill
 
@@ -48,19 +71,20 @@ python tools/lol/extract_garen.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 | `SKILL.md` | 英雄从数据到上架的完整流程，以及防止"静默失效"的硬规则 |
 | `references/mod-structure.md` | mod 文件结构、`mod.mod_info` / `mod.override_info`、资源路径、本地测试、官方上传器 |
 | `references/champion-data.md` | `.data_champion` 全字段、时间和距离单位、官方英雄的属性和冷却区间、54 种可用效果类型、buff 字段、特效绑定、常用写法 |
-| `references/art-spec.md` | 像素画规范（实测数据）、动画 tag 和帧时长、锚点、特效和图标风格、QA 清单 |
+| `references/art-spec.md` | 像素画规范（实测数据）、动画 tag 和帧时长、锚点、特效和图标风格、AI 生成图的导入方法、QA 清单 |
 | `references/text-audio.md` | 多语言文本、富文本颜色和图标、`champion_view`、音效 |
 | `references/porting-heroes.md` | 把 LoL、Dota 的技能移植到 TFM2：机制对照表、选英雄评分法、LoL 客户端文件提取 |
 | `references/workshop-page.md` | 创意工坊页面模板：缩略图、演示动图、收藏页、简介、更新说明 |
 | `scripts/lint_mod.py` | 整包校验：路径、动画 tag、特效绑定、文本 key、音效注入、override 目标等 |
 | `scripts/tfm2_ase.py` | 精灵图查看、预览和量化：身高、描边、颜色数、半透明像素等 |
+| `scripts/strips.py` | 把 AI 生成的动作条导入成游戏精灵图：切帧、对齐、像素化、调色板、描边、导出 |
 | `scripts/bundle_tool.py` | 只读浏览游戏本体资源：可引用的原版特效、音效名、官方英雄数据 |
 | `templates/mymod/` | 可直接复制的示例 mod，已通过校验 |
 
 ## 快速开始
 
 ```bash
-pip install pillow
+pip install pillow numpy
 python .claude/skills/tfm2-hero-mod/scripts/lint_mod.py league
 python .claude/skills/tfm2-hero-mod/scripts/tfm2_ase.py metrics <英雄>.aseprite
 python .claude/skills/tfm2-hero-mod/scripts/bundle_tool.py sfx --grep fighter

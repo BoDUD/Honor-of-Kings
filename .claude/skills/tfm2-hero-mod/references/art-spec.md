@@ -95,8 +95,39 @@ The base game itself keeps high-res chibi concept art for its newest champions
 6. `python scripts/tfm2_ase.py metrics champions/<hero>.aseprite` and
    `python scripts/tfm2_ase.py render champions/<hero>.aseprite --out preview.png` to review.
 
-Automatic downscaling of HD art almost always fails the checks (hundreds of colours, soft edges,
-no outline); it can serve as a sketch layer, not as the final sprite.
+Plain downscaling of HD art fails the checks (hundreds of colours, soft edges, no outline).
+Generated art passes them only through the import below.
+
+## Generated art (image-model strips)
+
+The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>/PROMPTS.md`,
+16 generated PNGs (1 reference, 9 animations, 6 effects), `tools/art/import_<hero>.py` built on
+`scripts/strips.py`. What mattered:
+
+- **Prompts.** One row of N frames per animation, real transparent background, feet on the same
+  line in every cell, 3/4 view facing right. Generate a reference sheet first and attach it to
+  every character prompt, or the hero drifts between animations. Effects: separate strips,
+  centred or with a fixed impact point, no outline, empty centre for rings around the hero.
+- **Frames are not on a grid.** The model shifts the body inside its cell to fit a long weapon,
+  and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
+  drifted about 0.5 px per frame). Split
+  at empty columns and keep connected blobs whole (`split_strip`); never place frames by cell.
+- **Scale per strip.** Measure hair-to-soles on a standing frame of each strip. 36 px suits a big
+  human (base humans ~31 px, the ogre ~38); 42 px looked like a giant next to base champions.
+- **Horizontal pivot per frame.** Line the lowest ~12 px of legs up with idle frame 0
+  (`leg_band` + `best_shift`); loops that turn or run (spin, run) are pinned by the head. A sword
+  tip, smear or burst touching the ground gets matched as a foot: place those frames by the drawn
+  spacing, corrected like their aligned neighbours, then nudge so one foot stays planted.
+  Airborne frames keep their height above the strip's ground line.
+- **Pixels.** Premultiplied area downscale, alpha cut 0.5, one median-cut palette for all body
+  frames (64 colours), then a 1 px near-black edge except on glowing pixels, then drop lonely
+  pixels. Effects: alpha cut 0.4 plus tiny-spark keeping, own 32-colour palette, no outline.
+- **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
+  the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
+  Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
+  impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`).
+- **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
+  a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
 ## QA checklist
 

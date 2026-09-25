@@ -436,8 +436,14 @@
           "name": "league_garen_r_cast"
         },
         {
-          "type": "ViewEffect",
-          "name": "league_garen_r_sword"
+          "type": "Delayed",
+          "tick": 10,
+          "effects": [
+            {
+              "type": "ViewEffect",
+              "name": "league_garen_r_sword"
+            }
+          ]
         },
         {
           "type": "Delayed",
@@ -464,20 +470,24 @@
       "type": "Animation",
       "name": "league_garen_attack_hit",
       "anim": "asset/league/effects/league_garen_hits",
-      "tag": "spark"
+      "tag": "spark",
+      "z": 1
     },
     {
       "type": "Animation",
       "name": "league_garen_q_hit",
       "anim": "asset/league/effects/league_garen_hits",
-      "tag": "q"
+      "tag": "q",
+      "z": 1,
+      "is_follow": true
     },
     {
       "type": "Animation",
       "name": "league_garen_r_sword",
       "anim": "asset/league/effects/league_garen_r",
       "tag": "impact",
-      "z": 1
+      "z": 1,
+      "is_follow": true
     }
   ],
   "view_buffs": [

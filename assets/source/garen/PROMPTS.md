@@ -1,7 +1,7 @@
 # 盖伦：给 GPT 的生图提示词
 
 一共 16 张图。生成的 PNG 放进仓库的 `assets/source/garen/`（`garen` 分支），或者任意一个文件夹，然后告诉 Claude。
-Claude 负责切帧、缩到游戏尺寸（身高约 40 px）、统一调色板、补 1 px 黑描边、对齐脚底，再接到技能上。
+Claude 负责切帧、缩到游戏尺寸（身高约 36 px）、统一调色板、补 1 px 黑描边、对齐脚底，再接到技能上（`tools/art/import_garen.py`）。
 
 ## 所有图的规则
 
