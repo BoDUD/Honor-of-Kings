@@ -1,6 +1,10 @@
-"""Arthur's view effects (HoK look: holy gold, white-hot cores, fire on the orbiting shields).
+"""Arthur's view effects, built from the generated art in assets/source/arthur_fx.
 
     python tools/art/arthur_fx.py [--preview out_dir]
+
+The artwork comes from gpt-image-2 (via Codex, prompts in assets/source/arthur_fx/PROMPTS.md);
+import_fx.py turns it into game-scale hard-edged pixels. This file only sizes, anchors, times
+and composes it. The small oath aura is still drawn here with fx_lib.
 
 Anchoring (measured on base sprites):
   * body effects and buffs share the unit pivot: frame centre = 11.5 px above the feet
@@ -13,12 +17,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fx_lib as fx  # noqa: E402
+import import_fx as gen  # noqa: E402
 import numpy as np  # noqa: E402
 from PIL import Image  # noqa: E402
 import px  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
 EFX = os.path.join(ROOT, "hok", "effects")
+SLASH_CANVAS = 91
 
 
 def frame(w, h):
@@ -30,228 +36,95 @@ def cool(ramp, k):
     return ramp[k:] if k < len(ramp) else ramp[-1:]
 
 
-# ----------------------------------------------------------------------------- slash (skill 1 hit / empowered attack)
-def slash_arc(img, cx, cy, direction, length, thick, ramp, bend=48):
-    """Near-straight slash through (cx, cy) along `direction` (screen degrees), bowed slightly."""
-    d = math.radians(direction)
-    nx, ny = -math.sin(d), math.cos(d)            # normal (the side the arc bows away from)
-    ox, oy = cx + nx * bend, cy + ny * bend        # circle centre
-    base = math.degrees(math.atan2(cy - oy, cx - ox))
-    half = math.degrees(length / 2 / bend)
-    fx.crescent(img, ox, oy, bend + thick / 2, base - half, base + half, thick, ramp, taper=0.5, lead_cap=True)
+def one_shot(name, size_px, ms, canvas=SLASH_CANVAS):
+    """A centred one-shot effect sized by its largest frame; frames keep their relative places."""
+    bounds = [c["opaque_bounds_in_source_xywh"] for c in gen._manifest()[name]["source_cells"]]
+    key = max(range(len(bounds)), key=lambda i: max(bounds[i][2:]))
+    frames, _ = gen.sheet(name, gen.scale_for(name, key, size_px))
+    return [(gen.centred(f, canvas), m) for f, m in zip(frames, ms)]
 
 
-def slash_hit():
-    frames = []
-    for i in range(7):
-        f, cx, cy = frame(91, 91)
-        if i == 0:
-            slash_arc(f, cx, cy, 35, 44, 3, fx.WHITE)
-            fx.burst(f, cx, cy, 2, 7, 6, fx.HOLY, seed=1)
-        elif i == 1:
-            slash_arc(f, cx, cy, 35, 70, 10, fx.HOLY)
-            fx.burst(f, cx, cy, 4, 16, 8, fx.HOLY, seed=2)
-        elif i == 2:
-            slash_arc(f, cx, cy, 35, 74, 9, fx.GOLD)
-            slash_arc(f, cx, cy, 145, 70, 10, fx.HOLY)
-            fx.burst(f, cx, cy, 5, 18, 10, fx.HOLY, seed=3, rot=10)
-            for k, (sx, sy) in enumerate(((-24, -18), (22, -22), (26, 16), (-20, 20))):
-                fx.sparkle(f, cx + sx, cy + sy, 3 if k % 2 else 2)
-        elif i == 3:
-            slash_arc(f, cx, cy, 35, 74, 6, cool(fx.GOLD, 1))
-            slash_arc(f, cx, cy, 145, 72, 7, fx.GOLD)
-            fx.burst(f, cx, cy, 4, 14, 10, cool(fx.HOLY, 1), seed=4, rot=20)
-            fx.particles(f, cx, cy, 16, 6, 34, 0.45, fx.GOLD, seed=5)
-        elif i == 4:
-            slash_arc(f, cx, cy, 35, 58, 3, cool(fx.GOLD, 2))
-            slash_arc(f, cx, cy, 145, 56, 3, cool(fx.GOLD, 1))
-            fx.particles(f, cx, cy, 16, 6, 38, 0.7, fx.GOLD, seed=5)
-            fx.sparkle(f, cx + 18, cy - 12, 2)
-            f = px.dissolve(f, 0.8, 1)
-        elif i == 5:
-            fx.particles(f, cx, cy, 16, 6, 40, 0.88, fx.GOLD, seed=5)
-            slash_arc(f, cx, cy, 145, 50, 2, cool(fx.GOLD, 2))
-            f = px.dissolve(f, 0.55, 2)
-        else:
-            fx.particles(f, cx, cy, 12, 6, 42, 1.0, fx.GOLD, seed=5)
-            f = px.dissolve(f, 0.35, 3)
-        frames.append((f, 55))
-    return frames
+# ----------------------------------------------------------------------------- hits
+def slash_hit():      # skill 1 lands: golden cross slash
+    return one_shot("cross_slash", 72, [45, 55, 70, 60, 60, 60, 70])
 
 
-def slash_small():
-    frames = []
-    for i in range(5):
-        f, cx, cy = frame(91, 91)
-        if i == 0:
-            slash_arc(f, cx, cy, 40, 26, 2, fx.WHITE, bend=30)
-            fx.burst(f, cx, cy, 1, 5, 6, fx.HOLY, seed=7)
-        elif i == 1:
-            slash_arc(f, cx, cy, 40, 36, 5, fx.HOLY, bend=30)
-            fx.burst(f, cx, cy, 3, 11, 8, fx.HOLY, seed=8)
-            fx.sparkle(f, cx + 14, cy - 10, 2)
-        elif i == 2:
-            slash_arc(f, cx, cy, 40, 38, 4, fx.GOLD, bend=30)
-            fx.burst(f, cx, cy, 2, 7, 8, cool(fx.HOLY, 1), seed=9)
-            fx.particles(f, cx, cy, 8, 4, 20, 0.5, fx.GOLD, seed=10)
-        elif i == 3:
-            slash_arc(f, cx, cy, 40, 34, 2, cool(fx.GOLD, 2), bend=30)
-            fx.particles(f, cx, cy, 8, 4, 22, 0.8, fx.GOLD, seed=10)
-            f = px.dissolve(f, 0.7, 1)
-        else:
-            fx.particles(f, cx, cy, 8, 4, 24, 1.0, fx.GOLD, seed=10)
-            f = px.dissolve(f, 0.4, 2)
-        frames.append((f, 50))
-    return frames
+def slash_small():    # empowered (oath) basic attack
+    return one_shot("oath_slash", 44, [40, 55, 55, 50, 50])
 
 
-def slash_spark():
-    """Every basic attack: the yellow-white flash HoK shows on the target (a short diagonal cut)."""
-    frames = []
-    for i in range(4):
-        f, cx, cy = frame(91, 91)
-        if i == 0:
-            fx.burst(f, cx, cy, 2, 9, 4, fx.HOLY, seed=11, rot=45, sharp=10)
-            slash_arc(f, cx, cy, 125, 22, 2, fx.WHITE, bend=26)
-        elif i == 1:
-            fx.burst(f, cx, cy, 3, 12, 8, fx.HOLY, seed=12, rot=20, sharp=8)
-            slash_arc(f, cx, cy, 125, 26, 3, fx.HOLY, bend=26)
-        elif i == 2:
-            fx.burst(f, cx, cy, 2, 7, 8, cool(fx.HOLY, 1), seed=13, rot=30, sharp=8)
-            fx.particles(f, cx, cy, 6, 3, 14, 0.5, fx.GOLD, seed=14)
-        else:
-            fx.particles(f, cx, cy, 6, 3, 16, 0.9, fx.GOLD, seed=14)
-            f = px.dissolve(f, 0.5, 1)
-        frames.append((f, 45))
-    return frames
+def slash_spark():    # every basic attack: yellow-white flash
+    return one_shot("hit_spark", 24, [35, 50, 50, 50])
 
 
 # ----------------------------------------------------------------------------- ult: Excalibur strike
 def ult_impact():
-    W, H = 141, 181
-    frames = []
-    for i in range(9):
-        f, cx, cy = frame(W, H)
-        ground = cy + 11
-        if i == 0:   # the blade of light appears high above
-            fx.pillar(f, cx, 0, ground - 44, 5, cool(fx.HOLY, 1), seed=1, t=i)
-            fx.light_blade(f, cx, ground - 118, 90, 64, 12)
-        elif i == 1:  # plunging
-            fx.pillar(f, cx, 0, ground, 9, cool(fx.HOLY, 1), seed=1, t=i)
-            fx.light_blade(f, cx, ground - 80, 90, 72, 14)
-            fx.burst(f, cx, ground, 3, 10, 8, fx.HOLY, seed=2, ry_scale=0.4)
-        elif i == 2:  # impact
-            fx.pillar(f, cx, 0, ground, 22, fx.HOLY, seed=1, t=i)
-            fx.light_blade(f, cx, ground - 70, 90, 72, 16)
-            fx.burst(f, cx, ground, 8, 40, 12, fx.HOLY, seed=3, ry_scale=0.42)
-            fx.ring(f, cx, ground, 26, 11, 5, fx.HOLY)
-            for sx, sy in ((-30, -40), (28, -58), (-22, -80), (34, -20)):
-                fx.sparkle(f, cx + sx, ground + sy, 3)
-        elif i == 3:
-            fx.pillar(f, cx, 0, ground, 16, fx.HOLY, seed=1, t=i)
-            fx.light_blade(f, cx, ground - 70, 90, 72, 12, ramp=cool(fx.HOLY, 1))
-            fx.burst(f, cx, ground, 6, 30, 12, cool(fx.HOLY, 1), seed=4, ry_scale=0.42, rot=12)
-            fx.ring(f, cx, ground, 38, 15, 5, fx.GOLD)
-            fx.particles(f, cx, ground - 6, 22, 4, 40, 0.35, fx.GOLD, seed=5, rise=30, ry_scale=0.5)
-        elif i == 4:
-            fx.pillar(f, cx, 0, ground, 9, cool(fx.HOLY, 1), seed=1, t=i)
-            fx.light_blade(f, cx, ground - 70, 90, 72, 8, ramp=cool(fx.HOLY, 2))
-            fx.ring(f, cx, ground, 46, 18, 4, cool(fx.GOLD, 1))
-            fx.particles(f, cx, ground - 6, 22, 4, 44, 0.55, fx.GOLD, seed=5, rise=30, ry_scale=0.5)
-        elif i == 5:
-            fx.pillar(f, cx, 20, ground, 4, cool(fx.HOLY, 2), seed=1, t=i)
-            fx.ring(f, cx, ground, 52, 20, 3, cool(fx.GOLD, 2))
-            fx.particles(f, cx, ground - 6, 22, 4, 48, 0.72, fx.GOLD, seed=5, rise=30, ry_scale=0.5)
-            f = px.dissolve(f, 0.8, 1)
-        elif i == 6:
-            fx.ring(f, cx, ground, 56, 22, 2, cool(fx.GOLD, 3))
-            fx.particles(f, cx, ground - 6, 22, 4, 50, 0.86, fx.GOLD, seed=5, rise=30, ry_scale=0.5)
-            f = px.dissolve(f, 0.55, 2)
-        else:
-            fx.particles(f, cx, ground - 6, 18, 4, 52, 1.0, cool(fx.GOLD, 1), seed=5, rise=30, ry_scale=0.5)
-            f = px.dissolve(f, 0.4 if i == 7 else 0.2, 3)
-        frames.append((f, 35 if i < 2 else 70))  # the blade lands right as Arthur does
-    return frames
+    """The blade of light falls on the target; the ground contact point is the unit's feet."""
+    W, H = 101, 331
+    scale = 62 / 220            # ground ring ~62 px wide (ult radius 24-26k)
+    frames, (x0, y0) = gen.sheet("excalibur", scale)
+    cells = gen.cells("excalibur")
+    # ground contact: centre of the shockwave ring low in the cells; column: the falling sword
+    ys = np.concatenate([np.nonzero(cells[i][..., 3] >= 0.5)[0] for i in (4, 5, 6)])
+    ground_src = float(np.mean(ys[ys > 0.78 * cells[0].shape[0]]))
+    col_src = float(np.nonzero(cells[0][..., 3] >= 0.5)[1].mean())
+    anchor = ((col_src - x0) * scale, (ground_src - y0) * scale)
+    feet_row = H // 2 + 11            # pivot row + 11.5
+    out = []
+    for f, ms in zip(frames, [35, 35, 60, 80, 80, 80, 90, 90]):
+        canvas = px.new(W, H)
+        px.paste(canvas, f, W // 2 - anchor[0], feet_row - anchor[1])
+        out.append((canvas, ms))
+    return out
 
 
 # ----------------------------------------------------------------------------- ult zone: holy seal (loop)
 def seal():
-    W = H = 91
-    frames = []
-    n = 8
-    for i in range(n):
-        f, cx, cy = frame(W, H)
-        ph = i / n
-        pulse = 0.5 + 0.5 * math.cos(ph * 2 * math.pi)
-        fx.ring(f, cx, cy, 27, 27, 3, cool(fx.GOLD, 1), gaps=8, gap_phase=ph * 45)
-        fx.ring(f, cx, cy, 22, 22, 2, cool(fx.GOLD, 2 if pulse < 0.5 else 1))
-        fx.ring(f, cx, cy, 13, 13, 2, cool(fx.GOLD, 1), gaps=4, gap_phase=-ph * 90)
-        # sword emblem: cross of light, brighter on the pulse
-        ramp = fx.HOLY if pulse > 0.5 else cool(fx.HOLY, 1)
-        fx.light_blade(f, cx, cy - 12, 90, 22, 3, ramp=ramp, guard=False)
-        fx.light_blade(f, cx - 6, cy - 5, 0, 12, 2, ramp=ramp, guard=False)
-        # rune ticks on the outer ring
-        for k in range(8):
-            a = math.radians(k * 45 + 22.5 + ph * 45)
-            fx.sparkle(f, cx + math.cos(a) * 24.5, cy + math.sin(a) * 24.5, 1, cool(fx.HOLY, 1))
-        # motes rising from the rim (looping)
-        for k in range(6):
-            a = math.radians(k * 60 + 15)
-            t = (ph + k / 6) % 1
-            x = cx + math.cos(a) * 20
-            y = cy + math.sin(a) * 20 - t * 18
-            if t < 0.85:
-                fx.sparkle(f, x, y, 1 if t > 0.4 else 2, cool(fx.HOLY, 1 if t < 0.5 else 2))
-        frames.append((f, 100))
-    return frames
+    """Ground seal, 54 px across (seal radius 26k), centred like the base-game area rings."""
+    frames, _ = gen.sheet("holy_seal", gen.scale_for("holy_seal", 0, 54, "w"))
+    return [(gen.centred(f, 71, gen.circle_centre(f)), 120) for f in frames]
 
 
 # ----------------------------------------------------------------------------- skill 2: orbiting flaming shields (loop)
-FLAME_SHIELD = [  # small golden lion shield, bright face (seen lit by its own fire)
-    "DCBBBBBCD",
-    "CBAAAAABC",
-    "CBBCBCBBC",
-    "CBCgBgCBC",
-    "CBBCACBBC",
-    ".CBBCBBC.",
-    ".CBBmBBC.",
-    "..CBBBC..",
-    "...CBC...",
-    "....D....",
-]
-
-
 def whirl():
+    """Three flaming lion shields orbit Arthur for 5 s inside the golden damage ring.
+
+    The buff is drawn in front of him (z 1); shields on the far half of the orbit are dimmed and
+    cut out where his body is, so they pass behind him."""
     W = H = 91
     n = 8
-    frames = []
-    sh = px.outline(px.grid(FLAME_SHIELD), grow_canvas=True)
-    sh_back = px.recolor(sh, {"A": "B", "B": "C", "C": "D", "D": "E"})
-    hole = np.zeros((H, W), bool)          # Arthur's body hides the back half of the orbit
+    shields, _ = gen.sheet("flaming_shield", gen.scale_for("flaming_shield", 0, 24, "w"), None)
+    shield_px = [np.asarray(s) for s in shields]
+    rings, _ = gen.sheet("whirl_ring", gen.scale_for("whirl_ring", 0, 58, "w"))
+    # the shield body (not the flickering flames) is the anchor: the right part of the sprite
+    sw, sh = shields[0].size
+    anchor = (sw * 0.72, sh * 0.5)
+    hole = np.zeros((H, W), bool)
     hole[H // 2 - 26:H // 2 + 12, W // 2 - 9:W // 2 + 10] = True
+    frames = []
     for i in range(n):
-        f, cx, cy = frame(W, H)
         back, front = px.new(W, H), px.new(W, H)
-        ph = i / n
-        # damage radius ring (true circle around the pivot, like base-game area rings)
-        fx.ring(back, cx, cy, 28, 28, 2, cool(fx.GOLD, 1), gaps=6, gap_phase=ph * 60, rough=0.4, seed=i % 2)
+        ring = rings[i % len(rings)]
+        back.alpha_composite(gen.centred(ring, W, gen.circle_centre(ring)))
         for k in range(3):
-            ang = math.radians(ph * 120 + k * 120)       # clockwise on screen
-            ox, oy = math.cos(ang) * 24, math.sin(ang) * 10 + 4
-            is_front = math.sin(ang) >= -0.15
-            layer = front if is_front else back
-            # flame trail streams behind the direction of travel
-            vx, vy = -math.sin(ang) * 24, math.cos(ang) * 10
-            trail = math.degrees(math.atan2(-vy, -vx))
-            fx.flame(layer, cx + ox, cy + oy, 12, 20, direction=trail, ramp=fx.FIRE, seed=k, t=i * 0.8)
-            fx.flame(layer, cx + ox, cy + oy, 7, 12, direction=trail - 25, ramp=fx.FIRE[1:], seed=k + 5, t=i)
-            img = sh if is_front else sh_back
-            px.paste(layer, img, cx + ox - img.width // 2, cy + oy - img.height // 2)
+            ang = math.radians(i / n * 120 + k * 120)        # clockwise on screen
+            ox, oy = math.cos(ang) * 25, math.sin(ang) * 9 + 5
+            far = math.sin(ang) < -0.15
+            a = shield_px[(i + k) % len(shield_px)].copy()
+            if -math.sin(ang) < 0:          # moving left: flames must trail to the right
+                a = a[:, ::-1]
+                ax = sw - anchor[0]
+            else:
+                ax = anchor[0]
+            if far:
+                a[..., :3] = (a[..., :3] * 0.72).astype(np.uint8)
+            img = Image.fromarray(a, "RGBA")
+            px.paste(back if far else front, img, W // 2 + ox - ax, H // 2 + oy - anchor[1])
         b = np.asarray(back).copy()
         b[hole, 3] = 0
-        f.alpha_composite(Image.fromarray(b, "RGBA"))
+        f = Image.fromarray(b, "RGBA")
         f.alpha_composite(front)
-        frames.append((f, 50))
+        frames.append((f, 55))
     return frames
 
 

@@ -14,7 +14,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import fx_lib as fx  # noqa: E402
+import import_fx as gen  # noqa: E402
 import px  # noqa: E402
+from PIL import Image  # noqa: E402
 from arthur_rig import FH, FW, GROUND, STAND_LEGS, pose_frame  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")
@@ -30,11 +32,22 @@ FALLING = (("S", -3, -1, "hang"), ("S", 3, 1, "hang"))
 
 
 # ----------------------------------------------------------------------------- effects
-def smear(a0, a1, thick, r=19, ramp=fx.GOLD, dx=0, dy=0, ry=1.0):
-    """Sword smear around the shoulder, from a0 (trailing) to a1 (leading)."""
+# Sword arcs, glints and the blade of light are the generated art (assets/source/arthur_fx via
+# import_fx), rotated to each swing; only the dash streaks are still drawn in code.
+ARC_STAGE = {"start": 0, "full": 1, "fade": 2}
+
+
+def smear(mid, stage="full", r=22, dx=0, dy=0, ry=1.0):
+    """Generated sword arc centred on the shoulder, bulging toward screen angle `mid`
+    (0 = forward, -90 = up, 90 = down); `ry` flattens it for a horizontal sweep."""
     def draw(f, an):
+        img, pv = gen.arc_sprite(ARC_STAGE[stage], r)
+        img, pv = px.rotsprite(img, mid, (int(round(pv[0])), int(round(pv[1]))))
+        if ry != 1.0:
+            img = img.resize((img.width, max(1, int(round(img.height * ry)))), Image.NEAREST)
+            pv = (pv[0], pv[1] * ry)
         cx, cy = an["shoulder"]
-        fx.crescent(f, cx + dx, cy + dy, r, a0, a1, thick, ramp, ry_scale=ry)
+        px.paste(f, img, cx + dx - pv[0], cy + dy - pv[1])
     return draw
 
 
@@ -46,22 +59,28 @@ def combo(*fns):
     return draw
 
 
+def glint(img, x, y, f):
+    px.paste(f, img, x - img.width // 2, y - img.height // 2)
+
+
 def tip_sparkle(size=2):
     def draw(f, an):
-        fx.sparkle(f, an["tip"][0], an["tip"][1], size)
+        glint(gen.spark(2, 4 * size + 1), an["tip"][0], an["tip"][1], f)
     return draw
 
 
-def excalibur(length, width, sparkle=0):
-    """Blade of light along the sword: behind it as an aura (skill 2), or giant in front (ult)."""
+def excalibur(length, sparkle=0):
+    """The generated blade of light held along the sword (skill 2 aura, ult)."""
     def draw(f, an):
         hx, hy = an["hand"]
         tx, ty = an["tip"]
-        ang = math.degrees(math.atan2(ty - hy, tx - hx))
-        fx.light_blade(f, hx, hy, ang, length, width)
+        up_angle = math.degrees(math.atan2(tx - hx, hy - ty))    # clockwise from pointing up
+        img, grip = gen.light_sword(length)
+        img, pv = px.rotsprite(img, up_angle, (int(round(grip[0])), int(round(grip[1]))))
+        px.paste(f, img, hx - pv[0], hy - pv[1])
         if sparkle:
-            ex, ey = hx + math.cos(math.radians(ang)) * length, hy + math.sin(math.radians(ang)) * length
-            fx.sparkle(f, ex, ey, sparkle)
+            a = math.radians(up_angle)
+            glint(gen.spark(2, 4 * sparkle + 1), hx + math.sin(a) * length * 0.9, hy - math.cos(a) * length * 0.9, f)
     return draw
 
 
@@ -72,9 +91,9 @@ def speed_lines(seed):
     return draw
 
 
-def ground_flash(r, seed=0):
+def ground_flash(size):
     def draw(f, an):
-        fx.burst(f, an["tip"][0], an["ground"] - 1, 2, r, 9, fx.HOLY, seed=seed, ry_scale=0.45)
+        glint(gen.spark(1, size, squash=0.5), an["tip"][0], an["ground"] - 2, f)
     return draw
 
 
@@ -107,11 +126,11 @@ def attack():
         (pose_frame(hip=(-1, 0), arm=(165, 180), sword=-8, cape=("cape", 2, -1)), 80),
         (pose_frame(hip=(-1, 0), legs=WIDE, arm=(155, 170), sword=-28, cape=("cape", 4, -2)), 70),
         (pose_frame(hip=(1, 0), legs=WIDE, arm=(225, 250), sword=62, cape=("cape", 10, 1),
-                    fx_back=smear(-100, -25, 5, r=22, dx=1)), 50),
+                    fx_back=smear(-62, "start", r=22, dx=1)), 50),
         (pose_frame(hip=(2, 0), legs=LUNGE, arm=(300, 292), sword=128, head="head_shout", shield_d=(-1, 0),
-                    cape=("cape", 18, 2), fx_front=smear(-95, 55, 7, r=23, dx=2, dy=1)), 70),
+                    cape=("cape", 18, 2), fx_front=smear(-20, "full", r=23, dx=2, dy=1)), 70),
         (pose_frame(hip=(2, 0), legs=LUNGE, arm=(318, 328), sword=158, cape=("cape", 14, 1),
-                    fx_front=smear(5, 70, 3, r=23, dx=2, dy=1, ramp=fx.GOLD[1:])), 60),
+                    fx_front=smear(37, "fade", r=23, dx=2, dy=1)), 60),
         (pose_frame(hip=(1, 0), legs=WIDE, arm=(345, 350), sword=200, cape=("cape", 6, 0)), 40),
     ]
 
@@ -130,7 +149,7 @@ def skill():
         (pose_frame(root=(1, -3), legs=AIR, head="head_shout", arm=(175, 185), sword=-5, shield_d=(1, 0),
                     cape=("cape", 20, 2), fx_front=tip_sparkle(2)), 60),
         (pose_frame(hip=(2, 0), legs=LUNGE, head="head_shout", arm=(305, 298), sword=135, cape=("cape", 24, 2),
-                    fx_front=smear(-95, 60, 8, r=24, dx=2, dy=1, ramp=fx.HOLY)), 90),
+                    fx_front=smear(-18, "full", r=24, dx=2, dy=1)), 90),
         (pose_frame(hip=(1, 0), legs=WIDE, arm=(335, 340), sword=190, cape=("cape", 8, 0)), 80),
     ]
     return frames
@@ -140,11 +159,11 @@ def skill2():
     up = dict(head="head_shout", arm=(180, 180), sword=0)
     return [
         (pose_frame(**up, cape=("cape", 4, -1), fx_front=tip_sparkle(2)), 60),
-        (pose_frame(**up, cape=("cape", 6, -2), fx_back=excalibur(22, 5), fx_front=tip_sparkle(3)), 70),
+        (pose_frame(**up, cape=("cape", 6, -2), fx_back=excalibur(22), fx_front=tip_sparkle(3)), 70),
         (pose_frame(arm=(265, 270), sword=90, hip=(1, 0), legs=WIDE, head="head_shout", cape=("cape", 20, 2),
-                    fx_front=smear(-200, 20, 6, r=22, ry=0.45, dy=8)), 70),
+                    fx_front=smear(90, "full", r=22, ry=0.45, dy=8)), 70),
         (pose_frame(arm=(300, 310), sword=150, hip=(1, 0), legs=WIDE, cape=("cape", 12, 1),
-                    fx_front=smear(-60, 60, 3, r=22, ry=0.45, dy=8, ramp=fx.GOLD[1:])), 60),
+                    fx_front=smear(90, "fade", r=22, ry=0.45, dy=8)), 60),
         (pose_frame(arm=(20, 30), sword=220, cape=("cape", 4, 0)), 73),
     ]
 
@@ -155,13 +174,13 @@ def ult():
                 sword_clip=GROUND + 1)
     return [
         (pose_frame(hip=(-1, 0), legs=WIDE, head="head_shout", arm=(75, 60), sword=245, cape=("cape", 4, -2)), 80),
-        (pose_frame(root=(0, -8), legs=AIR, **raised, cape=("cape", -18, 3), fx_front=excalibur(24, 5, 2)), 80),
-        (pose_frame(root=(1, -13), legs=AIR, **raised, cape=("cape", -26, 4), fx_front=excalibur(34, 7, 3)), 80),
+        (pose_frame(root=(0, -8), legs=AIR, **raised, cape=("cape", -18, 3), fx_front=excalibur(24, 2)), 80),
+        (pose_frame(root=(1, -13), legs=AIR, **raised, cape=("cape", -26, 4), fx_front=excalibur(34, 3)), 80),
         (pose_frame(root=(2, -7), legs=FALLING, arm=(250, 240), sword=70, head="head_shout", cape=("cape", -10, 2),
-                    fx_front=combo(smear(-110, -10, 6, r=22, ramp=fx.HOLY), excalibur(30, 6))), 60),
+                    fx_front=combo(smear(-60, "full", r=22), excalibur(30))), 60),
         (pose_frame(**slam, cape=("cape", 10, 2),
-                    fx_front=combo(smear(-40, 70, 5, r=22, ramp=fx.HOLY), ground_flash(14, 1))), 80),
-        (pose_frame(**slam, cape=("cape", 6, 1), fx_front=ground_flash(9, 2)), 110),
+                    fx_front=combo(smear(15, "full", r=22), ground_flash(26))), 80),
+        (pose_frame(**slam, cape=("cape", 6, 1), fx_front=ground_flash(18)), 110),
         (pose_frame(root=(2, 0), legs=WIDE, arm=(330, 345), sword=190, cape=("cape", 3, 0)), 90),
         (pose_frame(root=(1, 0), arm=(10, 15), sword=215), 87),
     ]

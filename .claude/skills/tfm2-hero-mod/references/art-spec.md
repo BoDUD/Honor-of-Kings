@@ -76,6 +76,22 @@ The hit frame of `attack` should land around the action's `start_timing` (e.g. a
   behind) can stay in front and cut out the hero's body box from the back half of the orbit.
 - Reuse base effects when they fit (`bundle_tool.py list --grep skill_effect/`).
 
+## Generated effect art (what worked for hok_arthur)
+
+Claude Code has no image model of its own. Code-drawn effects were rejected by the user as
+"linear code"; generated art imported at game scale was accepted. The split that works:
+- the user runs the prompts in an image model (Codex image-gen / gpt-image-2); one row of
+  frames per PNG, equal cells, same anchor in every cell, transparent (else black) background;
+  prompts, manifest and originals live in `assets/source/<hero>_fx/`;
+- `tools/art/import_fx.py` slices by the manifest, crops all frames of a sheet with **one shared
+  box** (keeps the anchor), area-downscales in premultiplied alpha, keeps tiny sparks with a
+  max-pooled alpha test, forces alpha to 0/255 and snaps colours to the hero's ramp (adaptive
+  palette only for multi-colour art such as a lion shield);
+- rings and seals are re-centred on a least-squares circle fit (their bounding boxes wobble
+  with the flame wisps); swing arcs are fitted to their circle, rotated to each swing, and
+  trimmed to ~7 px thick so they never cover the face.
+The character sprite itself stays hand-pixelled: generated frames cannot stay on-model.
+
 ## Skill icons
 
 Two accepted styles:
