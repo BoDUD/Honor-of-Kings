@@ -85,13 +85,13 @@ def main():
     # idle
     for im, ms in anims["idle"]:
         s.shot([(dummy, DX, Y), (im, MX, Y)], ms)
-    # two basic attacks, empowered hit effect on the dummy after the swing lands
+    # two basic attacks, the yellow-white hit flash on the dummy when the swing lands
     for _ in range(2):
         hit = 0
         for i, (im, ms) in enumerate(anims["attack"]):
             layers = [(dummy_frame(1 if i == 4 else 0), DX, Y), (im, MX, Y)]
-            if i >= 3 and hit < len(fx["hok_arthur_slash"]["small"]):
-                layers.append((fx["hok_arthur_slash"]["small"][hit][0], DX, Y))
+            if i >= 3 and hit < len(fx["hok_arthur_slash"]["spark"]):
+                layers.append((fx["hok_arthur_slash"]["spark"][hit][0], DX, Y))
                 hit += 1
             s.shot(layers, ms)
     # skill 1: back off, dash in, golden cross slash, oath aura
