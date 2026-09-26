@@ -10,8 +10,10 @@ feet on the cell's line 10 px above the bottom. <hero>_now_design.png: idle fram
 canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in its cell, and its
 duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
 around the same pivot and it lands where the current one stands (commit it with the redraw).
---style writes tfm2_style_ref.png / tfm2_style_ref_mage.png: base heroes' idle frame 1 (top row)
-and attack middle frame (bottom row), feet aligned, at 8x - read from the game's bundle, keep local.
+--style writes tfm2_style_ref.png / tfm2_style_ref_mage.png / tfm2_style_ref_martial.png: base heroes'
+idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read from the
+game's bundle, keep local. --pack lux --pack ashe writes pack_native_ref.png the same way from this
+pack's own native-size sprites.
 """
 import argparse
 import json
@@ -34,6 +36,7 @@ STYLE = {
     "tfm2_style_ref.png": ["archer", "crossbowman", "harpooner", "knight", "spellbreaker", "fighter", "swordman", "priest"],
     "tfm2_style_ref_mage.png": ["white_mage", "priest", "enchanter", "druid", "pyromancer", "illusionist", "dark_mage",
                                 "barrier_magician"],
+    "tfm2_style_ref_martial.png": ["fighter", "monk", "ninja", "swordman", "hunter", "knight"],
 }
 
 
@@ -84,9 +87,11 @@ def design(sp):
 
 
 def style(names):
+    """Idle frame 1 over the attack's middle frame per hero, feet aligned, at 8x. A name is a base
+    hero, or a path to one of this pack's sprites (pack_native_ref.png)."""
     rows = {"idle": [], "attack": []}
     for n in names:
-        sp = T.load_sprite(f"asset/base/aseprite_resources/champions/{n}")
+        sp = T.load_sprite(n if os.path.sep in n or "#" in n else f"asset/base/aseprite_resources/champions/{n}")
         for tag in rows:
             fr = sp.tag_frames(tag)
             f = sp.frames[fr[0] if tag == "idle" else fr[len(fr) // 2]]
@@ -105,6 +110,8 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--hero", action="append", default=[])
     ap.add_argument("--style", action="store_true")
+    ap.add_argument("--pack", action="append", default=[],
+                    help="also write pack_native_ref.png: these heroes of this pack (e.g. lux, ashe) like --style")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     for hero in args.hero:
@@ -124,6 +131,10 @@ def main():
             img = style(names)
             img.save(os.path.join(args.out, fname))
             print(fname, img.size)
+    if args.pack:
+        img = style([os.path.join(ROOT, "league", "champions", f"league_{h}#sheet.png") for h in args.pack])
+        img.save(os.path.join(args.out, "pack_native_ref.png"))
+        print("pack_native_ref.png", img.size)
 
 
 if __name__ == "__main__":

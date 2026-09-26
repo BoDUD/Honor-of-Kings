@@ -120,6 +120,24 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   base champions at 1x and zoomed: look for the eyes before shipping. Counting skin-coloured
   pixels does not replace looking - the small-headed Garen scored more "skin" in his upper body
   than most base heroes, because his gold trim has skin tones.
+- **A face without eyes has only its mouth left.** Lee Sin's blindfold hides the eyes, so every
+  dark square under it reads as a feature. His delivered design had a 2 px dark stroke down the
+  front of the face and a dark pair on the chin row: at card size the user saw a strange nose and
+  mouth. Base faces draw no nose and a 1-2 square mouth. Under a band or mask, close the outline
+  along the face's front, put a 2-square mouth two rows under the band, shade under the chin so it
+  separates from the neck, and keep other dark squares out of the lower face. Give the face side a curve: the champion card
+  is near-black, so the outline vanishes and only the skin shape reads; Lee Sin's straight 8 px
+  right edge and square crown corner looked like half a head until the crown stepped in, the
+  blindfold and nose tip stood out a pixel and the mouth and chin stepped back. Look at the face at
+  card size (`tfm2_ase.py face`, and on a dark background) as well as zoomed.
+- **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
+  behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
+  skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw
+  her lower body deform. Check each frame where a prop end meets a hand, foot or head. Separate
+  them with outline or colour, or hide the end behind the limb. Lux's four frames were fixed in
+  `lux_retouch.json`. Single-pixel fixes can go in
+  `assets/source/native/<hero>_retouch.json`, which `import_native.py` applies after cutting the
+  frames; it stops if a source pixel changed.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
@@ -201,7 +219,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   18-19 colours, 29-31%). Record where each reference frame's pivot sits in its cell when the
   references are drawn (`native_refs.py` writes `<hero>_cells.json`) so each redrawn frame lands
   where the old one stood, and steady idle and run on the head column: frames placed by their
-  bounding box twitched 1-2 px in those loops.
+  bounding box twitched 1-2 px in those loops. For a new hero, skip the first round: render
+  League's clips straight at game size (`tools/lol/native_pose.py`) and give GPT that 8x
+  reference next to the same frames as a high-resolution render. Lee Sin came back in one round,
+  but GPT drew his actions ~1.4x the approved design (only idle, re-layered from the design by
+  Codex, was right): measure each strip's head against idle (blindfold/eye size, band thickness)
+  and shrink by that before importing (`tools/art/fit_native.py`: a 1.4x shrink by colour vote
+  stays clean; 37% right-neighbour, 16 colours) - importing as delivered would make him grow
+  whenever he moves.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

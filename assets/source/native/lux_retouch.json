@@ -1,0 +1,17 @@
+{
+  "about": "Lux's run, frames 4, 5, 7 and 8: League's lux_run swings the wand upright behind her there, its gold end hanging beside her back foot. At game size that end (gold, white and skin-coloured pixels, no outline between) merged with the back leg and read as a deformed gold foot. The end is redrawn as the dark navy boot of the other frames, the wand's lower tip hidden behind the leg. import_native.py applies these edits after cutting the frames and stops if a pixel no longer has the colour an edit expects.",
+  "coords": "x, y from the frame's pivot (the sheet canvas centre), then the colour expected there and the new colour",
+  "palette": {"#": "#11121b", "a": "#f8cc58", "b": "#dfab3f", "c": "#fff9f0", "d": "#182b5b", "e": "#ac7436", "f": "#ffdcb1", "g": "#61442c", "i": "#fff0a3", "j": "#f6bf94", "l": "#8c6740", "m": "#c88d65", "p": "#263579"},
+  "frames": {
+    "run": [
+      [],
+      [],
+      [],
+      [[-2, 2, "e", "d"], [-2, 3, "a", "d"], [-1, 3, "b", "d"], [-3, 4, "b", "d"], [-2, 4, "c", "d"], [-1, 4, "a", "p"], [-2, 5, "b", "d"]],
+      [[-5, 4, "e", "d"], [-5, 5, "b", "d"], [-4, 5, "e", "d"], [-3, 5, "l", "#"], [-6, 6, "e", "d"], [-5, 6, "c", "d"], [-4, 6, "j", "d"], [-3, 6, "m", "#"], [-6, 7, "b", "d"], [-5, 7, "c", "p"], [-4, 7, "a", "d"], [-3, 7, "l", "#"], [-5, 8, "e", "d"]],
+      [],
+      [[-3, 3, "b", "d"], [-2, 3, "e", "d"], [-3, 4, "b", "d"], [-2, 4, "b", "d"], [-1, 4, "e", "d"], [0, 4, "g", "d"], [1, 4, "l", "#"], [2, 4, "d", "#"], [-3, 5, "i", "d"], [-2, 5, "c", "d"], [-1, 5, "j", "d"], [0, 5, "l", "d"], [1, 5, "m", "#"], [0, 6, "l", "d"], [1, 6, "b", "#"]],
+      [[-3, 2, "b", "d"], [-2, 2, "e", "d"], [-3, 3, "c", "d"], [-2, 3, "f", "d"], [-4, 4, "b", "d"], [-3, 4, "c", "p"], [-2, 4, "b", "d"]]
+    ]
+  }
+}

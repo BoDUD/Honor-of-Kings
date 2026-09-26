@@ -1,0 +1,43 @@
+{
+  "hero": "leesin",
+  "champ": "LeeSin",
+  "camera": {"yaw": 55, "pitch": 25, "mirror": true},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5},
+  "height": 34,
+  "cell": [64, 72],
+  "design": "Idle_Active@0",
+  "tags": {
+    "idle": {"frames": [
+      ["Idle_Active@0", 130], ["Idle_Active@133", 100], ["Idle_Active@233", 130],
+      ["Idle_Active@367", 170], ["Idle_Active@533", 130], ["Idle_Active@667>Idle_Active@0:0.5", 70]]},
+    "run": {"frames": [
+      ["Run_Base@0", 192], ["Run_Base@192", 192], ["Run_Base@383", 192],
+      ["Run_Base@575", 192], ["Run_Base@767", 192], ["Run_Base@958", 192],
+      ["Run_Base@1150", 192], ["Run_Base@1342", 192]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Idle_Active@0>Attack3@0:0.5", 60], ["Attack3@100", 60], ["Attack3@233", 70],
+      ["Attack3@333", 80], ["Attack3_toIdle@200", 50], ["Attack3_toIdle@700>Idle_Active@0:0.5", 40]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Idle_Active@0>Spell1_cast@33:0.5", 60], ["Spell1_cast@100", 70], ["Spell1_cast@200", 80],
+      ["Spell1_cast@267", 60], ["Spell1_cast@367", 90], ["Spell1_cast@700", 180],
+      ["Spell1_toIdle@600", 170]]},
+    "q2": {"lunge": 0.0, "frames": [
+      ["Spell1_B@0", 60], ["Spell1_B@100", 60], ["Spell1_B@167", 70],
+      ["Spell1_B@233", 90], ["Spell1_B@400", 80], ["Spell1_B_Loop@0>Idle_Active@0:0.6", 80],
+      ["Idle_Active@0>Spell1_B_Loop@0:0.2", 80]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Idle_Active@0>Spell3_Cast@0:0.5", 80], ["Spell3_Cast@200", 100], ["Spell3_Cast@300", 110, {"turn": 15}],
+      ["Spell3_Cast@333", 120, {"turn": 30}], ["Spell3_toIdle@0", 100, {"turn": 30}], ["Spell3_toIdle@300", 80, {"turn": 15}],
+      ["Spell3_toIdle@600>Idle_Active@0:0.5", 80]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["Idle_Active@0>Spell4A@0:0.5", 70], ["Spell4A@133", 70], ["Spell4A@200", 70],
+      ["Spell4A@267", 80], ["Spell4A@300", 130, {"turn": 15}], ["Spell4_toIdle@50", 100],
+      ["Spell4_toIdle@600", 100], ["Spell4_toIdle@900>Idle_Active@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Idle_Active@0>Death@200:0.3", 120], ["Idle_Active@0>Death@200:0.12", 120]]},
+    "dead": {"lunge": 0.65, "anchor": "first", "flat": true, "frames": [
+      ["Death@0", 100], ["Death@133", 100], ["Death@267", 100],
+      ["Death@400", 120], ["Death@533", 120], ["Death@800", 200],
+      ["Death@1100", 400]]}
+  }
+}

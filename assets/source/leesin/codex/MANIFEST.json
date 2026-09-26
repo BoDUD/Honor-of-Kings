@@ -1,0 +1,6803 @@
+{
+  "schema_version": 2,
+  "created_at": "2026-09-26T12:39:16.245073+00:00",
+  "status": "generated_and_technically_normalized; game integration not performed",
+  "approved_design": {
+    "file": "leesin_native.png",
+    "user_approved": true,
+    "sha256": "8010f0b0ecc864d5f42a19a662fc66bdd16f0ed8d4b6e5bf1c2552a4129399ab"
+  },
+  "counts": {
+    "character_sheets": 9,
+    "vfx_sheets": 9,
+    "character_frames": 58,
+    "vfx_frames": 53,
+    "animation_frames": 111,
+    "total_main_png_including_design": 19
+  },
+  "bbox_convention": "left,top,right_exclusive,bottom_exclusive; origin top-left",
+  "generation_transport": "gpt-image-bridge subscription fallback",
+  "checks": {
+    "all_8x8_uniform": true,
+    "all_alpha_binary": true,
+    "character_palette_union": 16,
+    "idle_six_heads_identical": true,
+    "idle_feet_identical": true,
+    "original_pivots_unchanged": true,
+    "shield_center_transparent": true,
+    "e_wave_largest_gold_ring_ratio": 1.2727272727272727,
+    "portable_rebuild_main_images_identical": true
+  },
+  "limitations": [
+    "Non-idle generated poses are not pixel-exact matches to the reference geometry; see per-frame bbox deltas.",
+    "Non-idle 34px body scale and exact head geometry are not guaranteed by generation; review in game.",
+    "Frames marked art_touches_cell_edge need inspection for clipped hands, feet or braid.",
+    "Q-mark and shield specify phases, but no exact per-frame milliseconds; their basic preview uses 60ms per frame. Other VFX timings match the source document."
+  ],
+  "warnings": [
+    {
+      "tag": "attack",
+      "frame_number": 4,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    },
+    {
+      "tag": "skill",
+      "frame_number": 5,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    },
+    {
+      "tag": "q2",
+      "frame_number": 3,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    },
+    {
+      "tag": "q2",
+      "frame_number": 5,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    },
+    {
+      "tag": "ult",
+      "frame_number": 5,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    },
+    {
+      "tag": "dead",
+      "frame_number": 3,
+      "type": "art_touches_cell_edge",
+      "edges": [
+        "right"
+      ]
+    }
+  ],
+  "sheets": [
+    {
+      "file": "leesin_idle.png",
+      "kind": "character",
+      "frames": 6,
+      "size_px": [
+        1536,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "ede19611696f53a1b19a1e52e91f774ea5fb610232c13045a2d1fe830ecf39be",
+      "raw_sha256": "a179795acd87b2dd1da26c46454b522c200e20f31eed8d22bcb1abe5ebeb3f6c",
+      "prompt_sha256": "d1eadf4bc87256c35df5adb7493e34341fe57c35ce6a83fd3c1123a86c084b75",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_idle.png",
+          "sha256": "4826daf63ae5de9ad6cf327c5a6ca537f3fd64720e97e8789612772daac6a954"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_idle.png",
+          "sha256": "19b98de73c5b82000f2a393e6184e7437f2f4ea9284e66160da48587123d32e9"
+        }
+      ]
+    },
+    {
+      "file": "leesin_run.png",
+      "kind": "character",
+      "frames": 8,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "09331ffd9f9953b920ddbdf2332899024c0c411a8a931e6f42e10c08b9799f8b",
+      "raw_sha256": "f7c2fa759c63fd836cab4521ba207bdd2f046fc960ad8edbb2c650f058e3fd72",
+      "prompt_sha256": "46e4b16ead37ba978300ef4a8b1d91c8095ba921fc2a5cbe8da78a4031eb703d",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_run.png",
+          "sha256": "1415ddb1ebcbc52bdfd8e02e426c78a9c371e8ab2ad95e4760161d0f0259a689"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_run.png",
+          "sha256": "6054f5c4c2b41d30458df6d94f476c14cfe6a7a847a98895a7371f27bbdfafd6"
+        }
+      ]
+    },
+    {
+      "file": "leesin_attack.png",
+      "kind": "character",
+      "frames": 6,
+      "size_px": [
+        1536,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        3,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "8773365cabb45fcb9d3e0e4e046f2eb224453f21c9656c71e78b6a197a7b9168",
+      "raw_sha256": "31e3d2bafdb32e70a35962e21b4a8b7923c0f1d4e216bc3c77ae84897e1ce2cf",
+      "prompt_sha256": "889da57c26289d4c6dfa8437b86583ce546a72127f870082f9af50e52f622f82",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_attack.png",
+          "sha256": "034694b5a33d78c0e6345d11c3c55bf60371aab4ba6520b8db1eaade7630bab0"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_attack.png",
+          "sha256": "b634d0bdd8a30f4a56b27d03a68a1fd869460cfa26fb77e009d3890fed2a0da4"
+        }
+      ]
+    },
+    {
+      "file": "leesin_skill.png",
+      "kind": "character",
+      "frames": 7,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "4bacdd42a55674d6e78707e54c662429a9373c2b5c941e8fbe5355afaa5df063",
+      "raw_sha256": "7ea7177e50e4d5749e9a8c4cb5be67059c65456715fc1c3615d3ae1eb1088110",
+      "prompt_sha256": "14697dc77721081fd9ba5649b0f8664eaa1c44484c8e2d84a1565bdb3c2e9a14",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_skill.png",
+          "sha256": "2a84440dc35df2ce571d16f52b696c01b61a5d2ae017b7aee27b65c8b7d8aa7c"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_skill.png",
+          "sha256": "883bd0de862b8e752180a590bddb4c804e2d157ffe30ca8763b3c07237fe1408"
+        }
+      ]
+    },
+    {
+      "file": "leesin_q2.png",
+      "kind": "character",
+      "frames": 7,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "47a9173fd3c663721d91ad571aa1f04f8a7683bc75b27532a90c97388472e57a",
+      "raw_sha256": "11abb19c5fa127b03eb252d22516dab7476cb21e6cdfd3482cdf8025ac8ea78a",
+      "prompt_sha256": "9b219e3489368d7877f23921177b58dbaf391f59724f00813400e330fd4927ef",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_q2.png",
+          "sha256": "08335bb94cdc503d8246fc5531581b6451dd68721db4c501cca55e7b3a7dce79"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_q2.png",
+          "sha256": "22b6fe9168f75612b81a1e586aacd3443319bbbf5d88f1e0936d53d9f75cce95"
+        }
+      ]
+    },
+    {
+      "file": "leesin_skill2.png",
+      "kind": "character",
+      "frames": 7,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "2c7014fc885b188e880c8871ed7c9d636a0b5d7dc78654cb9b09f3db22e08b21",
+      "raw_sha256": "2d591ebcabe8f774f0d0c06b69ec362a63aa617d5be848e62f6a987a65116d88",
+      "prompt_sha256": "7a59f0a2563cd2b89678575ef5650a4e123f2581083e386b3782f675306907c0",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_skill2.png",
+          "sha256": "c3de5f0b73511fe5e6c859f5ea2e21c67cce722e811fed37379def2235882094"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_skill2.png",
+          "sha256": "e585982b6a01436549765d5d903fbd478b9c5d474c7af3dcdf8866d1cf27f8be"
+        }
+      ]
+    },
+    {
+      "file": "leesin_ult.png",
+      "kind": "character",
+      "frames": 8,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 15,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "e8e7fc04e9292f5969f029268ac7274f9c28e8b70eb597100d4be86637b92f17",
+      "raw_sha256": "2ebc95d2d00bba08e5cd67892fb8fbbb9164d98c4b7efb0cce15cda4bf2e6b29",
+      "prompt_sha256": "f56b4f03f6f61634ac4ff5836848e8430176918d8a6e39d975053259a608b546",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_ult.png",
+          "sha256": "e19d6c841c6f0a917866a4215c021fcddc8513bf07a4925638a91db1b6ec564b"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_ult.png",
+          "sha256": "a0614c4b983ddaa49243b8112805f8e35902d1014db7cf1511a6f81c7c6eb050"
+        }
+      ]
+    },
+    {
+      "file": "leesin_hit.png",
+      "kind": "character",
+      "frames": 2,
+      "size_px": [
+        1024,
+        576
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        2,
+        1
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "b9cbc0f0fa0485fac2cf4d6a2d664452ad7983236b26c1ef0fc5327389e5c9b8",
+      "raw_sha256": "750227971e943353c4cc3b8c3a0f29965eb5143ee8946a3d4a4b0bb0977f96fb",
+      "prompt_sha256": "6be8027b226ae604e7f6ec8cae94f8704a6ff7a5571a24476765edc21f46155a",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_hit.png",
+          "sha256": "c1c6118cca538ee8c82166bc0458d6f8acc9c2266a599cf1941c91af3197a855"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_hit.png",
+          "sha256": "09d283c40aa08a7c6c5deebfa70a3bf407351e3be0c5063a9cb88359604113cc"
+        }
+      ]
+    },
+    {
+      "file": "leesin_dead.png",
+      "kind": "character",
+      "frames": 7,
+      "size_px": [
+        2048,
+        1152
+      ],
+      "cell_logical": [
+        64,
+        72
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "colors": 16,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "cfc297df02f6c79716da738b22d16a8ccccdd980e8973ec0c15bf0f388eb3bb8",
+      "raw_sha256": "39b5514178b583fd8310f75583da2e8222fc9bf3c346cc43c3954279621366b2",
+      "prompt_sha256": "55f580939f708065b8609d056024fbe42a3559dfc3a6b7aa2bc5d887c94af9f4",
+      "reference_inputs": [
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/outputs/leesin_full_pack/audit/approved_design_zoom.png",
+          "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_native_dead.png",
+          "sha256": "11370b4152f49fa8517d20414f9d37c8b5b1cd3e7ef8ba40674d33cf7f6c66df"
+        },
+        {
+          "path": "C:/Users/OWNER/Documents/Codex/2026-09-26/claude-claude-2/work/leesin_pack/leesin_pose_dead.png",
+          "sha256": "53abf5567e45d481267e14744de19abaad9faceacd2dbd03fce14f45ede8b884"
+        }
+      ]
+    },
+    {
+      "file": "leesin_fx_hit.png",
+      "kind": "vfx",
+      "frames": 5,
+      "size_px": [
+        1280,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        5,
+        1
+      ],
+      "colors": 6,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "a223a06719a452aa47ac7c100c5c6a427052b766b9f545af1418c75f5af4f024",
+      "raw_sha256": "1adaf062205d868de9492050c02632809cc01d8409776bf6054a18b8f5787388",
+      "prompt_sha256": "ee8ddebdff495606e33645be8273a7058a4c4d9560ea32cbc098ed6761eaa002",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_q_wave.png",
+      "kind": "vfx",
+      "frames": 4,
+      "size_px": [
+        1024,
+        128
+      ],
+      "cell_logical": [
+        32,
+        16
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "colors": 6,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "d6514333041ea30b4f3effafdb2893f24df6da8514e18e8d0f2c6eea5691891a",
+      "raw_sha256": "3dd2bd2a6d398d575fa0db1ac2caaaecde1d4a2ea5d4d8e28ce600fd0f5dd439",
+      "prompt_sha256": "081ffa0e91b85e67ca439bd57d01b744870e96d91305a2cf173ffda9033e2dd3",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_q_mark.png",
+      "kind": "vfx",
+      "frames": 6,
+      "size_px": [
+        1536,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        6,
+        1
+      ],
+      "colors": 4,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "9d9904660896ae231f5034ad43a35dbd6031dd749659ae3c7989a10bb27bb67a",
+      "raw_sha256": "5660e2aee5873ceccc1e573a0ce3a8bcce48c02c0cd96f009577ed2648f8178e",
+      "prompt_sha256": "084dd224de10dc4579c6b9249ce68c7992b1e61d718c8c242b323370e71ae356",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_q2_hit.png",
+      "kind": "vfx",
+      "frames": 6,
+      "size_px": [
+        1536,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        6,
+        1
+      ],
+      "colors": 6,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "34a878745158ccb0379fa89c99aba9266c0990d8648d46ded3063fd5c2b1408a",
+      "raw_sha256": "692be6b2956e6d4f60db8440170ccc0cdb52f2808e247d373d6fc81ddd975040",
+      "prompt_sha256": "ddb5c7b11ff862f17fb30d6dffd252eaf3cc848459b8fd94b1404973c208c424",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_e_wave.png",
+      "kind": "vfx",
+      "frames": 7,
+      "size_px": [
+        1792,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        7,
+        1
+      ],
+      "colors": 8,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "9de70681c15316aa981fc53c95f53a39a2f702c6a0c94337fef71b419cf86583",
+      "raw_sha256": "9192830080ebef000d9d12f663bdddfcfeaec311ccf674adc2b66e7c7c7a1722",
+      "prompt_sha256": "826d1da5c2f3bee41c475c546aa3a13ae2058d1a852dd9d523655624a6362f28",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_shield.png",
+      "kind": "vfx",
+      "frames": 8,
+      "size_px": [
+        2048,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        8,
+        1
+      ],
+      "colors": 5,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "b13c1bf144837e3a188c9b13d91c3fdd4690a74236fcd050be48cd5a01e34a8f",
+      "raw_sha256": "ab967de03135c5a0226eb6ca7e5b6fc90e8bc41518cfb245a68edcf9b9102873",
+      "prompt_sha256": "eee2032bcbf20e7b41ae970ab8c672dc322dbbe1b3dca8ef580971e64f3445d3",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_r_kick.png",
+      "kind": "vfx",
+      "frames": 7,
+      "size_px": [
+        1792,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        7,
+        1
+      ],
+      "colors": 6,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "5e5c753d59cde7968207b88d6b8a3b7d6801616df9a9388cb74d947f2a95b24d",
+      "raw_sha256": "585739378dfb8be94b370cada64fe4c1d707813a6119527661ac6817daac8676",
+      "prompt_sha256": "b6306dd15e36daa4eabe85900f542a80ce2254188625a426a41963909d02f335",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_r_dragon.png",
+      "kind": "vfx",
+      "frames": 4,
+      "size_px": [
+        2048,
+        256
+      ],
+      "cell_logical": [
+        64,
+        32
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "colors": 6,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "a1317154777c564e66d8f163b446d42055415e332b6bf7ac039d2e1307b717f0",
+      "raw_sha256": "797327755aed13fc5a18e77fff69d005e6084c9a5eacb85d7439dadb45732663",
+      "prompt_sha256": "4d138db5d2e6f3381a3f379dd4fd0e03b166e5c4894c17a0e94ea0e650c52927",
+      "reference_inputs": []
+    },
+    {
+      "file": "leesin_fx_knockup.png",
+      "kind": "vfx",
+      "frames": 6,
+      "size_px": [
+        1536,
+        256
+      ],
+      "cell_logical": [
+        32,
+        32
+      ],
+      "grid": [
+        6,
+        1
+      ],
+      "colors": 5,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "uniform_8x8": true,
+      "sha256": "b373b2c763e78eb51d152d08cb19e7174e7118ad77fdf8ab7eca77c8958915e5",
+      "raw_sha256": "815373f262167f5afd6a96cc02bd1604b6cd8d9b6e2d02006de0d63b461d8d9b",
+      "prompt_sha256": "f6f5f4bd396e3a1f10d1689c9ae6e8e2ab10c631b17445dd8f1f0826154a9b07",
+      "reference_inputs": []
+    }
+  ],
+  "frames": [
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        20,
+        20,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        20,
+        20,
+        45,
+        62
+      ],
+      "bbox_cell_px": [
+        160,
+        160,
+        360,
+        496
+      ],
+      "pixel_sha256": "eb82a9620b40b05ff75d06acda0db4551025330ea59991016f279e4e7c8c1dad",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 130,
+      "bbox_relative_to_pivot": [
+        -10,
+        -30,
+        15,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        22,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        -2,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 0,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          28
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 0,
+        "braid_top_row_shift": 0,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          20,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        20,
+        22,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        84,
+        22,
+        109,
+        62
+      ],
+      "bbox_cell_px": [
+        160,
+        176,
+        360,
+        496
+      ],
+      "pixel_sha256": "6073ece2f828615798d7baa6a6946f4487ef268c626ffab318528f6b7ced0c01",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -10,
+        -28,
+        15,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        25,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        -3,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 1,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          30
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 2,
+        "braid_top_row_shift": -1,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          22,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        20,
+        22,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        148,
+        22,
+        173,
+        62
+      ],
+      "bbox_cell_px": [
+        160,
+        176,
+        360,
+        496
+      ],
+      "pixel_sha256": "c342181c157b5f622c975b2b9294354a7b9232f2a29b8f3b1844c9a8c090c11d",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 130,
+      "bbox_relative_to_pivot": [
+        -9,
+        -28,
+        16,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        26,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        2,
+        -4,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 2,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          30
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 2,
+        "braid_top_row_shift": 0,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          22,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        20,
+        21,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        20,
+        93,
+        45,
+        134
+      ],
+      "bbox_cell_px": [
+        160,
+        168,
+        360,
+        496
+      ],
+      "pixel_sha256": "29757dd7b5d1fefa9f15ce60163809bdd47243cbd896543e84256f120cf234d1",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 170,
+      "bbox_relative_to_pivot": [
+        -9,
+        -29,
+        16,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        25,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        2,
+        -4,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 3,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          29
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 1,
+        "braid_top_row_shift": 1,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          21,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        20,
+        20,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        84,
+        92,
+        109,
+        134
+      ],
+      "bbox_cell_px": [
+        160,
+        160,
+        360,
+        496
+      ],
+      "pixel_sha256": "4f12e2cd97ca542c29f241d16014c48066b6645264d128f9a46b8c67e9de66de",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 130,
+      "bbox_relative_to_pivot": [
+        -10,
+        -30,
+        15,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        24,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        2,
+        -4,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 4,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          28
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 0,
+        "braid_top_row_shift": 1,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          20,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_idle.png",
+      "tag": "idle",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        20,
+        20,
+        45,
+        62
+      ],
+      "bbox_sheet_logical": [
+        148,
+        92,
+        173,
+        134
+      ],
+      "bbox_cell_px": [
+        160,
+        160,
+        360,
+        496
+      ],
+      "pixel_sha256": "eb82a9620b40b05ff75d06acda0db4551025330ea59991016f279e4e7c8c1dad",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -10,
+        -30,
+        15,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        22,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        2,
+        -2,
+        0,
+        0
+      ],
+      "head_reuse": {
+        "frame": 5,
+        "head_source_rect": [
+          54,
+          66,
+          68,
+          76
+        ],
+        "head_paste_xy": [
+          22,
+          28
+        ],
+        "head_pixel_sha256": "40ee1417f01330188870bd15f526f92e47be3d63e18a687d4704f98e20a20334",
+        "upper_layer_y_offset": 0,
+        "braid_top_row_shift": 0,
+        "foot_pixels_unchanged": true,
+        "bbox_logical": [
+          20,
+          20,
+          45,
+          62
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        18,
+        51,
+        69
+      ],
+      "bbox_sheet_logical": [
+        10,
+        18,
+        51,
+        69
+      ],
+      "bbox_cell_px": [
+        80,
+        144,
+        408,
+        552
+      ],
+      "pixel_sha256": "a84fd565de56dac48c669c3a397f6345766fe7c6663c00fd5fb7f2839b8813c4",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -18,
+        -32,
+        23,
+        19
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        27,
+        48,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -5,
+        -9,
+        3,
+        8
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        6,
+        13,
+        52,
+        58
+      ],
+      "bbox_sheet_logical": [
+        70,
+        13,
+        116,
+        58
+      ],
+      "bbox_cell_px": [
+        48,
+        104,
+        416,
+        464
+      ],
+      "pixel_sha256": "0096b3d02ce018b66babdc3f08496ff60ed145316424fabd2761fc5912a1fc31",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -22,
+        -37,
+        24,
+        8
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        23,
+        48,
+        56
+      ],
+      "bbox_delta_vs_reference": [
+        -9,
+        -10,
+        4,
+        2
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        7,
+        14,
+        55,
+        62
+      ],
+      "bbox_sheet_logical": [
+        135,
+        14,
+        183,
+        62
+      ],
+      "bbox_cell_px": [
+        56,
+        112,
+        440,
+        496
+      ],
+      "pixel_sha256": "4cc7318f63bbf3e0c9ced602196569a2fd64ada87b6c051288270ffed122bc1f",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -21,
+        -36,
+        27,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        20,
+        48,
+        53
+      ],
+      "bbox_delta_vs_reference": [
+        -8,
+        -6,
+        7,
+        9
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        13,
+        17,
+        55,
+        68
+      ],
+      "bbox_sheet_logical": [
+        205,
+        17,
+        247,
+        68
+      ],
+      "bbox_cell_px": [
+        104,
+        136,
+        440,
+        544
+      ],
+      "pixel_sha256": "378c0ac1a0831093172250d15291c677fcd748bdc3856b7df181769e456f405f",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -15,
+        -33,
+        27,
+        18
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        25,
+        48,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -3,
+        -8,
+        7,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        9,
+        16,
+        56,
+        62
+      ],
+      "bbox_sheet_logical": [
+        9,
+        88,
+        56,
+        134
+      ],
+      "bbox_cell_px": [
+        72,
+        128,
+        448,
+        496
+      ],
+      "pixel_sha256": "5b679aeea512ff5f250582319d85103d8ebd129efc817d5440181588c671ac93",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -19,
+        -34,
+        28,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        29,
+        49,
+        60
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        -13,
+        7,
+        2
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        12,
+        9,
+        56,
+        55
+      ],
+      "bbox_sheet_logical": [
+        76,
+        81,
+        120,
+        127
+      ],
+      "bbox_cell_px": [
+        96,
+        72,
+        448,
+        440
+      ],
+      "pixel_sha256": "cf3b8f90070701b1dc8d31a68925e59eed2188ab82ace0f043ec5e5162ef7647",
+      "bbox_recentered": false,
+      "pivot": [
+        26,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -14,
+        -41,
+        30,
+        5
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        24,
+        47,
+        57
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -15,
+        9,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        12,
+        9,
+        55,
+        56
+      ],
+      "bbox_sheet_logical": [
+        140,
+        81,
+        183,
+        128
+      ],
+      "bbox_cell_px": [
+        96,
+        72,
+        440,
+        448
+      ],
+      "pixel_sha256": "bfa829a54cee333df45a01be5560a1628bd8548e30da059f167b679b05333d35",
+      "bbox_recentered": false,
+      "pivot": [
+        27,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -15,
+        -41,
+        28,
+        6
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        19,
+        47,
+        54
+      ],
+      "bbox_delta_vs_reference": [
+        -5,
+        -10,
+        8,
+        2
+      ]
+    },
+    {
+      "sheet": "leesin_run.png",
+      "tag": "run",
+      "frame_index": 7,
+      "frame_number": 8,
+      "cell": [
+        3,
+        1
+      ],
+      "cell_origin_logical": [
+        192,
+        72
+      ],
+      "bbox_cell_logical": [
+        12,
+        12,
+        55,
+        62
+      ],
+      "bbox_sheet_logical": [
+        204,
+        84,
+        247,
+        134
+      ],
+      "bbox_cell_px": [
+        96,
+        96,
+        440,
+        496
+      ],
+      "pixel_sha256": "8bf597184489e336080a5d2512deb685e681a75512d734fed34a4362a283d70c",
+      "bbox_recentered": false,
+      "pivot": [
+        27,
+        50
+      ],
+      "ms": 192,
+      "bbox_relative_to_pivot": [
+        -15,
+        -38,
+        28,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        23,
+        47,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -11,
+        8,
+        0
+      ]
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        13,
+        18,
+        50,
+        68
+      ],
+      "bbox_sheet_logical": [
+        13,
+        18,
+        50,
+        68
+      ],
+      "bbox_cell_px": [
+        104,
+        144,
+        400,
+        544
+      ],
+      "pixel_sha256": "1fcc82f360ec9e1ccc127fe39527d8a1247691221790f81d41ef538e61ad8126",
+      "bbox_recentered": false,
+      "pivot": [
+        32,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -19,
+        -32,
+        18,
+        18
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        25,
+        44,
+        65
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        -7,
+        6,
+        3
+      ]
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        20,
+        15,
+        53,
+        66
+      ],
+      "bbox_sheet_logical": [
+        84,
+        15,
+        117,
+        66
+      ],
+      "bbox_cell_px": [
+        160,
+        120,
+        424,
+        528
+      ],
+      "pixel_sha256": "27d5b2a673315dec757a4907ba413b70f219d796cc1e78738ac44778022b33fe",
+      "bbox_recentered": false,
+      "pivot": [
+        35,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -15,
+        -35,
+        18,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        22,
+        44,
+        60
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        -7,
+        9,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        24,
+        13,
+        56,
+        66
+      ],
+      "bbox_sheet_logical": [
+        152,
+        13,
+        184,
+        66
+      ],
+      "bbox_cell_px": [
+        192,
+        104,
+        448,
+        528
+      ],
+      "pixel_sha256": "89e833ddd1197a94d8a20ac582d65dfa025df6562df517fb26941dc22ac9534c",
+      "bbox_recentered": false,
+      "pivot": [
+        36,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -12,
+        -37,
+        20,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        21,
+        20,
+        43,
+        60
+      ],
+      "bbox_delta_vs_reference": [
+        3,
+        -7,
+        13,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        4,
+        16,
+        64,
+        62
+      ],
+      "bbox_sheet_logical": [
+        4,
+        88,
+        64,
+        134
+      ],
+      "bbox_cell_px": [
+        32,
+        128,
+        512,
+        496
+      ],
+      "pixel_sha256": "513748b3bf7c4dab6dc2df8518a2099f3c440a8ac90a2c84f2bb9bc367a1d8d9",
+      "bbox_recentered": false,
+      "pivot": [
+        27,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -23,
+        -34,
+        37,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        6,
+        28,
+        57,
+        67
+      ],
+      "bbox_delta_vs_reference": [
+        -2,
+        -12,
+        7,
+        -5
+      ],
+      "attention": {
+        "tag": "attack",
+        "frame_number": 4,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        10,
+        18,
+        57,
+        62
+      ],
+      "bbox_sheet_logical": [
+        74,
+        90,
+        121,
+        134
+      ],
+      "bbox_cell_px": [
+        80,
+        144,
+        456,
+        496
+      ],
+      "pixel_sha256": "6e9c0fa4d6b44feae77631f3cf912cb127aac9d545a91322724e5dacfac7ed64",
+      "bbox_recentered": false,
+      "pivot": [
+        26,
+        50
+      ],
+      "ms": 50,
+      "bbox_relative_to_pivot": [
+        -16,
+        -32,
+        31,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        28,
+        48,
+        67
+      ],
+      "bbox_delta_vs_reference": [
+        -5,
+        -10,
+        9,
+        -5
+      ]
+    },
+    {
+      "sheet": "leesin_attack.png",
+      "tag": "attack",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        22,
+        13,
+        56,
+        60
+      ],
+      "bbox_sheet_logical": [
+        150,
+        85,
+        184,
+        132
+      ],
+      "bbox_cell_px": [
+        176,
+        104,
+        448,
+        480
+      ],
+      "pixel_sha256": "f639409b74092234cf8bd53de71bf71f44215eb5d4c230720237155426843a89",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 40,
+      "bbox_relative_to_pivot": [
+        -8,
+        -37,
+        26,
+        10
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        24,
+        46,
+        64
+      ],
+      "bbox_delta_vs_reference": [
+        4,
+        -11,
+        10,
+        -4
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        16,
+        11,
+        58,
+        66
+      ],
+      "bbox_sheet_logical": [
+        16,
+        11,
+        58,
+        66
+      ],
+      "bbox_cell_px": [
+        128,
+        88,
+        464,
+        528
+      ],
+      "pixel_sha256": "ac4e35902a41c2d47469c42d00313e93bf148eb951d784f2e1b179bb2f0ef01a",
+      "bbox_recentered": false,
+      "pivot": [
+        31,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -15,
+        -39,
+        27,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        25,
+        47,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -1,
+        -14,
+        11,
+        4
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        11,
+        15,
+        56,
+        66
+      ],
+      "bbox_sheet_logical": [
+        75,
+        15,
+        120,
+        66
+      ],
+      "bbox_cell_px": [
+        88,
+        120,
+        448,
+        528
+      ],
+      "pixel_sha256": "f16cde2575e72aa19e06d28449bc41cf6b8705b58809b966b62b4c94c1fb970e",
+      "bbox_recentered": false,
+      "pivot": [
+        33,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -22,
+        -35,
+        23,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        27,
+        47,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        -12,
+        9,
+        5
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        7,
+        13,
+        53,
+        66
+      ],
+      "bbox_sheet_logical": [
+        135,
+        13,
+        181,
+        66
+      ],
+      "bbox_cell_px": [
+        56,
+        104,
+        424,
+        528
+      ],
+      "pixel_sha256": "0cbee0ca94f3d24963ef188f154ae231e65fa7e0b7ee07e0c3f6320c8cbfcdea",
+      "bbox_recentered": false,
+      "pivot": [
+        31,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -24,
+        -37,
+        22,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        15,
+        24,
+        48,
+        60
+      ],
+      "bbox_delta_vs_reference": [
+        -8,
+        -11,
+        5,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        19,
+        50,
+        66
+      ],
+      "bbox_sheet_logical": [
+        200,
+        19,
+        242,
+        66
+      ],
+      "bbox_cell_px": [
+        64,
+        152,
+        400,
+        528
+      ],
+      "pixel_sha256": "6a5c5c7d077ee8db821f13280c6718ce7ea5814ef43c56d64f571936f79e6490",
+      "bbox_recentered": false,
+      "pivot": [
+        35,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -27,
+        -31,
+        15,
+        16
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        27,
+        46,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -10,
+        -8,
+        4,
+        5
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        12,
+        11,
+        64,
+        62
+      ],
+      "bbox_sheet_logical": [
+        12,
+        83,
+        64,
+        134
+      ],
+      "bbox_cell_px": [
+        96,
+        88,
+        512,
+        496
+      ],
+      "pixel_sha256": "974a3f42427bb92028b8eab999ee21260c2a7c7d4cfd9ed088b1b473cdfd74dd",
+      "bbox_recentered": false,
+      "pivot": [
+        25,
+        50
+      ],
+      "ms": 90,
+      "bbox_relative_to_pivot": [
+        -13,
+        -39,
+        39,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        12,
+        26,
+        51,
+        65
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        -15,
+        13,
+        -3
+      ],
+      "attention": {
+        "tag": "skill",
+        "frame_number": 5,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        16,
+        14,
+        62,
+        62
+      ],
+      "bbox_sheet_logical": [
+        80,
+        86,
+        126,
+        134
+      ],
+      "bbox_cell_px": [
+        128,
+        112,
+        496,
+        496
+      ],
+      "pixel_sha256": "86a2c8a1aa675f024f4a396ce46e6b6a8d32f1f9e15056a0744202912d3b6dd1",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 180,
+      "bbox_relative_to_pivot": [
+        -12,
+        -36,
+        34,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        27,
+        47,
+        65
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        -13,
+        15,
+        -3
+      ]
+    },
+    {
+      "sheet": "leesin_skill.png",
+      "tag": "skill",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        11,
+        13,
+        55,
+        62
+      ],
+      "bbox_sheet_logical": [
+        139,
+        85,
+        183,
+        134
+      ],
+      "bbox_cell_px": [
+        88,
+        104,
+        440,
+        496
+      ],
+      "pixel_sha256": "67ffc21ca04202ba25830253e1439c1d748e8b6c2923f10804873669e7789441",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 170,
+      "bbox_relative_to_pivot": [
+        -18,
+        -37,
+        26,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        28,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -7,
+        -15,
+        10,
+        0
+      ]
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        39,
+        62,
+        58
+      ],
+      "bbox_sheet_logical": [
+        4,
+        39,
+        62,
+        58
+      ],
+      "bbox_cell_px": [
+        32,
+        312,
+        496,
+        464
+      ],
+      "pixel_sha256": "1c562d9dcdc5705e35f932fd81ad275c8cf890a6b62527b1c43e0ddd8841ff50",
+      "bbox_recentered": false,
+      "pivot": [
+        42,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -38,
+        -11,
+        20,
+        8
+      ],
+      "reference_bbox_cell_logical": [
+        4,
+        39,
+        59,
+        55
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        0,
+        3,
+        3
+      ]
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        7,
+        34,
+        61,
+        58
+      ],
+      "bbox_sheet_logical": [
+        71,
+        34,
+        125,
+        58
+      ],
+      "bbox_cell_px": [
+        56,
+        272,
+        488,
+        464
+      ],
+      "pixel_sha256": "abdbabadbba2593549d5fbd376c790c43a6167242ece266445c752ce03712faa",
+      "bbox_recentered": false,
+      "pivot": [
+        40,
+        50
+      ],
+      "ms": 60,
+      "bbox_relative_to_pivot": [
+        -33,
+        -16,
+        21,
+        8
+      ],
+      "reference_bbox_cell_logical": [
+        4,
+        35,
+        59,
+        54
+      ],
+      "bbox_delta_vs_reference": [
+        3,
+        -1,
+        2,
+        4
+      ]
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        28,
+        64,
+        59
+      ],
+      "bbox_sheet_logical": [
+        131,
+        28,
+        192,
+        59
+      ],
+      "bbox_cell_px": [
+        24,
+        224,
+        512,
+        472
+      ],
+      "pixel_sha256": "d9ccde8b2480f46fe25ee3ace58997a69a19097ce3541be5ef683199c0c6efdd",
+      "bbox_recentered": false,
+      "pivot": [
+        35,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -32,
+        -22,
+        29,
+        9
+      ],
+      "reference_bbox_cell_logical": [
+        2,
+        28,
+        62,
+        51
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        0,
+        2,
+        8
+      ],
+      "attention": {
+        "tag": "q2",
+        "frame_number": 3,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        5,
+        26,
+        61,
+        57
+      ],
+      "bbox_sheet_logical": [
+        197,
+        26,
+        253,
+        57
+      ],
+      "bbox_cell_px": [
+        40,
+        208,
+        488,
+        456
+      ],
+      "pixel_sha256": "5770d5465609527a1c1cd5f760f9b17b0a4705b4fb4b6133735bd7a0ae1771ce",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 90,
+      "bbox_relative_to_pivot": [
+        -24,
+        -24,
+        32,
+        7
+      ],
+      "reference_bbox_cell_logical": [
+        5,
+        25,
+        59,
+        51
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        1,
+        2,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        4,
+        15,
+        64,
+        54
+      ],
+      "bbox_sheet_logical": [
+        4,
+        87,
+        64,
+        126
+      ],
+      "bbox_cell_px": [
+        32,
+        120,
+        512,
+        432
+      ],
+      "pixel_sha256": "607567cc5aa7fae3d172489d0df1a25b20a9715e492d8a4ec3688fbac622a0a2",
+      "bbox_recentered": false,
+      "pivot": [
+        34,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -30,
+        -35,
+        30,
+        4
+      ],
+      "reference_bbox_cell_logical": [
+        1,
+        15,
+        62,
+        50
+      ],
+      "bbox_delta_vs_reference": [
+        3,
+        0,
+        2,
+        4
+      ],
+      "attention": {
+        "tag": "q2",
+        "frame_number": 5,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        15,
+        19,
+        54,
+        61
+      ],
+      "bbox_sheet_logical": [
+        79,
+        91,
+        118,
+        133
+      ],
+      "bbox_cell_px": [
+        120,
+        152,
+        432,
+        488
+      ],
+      "pixel_sha256": "c24dc59d154144f404e5a550cfe23eb8195d11c82ba90a995ed3c82922f32a45",
+      "bbox_recentered": false,
+      "pivot": [
+        36,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -21,
+        -31,
+        18,
+        11
+      ],
+      "reference_bbox_cell_logical": [
+        14,
+        19,
+        49,
+        63
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        0,
+        5,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_q2.png",
+      "tag": "q2",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        16,
+        21,
+        51,
+        61
+      ],
+      "bbox_sheet_logical": [
+        144,
+        93,
+        179,
+        133
+      ],
+      "bbox_cell_px": [
+        128,
+        168,
+        408,
+        488
+      ],
+      "pixel_sha256": "9d80d3d45447a22944a0c537d6affb7fd3fa5e6daa6dd88e935c1de252bdd5ed",
+      "bbox_recentered": false,
+      "pivot": [
+        33,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -17,
+        -29,
+        18,
+        11
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        21,
+        48,
+        64
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        0,
+        3,
+        -3
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        19,
+        28,
+        48,
+        67
+      ],
+      "bbox_sheet_logical": [
+        19,
+        28,
+        48,
+        67
+      ],
+      "bbox_cell_px": [
+        152,
+        224,
+        384,
+        536
+      ],
+      "pixel_sha256": "312a03dcc8a1b1089fabac54c9b0a4acd8ac382142523dd9a9f342b2a0f53d48",
+      "bbox_recentered": false,
+      "pivot": [
+        32,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -13,
+        -22,
+        16,
+        17
+      ],
+      "reference_bbox_cell_logical": [
+        21,
+        28,
+        43,
+        63
+      ],
+      "bbox_delta_vs_reference": [
+        -2,
+        0,
+        5,
+        4
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        20,
+        12,
+        42,
+        65
+      ],
+      "bbox_sheet_logical": [
+        84,
+        12,
+        106,
+        65
+      ],
+      "bbox_cell_px": [
+        160,
+        96,
+        336,
+        520
+      ],
+      "pixel_sha256": "a7ae375d56f7e33384c546f6633546d9223cd0cb4859e76254f5ddb863ac2011",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -10,
+        -38,
+        12,
+        15
+      ],
+      "reference_bbox_cell_logical": [
+        24,
+        16,
+        40,
+        59
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -4,
+        2,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        14,
+        10,
+        49,
+        60
+      ],
+      "bbox_sheet_logical": [
+        142,
+        10,
+        177,
+        60
+      ],
+      "bbox_cell_px": [
+        112,
+        80,
+        392,
+        480
+      ],
+      "pixel_sha256": "88a5a57f0189104079854b1334b68f433e34f47eeabe9336ad56223c5f25fad1",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 110,
+      "bbox_relative_to_pivot": [
+        -14,
+        -40,
+        21,
+        10
+      ],
+      "reference_bbox_cell_logical": [
+        21,
+        17,
+        43,
+        59
+      ],
+      "bbox_delta_vs_reference": [
+        -7,
+        -7,
+        6,
+        1
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        15,
+        26,
+        54,
+        68
+      ],
+      "bbox_sheet_logical": [
+        207,
+        26,
+        246,
+        68
+      ],
+      "bbox_cell_px": [
+        120,
+        208,
+        432,
+        544
+      ],
+      "pixel_sha256": "62b70de4a438357cd5a2de7c75ee33743451ce116b1213590e18100fd69e7298",
+      "bbox_recentered": false,
+      "pivot": [
+        33,
+        50
+      ],
+      "ms": 120,
+      "bbox_relative_to_pivot": [
+        -18,
+        -24,
+        21,
+        18
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        20,
+        48,
+        63
+      ],
+      "bbox_delta_vs_reference": [
+        -1,
+        6,
+        6,
+        5
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        16,
+        23,
+        51,
+        59
+      ],
+      "bbox_sheet_logical": [
+        16,
+        95,
+        51,
+        131
+      ],
+      "bbox_cell_px": [
+        128,
+        184,
+        408,
+        472
+      ],
+      "pixel_sha256": "5908ea870cc6fe7d55668166f7c05a703b650f0dec42c77beb64bec259ba03ae",
+      "bbox_recentered": false,
+      "pivot": [
+        32,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -16,
+        -27,
+        19,
+        9
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        30,
+        46,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -2,
+        -7,
+        5,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        17,
+        14,
+        49,
+        59
+      ],
+      "bbox_sheet_logical": [
+        81,
+        86,
+        113,
+        131
+      ],
+      "bbox_cell_px": [
+        136,
+        112,
+        392,
+        472
+      ],
+      "pixel_sha256": "83fa9350028d0a4f70d70ae6cf8ae68498ec42c3d09df4a5461568accb7d102d",
+      "bbox_recentered": false,
+      "pivot": [
+        27,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -10,
+        -36,
+        22,
+        9
+      ],
+      "reference_bbox_cell_logical": [
+        20,
+        22,
+        44,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -3,
+        -8,
+        5,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_skill2.png",
+      "tag": "skill2",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        15,
+        18,
+        50,
+        59
+      ],
+      "bbox_sheet_logical": [
+        143,
+        90,
+        178,
+        131
+      ],
+      "bbox_cell_px": [
+        120,
+        144,
+        400,
+        472
+      ],
+      "pixel_sha256": "cb8c22cc374e72c84a618510c58ffd769f9fa6968c8b2799ceaaa2f1f24ee38a",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -14,
+        -32,
+        21,
+        9
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        23,
+        44,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -5,
+        6,
+        -3
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        19,
+        23,
+        58,
+        70
+      ],
+      "bbox_sheet_logical": [
+        19,
+        23,
+        58,
+        70
+      ],
+      "bbox_cell_px": [
+        152,
+        184,
+        464,
+        560
+      ],
+      "pixel_sha256": "003834430cd9ab93a4815b1bf0dcc678b8f4d8abb1bfaa58ad66a98274d43ff6",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -10,
+        -27,
+        29,
+        20
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        24,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        -1,
+        13,
+        8
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        22,
+        18,
+        50,
+        63
+      ],
+      "bbox_sheet_logical": [
+        86,
+        18,
+        114,
+        63
+      ],
+      "bbox_cell_px": [
+        176,
+        144,
+        400,
+        504
+      ],
+      "pixel_sha256": "5d6e42145e26983fc25bded6a04f33feac32b71e401809ac61e5351abc6b09fc",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -7,
+        -32,
+        21,
+        13
+      ],
+      "reference_bbox_cell_logical": [
+        21,
+        15,
+        42,
+        50
+      ],
+      "bbox_delta_vs_reference": [
+        1,
+        3,
+        8,
+        13
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        14,
+        17,
+        46,
+        59
+      ],
+      "bbox_sheet_logical": [
+        142,
+        17,
+        174,
+        59
+      ],
+      "bbox_cell_px": [
+        112,
+        136,
+        368,
+        472
+      ],
+      "pixel_sha256": "02a72fb13dd05379b409de5e15d2f3a4c508baa9522aa8f802011821234e5260",
+      "bbox_recentered": false,
+      "pivot": [
+        34,
+        50
+      ],
+      "ms": 70,
+      "bbox_relative_to_pivot": [
+        -20,
+        -33,
+        12,
+        9
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        13,
+        44,
+        46
+      ],
+      "bbox_delta_vs_reference": [
+        -5,
+        4,
+        2,
+        13
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        6,
+        16,
+        56,
+        64
+      ],
+      "bbox_sheet_logical": [
+        198,
+        16,
+        248,
+        64
+      ],
+      "bbox_cell_px": [
+        48,
+        128,
+        448,
+        512
+      ],
+      "pixel_sha256": "071ed518726712542c62e618ffd12c6358299ede447769ca2ad9dcf9443f734e",
+      "bbox_recentered": false,
+      "pivot": [
+        33,
+        50
+      ],
+      "ms": 80,
+      "bbox_relative_to_pivot": [
+        -27,
+        -34,
+        23,
+        14
+      ],
+      "reference_bbox_cell_logical": [
+        13,
+        9,
+        51,
+        48
+      ],
+      "bbox_delta_vs_reference": [
+        -7,
+        7,
+        5,
+        16
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        10,
+        6,
+        64,
+        63
+      ],
+      "bbox_sheet_logical": [
+        10,
+        78,
+        64,
+        135
+      ],
+      "bbox_cell_px": [
+        80,
+        48,
+        512,
+        504
+      ],
+      "pixel_sha256": "b8a0d3a7557109ef47be6b3978d21d56a4e2ec729792d9092cfb27fd8828dbdf",
+      "bbox_recentered": false,
+      "pivot": [
+        26,
+        50
+      ],
+      "ms": 130,
+      "bbox_relative_to_pivot": [
+        -16,
+        -44,
+        38,
+        13
+      ],
+      "reference_bbox_cell_logical": [
+        11,
+        10,
+        53,
+        50
+      ],
+      "bbox_delta_vs_reference": [
+        -1,
+        -4,
+        11,
+        13
+      ],
+      "attention": {
+        "tag": "ult",
+        "frame_number": 5,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        13,
+        8,
+        60,
+        54
+      ],
+      "bbox_sheet_logical": [
+        77,
+        80,
+        124,
+        126
+      ],
+      "bbox_cell_px": [
+        104,
+        64,
+        480,
+        432
+      ],
+      "pixel_sha256": "561a66a44fb3a2752e8487a51249e45b90a7cddcf46357200b0202cd36b428ba",
+      "bbox_recentered": false,
+      "pivot": [
+        21,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -8,
+        -42,
+        39,
+        4
+      ],
+      "reference_bbox_cell_logical": [
+        13,
+        9,
+        50,
+        48
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        -1,
+        10,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        14,
+        25,
+        56,
+        63
+      ],
+      "bbox_sheet_logical": [
+        142,
+        97,
+        184,
+        135
+      ],
+      "bbox_cell_px": [
+        112,
+        200,
+        448,
+        504
+      ],
+      "pixel_sha256": "085732a0d2a064ddba0b320304e360dedda534934b9c61a462027b73b6ba5fdb",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -14,
+        -25,
+        28,
+        13
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        30,
+        47,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -3,
+        -5,
+        9,
+        1
+      ]
+    },
+    {
+      "sheet": "leesin_ult.png",
+      "tag": "ult",
+      "frame_index": 7,
+      "frame_number": 8,
+      "cell": [
+        3,
+        1
+      ],
+      "cell_origin_logical": [
+        192,
+        72
+      ],
+      "bbox_cell_logical": [
+        14,
+        16,
+        53,
+        63
+      ],
+      "bbox_sheet_logical": [
+        206,
+        88,
+        245,
+        135
+      ],
+      "bbox_cell_px": [
+        112,
+        128,
+        424,
+        504
+      ],
+      "pixel_sha256": "9c5dd6988d43f5846b25aecb5df6c77dc1c79133b8f13f1ccf70099fdba9783a",
+      "bbox_recentered": false,
+      "pivot": [
+        29,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -15,
+        -34,
+        24,
+        13
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        24,
+        45,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -8,
+        8,
+        1
+      ]
+    },
+    {
+      "sheet": "leesin_hit.png",
+      "tag": "hit",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        17,
+        14,
+        58,
+        67
+      ],
+      "bbox_sheet_logical": [
+        17,
+        14,
+        58,
+        67
+      ],
+      "bbox_cell_px": [
+        136,
+        112,
+        464,
+        536
+      ],
+      "pixel_sha256": "b9391c51bcff7cdbfed0ee53ebfadcb285dd8299d5c86be333da587a5487f350",
+      "bbox_recentered": false,
+      "pivot": [
+        28,
+        50
+      ],
+      "ms": 120,
+      "bbox_relative_to_pivot": [
+        -11,
+        -36,
+        30,
+        17
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        18,
+        46,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        0,
+        -4,
+        12,
+        5
+      ]
+    },
+    {
+      "sheet": "leesin_hit.png",
+      "tag": "hit",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        16,
+        16,
+        52,
+        67
+      ],
+      "bbox_sheet_logical": [
+        80,
+        16,
+        116,
+        67
+      ],
+      "bbox_cell_px": [
+        128,
+        128,
+        416,
+        536
+      ],
+      "pixel_sha256": "e783e3dcfd2efd97fe0ecd3228bd47c6388b98a98648fe5dc53a3706fd5c6aed",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 120,
+      "bbox_relative_to_pivot": [
+        -14,
+        -34,
+        22,
+        17
+      ],
+      "reference_bbox_cell_logical": [
+        18,
+        20,
+        46,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -2,
+        -4,
+        6,
+        5
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        13,
+        20,
+        49,
+        70
+      ],
+      "bbox_sheet_logical": [
+        13,
+        20,
+        49,
+        70
+      ],
+      "bbox_cell_px": [
+        104,
+        160,
+        392,
+        560
+      ],
+      "pixel_sha256": "c372b7be70651b5ac34422dee48af2d1dfc207d0820c1f5072c44db00d3d0492",
+      "bbox_recentered": false,
+      "pivot": [
+        30,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -17,
+        -30,
+        19,
+        20
+      ],
+      "reference_bbox_cell_logical": [
+        19,
+        24,
+        45,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        -4,
+        4,
+        9
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        13,
+        56,
+        71
+      ],
+      "bbox_sheet_logical": [
+        72,
+        13,
+        120,
+        71
+      ],
+      "bbox_cell_px": [
+        64,
+        104,
+        448,
+        568
+      ],
+      "pixel_sha256": "134552ebf20f01a9ebbf4793ce0df6536e2c01bfc67781d8d345ec01ab5f203c",
+      "bbox_recentered": false,
+      "pivot": [
+        36,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -28,
+        -37,
+        20,
+        21
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        15,
+        47,
+        58
+      ],
+      "bbox_delta_vs_reference": [
+        -8,
+        -2,
+        9,
+        13
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        26,
+        64,
+        62
+      ],
+      "bbox_sheet_logical": [
+        136,
+        26,
+        192,
+        62
+      ],
+      "bbox_cell_px": [
+        64,
+        208,
+        512,
+        496
+      ],
+      "pixel_sha256": "e4a15755d56d011f68c9f7b1fbca9ea2a1c4516093fe6d2f2a39bc2165a07a0e",
+      "bbox_recentered": false,
+      "pivot": [
+        42,
+        50
+      ],
+      "ms": 100,
+      "bbox_relative_to_pivot": [
+        -34,
+        -24,
+        22,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        14,
+        21,
+        50,
+        46
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        5,
+        14,
+        16
+      ],
+      "attention": {
+        "tag": "dead",
+        "frame_number": 3,
+        "type": "art_touches_cell_edge",
+        "edges": [
+          "right"
+        ]
+      }
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        12,
+        36,
+        54,
+        67
+      ],
+      "bbox_sheet_logical": [
+        204,
+        36,
+        246,
+        67
+      ],
+      "bbox_cell_px": [
+        96,
+        288,
+        432,
+        536
+      ],
+      "pixel_sha256": "4f6bc99388debde038530e2ba14aa49f5447bc4405a4e0a2d8a2b20c6d7319c7",
+      "bbox_recentered": false,
+      "pivot": [
+        51,
+        50
+      ],
+      "ms": 120,
+      "bbox_relative_to_pivot": [
+        -39,
+        -14,
+        3,
+        17
+      ],
+      "reference_bbox_cell_logical": [
+        17,
+        38,
+        47,
+        61
+      ],
+      "bbox_delta_vs_reference": [
+        -5,
+        -2,
+        7,
+        6
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        0,
+        1
+      ],
+      "cell_origin_logical": [
+        0,
+        72
+      ],
+      "bbox_cell_logical": [
+        12,
+        27,
+        58,
+        62
+      ],
+      "bbox_sheet_logical": [
+        12,
+        99,
+        58,
+        134
+      ],
+      "bbox_cell_px": [
+        96,
+        216,
+        464,
+        496
+      ],
+      "pixel_sha256": "c5f76759a9eedc2d0a5b542f4760d132a82b8a805e90db186e4ad28abe9438dd",
+      "bbox_recentered": false,
+      "pivot": [
+        54,
+        50
+      ],
+      "ms": 120,
+      "bbox_relative_to_pivot": [
+        -42,
+        -23,
+        4,
+        12
+      ],
+      "reference_bbox_cell_logical": [
+        16,
+        35,
+        47,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -4,
+        -8,
+        11,
+        0
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        1,
+        1
+      ],
+      "cell_origin_logical": [
+        64,
+        72
+      ],
+      "bbox_cell_logical": [
+        7,
+        37,
+        54,
+        60
+      ],
+      "bbox_sheet_logical": [
+        71,
+        109,
+        118,
+        132
+      ],
+      "bbox_cell_px": [
+        56,
+        296,
+        432,
+        480
+      ],
+      "pixel_sha256": "5cd55a3a418cbfc9176939b0e0ae0d10166332a6c86e7bc984f61522d6f90d43",
+      "bbox_recentered": false,
+      "pivot": [
+        54,
+        50
+      ],
+      "ms": 200,
+      "bbox_relative_to_pivot": [
+        -47,
+        -13,
+        0,
+        10
+      ],
+      "reference_bbox_cell_logical": [
+        13,
+        41,
+        50,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -6,
+        -4,
+        4,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_dead.png",
+      "tag": "dead",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        2,
+        1
+      ],
+      "cell_origin_logical": [
+        128,
+        72
+      ],
+      "bbox_cell_logical": [
+        11,
+        37,
+        59,
+        60
+      ],
+      "bbox_sheet_logical": [
+        139,
+        109,
+        187,
+        132
+      ],
+      "bbox_cell_px": [
+        88,
+        296,
+        472,
+        480
+      ],
+      "pixel_sha256": "d0cded6956cee7e4548a0b7c265735b98c29f71f31639144ab06cbced7f8b55c",
+      "bbox_recentered": false,
+      "pivot": [
+        54,
+        50
+      ],
+      "ms": 400,
+      "bbox_relative_to_pivot": [
+        -43,
+        -13,
+        5,
+        10
+      ],
+      "reference_bbox_cell_logical": [
+        13,
+        39,
+        50,
+        62
+      ],
+      "bbox_delta_vs_reference": [
+        -2,
+        -2,
+        9,
+        -2
+      ]
+    },
+    {
+      "sheet": "leesin_fx_hit.png",
+      "tag": "fx_hit",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        15,
+        15,
+        17,
+        17
+      ],
+      "bbox_sheet_logical": [
+        15,
+        15,
+        17,
+        17
+      ],
+      "bbox_cell_px": [
+        120,
+        120,
+        136,
+        136
+      ],
+      "pixel_sha256": "723e177f9226a5380425fd384885d1e6faa12341bcb3723462f1782549688f75",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_hit.png",
+      "tag": "fx_hit",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        13,
+        14,
+        19,
+        18
+      ],
+      "bbox_sheet_logical": [
+        45,
+        14,
+        51,
+        18
+      ],
+      "bbox_cell_px": [
+        104,
+        112,
+        152,
+        144
+      ],
+      "pixel_sha256": "de0941afb577af6c97c1e092584ebc632e4a2aec6482e2f9c5df7b02f4411f07",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_hit.png",
+      "tag": "fx_hit",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        10,
+        22,
+        22
+      ],
+      "bbox_sheet_logical": [
+        74,
+        10,
+        86,
+        22
+      ],
+      "bbox_cell_px": [
+        80,
+        80,
+        176,
+        176
+      ],
+      "pixel_sha256": "7b5d1a299c6e598e626ce089c77f35ad168a0cc0bcdd996d86d9089111317e11",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_hit.png",
+      "tag": "fx_hit",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        10,
+        22,
+        21
+      ],
+      "bbox_sheet_logical": [
+        106,
+        10,
+        118,
+        21
+      ],
+      "bbox_cell_px": [
+        80,
+        80,
+        176,
+        168
+      ],
+      "pixel_sha256": "8f1fa660bfd5e6bc43a20b1f52b448104b99fd990ffda9c87af54989a709f0ba",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_hit.png",
+      "tag": "fx_hit",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        16,
+        11,
+        19,
+        18
+      ],
+      "bbox_sheet_logical": [
+        144,
+        11,
+        147,
+        18
+      ],
+      "bbox_cell_px": [
+        128,
+        88,
+        152,
+        144
+      ],
+      "pixel_sha256": "240a945662b669ce675df1e0f713baeedd382d4adcdc846abb2cdb215206b6b0",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_q_wave.png",
+      "tag": "fx_q_wave",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        2,
+        27,
+        15
+      ],
+      "bbox_sheet_logical": [
+        10,
+        2,
+        27,
+        15
+      ],
+      "bbox_cell_px": [
+        80,
+        16,
+        216,
+        120
+      ],
+      "pixel_sha256": "46cc5750774d3761285cb2a1a23134046e78422ab7f357c6b5123fc3d62f5f1e",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_q_wave.png",
+      "tag": "fx_q_wave",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        2,
+        26,
+        15
+      ],
+      "bbox_sheet_logical": [
+        40,
+        2,
+        58,
+        15
+      ],
+      "bbox_cell_px": [
+        64,
+        16,
+        208,
+        120
+      ],
+      "pixel_sha256": "f610094b4adf027ff4c16f19b3cf9bf2aa94faa1330a29414ce24dde86275306",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_q_wave.png",
+      "tag": "fx_q_wave",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        7,
+        1,
+        27,
+        15
+      ],
+      "bbox_sheet_logical": [
+        71,
+        1,
+        91,
+        15
+      ],
+      "bbox_cell_px": [
+        56,
+        8,
+        216,
+        120
+      ],
+      "pixel_sha256": "2c71b431b9216afd856b1bde7957d601eeff31ee70b38fca9a7a597c7a502993",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_q_wave.png",
+      "tag": "fx_q_wave",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        1,
+        26,
+        15
+      ],
+      "bbox_sheet_logical": [
+        106,
+        1,
+        122,
+        15
+      ],
+      "bbox_cell_px": [
+        80,
+        8,
+        208,
+        120
+      ],
+      "pixel_sha256": "a7b58222499062f43d65b85f75540468060d0c3be9f033d83e2a5292d4c3dd74",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 60,
+      "preview_ms": 60
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        15,
+        15,
+        17,
+        17
+      ],
+      "bbox_sheet_logical": [
+        15,
+        15,
+        17,
+        17
+      ],
+      "bbox_cell_px": [
+        120,
+        120,
+        136,
+        136
+      ],
+      "pixel_sha256": "422eed4acec9d3b89403c04b964a37fd4f43b25c72e4054d80568e6afd47cecc",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "appear"
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        11,
+        13,
+        21,
+        19
+      ],
+      "bbox_sheet_logical": [
+        43,
+        13,
+        53,
+        19
+      ],
+      "bbox_cell_px": [
+        88,
+        104,
+        168,
+        152
+      ],
+      "pixel_sha256": "faf9354ac92b46c8cadc516b5299b418cf1168d048616eecb1153484446ecc1b",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop"
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        10,
+        22,
+        22
+      ],
+      "bbox_sheet_logical": [
+        74,
+        10,
+        86,
+        22
+      ],
+      "bbox_cell_px": [
+        80,
+        80,
+        176,
+        176
+      ],
+      "pixel_sha256": "c591d01799ec0022db50296fa9bf0e449c389b2465d653fe0ecd2aab169f1c64",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop"
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        9,
+        24,
+        22
+      ],
+      "bbox_sheet_logical": [
+        104,
+        9,
+        120,
+        22
+      ],
+      "bbox_cell_px": [
+        64,
+        72,
+        192,
+        176
+      ],
+      "pixel_sha256": "b2c98109ad00f0961ea5b13021c8f65ccedfca1cfdc1ef1793de764f18eb3fd7",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop"
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        12,
+        11,
+        19,
+        20
+      ],
+      "bbox_sheet_logical": [
+        140,
+        11,
+        147,
+        20
+      ],
+      "bbox_cell_px": [
+        96,
+        88,
+        152,
+        160
+      ],
+      "pixel_sha256": "f0ee98d3b32ef387456683d446058605a70630ecc4b613a26fda6e73e6a45ec4",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop"
+    },
+    {
+      "sheet": "leesin_fx_q_mark.png",
+      "tag": "fx_q_mark",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        12,
+        13,
+        17,
+        17
+      ],
+      "bbox_sheet_logical": [
+        172,
+        13,
+        177,
+        17
+      ],
+      "bbox_cell_px": [
+        96,
+        104,
+        136,
+        136
+      ],
+      "pixel_sha256": "86042d2e6576de1a02345557c4dcd54c037bc8dbc3a31ac3d397cca600e09a02",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "fade"
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        11,
+        10,
+        22,
+        22
+      ],
+      "bbox_sheet_logical": [
+        11,
+        10,
+        22,
+        22
+      ],
+      "bbox_cell_px": [
+        88,
+        80,
+        176,
+        176
+      ],
+      "pixel_sha256": "7f9191f2e5fbed9a592f7152b8a5e3fc696ac6eb748d9bb13463f5352829eaa5",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        3,
+        28,
+        29
+      ],
+      "bbox_sheet_logical": [
+        35,
+        3,
+        60,
+        29
+      ],
+      "bbox_cell_px": [
+        24,
+        24,
+        224,
+        232
+      ],
+      "pixel_sha256": "73a3a72ff39b39fa6ddf90f27e7ebd3bf425b62aa1a991788d82cb15260adeec",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        3,
+        29,
+        29
+      ],
+      "bbox_sheet_logical": [
+        67,
+        3,
+        93,
+        29
+      ],
+      "bbox_cell_px": [
+        24,
+        24,
+        232,
+        232
+      ],
+      "pixel_sha256": "9427733c9811a67574e861db13e3a1ab69681673c4d0c87d57bd1ab0ccec15ce",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        4,
+        29,
+        27
+      ],
+      "bbox_sheet_logical": [
+        99,
+        4,
+        125,
+        27
+      ],
+      "bbox_cell_px": [
+        24,
+        32,
+        232,
+        216
+      ],
+      "pixel_sha256": "72e99277e5c63d6fb82f06685a1ff855cb7a21c6e31b74c4121b6eb791f661eb",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        4,
+        28,
+        27
+      ],
+      "bbox_sheet_logical": [
+        131,
+        4,
+        156,
+        27
+      ],
+      "bbox_cell_px": [
+        24,
+        32,
+        224,
+        216
+      ],
+      "pixel_sha256": "5c90acbb6fbfbe5a2371ea962c19fc98d6c19af0a7256d232761cf514e16cb97",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_q2_hit.png",
+      "tag": "fx_q2_hit",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        5,
+        27,
+        26
+      ],
+      "bbox_sheet_logical": [
+        164,
+        5,
+        187,
+        26
+      ],
+      "bbox_cell_px": [
+        32,
+        40,
+        216,
+        208
+      ],
+      "pixel_sha256": "d82b13064ba62eb5690386e006cf34b4fc889b5a320b2c2bb2553aa562255580",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        10,
+        26,
+        26
+      ],
+      "bbox_sheet_logical": [
+        8,
+        10,
+        26,
+        26
+      ],
+      "bbox_cell_px": [
+        64,
+        80,
+        208,
+        208
+      ],
+      "pixel_sha256": "d2428721c6132d406fe6946f3e2bf51e7b9d9d194f76db3e361525805d2bae38",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        6,
+        27,
+        26
+      ],
+      "bbox_sheet_logical": [
+        36,
+        6,
+        59,
+        26
+      ],
+      "bbox_cell_px": [
+        32,
+        48,
+        216,
+        208
+      ],
+      "pixel_sha256": "166f9712feccd9f0fbc0d5cd2356e0d5058b98b19a031a6eeea0a391ef485d3a",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        1,
+        4,
+        30,
+        28
+      ],
+      "bbox_sheet_logical": [
+        65,
+        4,
+        94,
+        28
+      ],
+      "bbox_cell_px": [
+        8,
+        32,
+        240,
+        224
+      ],
+      "pixel_sha256": "9616c707417e3225bb38ef8ad1bdcccc2e7ae98e659722e479e701d25a23fa00",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        2,
+        2,
+        31,
+        30
+      ],
+      "bbox_sheet_logical": [
+        98,
+        2,
+        127,
+        30
+      ],
+      "bbox_cell_px": [
+        16,
+        16,
+        248,
+        240
+      ],
+      "pixel_sha256": "dbbc7a1062bff7b9d3c9bcd8b0a9c4fcbef9c24c0e0b514aad6b4f2baa1b0964",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        3,
+        30,
+        29
+      ],
+      "bbox_sheet_logical": [
+        131,
+        3,
+        158,
+        29
+      ],
+      "bbox_cell_px": [
+        24,
+        24,
+        240,
+        232
+      ],
+      "pixel_sha256": "03fc189ed489b3524433f8b19430116ac9d7b069da9a0fb36bddd80a70560463",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        4,
+        29,
+        28
+      ],
+      "bbox_sheet_logical": [
+        164,
+        4,
+        189,
+        28
+      ],
+      "bbox_cell_px": [
+        32,
+        32,
+        232,
+        224
+      ],
+      "pixel_sha256": "ff325e222cbe1eb5a8d2ebac8d775a6a1d3bd3b387b8d48f03609d1b97ebb2e6",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_e_wave.png",
+      "tag": "fx_e_wave",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        6,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        5,
+        6,
+        27,
+        27
+      ],
+      "bbox_sheet_logical": [
+        197,
+        6,
+        219,
+        27
+      ],
+      "bbox_cell_px": [
+        40,
+        48,
+        216,
+        216
+      ],
+      "pixel_sha256": "b2c46812009ff6655cbfc0aad6f7f2f4d4218589da7002109bea1d5ccde2fccc",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        6,
+        5,
+        27,
+        29
+      ],
+      "bbox_sheet_logical": [
+        6,
+        5,
+        27,
+        29
+      ],
+      "bbox_cell_px": [
+        48,
+        40,
+        216,
+        232
+      ],
+      "pixel_sha256": "bc5a614eeca5e620daad49dc51db74a1336fbfac4cd1bc37525bba2ff71e8eee",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "appear"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        2,
+        28,
+        27
+      ],
+      "bbox_sheet_logical": [
+        36,
+        2,
+        60,
+        27
+      ],
+      "bbox_cell_px": [
+        32,
+        16,
+        224,
+        216
+      ],
+      "pixel_sha256": "61528c65c809fb0019b1ac3ae19111dcd1a8c5f02f4d80b3877639a0931b3e69",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "appear"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        2,
+        28,
+        29
+      ],
+      "bbox_sheet_logical": [
+        68,
+        2,
+        92,
+        29
+      ],
+      "bbox_cell_px": [
+        32,
+        16,
+        224,
+        232
+      ],
+      "pixel_sha256": "4edbbc461dc46560bd7692b226677e0edf6e859ac397ce5879224c21cc823ba2",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop_twice"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        2,
+        28,
+        28
+      ],
+      "bbox_sheet_logical": [
+        100,
+        2,
+        124,
+        28
+      ],
+      "bbox_cell_px": [
+        32,
+        16,
+        224,
+        224
+      ],
+      "pixel_sha256": "59c08a3729e10c6257bb69f62b36dd2cdd9b502f25f76240f082d84c16ac9717",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop_twice"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        2,
+        28,
+        28
+      ],
+      "bbox_sheet_logical": [
+        132,
+        2,
+        156,
+        28
+      ],
+      "bbox_cell_px": [
+        32,
+        16,
+        224,
+        224
+      ],
+      "pixel_sha256": "6f7d88e23e2d434be54b74555d1b294186512e0cb1921089551f961f406409a2",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop_twice"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        3,
+        28,
+        28
+      ],
+      "bbox_sheet_logical": [
+        164,
+        3,
+        188,
+        28
+      ],
+      "bbox_cell_px": [
+        32,
+        24,
+        224,
+        224
+      ],
+      "pixel_sha256": "ef5bfcf26c83ec6c138b8bd39798891d189d187c3090116b5a4896dd5017e89f",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "sustain_loop_twice"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        6,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        2,
+        28,
+        29
+      ],
+      "bbox_sheet_logical": [
+        196,
+        2,
+        220,
+        29
+      ],
+      "bbox_cell_px": [
+        32,
+        16,
+        224,
+        232
+      ],
+      "pixel_sha256": "e8fd55a45f25b1692b1f2fa2d71e443d7e4ade5cd3a8ffa228bd30e2a280450f",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "fade"
+    },
+    {
+      "sheet": "leesin_fx_shield.png",
+      "tag": "fx_shield",
+      "frame_index": 7,
+      "frame_number": 8,
+      "cell": [
+        7,
+        0
+      ],
+      "cell_origin_logical": [
+        224,
+        0
+      ],
+      "bbox_cell_logical": [
+        9,
+        5,
+        27,
+        27
+      ],
+      "bbox_sheet_logical": [
+        233,
+        5,
+        251,
+        27
+      ],
+      "bbox_cell_px": [
+        72,
+        40,
+        216,
+        216
+      ],
+      "pixel_sha256": "5aef8a8310b0a4e692e636acf3b4331d467cbc4287974b00bf71a0a7b226f007",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": null,
+      "preview_ms": 60,
+      "phase": "fade"
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        3,
+        29,
+        29
+      ],
+      "bbox_sheet_logical": [
+        4,
+        3,
+        29,
+        29
+      ],
+      "bbox_cell_px": [
+        32,
+        24,
+        232,
+        232
+      ],
+      "pixel_sha256": "3ef032d45a21cf82a802104fef35cf219a311d6a0b7b55c6c5b6283df62788c4",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        6,
+        31,
+        27
+      ],
+      "bbox_sheet_logical": [
+        36,
+        6,
+        63,
+        27
+      ],
+      "bbox_cell_px": [
+        32,
+        48,
+        248,
+        216
+      ],
+      "pixel_sha256": "d03f6727d32feb3f961d10bc41580ca0f9207bb084a4f691c4d99163776dd229",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        2,
+        4,
+        32,
+        28
+      ],
+      "bbox_sheet_logical": [
+        66,
+        4,
+        96,
+        28
+      ],
+      "bbox_cell_px": [
+        16,
+        32,
+        256,
+        224
+      ],
+      "pixel_sha256": "538ca29c55ca9cf7cd5345727d98e06ae82804b8a5cc1f3a116ba35a45f62292",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        2,
+        7,
+        30,
+        27
+      ],
+      "bbox_sheet_logical": [
+        98,
+        7,
+        126,
+        27
+      ],
+      "bbox_cell_px": [
+        16,
+        56,
+        240,
+        216
+      ],
+      "pixel_sha256": "6d4c336c8181f00b406ea90078c619397324ca639b0ede20eec2d904e4e4f284",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        4,
+        31,
+        27
+      ],
+      "bbox_sheet_logical": [
+        131,
+        4,
+        159,
+        27
+      ],
+      "bbox_cell_px": [
+        24,
+        32,
+        248,
+        216
+      ],
+      "pixel_sha256": "ebb4437c73c940ed7010261dd7b084b65b83cfdfabd2f1f5ff8bfeb20d572710",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        4,
+        5,
+        30,
+        27
+      ],
+      "bbox_sheet_logical": [
+        164,
+        5,
+        190,
+        27
+      ],
+      "bbox_cell_px": [
+        32,
+        40,
+        240,
+        216
+      ],
+      "pixel_sha256": "b85850f91c013cbd138e69c5d2028504c83bfcb2bfecb81fdd25fe2c4faf3261",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_kick.png",
+      "tag": "fx_r_kick",
+      "frame_index": 6,
+      "frame_number": 7,
+      "cell": [
+        6,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        6,
+        8,
+        28,
+        26
+      ],
+      "bbox_sheet_logical": [
+        198,
+        8,
+        220,
+        26
+      ],
+      "bbox_cell_px": [
+        48,
+        64,
+        224,
+        208
+      ],
+      "pixel_sha256": "2032cf6d933d5329cc404c593f2cef3d91e67dc09dd27246604ec2843ee99fcc",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_dragon.png",
+      "tag": "fx_r_dragon",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        7,
+        60,
+        25
+      ],
+      "bbox_sheet_logical": [
+        3,
+        7,
+        60,
+        25
+      ],
+      "bbox_cell_px": [
+        24,
+        56,
+        480,
+        200
+      ],
+      "pixel_sha256": "d8489418810a6fc422ed78e919f6763d7bef5afc362bd0ebaa272064008cde21",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_dragon.png",
+      "tag": "fx_r_dragon",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        7,
+        60,
+        24
+      ],
+      "bbox_sheet_logical": [
+        67,
+        7,
+        124,
+        24
+      ],
+      "bbox_cell_px": [
+        24,
+        56,
+        480,
+        192
+      ],
+      "pixel_sha256": "9b8fe9723ba0e36317a31be179d4591ffc994402e3a85b92b57a65f8f032c4af",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_dragon.png",
+      "tag": "fx_r_dragon",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        5,
+        7,
+        60,
+        24
+      ],
+      "bbox_sheet_logical": [
+        133,
+        7,
+        188,
+        24
+      ],
+      "bbox_cell_px": [
+        40,
+        56,
+        480,
+        192
+      ],
+      "pixel_sha256": "be36d0e9fd6bfd3d156c3adbe74fae96c192b08cef3cb38d3d7273602bce0ac5",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_r_dragon.png",
+      "tag": "fx_r_dragon",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        192,
+        0
+      ],
+      "bbox_cell_logical": [
+        3,
+        7,
+        60,
+        25
+      ],
+      "bbox_sheet_logical": [
+        195,
+        7,
+        252,
+        25
+      ],
+      "bbox_cell_px": [
+        24,
+        56,
+        480,
+        200
+      ],
+      "pixel_sha256": "04bf6ecede92f58bc5200777f65622ea097354dc0cc96dd1351b493ae56315a7",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 0,
+      "frame_number": 1,
+      "cell": [
+        0,
+        0
+      ],
+      "cell_origin_logical": [
+        0,
+        0
+      ],
+      "bbox_cell_logical": [
+        13,
+        15,
+        19,
+        17
+      ],
+      "bbox_sheet_logical": [
+        13,
+        15,
+        19,
+        17
+      ],
+      "bbox_cell_px": [
+        104,
+        120,
+        152,
+        136
+      ],
+      "pixel_sha256": "75c1a4c422dac8de59a77e8b6386b71e0fe073a2f6cb7d6814f9fea981d7c37b",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 1,
+      "frame_number": 2,
+      "cell": [
+        1,
+        0
+      ],
+      "cell_origin_logical": [
+        32,
+        0
+      ],
+      "bbox_cell_logical": [
+        10,
+        10,
+        22,
+        22
+      ],
+      "bbox_sheet_logical": [
+        42,
+        10,
+        54,
+        22
+      ],
+      "bbox_cell_px": [
+        80,
+        80,
+        176,
+        176
+      ],
+      "pixel_sha256": "1017460ff25e1fe0e64712014f4abf0ce4d1b22375c023bd278d80b7792c9efd",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 2,
+      "frame_number": 3,
+      "cell": [
+        2,
+        0
+      ],
+      "cell_origin_logical": [
+        64,
+        0
+      ],
+      "bbox_cell_logical": [
+        6,
+        8,
+        25,
+        23
+      ],
+      "bbox_sheet_logical": [
+        70,
+        8,
+        89,
+        23
+      ],
+      "bbox_cell_px": [
+        48,
+        64,
+        200,
+        184
+      ],
+      "pixel_sha256": "6c73763598246e4babb9b712d842b5333df633bab2b247833b448e7758232885",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 3,
+      "frame_number": 4,
+      "cell": [
+        3,
+        0
+      ],
+      "cell_origin_logical": [
+        96,
+        0
+      ],
+      "bbox_cell_logical": [
+        8,
+        8,
+        24,
+        23
+      ],
+      "bbox_sheet_logical": [
+        104,
+        8,
+        120,
+        23
+      ],
+      "bbox_cell_px": [
+        64,
+        64,
+        192,
+        184
+      ],
+      "pixel_sha256": "f3afbbc4f7a86234e8079574be80ac0097fa25cfdd0ee410e584028894724d99",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 4,
+      "frame_number": 5,
+      "cell": [
+        4,
+        0
+      ],
+      "cell_origin_logical": [
+        128,
+        0
+      ],
+      "bbox_cell_logical": [
+        9,
+        9,
+        24,
+        23
+      ],
+      "bbox_sheet_logical": [
+        137,
+        9,
+        152,
+        23
+      ],
+      "bbox_cell_px": [
+        72,
+        72,
+        192,
+        184
+      ],
+      "pixel_sha256": "13559a18f53e73387f6b3142a789150de8b68ba59db0a2f622b3d4c121a7816c",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    },
+    {
+      "sheet": "leesin_fx_knockup.png",
+      "tag": "fx_knockup",
+      "frame_index": 5,
+      "frame_number": 6,
+      "cell": [
+        5,
+        0
+      ],
+      "cell_origin_logical": [
+        160,
+        0
+      ],
+      "bbox_cell_logical": [
+        11,
+        10,
+        21,
+        22
+      ],
+      "bbox_sheet_logical": [
+        171,
+        10,
+        181,
+        22
+      ],
+      "bbox_cell_px": [
+        88,
+        80,
+        168,
+        176
+      ],
+      "pixel_sha256": "cdb8010bbc5ef89b794ddd70ca61b519c0652476ed821cf01a2a0a59f14de187",
+      "bbox_recentered": false,
+      "pivot": null,
+      "ms": 70,
+      "preview_ms": 70
+    }
+  ],
+  "files": {
+    "ACTIONS_OVERVIEW.png": {
+      "sha256": "948ac132f101c12a268f5412ff70043d0a1692c17b328474a75ddfe9bd6515dc",
+      "bytes": 24914
+    },
+    "audit/approved_design_zoom.png": {
+      "sha256": "30707dfbd36da66134870b13facc634cfd4855f928ae6fabe142e43a54ade4af",
+      "bytes": 7675
+    },
+    "audit/attack_normalization.json": {
+      "sha256": "939fa9e0b13051532192f8c440c043ba5daf4bdc7f7c0440a2cb79cb217b7788",
+      "bytes": 1224
+    },
+    "audit/BATCH_SPECS.json": {
+      "sha256": "5437cda3fa79b24113baf7640b563c8961fcbd81daec74859e4307372fd3bb37",
+      "bytes": 14950
+    },
+    "audit/dead_normalization.json": {
+      "sha256": "a5dbd5ec3bb0f4168f665befab62dbd16ddf96fd9f2216597fe2e2e0c4ecca97",
+      "bytes": 1372
+    },
+    "audit/DESIGN_STAGE_HANDOFF.md": {
+      "sha256": "eb50f0a215450195f282d589fc398dcad72db59be46798fbd3da438deac13819",
+      "bytes": 3737
+    },
+    "audit/FINAL_CLEANUP.json": {
+      "sha256": "d7ceeccf5d2f163a9f4ab933802c3b97695e7a6d25041095016301d56cda67d2",
+      "bytes": 7339
+    },
+    "audit/fx_e_wave_normalization.json": {
+      "sha256": "0f0dd8596dcb7a5ff77f74d7614cd81b70cef3fbaabbb77667cd4f464e2ca33e",
+      "bytes": 1491
+    },
+    "audit/fx_hit_normalization.json": {
+      "sha256": "9856603e40223e6ae47261428ffe76ecba46521098c5abbb7bceeef61114d32e",
+      "bytes": 1154
+    },
+    "audit/fx_knockup_normalization.json": {
+      "sha256": "63ed099c41381ca866441f483fecfd0ab5b60553febba64b70b7d1b1a664fdda",
+      "bytes": 1325
+    },
+    "audit/fx_q2_hit_normalization.json": {
+      "sha256": "9493b13780ae587441f7d6c48786176b3681146de2c9cba90a85d7340310c5d3",
+      "bytes": 1323
+    },
+    "audit/fx_q_mark_normalization.json": {
+      "sha256": "129f90700c5e73963e1e5dcc7e17b19ce3cc2b5125aa97e29e850b5652ea60b7",
+      "bytes": 1329
+    },
+    "audit/fx_q_wave_normalization.json": {
+      "sha256": "d544fabc89f1aa18b55b66d29672b10f0f2ced216df66165d4c8a4b8cc443a66",
+      "bytes": 985
+    },
+    "audit/fx_r_dragon_normalization.json": {
+      "sha256": "4404470c088384077a3436124013dd85b0867128f759891623d6a26cf777278a",
+      "bytes": 985
+    },
+    "audit/fx_r_kick_normalization.json": {
+      "sha256": "281edd91584017a0229b7efc9bdf555f4f2aa3465b34cb873331d66745acaa0c",
+      "bytes": 1490
+    },
+    "audit/fx_shield_normalization.json": {
+      "sha256": "91bfd5732041659f537dba3240a81f9e2377e54473e5f681a16e031a2ca592a1",
+      "bytes": 1659
+    },
+    "audit/hit_normalization.json": {
+      "sha256": "2f705463d4852767eafc858134e8f66c99d521b2469168297f4b0c9c7cfe59da",
+      "bytes": 608
+    },
+    "audit/IDLE_HEAD_LOCK.json": {
+      "sha256": "ae9fb173990df8ab280a455c08fb8b4e3dfa6aee36f1353956ef65ef49573249",
+      "bytes": 3311
+    },
+    "audit/idle_head_master_1x.png": {
+      "sha256": "6500b92c9bd077eece3d6065ffbb29fd3a2fb817681beb3135edc595d1f9e2c0",
+      "bytes": 263
+    },
+    "audit/idle_head_master_8x.png": {
+      "sha256": "3e4f6187772297a769150c24ab97584916cab6f9f0a7b49ea46997fd6788d50d",
+      "bytes": 541
+    },
+    "audit/idle_normalization.json": {
+      "sha256": "2c5a5e4641a03bce747e72323c222f8fa95991e760a823cca96ab7901e5dbcf3",
+      "bytes": 1222
+    },
+    "audit/q2_normalization.json": {
+      "sha256": "a13cd973d6e5fc0a6eb014be3082c9cdd001b9c24a05f216f374f7c16ba7e749",
+      "bytes": 1367
+    },
+    "audit/run_normalization.json": {
+      "sha256": "f5268b89cde49f0fde24c220cb64d3db4e4ef215095d97b2cbcf37db73c073d1",
+      "bytes": 1522
+    },
+    "audit/skill2_normalization.json": {
+      "sha256": "ff118c9712c0a6ac5dfce40a1fc40ae1ae46ae84fa1bc84f917b995a7529bb19",
+      "bytes": 1377
+    },
+    "audit/skill_normalization.json": {
+      "sha256": "9bca2258d933ebd37114a501c3648a72a52fc6c31955749a6af29b0c1c5c0af1",
+      "bytes": 1373
+    },
+    "audit/SOURCE_PROMPTS.md": {
+      "sha256": "93a7bb9dfadd43a82609b69fbc899581d8de56ab43df429ebb779e775b3a77e5",
+      "bytes": 47176
+    },
+    "audit/ult_normalization.json": {
+      "sha256": "fea0ea0375ab61c0706a99916ab8b322283631e93cc14312bd659e8847894e8c",
+      "bytes": 1523
+    },
+    "HANDOFF.md": {
+      "sha256": "97ba66fb5a2beb23d2f8d8f126f6af7f5a2c26ce704906fdebff18496df1b62a",
+      "bytes": 6213
+    },
+    "INTEGRATION_MAP.json": {
+      "sha256": "05a33443a6e2656318eab3ae7e165b8c46d0622753cdfbbdba60f45da55a8452",
+      "bytes": 4251
+    },
+    "leesin_attack.png": {
+      "sha256": "8773365cabb45fcb9d3e0e4e046f2eb224453f21c9656c71e78b6a197a7b9168",
+      "bytes": 20933
+    },
+    "leesin_cells.json": {
+      "sha256": "7f628ec21d40d3e78a179bb1ec33d22dacff7733d5de79039bd4d4386fdfb316",
+      "bytes": 1981
+    },
+    "leesin_dead.png": {
+      "sha256": "cfc297df02f6c79716da738b22d16a8ccccdd980e8973ec0c15bf0f388eb3bb8",
+      "bytes": 23974
+    },
+    "leesin_fx_e_wave.png": {
+      "sha256": "9de70681c15316aa981fc53c95f53a39a2f702c6a0c94337fef71b419cf86583",
+      "bytes": 6136
+    },
+    "leesin_fx_hit.png": {
+      "sha256": "a223a06719a452aa47ac7c100c5c6a427052b766b9f545af1418c75f5af4f024",
+      "bytes": 1977
+    },
+    "leesin_fx_knockup.png": {
+      "sha256": "b373b2c763e78eb51d152d08cb19e7174e7118ad77fdf8ab7eca77c8958915e5",
+      "bytes": 2807
+    },
+    "leesin_fx_q2_hit.png": {
+      "sha256": "34a878745158ccb0379fa89c99aba9266c0990d8648d46ded3063fd5c2b1408a",
+      "bytes": 4567
+    },
+    "leesin_fx_q_mark.png": {
+      "sha256": "9d9904660896ae231f5034ad43a35dbd6031dd749659ae3c7989a10bb27bb67a",
+      "bytes": 2322
+    },
+    "leesin_fx_q_wave.png": {
+      "sha256": "d6514333041ea30b4f3effafdb2893f24df6da8514e18e8d0f2c6eea5691891a",
+      "bytes": 1998
+    },
+    "leesin_fx_r_dragon.png": {
+      "sha256": "a1317154777c564e66d8f163b446d42055415e332b6bf7ac039d2e1307b717f0",
+      "bytes": 5985
+    },
+    "leesin_fx_r_kick.png": {
+      "sha256": "5e5c753d59cde7968207b88d6b8a3b7d6801616df9a9388cb74d947f2a95b24d",
+      "bytes": 6563
+    },
+    "leesin_fx_shield.png": {
+      "sha256": "b13c1bf144837e3a188c9b13d91c3fdd4690a74236fcd050be48cd5a01e34a8f",
+      "bytes": 5275
+    },
+    "leesin_hit.png": {
+      "sha256": "b9cbc0f0fa0485fac2cf4d6a2d664452ad7983236b26c1ef0fc5327389e5c9b8",
+      "bytes": 7361
+    },
+    "leesin_idle.png": {
+      "sha256": "ede19611696f53a1b19a1e52e91f774ea5fb610232c13045a2d1fe830ecf39be",
+      "bytes": 14238
+    },
+    "leesin_native.png": {
+      "sha256": "8010f0b0ecc864d5f42a19a662fc66bdd16f0ed8d4b6e5bf1c2552a4129399ab",
+      "bytes": 6666
+    },
+    "leesin_q2.png": {
+      "sha256": "47a9173fd3c663721d91ad571aa1f04f8a7683bc75b27532a90c97388472e57a",
+      "bytes": 21365
+    },
+    "leesin_run.png": {
+      "sha256": "09331ffd9f9953b920ddbdf2332899024c0c411a8a931e6f42e10c08b9799f8b",
+      "bytes": 27550
+    },
+    "leesin_skill.png": {
+      "sha256": "4bacdd42a55674d6e78707e54c662429a9373c2b5c941e8fbe5355afaa5df063",
+      "bytes": 27110
+    },
+    "leesin_skill2.png": {
+      "sha256": "2c7014fc885b188e880c8871ed7c9d636a0b5d7dc78654cb9b09f3db22e08b21",
+      "bytes": 24754
+    },
+    "leesin_ult.png": {
+      "sha256": "e8e7fc04e9292f5969f029268ac7274f9c28e8b70eb597100d4be86637b92f17",
+      "bytes": 25845
+    },
+    "native_1x/leesin_attack.png": {
+      "sha256": "0bc6cdbaf23202e0f47c03f3edb333419d54497c3c8d1b98e2a767e45280a1f8",
+      "bytes": 6550
+    },
+    "native_1x/leesin_dead.png": {
+      "sha256": "d4a4cd1a9d8e3aba004791c69810b22c58584a7ecaf79b955347dbc4f94ce036",
+      "bytes": 6978
+    },
+    "native_1x/leesin_fx_e_wave.png": {
+      "sha256": "fd6e752c6458bd87e198918749f61039b92439b17ac70b0bd2c2b7e798b6f4a5",
+      "bytes": 1610
+    },
+    "native_1x/leesin_fx_hit.png": {
+      "sha256": "cf41100161b63e0290c46acaa412e5d6f6899b3a9d283f7bb82c8ed28dd712c2",
+      "bytes": 245
+    },
+    "native_1x/leesin_fx_knockup.png": {
+      "sha256": "ae83052e48d60af45c222362bc2132eabc9049c85c7d478bc6c721f9465775fc",
+      "bytes": 555
+    },
+    "native_1x/leesin_fx_q2_hit.png": {
+      "sha256": "f8fb95e4b2def06b237c4ee7eb418c59bbfc103c6642ef80800fb0d008bcf57d",
+      "bytes": 1166
+    },
+    "native_1x/leesin_fx_q_mark.png": {
+      "sha256": "103dd5c0a8fe222df7abf1ba9d94bf09ab69fcdda967779ae16a8adee4fc7a06",
+      "bytes": 357
+    },
+    "native_1x/leesin_fx_q_wave.png": {
+      "sha256": "3c12c45fc29fe282ba13e4e9c00c016f0419134f50c21de2efbba58664c6387a",
+      "bytes": 635
+    },
+    "native_1x/leesin_fx_r_dragon.png": {
+      "sha256": "e6982f7aef4411a80b6e9550b040f72325238766c45177618c8a454af7a76542",
+      "bytes": 1887
+    },
+    "native_1x/leesin_fx_r_kick.png": {
+      "sha256": "e67471d3d6661fdf163b6d43b43d5cf565f8002e83463feda58f0d90d3e88994",
+      "bytes": 2019
+    },
+    "native_1x/leesin_fx_shield.png": {
+      "sha256": "b1c7b4ccf8de123b5c9cfff591f75c462df6ca51a4a451dc36c7bf8802f4a090",
+      "bytes": 1207
+    },
+    "native_1x/leesin_hit.png": {
+      "sha256": "4208644e1e19ffb9e7840541709ee61be061f13c459e2f60a2c77cc70378ea74",
+      "bytes": 2298
+    },
+    "native_1x/leesin_idle.png": {
+      "sha256": "f2530065c6c4d8ad79ae8071e499b305a02faecd56a2f3e154644eec746e4b18",
+      "bytes": 2969
+    },
+    "native_1x/leesin_native.png": {
+      "sha256": "62d6c0b4c1731ec14f7a4847e1a48c8f3aedad7afd012bdad3583db571b0c73f",
+      "bytes": 1155
+    },
+    "native_1x/leesin_q2.png": {
+      "sha256": "913749bffaa8ac578da121cf048730e909db05cb76333ddd65b08c75ae6234aa",
+      "bytes": 5841
+    },
+    "native_1x/leesin_run.png": {
+      "sha256": "d2c3e1df96d1e06dcf764ecaf8f20801208320c8a5cdfd0419e65aab49c1f073",
+      "bytes": 8407
+    },
+    "native_1x/leesin_skill.png": {
+      "sha256": "ad0286fcd555d8cad9ead4f8cf9c519c949b157d95cfa8f60735a7a0424b0171",
+      "bytes": 8494
+    },
+    "native_1x/leesin_skill2.png": {
+      "sha256": "d0dd3de99786c8d9df59fa311d5e181bb808005c59578983b745c6e61d7e5ccf",
+      "bytes": 7117
+    },
+    "native_1x/leesin_ult.png": {
+      "sha256": "965da0700b01db814e7a76e775ea9179c917c53a1e67b1d4250e4a799538659a",
+      "bytes": 7699
+    },
+    "PALETTE.json": {
+      "sha256": "8074211147643b56f2a6767d0f8814f33845f3b743241835c3553a8bdab5b84a",
+      "bytes": 279
+    },
+    "previews/attack.gif": {
+      "sha256": "6aa5f5e39ded3b14f2907ae8464577dc8ca5074caedd756183a9d386df0dc929",
+      "bytes": 18515
+    },
+    "previews/attack.png": {
+      "sha256": "1e34fb97a093515f1cca2839623760cbf856827fe5ee8e0a6cbb66ca4edac7e1",
+      "bytes": 13993
+    },
+    "previews/dead.gif": {
+      "sha256": "e423f84c6939fba339f56d4d535af357e7736d8666888a60143f9ac4df73ba0e",
+      "bytes": 19541
+    },
+    "previews/dead.png": {
+      "sha256": "024f84af9d1199cf5e84d1f7a1b1b9e104f1709edd05d20c7212540b92f9fca0",
+      "bytes": 15033
+    },
+    "previews/fx_e_wave.gif": {
+      "sha256": "433013c6a2b6d1a20eec4f85299640633365243a9607914626b5d0069a4f32b3",
+      "bytes": 7078
+    },
+    "previews/fx_e_wave.png": {
+      "sha256": "008d9602d94df5a8ac71918f9039add5fc633ecb61b5edae99ba067cec3e736e",
+      "bytes": 7634
+    },
+    "previews/fx_hit.gif": {
+      "sha256": "66d7d786313008e869a8de9a94077824bfb264ce7ec825dfb47c5195970da9a3",
+      "bytes": 1600
+    },
+    "previews/fx_hit.png": {
+      "sha256": "bdcb04b57f7db7e20302fe0cd7f70f5647f35b23d0bc0df1f6b74a495aff102b",
+      "bytes": 3850
+    },
+    "previews/fx_knockup.gif": {
+      "sha256": "89139311c96b4053c12013e2e01cb8815186e8e29a2d726b3818ac303b0c659e",
+      "bytes": 2736
+    },
+    "previews/fx_knockup.png": {
+      "sha256": "885ff42218192aadeb538d6be05a03709a6bf7c9a55fe760cec95cca730dfa6f",
+      "bytes": 5264
+    },
+    "previews/fx_q2_hit.gif": {
+      "sha256": "c58b11bb203b8346c8223f90c0bcd6ca252d25f99ed5ba510fe78f39d7202112",
+      "bytes": 4652
+    },
+    "previews/fx_q2_hit.png": {
+      "sha256": "c58f75de745be39758f1884ab244e357c88cff986e7540b402eb8d326a122a17",
+      "bytes": 6195
+    },
+    "previews/fx_q_mark.gif": {
+      "sha256": "bd7871fe6a3b9af90754b06819f5ebff5b1f8e62d739002d673182dd77986045",
+      "bytes": 2199
+    },
+    "previews/fx_q_mark.png": {
+      "sha256": "2689cf5a326ae4f177bbed2565508e27ed4e9fc1c21b58ecafc6dcea314ff6bc",
+      "bytes": 4732
+    },
+    "previews/fx_q_wave.gif": {
+      "sha256": "7c75372ed7d2b9cfa2ec584fa03a28d731a377d7c925559dda16ee86de69d34d",
+      "bytes": 2778
+    },
+    "previews/fx_q_wave.png": {
+      "sha256": "9bae3c0bede1e9d65647501f9aa573650f90afbf5027e134effdfd0e5752fddd",
+      "bytes": 2989
+    },
+    "previews/fx_r_dragon.gif": {
+      "sha256": "7cdb5e695f4e40ee365de9aa7c3b040ff3c1c04e20c4f57e04e3262bdfa27ab0",
+      "bytes": 7546
+    },
+    "previews/fx_r_dragon.png": {
+      "sha256": "322aec8b8422ae18287480ef1ac77d05423eead02fc5ed0a1a58454871f9dc1f",
+      "bytes": 5646
+    },
+    "previews/fx_r_kick.gif": {
+      "sha256": "0d3ea079ff0cdf4857b64a8a2cefc198f2319cb40edcf25863dd717e4f66d3e2",
+      "bytes": 7602
+    },
+    "previews/fx_r_kick.png": {
+      "sha256": "82d8f182fef5f28042835ac79fa92d4d001b1ca3f6e9c6eadd3709668b825154",
+      "bytes": 7414
+    },
+    "previews/fx_shield.gif": {
+      "sha256": "1ad4e00cf16d74ad27c408485959cfbe80856bd482c1304ee448a0fa9d0fe216",
+      "bytes": 6588
+    },
+    "previews/fx_shield.png": {
+      "sha256": "f51e564beb4b5044684936fce460560d9a535c6cec68b74cec07444f44c8461f",
+      "bytes": 7137
+    },
+    "previews/hit.gif": {
+      "sha256": "4af0d97a59407c529659e163999e3c89220992369e37a905ec43636288f6a13b",
+      "bytes": 6054
+    },
+    "previews/hit.png": {
+      "sha256": "670b9dcfd19ad722f2236aa8fa7edda96386d9b83996b157f0c69318759fd52c",
+      "bytes": 4381
+    },
+    "previews/idle.gif": {
+      "sha256": "8fa723d23709c35273751bc81b52ed60f2692333e147fbd58be1d042a8ec45ab",
+      "bytes": 13908
+    },
+    "previews/idle.png": {
+      "sha256": "974e60fa334075b48e9e4e1a9a65115275597bd03848014dd3609945ce07c559",
+      "bytes": 7706
+    },
+    "previews/q2.gif": {
+      "sha256": "3307419a0c86524ea68441f36fc8db9d66ac90a384e8c3001a0b083c18702deb",
+      "bytes": 16174
+    },
+    "previews/q2.png": {
+      "sha256": "0d222dadbc8cc86d7ad6a73169e0db5fc3e73022a1c94d93b14dc086131409f3",
+      "bytes": 12860
+    },
+    "previews/run.gif": {
+      "sha256": "1b60783b48feefcff9dab3e9b83279fbd379458f34a2963c7600b469ad83e5fc",
+      "bytes": 25402
+    },
+    "previews/run.png": {
+      "sha256": "e1fa5416b088b5f91d84efb195fb0dfd959fdf96997e86b63b48e0b38c2c187e",
+      "bytes": 16993
+    },
+    "previews/skill.gif": {
+      "sha256": "ea6f64a57d92e6f8cd7c4b65fb3f8aa3e022d947588d7f6b292d7a3b85c53b60",
+      "bytes": 24329
+    },
+    "previews/skill.png": {
+      "sha256": "d31ec8a452aba487a4bb26585342f09b293677eb6917db0e834a608ae2427ae0",
+      "bytes": 16822
+    },
+    "previews/skill2.gif": {
+      "sha256": "72e8a8775caad6ec031835b38f6c01a885ba08ac26e43f1d0ac53085e0e3a927",
+      "bytes": 18962
+    },
+    "previews/skill2.png": {
+      "sha256": "36d5afad0bb4eb3806f9e0565945676909002f7b9c6adf39ee9de59262c2a52b",
+      "bytes": 15310
+    },
+    "previews/ult.gif": {
+      "sha256": "6c052dd556726935c3f4e467123f7c4f73b26341cf5d0d3d6bb4e16a235b8683",
+      "bytes": 22109
+    },
+    "previews/ult.png": {
+      "sha256": "8e7038afc27ab4e371706c8dfaf4716b0839b3aa914e80d882e607197ee1c466",
+      "bytes": 15686
+    },
+    "prompts/attack.txt": {
+      "sha256": "889da57c26289d4c6dfa8437b86583ce546a72127f870082f9af50e52f622f82",
+      "bytes": 5280
+    },
+    "prompts/dead.txt": {
+      "sha256": "55f580939f708065b8609d056024fbe42a3559dfc3a6b7aa2bc5d887c94af9f4",
+      "bytes": 5136
+    },
+    "prompts/design_approved.txt": {
+      "sha256": "0e0ac75f94bf7e43c5a96772e4e8ca9bf900f1913041d6366e7263b3ed7829a6",
+      "bytes": 5992
+    },
+    "prompts/fx_e_wave.txt": {
+      "sha256": "826d1da5c2f3bee41c475c546aa3a13ae2058d1a852dd9d523655624a6362f28",
+      "bytes": 2470
+    },
+    "prompts/fx_hit.txt": {
+      "sha256": "ee8ddebdff495606e33645be8273a7058a4c4d9560ea32cbc098ed6761eaa002",
+      "bytes": 1579
+    },
+    "prompts/fx_knockup.txt": {
+      "sha256": "f6f5f4bd396e3a1f10d1689c9ae6e8e2ab10c631b17445dd8f1f0826154a9b07",
+      "bytes": 1680
+    },
+    "prompts/fx_q2_hit.txt": {
+      "sha256": "ddb5c7b11ff862f17fb30d6dffd252eaf3cc848459b8fd94b1404973c208c424",
+      "bytes": 1654
+    },
+    "prompts/fx_q_mark.txt": {
+      "sha256": "084dd224de10dc4579c6b9249ce68c7992b1e61d718c8c242b323370e71ae356",
+      "bytes": 1681
+    },
+    "prompts/fx_q_wave.txt": {
+      "sha256": "081ffa0e91b85e67ca439bd57d01b744870e96d91305a2cf173ffda9033e2dd3",
+      "bytes": 1867
+    },
+    "prompts/fx_r_dragon.txt": {
+      "sha256": "4d138db5d2e6f3381a3f379dd4fd0e03b166e5c4894c17a0e94ea0e650c52927",
+      "bytes": 1791
+    },
+    "prompts/fx_r_kick.txt": {
+      "sha256": "b6306dd15e36daa4eabe85900f542a80ce2254188625a426a41963909d02f335",
+      "bytes": 1833
+    },
+    "prompts/fx_shield.txt": {
+      "sha256": "eee2032bcbf20e7b41ae970ab8c672dc322dbbe1b3dca8ef580971e64f3445d3",
+      "bytes": 2634
+    },
+    "prompts/hit.txt": {
+      "sha256": "6be8027b226ae604e7f6ec8cae94f8704a6ff7a5571a24476765edc21f46155a",
+      "bytes": 4994
+    },
+    "prompts/idle.txt": {
+      "sha256": "d1eadf4bc87256c35df5adb7493e34341fe57c35ce6a83fd3c1123a86c084b75",
+      "bytes": 5625
+    },
+    "prompts/q2.txt": {
+      "sha256": "9b219e3489368d7877f23921177b58dbaf391f59724f00813400e330fd4927ef",
+      "bytes": 5434
+    },
+    "prompts/rejected/attack_prompt.txt": {
+      "sha256": "da7c50230e8ae9ca748fb0a9b0866cdd5e208e2bf431ad52ac006b91b2f165ff",
+      "bytes": 3757
+    },
+    "prompts/rejected/dead_prompt.txt": {
+      "sha256": "2c90f29e2917bc2013973844eea823bec074c3f6e0a265d7d3dbe72058f0ffbc",
+      "bytes": 3613
+    },
+    "prompts/rejected/fx_e_wave_prompt.txt": {
+      "sha256": "910b5b5b21989e3fb060f6e3ba787a4bf02682a8a65833e14f0faae4bb86ff26",
+      "bytes": 1923
+    },
+    "prompts/rejected/fx_shield_prompt.txt": {
+      "sha256": "15cb6211c43c71a8e2ef27b8632c9df7c7acbc0a922f08ece903217ff2e41c15",
+      "bytes": 2061
+    },
+    "prompts/rejected/hit_prompt.txt": {
+      "sha256": "59523ca8743864205d2644db8029ef0ee6ede8f12945698192ad01614f6ab893",
+      "bytes": 3471
+    },
+    "prompts/rejected/idle_prompt.txt": {
+      "sha256": "951bf250b44674dcc3963191922ae828ecfdaef001ded1d8de9767c7406a7fc0",
+      "bytes": 3797
+    },
+    "prompts/rejected/q2_prompt.txt": {
+      "sha256": "98d0fc3269fb1a4f7d6ccdfe51564a70dc6f56cef354d21476f73f0c2339cd79",
+      "bytes": 3911
+    },
+    "prompts/rejected/run_prompt.txt": {
+      "sha256": "8e77725899da98f707b6a1b54eb3c3be78eff2e2ba0418474e29c4ec92708ec5",
+      "bytes": 3786
+    },
+    "prompts/rejected/skill2_prompt.txt": {
+      "sha256": "89d672936b90b01ab9c1d8bb7bf18e098d44e112fc9388df06792f3ceea37834",
+      "bytes": 3918
+    },
+    "prompts/rejected/skill_prompt.txt": {
+      "sha256": "c2c8682d408fa52a2c56bed6d6524f34eafe4b57d40fda8d6a65a05ecc8b3122",
+      "bytes": 3867
+    },
+    "prompts/rejected/ult_prompt.txt": {
+      "sha256": "1e40c47db1a8acc5f7bd87407bb94c4596feea2c1242f32e7908f35f370e8df2",
+      "bytes": 3980
+    },
+    "prompts/run.txt": {
+      "sha256": "46e4b16ead37ba978300ef4a8b1d91c8095ba921fc2a5cbe8da78a4031eb703d",
+      "bytes": 5309
+    },
+    "prompts/skill.txt": {
+      "sha256": "14697dc77721081fd9ba5649b0f8664eaa1c44484c8e2d84a1565bdb3c2e9a14",
+      "bytes": 5390
+    },
+    "prompts/skill2.txt": {
+      "sha256": "7a59f0a2563cd2b89678575ef5650a4e123f2581083e386b3782f675306907c0",
+      "bytes": 5441
+    },
+    "prompts/ult.txt": {
+      "sha256": "f56b4f03f6f61634ac4ff5836848e8430176918d8a6e39d975053259a608b546",
+      "bytes": 5503
+    },
+    "raw/leesin_attack.png": {
+      "sha256": "31e3d2bafdb32e70a35962e21b4a8b7923c0f1d4e216bc3c77ae84897e1ce2cf",
+      "bytes": 555975
+    },
+    "raw/leesin_dead.png": {
+      "sha256": "39b5514178b583fd8310f75583da2e8222fc9bf3c346cc43c3954279621366b2",
+      "bytes": 488471
+    },
+    "raw/leesin_fx_e_wave.png": {
+      "sha256": "9192830080ebef000d9d12f663bdddfcfeaec311ccf674adc2b66e7c7c7a1722",
+      "bytes": 689341
+    },
+    "raw/leesin_fx_hit.png": {
+      "sha256": "1adaf062205d868de9492050c02632809cc01d8409776bf6054a18b8f5787388",
+      "bytes": 1202319
+    },
+    "raw/leesin_fx_knockup.png": {
+      "sha256": "815373f262167f5afd6a96cc02bd1604b6cd8d9b6e2d02006de0d63b461d8d9b",
+      "bytes": 1291310
+    },
+    "raw/leesin_fx_q2_hit.png": {
+      "sha256": "692be6b2956e6d4f60db8440170ccc0cdb52f2808e247d373d6fc81ddd975040",
+      "bytes": 1440702
+    },
+    "raw/leesin_fx_q_mark.png": {
+      "sha256": "5660e2aee5873ceccc1e573a0ce3a8bcce48c02c0cd96f009577ed2648f8178e",
+      "bytes": 1201046
+    },
+    "raw/leesin_fx_q_wave.png": {
+      "sha256": "3dd2bd2a6d398d575fa0db1ac2caaaecde1d4a2ea5d4d8e28ce600fd0f5dd439",
+      "bytes": 505341
+    },
+    "raw/leesin_fx_r_dragon.png": {
+      "sha256": "797327755aed13fc5a18e77fff69d005e6084c9a5eacb85d7439dadb45732663",
+      "bytes": 808160
+    },
+    "raw/leesin_fx_r_kick.png": {
+      "sha256": "585739378dfb8be94b370cada64fe4c1d707813a6119527661ac6817daac8676",
+      "bytes": 773801
+    },
+    "raw/leesin_fx_shield.png": {
+      "sha256": "ab967de03135c5a0226eb6ca7e5b6fc90e8bc41518cfb245a68edcf9b9102873",
+      "bytes": 628452
+    },
+    "raw/leesin_hit.png": {
+      "sha256": "750227971e943353c4cc3b8c3a0f29965eb5143ee8946a3d4a4b0bb0977f96fb",
+      "bytes": 380019
+    },
+    "raw/leesin_idle.png": {
+      "sha256": "a179795acd87b2dd1da26c46454b522c200e20f31eed8d22bcb1abe5ebeb3f6c",
+      "bytes": 524931
+    },
+    "raw/leesin_q2.png": {
+      "sha256": "11abb19c5fa127b03eb252d22516dab7476cb21e6cdfd3482cdf8025ac8ea78a",
+      "bytes": 425002
+    },
+    "raw/leesin_run.png": {
+      "sha256": "f7c2fa759c63fd836cab4521ba207bdd2f046fc960ad8edbb2c650f058e3fd72",
+      "bytes": 628772
+    },
+    "raw/leesin_skill.png": {
+      "sha256": "7ea7177e50e4d5749e9a8c4cb5be67059c65456715fc1c3615d3ae1eb1088110",
+      "bytes": 585702
+    },
+    "raw/leesin_skill2.png": {
+      "sha256": "2d591ebcabe8f774f0d0c06b69ec362a63aa617d5be848e62f6a987a65116d88",
+      "bytes": 432016
+    },
+    "raw/leesin_ult.png": {
+      "sha256": "2ebc95d2d00bba08e5cd67892fb8fbbb9164d98c4b7efb0cce15cda4bf2e6b29",
+      "bytes": 553621
+    },
+    "tools/final_cleanup.py": {
+      "sha256": "8e2a96e1b0c8d152f1d2108f0d3365e6ddc215ee02e3396fac1c24a6d61b3567",
+      "bytes": 3807
+    },
+    "tools/finish_sheets.py": {
+      "sha256": "eaee46bed2795acd24c6630fa9f1725848ca104b900b35659317ce1534ddff0f",
+      "bytes": 4899
+    },
+    "tools/lock_idle.py": {
+      "sha256": "b9a9f7b7ae832ce55d5ab80e70baff5302b4481451955327a3735bc1f9927154",
+      "bytes": 3338
+    },
+    "tools/README.md": {
+      "sha256": "603b85915cd2b345bbbc8e76d17258d04525f652caf9bd9fc0969b1b4ccecba0",
+      "bytes": 500
+    },
+    "tools/rebuild.py": {
+      "sha256": "5b84afa6405ab84347755185d0dea86925abfb59c12e9ed3920d2d88e0acc3fc",
+      "bytes": 304
+    },
+    "VFX_OVERVIEW.png": {
+      "sha256": "f663609d5ff62bc523da59e725496f7c2657ffc6a589cef88c8a8e171dcc29b6",
+      "bytes": 20371
+    },
+    "给Claude.txt": {
+      "sha256": "5263d191b16f0c25ba52e237c34cf269276886056d9b6dc6e41da4804ced051b",
+      "bytes": 809
+    }
+  }
+}

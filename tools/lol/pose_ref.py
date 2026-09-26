@@ -274,19 +274,23 @@ def blend_pose(a, b, w):
 
 LEG = re.compile(r"(^|_)(hip|thigh)$", re.I)
 LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hangs down to them
+HAIR = re.compile(r"hair|braid|ponytail", re.I)             # chains hanging from the head
 
 
-def chibi(joints, local, head=1.0, legs=1.0):
+def chibi(joints, local, head=1.0, legs=1.0, hair=1.0):
     """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
     cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
     the big head and short legs of the sprite to draw instead of pulling the image model back to
-    realistic proportions."""
+    realistic proportions. `hair` scales the hair chains hanging from the head on top of the head's
+    scale: a long braid would otherwise grow with the head (Lee Sin's reached the ground at 2x),
+    so --hair 0.5 with --head 2.0 keeps it at League's length."""
     if head == 1.0 and legs == 1.0:
         return local
     out = []
     for j, (t, r, s) in zip(joints, local):
         parent = joints[j["parent"]]["name"] if j["parent"] >= 0 else ""
         k = head if j["name"].lower() == "head" else \
+            hair if parent.lower() == "head" and HAIR.search(j["name"]) else \
             legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
         out.append((t, r, np.asarray(s, float) * k))
     return out
@@ -447,6 +451,9 @@ def main():
     ap.add_argument("--head", type=float, default=1.0,
                     help="scale the head (about 2 gives the big-headed TFM2 proportions)")
     ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
+    ap.add_argument("--hair", type=float, default=1.0,
+                    help="scale the hair chains hanging from the head on top of --head (Lee Sin's braid: 0.5 "
+                         "keeps League's length)")
     ap.add_argument("--track", type=float, metavar="PX",
                     help="with --frame: print each frame's head joint x, in game px from the unit, for a hero "
                          "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
@@ -476,7 +483,7 @@ def main():
     if small:
         legv = leg_vertices(joints, influences, verts)
         tall = skin(verts, influences, bind_inv, globals_(joints, [
-            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs)]))
+            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs, args.hair)]))
         height = tall[:, 1].max() - tall[:, 1].min()
     else:
         height = rest[:, 1].max() - rest[:, 1].min()
@@ -486,7 +493,7 @@ def main():
     draw = render_hq if args.hq else render
 
     def cell(local):
-        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs)]))
+        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs, args.hair)]))
         if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
             adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
             pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
@@ -539,11 +546,11 @@ def main():
             head = next(i for i, j in enumerate(joints) if j["name"].lower() == "head")
             headv = chain_vertices(joints, influences, verts, re.compile(r"^head$", re.I))
             legv = chain_vertices(joints, influences, verts, LEG)
-            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs)])) @ rot.T
+            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs, args.hair)])) @ rot.T
             px = args.track / (pv[headv, 1].max() - pv[legv, 1].min())
             xs = []
             for p in poses:
-                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs)])
+                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs, args.hair)])
                 xs.append(sign * (rot @ glob[head][:3, 3])[0] * px)
             print(f"{args.name}: head x, game px for a {args.track:g} px hero: [" + ", ".join(f"{x:.1f}" for x in xs) + "]")
 

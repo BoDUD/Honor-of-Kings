@@ -39,6 +39,8 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Skill empowers next attack | ready-buff + `SwitchByBuff` in `attack` | OK |
 | Mark on the target that the next attack detonates (Lux's Illumination) | `SwitchByBuff` only sees the caster's buffs and no effect removes a target's buff, so skill hits add a hidden caster ready-buff (the next attack on any enemy detonates it) and play a short mark `ViewEffect` on the hit target | ~ |
 | Skillshot that stops after N targets (Lux Q: two) | `LinearProjectile` only has `penetrate` true/false; the mod SDK's `LinearProjectileEffect` has no hit-count field | ~ |
+| Skillshot, then dash to the unit it hit (Lee Sin Q2, Blitz/Naut hooks) | `MoveToTarget` inside the projectile's `applied_effects` (LoL Reborn Nautilus Q); a `Delayed` there keeps the hit unit as target; no recast, it dashes by itself | ~ |
+| Kick back + collision (Lee Sin R) | `Targeting`: `Attack` + `Knockback` on the target, plus a penetrating `LinearProjectile` toward it at the knockback's speed that knocks up what it passes (LoL Reborn Nautilus R) | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -105,14 +107,21 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
 - **Which clip plays when.** The animation bin maps clip names to files as `FNV-1a(lowercase
   name) -> AtomicClipData { path }`; hash candidate names (`Run`, `Run2`, `Spell4`...) and read the
   path that follows. Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
-  `Spell4` (R) reuses `ashe_crit1`; Q is `Ashe_spell1_IN` then `ashe_spell1`.
+  `Spell4` (R) reuses `ashe_crit1`; Q is `Ashe_spell1_IN` then `ashe_spell1`. Newer champions
+  route through logic clips: after the key hash comes the class hash (`FNV-1a` of
+  `AtomicClipData`, `SequencerClipData`, `ConditionBoolClipData`, `ConditionFloatClipData`,
+  `SelectorClipData`), and the non-atomic ones list other clip hashes. Lee Sin: `Idle1` = sequence
+  `Idle_Active` (combat stance) then `Idle_Passive`; `Run` = `Run_Homeguard` or, by speed,
+  `Run_Base.anm` (its haste branch plays the same file); `Crit` = `Attack4`; Q2 = `Spell1_B` then
+  `Spell1_B_Loop`. TFM2 heroes are always fighting, so take the combat idle.
 - **Walk or run: measure it.** During stance a planted foot slides back at the clip's ground
   speed; compare it with the champion's movement speed, and look for frames where both feet are
   off the ground (a run) or one foot always down (a walk). Ashe's jog/run clips move ~305 units/s
   (her base move speed is 325) with a flight phase, so she runs; the walk (~250) is her slowed
   gait. Time the TFM2 loop from the clip's own cycle (Ashe: 1.0 s, 8 x 125 ms). Lux has a single
   `lux_run` (a 4.8 s file holding six 0.8 s cycles): both feet are off the ground for about half
-  of each cycle, so she runs (8 x 100 ms).
+  of each cycle, so she runs (8 x 100 ms). Lee Sin's `Run_Base` is a leaping run: 1.53 s for two
+  strides, each with ~0.4 s in the air (8 x 192 ms).
 - **Render side, per champion.** Some champions show their chest from one side, some from the
   other (Garen and Lux need `--mirror`, Ashe does not) - render idle both ways and look for the face.
   Then use that same side for *every* clip of the hero: the renders appear to be mirror images of
@@ -131,6 +140,25 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   keeps the legs' lowest point where League has it (landings and jump heights unchanged) - the
   references then show the proportions to draw (`assets/source/CHIBI_REDRAW.md`). Use it from the
   first prompt of every new hero; the redraw of both heroes came back right in one round.
+  Everything below the head joint grows with it: Lee Sin's long braid (`Hair1`..`Hair12` under
+  `Head`) reached the ground at 2x. `--hair 0.5` scales the hair chains back to League's length.
+- **Game size straight from League (Lee Sin: worked, one GPT round).** The native-size
+  redraw needed a first GPT round only to turn League's poses into game frames.
+  `tools/lol/native_pose.py <hero>/poses.json` renders the clips at game size instead: the chibi
+  model through one camera, the design pose `height` px from crown to soles (hair chains not
+  counted), each game pixel the mean colour of an 8x8 block of an `--hq` render, in the native
+  grid, next to the same frames as the 8x render, plus `<hero>_cells.json` for
+  `tools/art/import_native.py`. Per tag: `lunge` (share of League's travel kept, 0.7 for
+  actions), `anchor: first` (Lee Sin's death starts 140 units in front of the unit), `flat`
+  (each frame's lowest point as high above the feet line as above League's floor - a body lying
+  diagonally in depth otherwise floats or sinks through the pitch); per frame `turn` degrees
+  toward the camera for spins and bent-over slams that would show the back. Cells can be bigger
+  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
+  League's head joint per frame. GPT followed the poses but drew every action except idle about
+  1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
+  shrinks each strip back by the head (a 16-colour vote, still flat pixels) and puts each frame's
+  blindfold on League's head joint, soles back on the line where the reference stands - check
+  every strip's head against idle before importing.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
@@ -140,6 +168,9 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `data/menu/en_us/lol.stringtable` (RST v5: 38-bit xxh64 key hashes; the Chinese WADs keep the
   `en_us` path, like their voice banks). Find a string by its English text and read the same key
   in the other locale. The Tencent client has zh_CN, the Riot client here zh_MY (whose names
-  differ in places: Ashe's Q is 射手的专注 in zh_CN, 专注射击 in zh_MY).
+  differ in places: Ashe's Q is 射手的专注 in zh_CN, 专注射击 in zh_MY). For locales not
+  installed, read Riot's public Data Dragon
+  (`ddragon.leagueoflegends.com/cdn/<version>/data/<ja_JP|ko_KR|zh_TW>/champion/<Champ>.json`):
+  Lee Sin's Japanese names (練気, 響掌/共鳴撃, 破風/縛脚) were nothing like a guess.
 - Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
   (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).
