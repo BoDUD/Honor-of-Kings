@@ -1,0 +1,530 @@
+[
+  {
+    "file": "ashe_ref.png",
+    "status": "source_generated",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 1,
+    "planned_frame_durations_ms": null,
+    "sha256": "f9cd24b9b2e8ab339b159680826f54056f7fd1648da7efd3564f9953c25aa5aa",
+    "alpha_bbox": [
+      57,
+      45,
+      1198,
+      1204
+    ],
+    "tentative_x_boundaries": [
+      0,
+      1254
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_idle.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 6,
+    "planned_frame_durations_ms": [
+      267,
+      267,
+      267,
+      267,
+      267,
+      267
+    ],
+    "sha256": "0b9cd1b140edb0472f35bdf6bff12270dcfa57b9f973ea63240e3a29a5dc7a65",
+    "alpha_bbox": [
+      51,
+      21,
+      2172,
+      724
+    ],
+    "tentative_x_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_run.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 8,
+    "planned_frame_durations_ms": [
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125
+    ],
+    "sha256": "ab0f04ac0840607c86b5064863072953a3a76b127fe4dcda812c52d5a319f212",
+    "alpha_bbox": [
+      11,
+      118,
+      2172,
+      644
+    ],
+    "tentative_x_boundaries": [
+      0,
+      272,
+      543,
+      814,
+      1086,
+      1358,
+      1629,
+      1900,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_attack.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 6,
+    "planned_frame_durations_ms": [
+      50,
+      100,
+      60,
+      60,
+      65,
+      65
+    ],
+    "sha256": "2a613e8ff2746c95799bdfb896831e5cc9c9c42acaa07c3d33b352d6b222f174",
+    "alpha_bbox": [
+      59,
+      23,
+      2147,
+      724
+    ],
+    "tentative_x_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_q_attack.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 6,
+    "planned_frame_durations_ms": [
+      50,
+      80,
+      60,
+      70,
+      70,
+      70
+    ],
+    "sha256": "599df13512e95c00c2353ea59437ac2e652848313f8a1fc96e0d5abe95814a54",
+    "alpha_bbox": [
+      46,
+      71,
+      2142,
+      708
+    ],
+    "tentative_x_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_skill.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 6,
+    "planned_frame_durations_ms": [
+      67,
+      67,
+      67,
+      67,
+      67,
+      67
+    ],
+    "sha256": "f5019a44aaf11eb99abe7e674fc0b37e2170028ff49fbe48589fade7ae0f2280",
+    "alpha_bbox": [
+      58,
+      41,
+      2155,
+      709
+    ],
+    "tentative_x_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_skill2.png",
+    "status": "source_generated",
+    "width": 2097,
+    "height": 750,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 7,
+    "planned_frame_durations_ms": [
+      60,
+      70,
+      70,
+      60,
+      70,
+      90,
+      80
+    ],
+    "sha256": "6bdacab3d962421566cc261bcab6994bddf1754815ab13355f95148c4c9a175e",
+    "alpha_bbox": [
+      33,
+      53,
+      2083,
+      724
+    ],
+    "tentative_x_boundaries": [
+      0,
+      300,
+      599,
+      899,
+      1198,
+      1498,
+      1797,
+      2097
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_ult.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 8,
+    "planned_frame_durations_ms": [
+      60,
+      100,
+      100,
+      100,
+      70,
+      90,
+      100,
+      80
+    ],
+    "sha256": "069a4e86a6c449e984994af46b35b080d4286613c6ab189ef8b5977472ddbf42",
+    "alpha_bbox": [
+      19,
+      61,
+      2155,
+      708
+    ],
+    "tentative_x_boundaries": [
+      0,
+      272,
+      543,
+      814,
+      1086,
+      1358,
+      1629,
+      1900,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_hit.png",
+    "status": "source_generated",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 2,
+    "planned_frame_durations_ms": [
+      120,
+      120
+    ],
+    "sha256": "d0a610efca7b866a2035d6a9d52fc4ed28a2704feb72b2b196f7c6573437728b",
+    "alpha_bbox": [
+      57,
+      9,
+      1722,
+      853
+    ],
+    "tentative_x_boundaries": [
+      0,
+      887,
+      1774
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_dead.png",
+    "status": "source_generated",
+    "width": 2206,
+    "height": 713,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 7,
+    "planned_frame_durations_ms": [
+      100,
+      120,
+      120,
+      120,
+      150,
+      200,
+      400
+    ],
+    "sha256": "b31218e3d0b8958bf0c4c6dc4c7f3a2d900aa7de840852e574e1c411c901d4c8",
+    "alpha_bbox": [
+      49,
+      50,
+      2205,
+      696
+    ],
+    "tentative_x_boundaries": [
+      0,
+      315,
+      630,
+      945,
+      1261,
+      1576,
+      1891,
+      2206
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_arrow.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 4,
+    "planned_frame_durations_ms": [
+      70,
+      70,
+      70,
+      70
+    ],
+    "sha256": "b429b54ca33c3967091bf799774095e465e5e1bfdaaec9a3f2f661a6b3c91408",
+    "alpha_bbox": [
+      44,
+      127,
+      2127,
+      644
+    ],
+    "tentative_x_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_hit.png",
+    "status": "source_generated",
+    "width": 1983,
+    "height": 793,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 5,
+    "planned_frame_durations_ms": [
+      60,
+      60,
+      60,
+      60,
+      60
+    ],
+    "sha256": "2ddc6dc12b07baa0f3e214b6ce7a229378371bdaf05f0f54dfdeb1acde55c985",
+    "alpha_bbox": [
+      0,
+      9,
+      1973,
+      769
+    ],
+    "tentative_x_boundaries": [
+      0,
+      397,
+      793,
+      1190,
+      1586,
+      1983
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_flurry.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 4,
+    "planned_frame_durations_ms": [
+      70,
+      70,
+      70,
+      70
+    ],
+    "sha256": "dde2f83d790e911fa53441ac2c12294db251903f3f9ced1e8d9abb308a40a241",
+    "alpha_bbox": [
+      33,
+      0,
+      2146,
+      724
+    ],
+    "tentative_x_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_focus.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 6,
+    "planned_frame_durations_ms": [
+      83,
+      83,
+      83,
+      83,
+      83,
+      83
+    ],
+    "sha256": "740572ebe189c28b47b1e1d1642936ea494668bb48e983111a21784d5b072561",
+    "alpha_bbox": [
+      27,
+      45,
+      2141,
+      700
+    ],
+    "tentative_x_boundaries": [
+      0,
+      362,
+      724,
+      1086,
+      1448,
+      1810,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_crystal.png",
+    "status": "source_generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 4,
+    "planned_frame_durations_ms": [
+      70,
+      70,
+      70,
+      70
+    ],
+    "sha256": "921afc898829df30d43cd0a7fb64d2d70590bfc80d4256b31df42f9e04b90f46",
+    "alpha_bbox": [
+      11,
+      0,
+      2160,
+      700
+    ],
+    "tentative_x_boundaries": [
+      0,
+      543,
+      1086,
+      1629,
+      2172
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  },
+  {
+    "file": "ashe_fx_r_hit.png",
+    "status": "source_generated",
+    "width": 1881,
+    "height": 836,
+    "mode": "RGBA",
+    "has_transparency": true,
+    "expected_frames": 9,
+    "planned_frame_durations_ms": [
+      80,
+      80,
+      100,
+      250,
+      250,
+      250,
+      250,
+      250,
+      250
+    ],
+    "sha256": "72b3296781d24f9c3f1c3b71334d342a49bda417044b6f20deed79cf910cbcfd",
+    "alpha_bbox": [
+      19,
+      101,
+      1855,
+      778
+    ],
+    "tentative_x_boundaries": [
+      0,
+      209,
+      418,
+      627,
+      836,
+      1045,
+      1254,
+      1463,
+      1672,
+      1881
+    ],
+    "note": "Boundaries are only equal-width suggestions. Inspect actual frame content and recenter individual sprites before packing; generated dimensions and padding differ from the prompt."
+  }
+]
