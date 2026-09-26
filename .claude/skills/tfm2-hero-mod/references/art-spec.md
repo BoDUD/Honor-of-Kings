@@ -201,7 +201,9 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   18-19 colours, 29-31%). Record where each reference frame's pivot sits in its cell when the
   references are drawn (`native_refs.py` writes `<hero>_cells.json`) so each redrawn frame lands
   where the old one stood, and steady idle and run on the head column: frames placed by their
-  bounding box twitched 1-2 px in those loops.
+  bounding box twitched 1-2 px in those loops. For a new hero, skip the first round: render
+  League's clips straight at game size (`tools/lol/native_pose.py`, Lee Sin; untested until his
+  delivery) and give GPT that 8x reference next to the same frames as a high-resolution render.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

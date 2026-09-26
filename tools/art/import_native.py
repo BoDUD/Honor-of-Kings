@@ -4,9 +4,10 @@
     python tools/art/import_native.py [--hero lux --hero ashe] [--review DIR]
 
 Source, assets/source/native/: <hero>_<tag>.png from the GPT/Codex run - every game pixel one exact
-8x8 block, the frames in 56x64-pixel cells read left to right, top to bottom (native_refs.layout) -
-and <hero>_cells.json, written by native_refs.py with the references: where each round-1 frame's
-pivot stood in its cell, and its duration. The redraw was drawn over those references, so each new
+8x8 block, the frames in 56x64-pixel cells (or the size the cells table gives) read left to right,
+top to bottom (native_refs.layout) - and <hero>_cells.json, written with the references by
+native_refs.py (from round-1 game frames) or tools/lol/native_pose.py (straight from League's
+clips): where each reference frame's pivot stood in its cell, and its duration. The redraw was drawn over those references, so each new
 frame is cut out of its cell around that pivot and stands where the round-1 frame stood (head
 tracks, lunges, the R wand inside the beam, the death knock-back), for the same time. The blocks are
 read one pixel each: no resampling, no new palette, no added outline.
@@ -59,13 +60,14 @@ def blocks(path):
     return out
 
 
-def cells(hero, tag, n):
-    """The n frames of a strip, one 64x56 RGBA array per cell."""
+def cells(hero, tag, n, cell=CELL):
+    """The n frames of a strip, one RGBA array per cell (56x64 px unless the hero's cells table
+    says otherwise: Lee Sin's are 64x72)."""
     a = blocks(os.path.join(SRC, f"{hero}_{tag}.png"))
     cols, rows = layout(n)
-    if a.shape[:2] != (rows * CELL[1], cols * CELL[0]):
-        sys.exit(f"{hero}_{tag}.png: expected {cols}x{rows} cells of {CELL[0]}x{CELL[1]} px at {Z}x")
-    return [a[k // cols * CELL[1]:(k // cols + 1) * CELL[1], k % cols * CELL[0]:(k % cols + 1) * CELL[0]]
+    if a.shape[:2] != (rows * cell[1], cols * cell[0]):
+        sys.exit(f"{hero}_{tag}.png: expected {cols}x{rows} cells of {cell[0]}x{cell[1]} px at {Z}x")
+    return [a[k // cols * cell[1]:(k // cols + 1) * cell[1], k % cols * cell[0]:(k % cols + 1) * cell[0]]
             for k in range(n)]
 
 
@@ -92,11 +94,12 @@ def find(frame, tpl):
 def build(hero):
     """{tag: [(frame centred on its pivot, ms)]} and {tag: [(head column from the pivot, moved)]}."""
     with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
-        table = json.load(f)["tags"]
-    head = head_of(cells(hero, "idle", len(table["idle"]))[0])
+        spec = json.load(f)
+    table, cell = spec["tags"], tuple(spec.get("cell", CELL))
+    head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0])
     sheet, report = {}, {}
     for tag, rows in table.items():
-        fr = cells(hero, tag, len(rows))
+        fr = cells(hero, tag, len(rows), cell)
         found = [find(f, head) for f in fr]
         hx = [x - r["pivot"][0] if s >= SURE else None for (s, x, _), r in zip(found, rows)]
         dx = [0] * len(fr)

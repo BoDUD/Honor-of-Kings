@@ -284,6 +284,20 @@ in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` in
 picked more than once. league_ashe W started this way (one arrow at the target plus four random
 ones); the user saw homing arrows, not League's cone, so it became the fan above.
 
+**Dash to whoever the skillshot hit (league_leesin Q2).** A projectile's `applied_effects` run
+with the hit unit as target, so a `MoveToTarget` there dashes the caster to it (LoL Reborn
+Nautilus Q pulls itself in this way). Lee Sin wraps it in `Delayed {tick: 12}` (the mark shows
+first) with `Sfx`, the dash and `CasterAnimation q2` inside; the dash's `end_effects` deal the
+second hit. The action's `duration` covers wind-up, flight and delay (44 ticks). *(inferred
+from the pack; not yet seen in-game)*
+
+**Kick it back into the others (league_leesin R).** `Targeting` on an enemy champion: `Attack` and
+`Knockback {speed: 3000, tick: 18}` on the target, plus a `LinearProjectile` toward it with
+`penetrate: true` at the same speed (LoL Reborn Nautilus R knocks up along a line this way). The
+projectile starts at the caster, a melee range behind the flying target, so it keeps that gap and
+hits (`Airborne`, damage) only what the target flies past; its range stops the circle short of the
+landing spot. *(inferred: Knockback pushes away from the caster at a constant speed)*
+
 **Burst where a skillshot stops.** `LinearProjectile {penetrate: false, applied_target:
 EnemyChampion}` stops on the first champion; its `end_effects` run where it stopped, so a
 `RangeProjectile {delay: 1, apply: 1, shape}` there is the splash (LoL Reborn Jinx R, Fizz R;
