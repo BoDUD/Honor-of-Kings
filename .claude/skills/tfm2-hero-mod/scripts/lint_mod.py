@@ -55,6 +55,18 @@ HEAL_TYPES = {"Caster", "Ally", "Any"}
 STAT_KEYS = ["attack", "magic_power", "hp", "defence", "magic_resistance", "move_speed", "hp_regen", "stack",
              "crit_chance"]
 STAT_ICONS = {"ad_0", "ap_0", "attack_speed_0", "speed_0", "hp_0", "range_0", "armor_0", "magic resistance_0"}
+# The longest skill description of any base champion, per language, in characters shown (tags dropped,
+# a stat icon counted as one, a {Placeholder} as three) - asset/base/text/champion, 68 champions.
+# Longer text is crammed together in the skill details panel (Soraka's first text: 195 in zh-hans).
+TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185, "de": 398, "fr": 411,
+               "es-ES": 389, "it": 381, "pt-BR": 376, "ru": 455, "pl": 377, "tr": 368, "nl": 381, "vi": 381,
+               "th": 343, "haw": 379}
+
+
+def shown_length(s):
+    s = re.sub(r"\{\w+\}", "000", s)
+    s = re.sub(r"<i#[^>]*>", "*", s)
+    return len(re.sub(r"<[^>]*>", "", s))
 ACTIONS = ("attack", "skill", "skill2", "ult")
 AUDIO_EXT = (".mp3", ".wav", ".ogg")
 
@@ -364,6 +376,11 @@ def main(argv=None):
                     for icon in re.findall(r"<i#asset/base/ui/banpick/champion_stat_icon:([^>]+)>", s):
                         if icon not in STAT_ICONS:
                             rep.warn(f"i18n {lang}.{sect}.{cid}.{k}", f"unknown stat icon '{icon}'")
+                    if sect == "description" and k != "name" and lang in TOOLTIP_MAX \
+                            and shown_length(s) > TOOLTIP_MAX[lang]:
+                        rep.warn(f"i18n {lang}.{sect}.{cid}.{k}",
+                                 f"{shown_length(s)} characters shown, longer than any base champion's "
+                                 f"({TOOLTIP_MAX[lang]}) - the skill details panel crams it together")
 
     cv_target = (mod.override.get("asset/base/style/champion_view") or {}).get("remapping")
     cview = {}
