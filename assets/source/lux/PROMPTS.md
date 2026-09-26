@@ -312,3 +312,12 @@ $P --pitch 12 --width 1.3 --fit 0.5 --ground 0.86 --shift 0.16 --name lux_pose_d
 三视图 `lux_model_chibi.png`：待机第 0 帧（`lux_idle1@0`，`--mirror --head 2.0 --legs 0.8 --hq`），`--yaw 40`、`100`、`200` 各渲染一张横向拼接，都用 `--pitch 10 --size 800 --width 0.75 --fit 0.8 --ground 0.92`。
 
 `tfm2_style_ref_mage.png`：原版 white_mage、priest、enchanter、druid、pyromancer、illusionist、dark_mage、barrier_magician 的待机第 1 帧和攻击中间帧，脚底对齐，放大 8 倍（从游戏的 `bundle.game_data` 读取）。`pack_style_ref.png`：`garen/garen_ref_chibi.png` 和 `ashe/ashe_ref_chibi.png` 左右拼接。
+
+## 结果（2026-09-26 导入）
+
+- 19 张图一轮生成完成（交接说明和清单在 `HANDOFF.md`、`manifest.json`）。Codex 重画过两次：造型图第一版法杖歪了，重画后才批量生成动作；E 光圈第一版太扁。造型图的头约占身高 1/3，缩到 34 px 后眼睛看得清，头像截取点 (1, −33)。
+- 每张动作图按头的大小缩放：待机第 1 帧的头在各帧上按不同比例做相关匹配，同一张图里可靠的匹配（相关系数 > 0.85）相差不到 0.03。站立身高（源像素）：待机 409、跑步 336、普攻 361、Q 273、E 218、R 281、受击 772、死亡 281。
+- 头部轨迹按大头骨骼计算（`pose_ref.py --track 34`，和参考图同一镜头）。普攻、Q、E 的前冲保留原版的 70%，死亡的击飞保留 65%（原版被击飞约 41 px）。
+- R 的法杖离手后越过了等宽格子的边界，按连通块切帧：含深蓝紧身衣的块是身体，其他块归给左边最近的身体。GPT 把悬浮的法杖画在膝盖高度，离地约 14 px，正好落在画在单位中心高度（11.5 px）的激光里，不用再调整悬空高度。
+- 原地播放的特效（命中、标记、引爆、护盾、定身光环、E 光圈）按格子中心对齐：GPT 把每帧画在等宽格子正中，偏差不超过 8 px。
+- 激光竖排 6 帧，按判定长度 240 px 缩放，从拉克丝身前 6 px 开始，预警 467 ms 后发射，和伤害判定同一 tick。

@@ -143,6 +143,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
   drifted about 0.5 px per frame). Split
   at empty columns and keep connected blobs whole (`split_strip`); never place frames by cell.
+- **Props that leave the body cross the cells.** Lux's Final Spark wand floats a third of a cell
+  to her right, so `split_strip` handed frame 5's wand and blast to frame 6. Split such a strip by
+  blobs instead: a blob holding the body's signature colour (her navy bodysuit) is a body, every
+  other blob (prop, glow, sparks) joins the nearest body on its left (`split_bodies` in
+  tools/art/import_lux.py).
 - **Scale per strip.** Every generated strip comes at its own size (Garen round 4: the Q strip at
   half of idle's size, battle cry and hit far bigger). Pick a frame in idle's pose (the ready
   stance most strips start or end in), render it next to idle at game size at a few scales and
@@ -188,6 +193,12 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
   impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`). Find a ring by its biggest
   connected blob: by row extent, motes rising at both sides make rows above the ring look wide.
+  For effects drawn in place (bursts, marks, bubbles, ground fields) anchor each frame on its
+  cell: GPT centres every frame in its equal-width cell (within 8 px on all seven of Lux's), while
+  a frame's own box drifts with its loose sparks - take the cell centre plus the strip's median
+  offset across, and one height for the strip. A single anchor in strip coordinates puts every
+  frame at its own cell's distance from the pivot (Lux's first import: the hit walked 5 cells).
+  Projectiles keep a per-frame anchor on their head (arrow tip, orb).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
