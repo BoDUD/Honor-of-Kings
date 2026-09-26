@@ -77,7 +77,16 @@ Cooldowns (ticks, median [IQR]): skill 240-420, skill2 300-480, ult 2400-3600 (a
 
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
-  `AllyChampionInCC`, `BothWithoutTower`, `BothChampion`.
+  `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
+- **Which ally gets an ally skill** *(read from the mod SDK's compiled `game_core`, not yet seen
+  in game)*: `AllyNotSelf` is an allied champion other than the caster (no minions), `AllyChampion`
+  includes the caster, `Ally` is any allied unit (`CastingTarget::check`). The battle AI makes one
+  candidate per valid ally for skill, skill2 and ult (`utils::battle_ally_action`) and scores it;
+  a heal is worth `min(heal, target max HP - HP)` on that target (`Effect::expected_heal_target`),
+  so heals should go to the most injured ally and a full-health ally is worth 0. No casting target
+  means "lowest health": base Priest's ult finds that ally in hard-coded logic
+  (`lowest_hp_ally_in_range`). Heal, RangeEffect, Combine, Delayed, WithSelf and the projectiles
+  all report their expected heal, so a heal nested in them still counts.
 - Self-buffs that should fire "in combat" work best as `casting_type: None` +
   `casting_target: EnemyChampion` + a `range` (cast when an enemy champion is that close) - this
   is how Nocturne's shroud is wired. `AllyOnlySelf` + range 0 also exists (Aatrox ult).
@@ -107,9 +116,15 @@ Every effect is `{"type": "<Type>", ...fields}`. Counts = uses across base + 52 
 | Attack | damage, attack_ratio, hp_ratio, target_hp_ratio, attack_effect_type:"Target" | physical: damage + ratio% AD (+% max-HP parts) |
 | ApAttack | damage, attack_ratio, hp_ratio, target_hp_ratio | magic: damage + attack_ratio% **AP** |
 | FixedAttack | damage, attack_ratio, target_hp_ratio | true/fixed damage (e.g. 10% target max HP) *(inferred)* |
-| Heal | amount, attack_ratio, ap_ratio, heal_type: Caster\|Ally\|Any | heal |
+| Heal | amount, attack_ratio, ap_ratio, heal_type: Caster\|Ally\|Any | heal (`Caster` heals the caster even inside a projectile that hit an enemy; `Ally` the allied target). No field scales with the target's missing health |
 | Shield | amount, attack_ratio, ap_ratio, hp_ratio, tick | shield for `tick` |
 | AddCasted | casted_type: Fire\|Poison, duration, period, effects[] | damage-over-time: run effects every `period` |
+
+`attack_effect_type` on the three attack effects: `Target` (every pack writes it) hits the
+effect's own target with no team check, so `WithSelf` + `FixedAttack` damages the caster;
+the engine's other kinds are `EnemyTarget` (skips the caster's team) and `EnemyAll {..}`.
+`FixedAttack` with only `target_hp_ratio` has an expected damage of 0 for the AI (it is
+estimated from the caster's stats), which keeps a health cost out of the skill's score.
 
 **Buffs** - `AddBuff {buff_state}` (on target), `AddCasterBuff {buff_state, only_to_enemy}`
 (on caster), `RemoveCasterBuff {name}`. See section 5.
@@ -169,6 +184,9 @@ the caster for `tick`; the caster stays in place meanwhile, so move it from the 
 
 `duration`: `{"Time": {"tick": N}}` | `"Permanent"` | `"WithShield"` (lasts while the shield
 holds). Some pack buffs omit it - set it explicitly.
+
+`hp_regen` is health per second (the base UI: "HP Regen per Second"). `undying: true` keeps the
+unit alive while the buff lasts (Touhou Mokou's ult, LoL Reborn Sion's R).
 
 Fields seen (count across packs): `range` (attack range bonus, 278), `move_speed_mult` (235),
 `attack_speed_mult` (160), `magic_power_mult` (122), `attack_mult` (115), `hp_mult` (115),
@@ -297,6 +315,28 @@ from the pack; not yet seen in-game)*
 projectile starts at the caster, a melee range behind the flying target, so it keeps that gap and
 hits (`Airborne`, damage) only what the target flies past; its range stops the circle short of the
 landing spot. *(inferred: Knockback pushes away from the caster at a constant speed)*
+
+**Heal an ally at a health cost (league_soraka W).** `Targeting` + `AllyNotSelf`: `Heal
+{heal_type: Ally}` on the target, then a 3-tick caster buff with `undying: true` and
+`WithSelf {FixedAttack {damage: 0, target_hp_ratio: 8, attack_effect_type: Target}}` - 8% of her
+own max health that can never kill her (League forbids the cast below 5% health). *(inferred from
+the engine code; not yet seen in game)*
+
+**Heal every allied champion (league_soraka R).** `Targeting` + `AllyChampion` with range 960000
+(base Priest's ult range) and `RangeEffect {radius: 960000, target: AllyChampion}` around the
+caster. Cast as `None` on `AllyOnlySelf` (Touhou Reimu, LoL Reborn Alistar) the AI fires it as soon
+as it is ready, full health or not; a target lets the heal score above (0 at full health) decide.
+
+**Fold an ability that has its own, longer cooldown into another (league_soraka E on Q).** The
+host skill starts with `SwitchByBuff` on a hidden caster buff that lasts the folded ability's
+cooldown: without it, cast the full version and add the buff; with it, cast the plain skill.
+Soraka's star falls every 8 s, the Equinox field it leaves at most every 16 s (League: 8 s / 16-20 s).
+
+**Once per cast, however many are hit (league_soraka Q's Rejuvenation).** A projectile's
+`applied_effects` run once per unit hit; wrap the effect in `SwitchByBuff` on a short hidden caster
+"lock" buff that the effect itself adds first, so the second and later hits of the same cast find
+the lock. A separate projectile with `applied_target: EnemyChampion` and no view keeps minions from
+triggering it.
 
 **Burst where a skillshot stops.** `LinearProjectile {penetrate: false, applied_target:
 EnemyChampion}` stops on the first champion; its `end_effects` run where it stopped, so a
