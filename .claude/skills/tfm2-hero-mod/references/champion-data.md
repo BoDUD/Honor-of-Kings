@@ -236,6 +236,22 @@ draw the fan a little wider than `width` (oppi's Swain does). league_ashe W: wid
 **Zone / aura.** `RangePeriodProjectile {tick, period}` for a placed field;
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
 
+**Delayed detonation (Gragas Q, Lux E).** A `RangePeriodProjectile` whose `period` is longer than
+its `tick` hits once, at `first_delay`; its view (`repeat: false`) carries the fuse and the
+explosion, timed so the blast frame lands on `first_delay` (LoL Reborn Gragas: a
+`ParabolicProjectile` whose `end_effects` hold the zone with tick 106, first_delay 75, a 1.75 s
+view). A second zone with a short `period` and a short slow buff is the slow field
+(league_lux E: field tick 60 / period 10 / 15-tick slow, blast tick 84 / first_delay 60). Pack
+authors match a zone's view length to its lifetime (Gragas 1767/1750 ms, Utsuho 1500/1500, Aatrox
+633/640), so a view appears to end with its projectile *(inferred)* - draw the blast inside it.
+
+**Long laser with a telegraph (Marisa, Lux R).** Split the look from the damage: one
+`LineRangeProjectile` with empty `applied_effects` and a long `delay` carries the view (thin
+line, charge, beam, fade), a second one with the same shape and a shorter `delay` deals the damage
+(Touhou Marisa: visual delay 120; league_lux R: visual delay 55, damage delay 28, 240000 x 16000).
+The view is drawn at the unit's pivot height and turned to the cast direction, so keep the beam
+centred vertically in its canvas (an offset would flip when she fires to the left) *(inferred)*.
+
 **Burn / poison.** `AddCasted {casted_type: Fire, duration, period, effects: [ApAttack]}`.
 
 **Untargetable window.** `RangeEffect` on `AllyOnlySelf` applying `Invisible {tick}`, plus a

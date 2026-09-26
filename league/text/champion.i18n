@@ -14,6 +14,13 @@
         "skill": "<#ff9028ff>射手的专注<>：艾希获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻击速度<>，持续<#ffb900ff>4秒<>。期间普攻变为连射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，并使目标<#ef5350ff>减速<><#ffb900ff>30%<>。",
         "skill2": "<#ff9028ff>万箭齐发<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，对扇形内每个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>（每个敌人只会被命中一次），并使其<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>1.5秒<>。",
         "ult": "<#ff9028ff>魔法水晶箭<>：向目标方向射出一支飞得很远的水晶箭，命中第一个敌方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1.75秒<>。水晶箭在命中处炸开，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>50%<>，持续<#ffb900ff>2秒<>。"
+      },
+      "league_lux": {
+        "name": "拉克丝",
+        "attack": "普攻从法杖射出光弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>光芒四射<>：技能命中敌人后<#ffb900ff>5秒<>内，下一次普攻引爆光芒，额外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill": "<#ff9028ff>光之束缚<>：向前方射出一颗光球，对路径上的每个敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>禁锢<><#ffb900ff>1.5秒<>。同时施放 <#ff9028ff>曲光屏障<>：拉克丝和身边的友方英雄获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>。",
+        "skill2": "<#ff9028ff>透光奇点<>：向目标位置抛出光球，落地后形成光圈，使圈内敌人<#ef5350ff>减速<><#ffb900ff>40%<>。<#ffb900ff>1秒<>后光圈引爆，对圈内敌人造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 法术强度<>的<#a974ffff>魔法伤害<>。",
+        "ult": "<#ff9028ff>终极闪光<>：拉克丝跃起蓄力，<#ffb900ff>0.5秒<>后向目标方向发射一道极长的激光，对直线上所有敌人造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 法术强度<>的<#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -26,6 +33,11 @@
         "skill1": "射手的专注",
         "skill2": "万箭齐发",
         "ult": "魔法水晶箭"
+      },
+      "league_lux": {
+        "skill1": "光之束缚",
+        "skill2": "透光奇点",
+        "ult": "终极闪光"
       }
     }
   },
@@ -44,6 +56,13 @@
         "skill": "<#ff9028ff>專注射擊<>：艾希獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻擊速度<>，持續<#ffb900ff>4秒<>。期間普攻變為連射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，並使目標<#ef5350ff>緩速<><#ffb900ff>30%<>。",
         "skill2": "<#ff9028ff>萬箭齊發<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，對扇形內每個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>（每個敵人只會被命中一次），並使其<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>1.5秒<>。",
         "ult": "<#ff9028ff>魔法水晶箭<>：向目標方向射出一支飛得很遠的水晶箭，命中第一個敵方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.75秒<>。水晶箭在命中處炸開，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>50%<>，持續<#ffb900ff>2秒<>。"
+      },
+      "league_lux": {
+        "name": "拉克絲",
+        "attack": "普攻從法杖射出光彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>光芒四射<>：技能命中敵人後<#ffb900ff>5秒<>內，下一次普攻引爆光芒，額外造成<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill": "<#ff9028ff>光明束縛<>：向前方射出一顆光球，對路徑上的每個敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>束縛<><#ffb900ff>1.5秒<>。同時施放 <#ff9028ff>稜光障壁<>：拉克絲和身邊的友方英雄獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>。",
+        "skill2": "<#ff9028ff>光明異點<>：向目標位置拋出光球，落地後形成光圈，使圈內敵人<#ef5350ff>緩速<><#ffb900ff>40%<>。<#ffb900ff>1秒<>後光圈引爆，對圈內敵人造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% 魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "ult": "<#ff9028ff>終極閃光<>：拉克絲躍起蓄力，<#ffb900ff>0.5秒<>後向目標方向發射一道極長的雷射，對直線上所有敵人造成<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -56,6 +75,11 @@
         "skill1": "專注射擊",
         "skill2": "萬箭齊發",
         "ult": "魔法水晶箭"
+      },
+      "league_lux": {
+        "skill1": "光明束縛",
+        "skill2": "光明異點",
+        "ult": "終極閃光"
       }
     }
   },
@@ -74,6 +98,13 @@
         "skill": "<#ff9028ff>Ranger's Focus<>: Ashe gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% attack speed<> for <#ffb900ff>4s<>. Meanwhile her basic attacks become a flurry that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>slows<> the target by <#ffb900ff>30%<>.",
         "skill2": "<#ff9028ff>Volley<>: Fires <#ffb900ff>9<> frost arrows in a cone ahead, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to each enemy in the cone (once per enemy) and <#ef5350ff>slowing<> them by <#ffb900ff>25%<> for <#ffb900ff>1.5s<>.",
         "ult": "<#ff9028ff>Enchanted Crystal Arrow<>: Fires a far-flying crystal arrow that stops at the first enemy champion, dealing <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1.75s<>. The arrow bursts where it stops, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> to nearby enemies and <#ef5350ff>slowing<> them by <#ffb900ff>50%<> for <#ffb900ff>2s<>."
+      },
+      "league_lux": {
+        "name": "Lux",
+        "attack": "Basic attacks fire bolts of light from her wand that deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Illumination<>: for <#ffb900ff>5s<> after her abilities hit an enemy, her next basic attack ignites the light for <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% Ability Power<> bonus <#a974ffff>magic damage<>.",
+        "skill": "<#ff9028ff>Light Binding<>: Fires an orb of light that deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to every enemy in its path and <#ef5350ff>roots<> them for <#ffb900ff>1.5s<>. Also casts <#ff9028ff>Prismatic Barrier<>: Lux and nearby allied champions gain a <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
+        "skill2": "<#ff9028ff>Lucent Singularity<>: Lobs an orb of light that lands as a glowing field, <#ef5350ff>slowing<> enemies inside by <#ffb900ff>40%<>. After <#ffb900ff>1s<> it detonates, dealing <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70% Ability Power<> <#a974ffff>magic damage<> to enemies in the field.",
+        "ult": "<#ff9028ff>Final Spark<>: Lux leaps up and gathers light, then after <#ffb900ff>0.5s<> fires a huge laser toward the target, dealing <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100% Ability Power<> <#a974ffff>magic damage<> to all enemies in the line."
       }
     },
     "skill_name": {
@@ -86,6 +117,11 @@
         "skill1": "Ranger's Focus",
         "skill2": "Volley",
         "ult": "Enchanted Crystal Arrow"
+      },
+      "league_lux": {
+        "skill1": "Light Binding",
+        "skill2": "Lucent Singularity",
+        "ult": "Final Spark"
       }
     }
   },
@@ -104,6 +140,13 @@
         "skill": "<#ff9028ff>궁사의 집중<>: 애쉬가 <#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 30%<> 증가합니다. 그동안 기본 공격이 연사로 바뀌어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입히고 대상을 <#ffb900ff>30%<> <#ef5350ff>둔화<>시킵니다.",
         "skill2": "<#ff9028ff>일제 사격<>: 전방 부채꼴로 서리 화살 <#ffb900ff>9<>발을 쏩니다. 부채꼴 안의 적마다 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고(적마다 한 번만 적중) <#ffb900ff>1.5초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다.",
         "ult": "<#ff9028ff>마법의 수정화살<>: 멀리 날아가는 수정 화살을 쏘아 처음 맞은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1.75초<> 동안 <#ef5350ff>기절<>시킵니다. 화살이 멈춘 곳에서 터져 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>50%<> <#ef5350ff>둔화<>시킵니다."
+      },
+      "league_lux": {
+        "name": "럭스",
+        "attack": "기본 공격으로 지팡이에서 빛의 탄환을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>광채<>: 스킬이 적에게 적중한 뒤 <#ffb900ff>5초<> 안에 하는 다음 기본 공격이 빛을 폭발시켜 <#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<> <#a974ffff>추가 마법 피해<>를 입힙니다.",
+        "skill": "<#ff9028ff>빛의 속박<>: 빛의 구체를 발사해 경로 위의 모든 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>합니다. 동시에 <#ff9028ff>프리즘 보호막<>을 사용해 럭스와 주변 아군 챔피언이 <#ffb900ff>2.5초<> 동안 <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#e8d44dff>보호막<>을 얻습니다.",
+        "skill2": "<#ff9028ff>광휘의 특이점<>: 빛의 구체를 던져 떨어진 자리에 빛의 장을 만들고, 장 안의 적을 <#ffb900ff>40%<> <#ef5350ff>둔화<>시킵니다. <#ffb900ff>1초<> 뒤 폭발하여 장 안의 적에게 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 70%<> <#a974ffff>마법 피해<>를 입힙니다.",
+        "ult": "<#ff9028ff>최후의 섬광<>: 럭스가 공중으로 떠올라 빛을 모은 뒤 <#ffb900ff>0.5초<> 후 대상 방향으로 거대한 레이저를 발사해 직선 위의 모든 적에게 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 100%<> <#a974ffff>마법 피해<>를 입힙니다."
       }
     },
     "skill_name": {
@@ -116,6 +159,11 @@
         "skill1": "궁사의 집중",
         "skill2": "일제 사격",
         "ult": "마법의 수정화살"
+      },
+      "league_lux": {
+        "skill1": "빛의 속박",
+        "skill2": "광휘의 특이점",
+        "ult": "최후의 섬광"
       }
     }
   },
@@ -134,6 +182,13 @@
         "skill": "<#ff9028ff>レンジャーフォーカス<>：アッシュは<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が30%<>増加する。その間、通常攻撃は連射になり、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与えて対象を<#ffb900ff>30%<><#ef5350ff>スロウ<>にする。",
         "skill2": "<#ff9028ff>ボレー<>：前方に扇状に氷の矢を<#ffb900ff>9<>本放つ。範囲内の敵それぞれに<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与え（1体につき1回まで）、<#ffb900ff>1.5秒<>間<#ffb900ff>25%<><#ef5350ff>スロウ<>にする。",
         "ult": "<#ff9028ff>エンチャント クリスタルアロー<>：遠くまで飛ぶ水晶の矢を放ち、最初に当たった敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>1.75秒<>間<#ef5350ff>スタン<>させる。矢は止まった場所で砕け、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>2秒<>間<#ffb900ff>50%<><#ef5350ff>スロウ<>にする。"
+      },
+      "league_lux": {
+        "name": "ラックス",
+        "attack": "通常攻撃は杖から光弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>イルミネーション<>：スキルが敵に命中してから<#ffb900ff>5秒<>以内の次の通常攻撃が光を炸裂させ、<#a974ffff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>の<#a974ffff>追加魔法ダメージ<>を与える。",
+        "skill": "<#ff9028ff>ライトバインディング<>：光の球を放ち、通過した敵すべてに<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1.5秒<>間<#ef5350ff>スネア<>状態にする。同時に<#ff9028ff>プリズムバリア<>を発動し、ラックスと周囲の味方チャンピオンが<#ffb900ff>2.5秒<>間<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#e8d44dff>シールド<>を得る。",
+        "skill2": "<#ff9028ff>ルーセントシンギュラリティ<>：光の球を投げ、着弾地点に光のフィールドを作り、内部の敵を<#ffb900ff>40%<><#ef5350ff>スロウ<>にする。<#ffb900ff>1秒<>後に炸裂し、フィールド内の敵に<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の70%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "ult": "<#ff9028ff>ファイナルスパーク<>：ラックスが宙に浮かんで光を集め、<#ffb900ff>0.5秒<>後に対象の方向へ巨大なレーザーを放ち、直線上のすべての敵に<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の100%<>の<#a974ffff>魔法ダメージ<>を与える。"
       }
     },
     "skill_name": {
@@ -146,6 +201,11 @@
         "skill1": "レンジャーフォーカス",
         "skill2": "ボレー",
         "ult": "エンチャント クリスタルアロー"
+      },
+      "league_lux": {
+        "skill1": "ライトバインディング",
+        "skill2": "ルーセントシンギュラリティ",
+        "ult": "ファイナルスパーク"
       }
     }
   }

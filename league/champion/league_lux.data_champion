@@ -1,0 +1,558 @@
+{
+  "id": "league_lux",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "CC",
+    "Shield"
+  ],
+  "sprite": "asset/league/champions/league_lux",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_lux_skill",
+    "asset/league/icons/league_lux_skill2",
+    "asset/league/icons/league_lux_ult"
+  ],
+  "stat": {
+    "attack": 80,
+    "magic_power": 40,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 20,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 100,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_lux.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 13,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_lux_illumination",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "league_lux_illumination"
+          },
+          {
+            "type": "Sfx",
+            "name": "league_lux_attack_shot"
+          },
+          {
+            "type": "TargetProjectile",
+            "name": "league_lux_bolt",
+            "speed": 5000,
+            "y_offset": 2000,
+            "applied_target": "Enemy",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ApAttack",
+                  "damage": 30,
+                  "attack_ratio": 35
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "league_lux_ignite"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "league_lux_passive_hit"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "league_lux_attack_shot"
+          },
+          {
+            "type": "TargetProjectile",
+            "name": "league_lux_bolt",
+            "speed": 5000,
+            "y_offset": 2000,
+            "applied_target": "Enemy",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "league_lux_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "league_lux_attack_hit"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_lux.skill",
+    "duration": 35,
+    "cooltime": 360,
+    "start_timing": 13,
+    "cancelable": false,
+    "range": 72000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_lux_q_cast"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_lux_q_orb",
+          "speed": 4200,
+          "range": 85000,
+          "shape": {
+            "Circle": {
+              "radius": 6000
+            }
+          },
+          "penetrate": true,
+          "y_offset": 2000,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ApAttack",
+                "damage": 70,
+                "attack_ratio": 70
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Bind",
+                "duration": 90
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_lux_q_bind"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_lux_mark"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_lux_illumination",
+                  "duration": {
+                    "Time": {
+                      "tick": 300
+                    }
+                  },
+                  "is_hidden": true
+                },
+                "only_to_enemy": false
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_lux_q_hit"
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "Sfx",
+          "name": "league_lux_w_shield"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 40000
+            }
+          },
+          "target": "AllyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 60,
+              "attack_ratio": 0,
+              "ap_ratio": 30,
+              "tick": 150
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_lux_shield"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_lux.skill2",
+    "duration": 34,
+    "cooltime": 420,
+    "start_timing": 16,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Position",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_lux_e_cast"
+        },
+        {
+          "type": "ParabolicProjectile",
+          "name": "league_lux_e_orb",
+          "travel_time": 20,
+          "range": 70000,
+          "shape": {
+            "Circle": {
+              "radius": 1
+            }
+          },
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [],
+          "end_effects": [
+            {
+              "type": "TargetSfx",
+              "name": "league_lux_e_land"
+            },
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_lux_e_field",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "tick": 60,
+              "period": 10,
+              "first_delay": 0,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_lux_e_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 15
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                }
+              ],
+              "end_effects": []
+            },
+            {
+              "type": "RangePeriodProjectile",
+              "name": "league_lux_e_burst",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "tick": 84,
+              "period": 300,
+              "first_delay": 60,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 90,
+                    "attack_ratio": 70
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "league_lux_mark"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_lux_illumination",
+                      "duration": {
+                        "Time": {
+                          "tick": 300
+                        }
+                      },
+                      "is_hidden": true
+                    },
+                    "only_to_enemy": false
+                  }
+                }
+              ],
+              "end_effects": []
+            },
+            {
+              "type": "Delayed",
+              "tick": 60,
+              "effects": [
+                {
+                  "type": "TargetSfx",
+                  "name": "league_lux_e_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_lux.ult",
+    "duration": 66,
+    "cooltime": 3000,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 110000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_lux_r_cast"
+        },
+        {
+          "type": "LineRangeProjectile",
+          "name": "league_lux_r_beam",
+          "width": 16000,
+          "length": 240000,
+          "delay": 55,
+          "apply": 1,
+          "applied_target": "EnemyChampion",
+          "applied_effects": []
+        },
+        {
+          "type": "LineRangeProjectile",
+          "name": "league_lux_r_hit",
+          "width": 16000,
+          "length": 240000,
+          "delay": 28,
+          "apply": 3,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ApAttack",
+                "damage": 180,
+                "attack_ratio": 100
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_lux_mark"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_lux_illumination",
+                  "duration": {
+                    "Time": {
+                      "tick": 300
+                    }
+                  },
+                  "is_hidden": true
+                },
+                "only_to_enemy": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 28,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_lux_r_fire"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_lux_bolt",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "bolt",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_lux_q_orb",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "q_orb",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_lux_e_orb",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "e_orb",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_lux_e_burst",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "e_zone",
+      "repeat": false,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_lux_r_beam",
+      "anim": "asset/league/effects/league_lux_r",
+      "tag": "beam",
+      "repeat": false,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_lux_hit",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_lux_ignite",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "ignite",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_lux_q_bind",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "q_bind",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_lux_mark",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "mark",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_lux_shield",
+      "anim": "asset/league/effects/league_lux_fx",
+      "tag": "shield",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
