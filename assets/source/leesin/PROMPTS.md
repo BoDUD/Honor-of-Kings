@@ -415,3 +415,66 @@ python tools/lol/pose_ref.py --champ LeeSin --hq --head 2.0 --legs 0.8 --hair 0.
 **检查**：`lint_mod.py` 0 错误 0 警告；`tfm2_ase.py metrics` 高 42 px（含辫子，头顶到脚底 34 px），没有半透明像素，描边覆盖 76%（拉克丝 85%、艾希 63%）。
 
 **待进游戏确认**：Q 命中后的自动飞踢、R 的击退方向，以及金龙会不会追上被踢飞的目标。
+
+## 第二轮：嘴鼻修正、跑步改用战斗跑（2026-09-26）
+
+用户进游戏看了后反馈两点：一是脸，主要是嘴和鼻子看起来奇怪；二是走路姿势不像英雄联盟里的李青。
+
+### 嘴和鼻子：Claude 直接改像素，不重画
+
+**原因**：
+- 造型图（待机用的就是它）脸的前缘有一条 2 格高的深棕竖线，被看成鼻子；
+- 下巴那一行有两格深棕当嘴，位置偏低、偏后，和竖线连起来像脸上缺了一块；
+- 动作帧是按 1.4 倍画好再缩小的，下半张脸混进了深色和金色杂点。
+
+**修法**：
+- 待机和造型图换一张新的下半脸：去掉竖线，补齐脸前缘的描边，嘴画在蒙眼布下方两行处，2 格深色，下巴下面加一行阴影，把脸和脖子分开；
+- 头部直立的 40 帧，按每帧蒙眼布前端的位置套用同一张下半脸，只改肤色和杂色像素，不动描边；
+- 转头、侧躺、背对的帧保持原样。
+
+改动记在 [`../native/leesin_face.json`](../native/leesin_face.json) 里，每个像素记位置、原色和新色，`import_native.py` 导入时套用。源图变了、原色对不上，导入就会停下报错。一共改了 548 个像素，仍是 16 色。
+
+### 跑步：重画 1 张，交给 Codex
+
+**原因**：
+1. 用的是 `Run_Base`：前倾、大步腾跃的冲刺，头上下起伏 10 px，还往前伸约 10 px；
+2. 帧时长照搬了原片（1.53 秒两步，8 × 192 ms）。原版英雄跑步都是 8 × 80 ms，0.64 秒一圈，所以游戏里像弓着背慢慢挪。
+
+**英雄联盟的动画图**：
+- `Run` 的普通分支播 `Run_Base`；
+- 战斗中移动走 `Run_In_Combat`：先按转向播 `Run_In` / `Run_InLeft` / `Run_inRight` 起步，再接 3.73 秒的 `Run_combatOut`；
+- `Run_combatOut` 前约 2 秒是直立、双手护在胸前、小碎步的战斗跑，之后才过渡成 `Run_Base`。
+
+团战里一直在打，玩家看到的是战斗跑。它的循环版就是 `Run_Combat.anm`，0.67 秒一圈。
+
+**新参考**：
+- `Run_Combat` 0–583 ms 取 8 帧，每帧 80 ms；
+- 原片里他低着头跑，换成大头比例后只看得到头顶，所以 [`poses.json`](poses.json) 的跑步加了 `"head_like": "Idle_Active@0"`（`native_pose.py` 新增的选项）：头转成待机时的朝向，辫子保持原片里往后飘的方向；
+- 头的起伏 6.4 px，前倾约 5 px（原版英雄跑步起伏 4–8 px）。
+
+新跑步到货前，[`../native/leesin_cells.json`](../native/leesin_cells.json) 的 `run` 仍是旧跑步的锚点。导入新跑步时：
+- 重新运行 `native_pose.py`，换上新的 `run` 锚点；
+- 删掉 `leesin_face.json` 里 `run` 的 8 组改动（它们是给旧跑步的）；
+- 再按常规流程导入。
+
+### `leesin_run.png`（第二轮）：战斗跑，8 帧，4 列 × 2 行
+
+附三张图：
+- 第一张：新的 `leesin_native.png`（造型图，嘴鼻已改）；
+- 第二张：`leesin_native_run.png`（原尺寸姿势参考）；
+- 第三张：`leesin_pose_run.png`（同一批帧的高清渲染）。
+
+```text
+Three attached images. FIRST: the approved clean pixel-art design of Lee Sin at 8x (every pixel an 8x8 block) - copy his colors, shapes, face and pixel style exactly. SECOND: League of Legends' real animation of Lee Sin rendered at our game's sprite size and shown at 8x, frames in a grid of cells read left to right, top to bottom - copy each frame's pose, size and position in its cell exactly, but NOT its blurry pixels. THIRD: the same frames as a high-resolution render, same grid, same places - look at it wherever a pose in the SECOND image is hard to read.
+Task: redraw every frame of the SECOND image as clean pixel art in the style of the FIRST image, at EXACTLY the pixel size of the FIRST image: every pixel one crisp 8x8 square on a single 8-px grid, nothing smaller than one square, no anti-aliasing, no blur. Do NOT draw him bigger than the FIRST image: his head is exactly as many squares tall and wide as in the FIRST image (10 squares from the top of the bald head to the chin and 10 squares wide, outline included), and his body matches the SECOND image.
+Pixel rules (most important): only the colors of the FIRST image; big flat areas, 2-3 shades per material; no dithering, no noise, no lone square of a different color inside an area; a 1-square near-black outline around the silhouette. His head is the FIRST image's head - the same drawing in every frame, upright, moving only with the body: the bald head, the red blindfold band across the eyes (no eyes), the cheeks under it and a 2-square dark mouth two rows under the band, no nose line. The braid is a 1-square dark line with red bands and its gold ring, streaming out behind him as in the SECOND image and staying inside its cell. 3/4 FRONT view facing right: we see his face and chest, never his back.
+Animation: RUN loop, 8 frames, as in the SECOND image: Lee Sin's combat run - an upright body leaning only slightly forward, both hands raised in front of his chest in a fighting guard, quick light running steps with the knees lifting; the legs exactly as in the SECOND image. The body dips in frames 2 and 6 and is highest in frames 4 and 8; frame 8 leads back into frame 1.
+Layout: exactly like the SECOND image - a grid of 4 columns x 2 rows of cells, each cell 64x72 squares (512x576 px), image 2048x1152; frame N in the same cell as in the SECOND image, at the same place, the feet (or the ground line under them) 10 squares above the bottom of the cell. Transparent background (if not possible: solid #FF00FF magenta). No grid lines, no borders, no labels.
+```
+
+**交给 Claude 之前请 Codex 整理**（和上一批一样）：
+- 每个像素都是严格对齐的 8×8 纯色块，透明度只有全透明和不透明；
+- 只用造型图的颜色（`PALETTE.json`），去掉孤立的杂色点；
+- **每帧的头直接用造型图的头**（同一张图，不缩放、不转动），放在第二张附图里头的位置，前后差不超过 1 格；
+- 每帧留在它的格子里、画在哪就是哪，不要按包围框重新居中；
+- 附交接说明 `HANDOFF.md`、逐帧记录 `MANIFEST.json`（文件哈希、每帧的包围框、头的位置）和实际用的提示词。
