@@ -151,7 +151,6 @@ python tools/art/preview_leesin.py
 - 交回的动作里，除了待机，GPT 都画大了约 1.4 倍，头比身体放得更多；直接导入的话，李青一出招就会变大。`fit_native.py` 按头的大小把每张动作缩回造型图的比例（按 16 色投票取色，仍是纯色像素），再把每帧的蒙眼布对到原版头部骨骼的位置，着地的帧脚底压在地面线上。待机是 Codex 用确认过的造型图分层重组的，原样使用。
 - 结果：16 色，和右边像素同色的比例 37%（原版英雄 18%–46%）；头像截取点 (0, −34)。
 - 进游戏看过后改了嘴和鼻子：造型图脸前缘那条深色竖线和下巴上的深色块去掉，换成蒙眼布下方两行处 2 格的嘴；头部直立的动作帧套用同一张下半脸。改动逐像素记在 [`native/leesin_face.json`](assets/source/native/leesin_face.json)，导入时套用。
-- 跑步要重画：现在用的是英雄联盟不在战斗时的前倾冲刺（`Run_Base`），游戏里显得弓背、慢吞吞。第二轮改画战斗中的直立护胸跑（`Run_Combat`，8 × 80 ms），提示词见 PROMPTS.md 的「第二轮」。
 
 逐帧预览：[`docs/preview/league_leesin_frames.png`](docs/preview/league_leesin_frames.png)，特效：[`docs/preview/league_leesin_effects.png`](docs/preview/league_leesin_effects.png)。
 

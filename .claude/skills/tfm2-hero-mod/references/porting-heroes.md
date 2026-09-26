@@ -113,11 +113,7 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `SelectorClipData`), and the non-atomic ones list other clip hashes. Lee Sin: `Idle1` = sequence
   `Idle_Active` (combat stance) then `Idle_Passive`; `Run` = `Run_Homeguard` or, by speed,
   `Run_Base.anm` (its haste branch plays the same file); `Crit` = `Attack4`; Q2 = `Spell1_B` then
-  `Spell1_B_Loop`. Moving in combat goes through `Run_In_Combat` instead: `Run_In`, `Run_InLeft`
-  or `Run_inRight` by turn angle, then the 3.73 s `Run_combatOut`. Its first ~2 s are an upright
-  run with the hands up in guard, which then blends into `Run_Base`. `Run_Combat.anm` is that
-  gait as a 0.67 s loop. TFM2 heroes are always fighting, so take the combat idle and the combat
-  run. Look for `*_Combat` / `combatOut` clips before settling on `Run`.
+  `Spell1_B_Loop`. TFM2 heroes are always fighting, so take the combat idle.
 - **Walk or run: measure it.** During stance a planted foot slides back at the clip's ground
   speed; compare it with the champion's movement speed, and look for frames where both feet are
   off the ground (a run) or one foot always down (a walk). Ashe's jog/run clips move ~305 units/s
@@ -125,10 +121,7 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   gait. Time the TFM2 loop from the clip's own cycle (Ashe: 1.0 s, 8 x 125 ms). Lux has a single
   `lux_run` (a 4.8 s file holding six 0.8 s cycles): both feet are off the ground for about half
   of each cycle, so she runs (8 x 100 ms). Lee Sin's `Run_Base` is a leaping run: 1.53 s for two
-  strides, each with ~0.4 s in the air. Shipped as 8 x 192 ms, it crept in game: a hunched body,
-  a 10 px head bob and 0.77 s per stride. The user said the walk was not League's. Base runs are
-  8 x 80 ms (gladiator 8 x 70), so keep the loop at about 0.6-1.0 s. The redraw uses the combat
-  run: `Run_Combat`, 8 x 80 ms.
+  strides, each with ~0.4 s in the air (8 x 192 ms).
 - **Render side, per champion.** Some champions show their chest from one side, some from the
   other (Garen and Lux need `--mirror`, Ashe does not) - render idle both ways and look for the face.
   Then use that same side for *every* clip of the hero: the renders appear to be mirror images of
@@ -158,11 +151,8 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `tools/art/import_native.py`. Per tag: `lunge` (share of League's travel kept, 0.7 for
   actions), `anchor: first` (Lee Sin's death starts 140 units in front of the unit), `flat`
   (each frame's lowest point as high above the feet line as above League's floor - a body lying
-  diagonally in depth otherwise floats or sinks through the pitch); `head_like: "<clip@ms>"`
-  turns every frame's head to face the way it faces in that pose, while the braid keeps the
-  clip's direction. Lee Sin's combat run looks at the ground, and at 2x the head then shows only
-  its crown. Per frame, `turn` rotates degrees toward the camera for spins and bent-over slams
-  that would show the back. Cells can be bigger
+  diagonally in depth otherwise floats or sinks through the pitch); per frame `turn` degrees
+  toward the camera for spins and bent-over slams that would show the back. Cells can be bigger
   than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
   League's head joint per frame. GPT followed the poses but drew every action except idle about
   1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
