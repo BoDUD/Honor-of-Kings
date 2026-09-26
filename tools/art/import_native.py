@@ -16,8 +16,8 @@ Two fixes for the loops, where every pixel of jitter shows:
     head is idle frame 1's top rows, found by exact match (Codex pasted one verified head into every
     frame); frames placed by their bounding box had it 1-2 px off.
   - ORDER: Lux's idle arrived breathing down, down, down, up, down, up; its frames 5 and 6 swap.
-Then <hero>_face.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth
-and nose): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
+Then <hero>_retouch.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth,
+nose and face side; Lux's run, where her wand's gold end read as a gold foot): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
 the expected colour stops the import, so edits made for one version of the strips never land on another.
 Writes league/champions/league_<hero>. The effects still come from tools/art/import_<hero>.py, which
 writes the round-1 body only with --body.
@@ -128,8 +128,8 @@ def build(hero):
 
 
 def touch_up(hero, sheet):
-    """Apply <hero>_face.json to the cut frames in place; the number of pixels changed."""
-    path = os.path.join(SRC, f"{hero}_face.json")
+    """Apply <hero>_retouch.json to the cut frames in place; the number of pixels changed."""
+    path = os.path.join(SRC, f"{hero}_retouch.json")
     if not os.path.exists(path):
         return 0
     with open(path, encoding="utf-8") as f:
@@ -191,7 +191,7 @@ def main():
         sheet, report = build(hero)
         touched = touch_up(hero, sheet)
         if touched:
-            print(f"{hero}_face.json: {touched} pixels retouched")
+            print(f"{hero}_retouch.json: {touched} pixels retouched")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

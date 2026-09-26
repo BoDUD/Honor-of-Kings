@@ -129,8 +129,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   is near-black, so the outline vanishes and only the skin shape reads; Lee Sin's straight 8 px
   right edge and square crown corner looked like half a head until the crown stepped in, the
   blindfold and nose tip stood out a pixel and the mouth and chin stepped back. Look at the face at
-  card size (`tfm2_ase.py face`, and on a dark background) as well as zoomed. Single-pixel fixes can go in
-  `assets/source/native/<hero>_face.json`, which `import_native.py` applies after cutting the
+  card size (`tfm2_ase.py face`, and on a dark background) as well as zoomed.
+- **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
+  behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
+  skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw
+  her lower body deform. Check each frame where a prop end meets a hand, foot or head. Separate
+  them with outline or colour, or hide the end behind the limb. Lux's four frames were fixed in
+  `lux_retouch.json`. Single-pixel fixes can go in
+  `assets/source/native/<hero>_retouch.json`, which `import_native.py` applies after cutting the
   frames; it stops if a source pixel changed.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold

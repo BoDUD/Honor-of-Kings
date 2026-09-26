@@ -433,4 +433,4 @@ python tools/lol/pose_ref.py --champ LeeSin --hq --head 2.0 --legs 0.8 --hair 0.
 - 转头、侧躺、背对的帧保持原样。
 - 之后用户又指出，卡片上的头右边像被切掉一半：待机的头右侧从头顶到嘴是一条 8 格高的直边，头顶右角是直角；卡片背景很深，描边看不见，只剩皮肤轮廓。于是把头顶右角收进 1 格，额头和蒙眼布向右多 1 格，鼻尖在蒙眼布下方凸出 1 格、下面一格阴影，嘴和下巴收回，右侧轮廓变成弧形。
 
-改动记在 [`../native/leesin_face.json`](../native/leesin_face.json) 里，每个像素记位置、原色和新色，`import_native.py` 导入时套用。源图变了、原色对不上，导入就会停下报错。一共改了 602 个像素，仍是 16 色。
+改动记在 [`../native/leesin_retouch.json`](../native/leesin_retouch.json) 里，每个像素记位置、原色和新色，`import_native.py` 导入时套用。源图变了、原色对不上，导入就会停下报错。一共改了 602 个像素，仍是 16 色。
