@@ -123,13 +123,24 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 - **A face without eyes has only its mouth left.** Lee Sin's blindfold hides the eyes, so every
   dark square under it reads as a feature. His delivered design had a 2 px dark stroke down the
   front of the face and a dark pair on the chin row: at card size the user saw a strange nose and
-  mouth. Base faces draw no nose and a 1-2 square mouth. Under a band or mask, close the outline
+  mouth. Base faces draw no nose and, in idle, almost never a mouth. Under a band or mask, close the outline
   along the face's front, put a 2-square mouth two rows under the band, shade under the chin so it
   separates from the neck, and keep other dark squares out of the lower face. Give the face side a curve: the champion card
   is near-black, so the outline vanishes and only the skin shape reads; Lee Sin's straight 8 px
   right edge and square crown corner looked like half a head until the crown stepped in, the
   blindfold and nose tip stood out a pixel and the mouth and chin stepped back. Look at the face at
   card size (`tfm2_ase.py face`, and on a dark background) as well as zoomed.
+- **In a 3/4 view the wide eye is the near one.** A hero facing right has the near eye left of the
+  face's middle, two squares wide, and the far eye one square wide against the right cheek. Base
+  eyes are three rows: dark lashes or brows, then a light highlight beside a dark pupil, then white
+  beside the iris colour (the iris on the side the hero faces), with two rows of face and a chin
+  shadow below. Soraka's approved design had the eyes mirrored (the wide one by the far cheek) and
+  only two rows (a black lid over pale yellow) above five rows of face with a dark-blue jaw patch.
+  The user called the face ugly twice before anyone spotted the mirroring. Fixed by one head swap
+  in all 52 frames: the fringe one row lower, the eyes mirrored back and three rows tall, the patch
+  cut back to the chin shadow. Offered no mouth and a one-square mouth, the user picked the mouth
+  in dark red: a mouth in the skin's shadow colour merges with the chin shadow. When a design
+  sheet comes back, compare its eyes with base heroes square by square, not just their size.
 - **A prop touching a limb becomes part of it.** In Lux's run, League's wand swings upright
   behind her, and its gold end hangs by her back foot. At game size the end (gold, white and
   skin pixels, no outline between) merged with the leg and read as a gold foot: the user saw

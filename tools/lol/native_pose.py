@@ -27,12 +27,18 @@ from the tag's first frame instead and puts that frame's head where the design p
 Sin's death starts 140 units in front of the unit), and "flat": true puts every frame's lowest
 point as high above the feet line as it is above League's floor: knocked back away from the camera,
 a body lying diagonally in depth otherwise floats or sinks (the pitch turns depth into height),
-while a sprite has one ground line.
+while a sprite has one ground line. "head_like": "<clip@ms>" turns the head of every frame of the tag
+to face the way it faces in that pose, the body untouched: Lee Sin's combat run looks at the
+ground, and a chibi head seen from above shows only its crown, never the blindfold. "keep" in
+"chibi" names head parts that ride on the head's skin weights but should stay League's size like
+the hair (Soraka's horn: {"horn": 4.0}, see pose_ref.keep_parts); the crown is then measured
+without them, as without the hair.
 
 Spec (JSON): {"hero", "champ", "camera": {"yaw", "pitch", "mirror"}, "chibi": {"head", "legs",
-"hair"}, "height", "cell": [w, h] (optional, default 56x64), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "anchor": "design",
-"flat": false, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>}], ...]}}}
-(the third item is optional). The renders show
+"hair", "keep": {"<joint>": <radius>}}, "height", "cell": [w, h] (optional, default 56x64), "design": "<clip@ms>", "tags": {"<tag>": {"lunge": 1.0, "anchor": "design",
+"flat": false, "head_like": null, "frames": [["<clip@ms or clipA@ms>clipB@ms:w>", <ms>, {"turn": <deg>,
+"head_like": "<clip@ms>"}], ...]}}} (the third item is optional; its "head_like" overrides the tag's for
+that frame, null turns it off). The renders show
 Riot's model: keep them local, never commit them (the spec and the cells table are fine).
 """
 import argparse
@@ -67,7 +73,7 @@ def set_cell(w, h):
 class Champ:
     """A champion's base skin: mesh, skeleton, texture and clips, read from the local client."""
 
-    def __init__(self, lol, champ):
+    def __init__(self, lol, champ, keep=None):
         w = Wad(os.path.join(lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client"))
         skin_bin = w.read_path(f"data/characters/{champ.lower()}/skins/skin0.bin")
         refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
@@ -76,6 +82,7 @@ class Champ:
         texs = [p for p in refs(skin_bin, rb"(?:tex|dds)") if "/Base/" in p and re.search(r"_tx_cm|_cm_tx", p, re.I)]
         self.tris, self.verts = P.read_skn(w.read_path(skn.lower()))
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))
+        self.influences, self.hair_re = P.keep_parts(self.joints, self.influences, self.verts, keep or {})
         self.tex = P.read_tex(w.read_path(texs[0].lower()))
         bind = P.globals_(self.joints, [P.trs(j["t"], j["r"], j["s"]) for j in self.joints])
         self.bind_inv = [np.linalg.inv(m) for m in bind]
@@ -84,7 +91,7 @@ class Champ:
         self.wad, self.loaded = w, {}
         self.legv = P.leg_vertices(self.joints, self.influences, self.verts)
         head = P.chain_vertices(self.joints, self.influences, self.verts, re.compile(r"^head$", re.I))
-        hair = P.chain_vertices(self.joints, self.influences, self.verts, P.HAIR)
+        hair = P.chain_vertices(self.joints, self.influences, self.verts, self.hair_re)
         self.headv = head & ~hair
         self.head = next(i for i, j in enumerate(self.joints) if j["name"].lower() == "head")
 
@@ -95,17 +102,33 @@ class Champ:
             self.loaded[name.lower()] = P.read_anim(self.wad.read_path(self.by_name[name.lower()].lower()))
         return self.loaded[name.lower()]
 
-    def local(self, spec):
+    def local(self, spec, head_like=None):
         a, ta, b, tb, wgt = P.parse_frame(spec)
         local = P.local_pose(self.joints, self.clip(a), ta)
-        return P.blend_pose(local, P.local_pose(self.joints, self.clip(b), tb), wgt) if b else local
+        local = P.blend_pose(local, P.local_pose(self.joints, self.clip(b), tb), wgt) if b else local
+        return self.head_turned(local, head_like) if head_like else local
 
-    def posed(self, spec, chibi, turn=0.0):
+    def head_turned(self, local, spec):
+        """`local` with the head joint turned to its world orientation in pose `spec`. The hair
+        chains keep the world orientation the clip gives them (the braid still streams behind);
+        everything else on the head turns with it."""
+        want = unscaled(P.globals_(self.joints, [P.trs(*p) for p in self.local(spec)])[self.head][:3, :3])
+        was = P.globals_(self.joints, [P.trs(*p) for p in local])
+        t, _, s = local[self.head]
+        out = list(local)
+        out[self.head] = (t, quat(unscaled(was[self.joints[self.head]["parent"]][:3, :3]).T @ want), s)
+        for i, j in enumerate(self.joints):
+            if j["parent"] == self.head and P.HAIR.search(j["name"]):
+                ti, _, si = local[i]
+                out[i] = (ti, quat(want.T @ unscaled(was[i][:3, :3])), si)
+        return out
+
+    def posed(self, spec, chibi, turn=0.0, head_like=None):
         """World vertices of the chibi model in a pose, feet where League has them, and the chibi
         skeleton's global matrices; `turn` degrees about the vertical axis through the unit (a
         spin or a bent-over slam turned toward the camera so the chest shows, as animators cheat)."""
-        local = self.local(spec)
-        glob = P.globals_(self.joints, [P.trs(*p) for p in P.chibi(self.joints, local, **chibi)])
+        local = self.local(spec, head_like)
+        glob = P.globals_(self.joints, [P.trs(*p) for p in P.chibi(self.joints, local, **chibi, hair_re=self.hair_re)])
         pv = P.skin(self.verts, self.influences, self.bind_inv, glob)
         adult = P.skin(self.verts, self.influences, self.bind_inv, P.globals_(self.joints, [P.trs(*p) for p in local]))
         lift = adult[self.legv, 1].min() - pv[self.legv, 1].min()
@@ -116,6 +139,19 @@ class Champ:
             pv = pv @ r.T
             glob = [np.vstack([np.c_[r @ g[:3, :3], r @ g[:3, 3]], g[3]]) for g in glob]
         return pv, glob, lift
+
+
+def unscaled(m):
+    return m / np.linalg.norm(m, axis=0)
+
+
+def quat(m):
+    """Rotation matrix -> quaternion (x, y, z, w), the order pose_ref.qmat reads."""
+    w = np.sqrt(max(0.0, 1 + m[0, 0] + m[1, 1] + m[2, 2])) / 2
+    x = np.copysign(np.sqrt(max(0.0, 1 + m[0, 0] - m[1, 1] - m[2, 2])) / 2, m[2, 1] - m[1, 2])
+    y = np.copysign(np.sqrt(max(0.0, 1 - m[0, 0] + m[1, 1] - m[2, 2])) / 2, m[0, 2] - m[2, 0])
+    z = np.copysign(np.sqrt(max(0.0, 1 - m[0, 0] - m[1, 1] + m[2, 2])) / 2, m[1, 0] - m[0, 1])
+    return np.array([x, y, z, w])
 
 
 def camera(cam):
@@ -170,9 +206,10 @@ def main():
     args = ap.parse_args()
     with open(args.spec, encoding="utf-8") as f:
         spec = json.load(f)
-    hero, cam, chibi = spec["hero"], spec["camera"], spec["chibi"]
+    hero, cam, chibi = spec["hero"], spec["camera"], dict(spec["chibi"])
+    keep = chibi.pop("keep", None)
     set_cell(*spec.get("cell", CELL))
-    ch = Champ(args.lol, spec["champ"])
+    ch = Champ(args.lol, spec["champ"], keep)
     rot = camera(cam)
     sign = -1.0 if cam.get("mirror") else 1.0
     os.makedirs(args.out, exist_ok=True)
@@ -195,8 +232,8 @@ def main():
     print(f"{hero}: {unit * 100:.3f} game px per 100 units; design pose {rows.max() - rows.min() + 1} px tall with "
           f"what hangs from the head, feet on row {rows.max()}, offset {dy / Z:+.0f} px")
 
-    def cell(frame_spec, lunge, base, flat, turn=0.0):
-        pv, glob, _ = ch.posed(frame_spec, chibi, turn)
+    def cell(frame_spec, lunge, base, flat, turn=0.0, head_like=None):
+        pv, glob, _ = ch.posed(frame_spec, chibi, turn, head_like)
         hi = render(ch, pv, cam, scale, dy)
         lo = blocks(hi)
         down = 0
@@ -229,9 +266,10 @@ def main():
         t = spec["tags"][tag]
         base = ref_head
         if t.get("anchor", "design") == "first":
-            base = head_x(ch.posed(t["frames"][0][0], chibi)[1])
-        frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), (f[2] if len(f) > 2 else {}).get("turn", 0.0))
-                  for f in t["frames"]]
+            base = head_x(ch.posed(t["frames"][0][0], chibi, head_like=t.get("head_like"))[1])
+        opt = lambda f: f[2] if len(f) > 2 else {}
+        frames = [cell(f[0], t.get("lunge", 1.0), base, t.get("flat", False), opt(f).get("turn", 0.0),
+                       opt(f).get("head_like", t.get("head_like"))) for f in t["frames"]]
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z), BG)

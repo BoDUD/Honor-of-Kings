@@ -10,7 +10,7 @@ feet on the cell's line 10 px above the bottom. <hero>_now_design.png: idle fram
 canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in its cell, and its
 duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
 around the same pivot and it lands where the current one stands (commit it with the redraw).
---style writes tfm2_style_ref.png / tfm2_style_ref_mage.png / tfm2_style_ref_martial.png: base heroes'
+--style writes tfm2_style_ref.png / _mage / _martial / _healer (staff-carrying casters, for Soraka): base heroes'
 idle frame 1 (top row) and attack middle frame (bottom row), feet aligned, at 8x - read from the
 game's bundle, keep local. --pack lux --pack ashe writes pack_native_ref.png the same way from this
 pack's own native-size sprites.
@@ -37,6 +37,7 @@ STYLE = {
     "tfm2_style_ref_mage.png": ["white_mage", "priest", "enchanter", "druid", "pyromancer", "illusionist", "dark_mage",
                                 "barrier_magician"],
     "tfm2_style_ref_martial.png": ["fighter", "monk", "ninja", "swordman", "hunter", "knight"],
+    "tfm2_style_ref_healer.png": ["white_mage", "priest", "druid", "enchanter", "barrier_magician", "wind_mage"],
 }
 
 

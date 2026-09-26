@@ -25,6 +25,13 @@
 - Note the key asymmetry: descriptions use `skill`/`skill2`/`ult`, `skill_name` uses
   `skill1`/`skill2`/`ult`.
 - Use the franchise's **official localized names** per language (e.g. 盖伦 / 蓋倫 / Garen / 가렌 / ガレン).
+- **Keep every description within the base game's longest.** Base skill texts show at most 130
+  characters in zh-hans / zh-hant (median ~50-65), 147 in ja, 185 in ko and 334 in en; longer
+  text is crammed together in the skill details panel. Soraka's first text (Q with E folded in,
+  195 characters in zh-hans) was, so it now starts with the effect instead of repeating the skill
+  name (base texts never open with it; the name has its own `skill_name` entry), drops secondary
+  durations and keeps every damage, heal and crowd-control number. `lint_mod.py` warns above these
+  limits (all 17 languages).
 
 ### Rich text
 

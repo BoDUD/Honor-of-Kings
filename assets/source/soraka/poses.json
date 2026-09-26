@@ -1,0 +1,44 @@
+{
+  "hero": "soraka",
+  "champ": "Soraka",
+  "camera": {"yaw": 55, "pitch": 25, "mirror": false},
+  "chibi": {"head": 2.0, "legs": 0.8, "hair": 0.5, "keep": {"horn": 4.0}},
+  "height": 34,
+  "cell": [72, 72],
+  "design": "Soraka_Idle1@0",
+  "tags": {
+    "idle": {"frames": [
+      ["Soraka_Idle1@1300", 250], ["Soraka_Idle1@1633", 250], ["Soraka_Idle1@1967", 250],
+      ["Soraka_Idle1@2300", 250], ["Soraka_Idle1@2633", 250], ["Soraka_Idle1@2967", 250]]},
+    "run": {"frames": [
+      ["Soraka_Run@0", 100], ["Soraka_Run@125", 100], ["Soraka_Run@250", 100], ["Soraka_Run@375", 100],
+      ["Soraka_Run@500", 100], ["Soraka_Run@625", 100], ["Soraka_Run@750", 100], ["Soraka_Run@875", 100]]},
+    "attack": {"lunge": 0.7, "frames": [
+      ["Soraka_Idle1@0>Soraka_Attack1@60:0.5", 60], ["Soraka_Attack1@120", 60], ["Soraka_Attack1@180", 70],
+      ["Soraka_Attack1@240", 60], ["Soraka_Attack1@300", 90], ["Soraka_Attack1@420", 80],
+      ["Soraka_Attack1@700>Soraka_Idle1@0:0.5", 80]]},
+    "skill": {"lunge": 0.7, "frames": [
+      ["Soraka_Idle1@0>Soraka_Spell1@0:0.5", 60], ["Soraka_Spell1@80", 60], ["Soraka_Spell1@160", 80],
+      ["Soraka_Spell1@240", 60, {"turn": 15, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell1@330", 100, {"turn": 30, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell1@500", 90, {"turn": 30, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell1@1000>Soraka_Idle1@0:0.5", 100, {"turn": 15, "head_like": "Soraka_Idle1@0"}]]},
+    "skill2": {"lunge": 0.7, "frames": [
+      ["Soraka_Idle1@0>Soraka_Spell2@0:0.5", 60], ["Soraka_Spell2@160", 80], ["Soraka_Spell2@320", 80],
+      ["Soraka_Spell2@400", 100], ["Soraka_Spell2@560", 100], ["Soraka_Spell2@760", 80],
+      ["Soraka_Spell2@1000>Soraka_Idle1@0:0.5", 80]]},
+    "ult": {"lunge": 0.7, "frames": [
+      ["Soraka_Idle1@0>Soraka_Spell4@0:0.5", 70], ["Soraka_Spell4@100", 100],
+      ["Soraka_Spell4@200", 100, {"turn": 20, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell4@400", 150, {"turn": 30, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell4@700", 150, {"turn": 30, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell4@1000", 100, {"turn": 20, "head_like": "Soraka_Idle1@0"}],
+      ["Soraka_Spell4@1150", 100], ["Soraka_Spell4@1500>Soraka_Idle1@0:0.5", 100]]},
+    "hit": {"flat": true, "frames": [
+      ["Soraka_Idle1@0>Soraka_Death@150:0.3", 120], ["Soraka_Idle1@0>Soraka_Death@150:0.12", 120]]},
+    "dead": {"lunge": 0.65, "flat": true, "frames": [
+      ["Soraka_Death@150", 100], ["Soraka_Death@450", 100], ["Soraka_Death@800", 120],
+      ["Soraka_Death@1400", 120], ["Soraka_Death@1600", 120], ["Soraka_Death@1800", 200],
+      ["Soraka_Death@2600", 400]]}
+  }
+}

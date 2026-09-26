@@ -28,6 +28,13 @@
         "skill": "<#ff9028ff>天音波<>：向前方打出一道音波，对第一个命中的敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻击力<>的<#ff9028ff>物理伤害<>并留下印记。<#ff9028ff>回音击<>：<#ffb900ff>0.2秒<>后李青自动飞踢冲到被印记的敌人身边，再造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。",
         "skill2": "<#ff9028ff>天雷破<>：李青跃起重击地面，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>；<#ff9028ff>摧筋断骨<>：命中的敌人被<#ef5350ff>减速<><#ffb900ff>40%<>，持续<#ffb900ff>2秒<>。同时施放 <#ff9028ff>金钟罩<>：李青和身边的友方英雄获得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻击力<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2秒<>；<#ff9028ff>铁布衫<>：李青获得<#6aff55ff>20% 吸血<>，持续<#ffb900ff>3秒<>。",
         "ult": "<#ff9028ff>猛龙摆尾<>：李青腾空回旋踢，对目标英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>并把它<#ef5350ff>踢飞<>。被踢飞的敌人撞到路线上的其他敌人，对他们造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>击飞<><#ffb900ff>0.75秒<>。"
+      },
+      "league_soraka": {
+        "name": "索拉卡",
+        "attack": "普攻用法杖射出星光弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。",
+        "skill": "造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>减速30%<>，命中敌方英雄时获得<#ff9028ff>活力焕发<>：回复<#6aff55ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%法术强度<>的<#6aff55ff>生命值<>并加速20%。每<#ffb900ff>16秒<>一次附带<#ff9028ff>星体结界<>：<#ef5350ff>沉默<>圈内敌人，<#ffb900ff>1.5秒<>后仍在圈内的<#ef5350ff>禁锢1秒<>并受到<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%法术强度<>的<#a974ffff>魔法伤害<>。",
+        "skill2": "消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8%最大生命值<>（不会致死），为一名其他友方英雄回复<#6aff55ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%法术强度<>的<#6aff55ff>生命值<>。带<#ff9028ff>活力焕发<>时消耗减半且目标加速20%。被动<#ff9028ff>拯救<>：施放后<#ffb900ff>2秒<>内<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移动速度提高30%<>。",
+        "ult": "<#ff9028ff>祈愿<>：为全图所有友方英雄（包括自己）回复<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 法术强度<>的<#6aff55ff>生命值<>。"
       }
     },
     "skill_name": {
@@ -50,6 +57,11 @@
         "skill1": "天音波",
         "skill2": "天雷破",
         "ult": "猛龙摆尾"
+      },
+      "league_soraka": {
+        "skill1": "流星坠落",
+        "skill2": "星之灌注",
+        "ult": "祈愿"
       }
     }
   },
@@ -82,6 +94,13 @@
         "skill": "<#ff9028ff>虎嘯龍吟<>：向前方發出梵音，對第一個命中的敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% 攻擊力<>的<#ff9028ff>物理傷害<>並留下印記。<#ff9028ff>震驚百里<>：<#ffb900ff>0.2秒<>後李星自動飛踢衝向被印記的敵人，再造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。",
         "skill2": "<#ff9028ff>狂風暴雨<>：李星躍起重擊地面，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>；<#ff9028ff>分筋錯骨<>：命中的敵人被<#ef5350ff>緩速<><#ffb900ff>40%<>，持續<#ffb900ff>2秒<>。同時施放 <#ff9028ff>鐵璧金身<>：李星和身邊的友方英雄獲得<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% 攻擊力<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2秒<>；<#ff9028ff>易筋洗髓<>：李星獲得<#6aff55ff>20% 吸血<>，持續<#ffb900ff>3秒<>。",
         "ult": "<#ff9028ff>神龍擺尾<>：李星使出迴旋踢，對目標英雄造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>並把它<#ef5350ff>往後踢<>。被踢飛的敵人撞到路線上的其他敵人，對他們造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>擊飛<><#ffb900ff>0.75秒<>。"
+      },
+      "league_soraka": {
+        "name": "索拉卡",
+        "attack": "普攻用法杖射出星光彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。",
+        "skill": "造成<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>緩速30%<>，命中敵方英雄時獲得<#ff9028ff>回春<>：回復<#6aff55ff>30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%魔法強度<>的<#6aff55ff>生命<>並加速20%。每<#ffb900ff>16秒<>一次附帶<#ff9028ff>寂靜星河<>：<#ef5350ff>沉默<>圈內敵人，<#ffb900ff>1.5秒<>後仍在圈內的<#ef5350ff>定身1秒<>並承受<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%魔法強度<>的<#a974ffff>魔法傷害<>。",
+        "skill2": "消耗自身<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8%最大生命<>（不會致死），為一名其他友方英雄回復<#6aff55ff>110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%魔法強度<>的<#6aff55ff>生命<>。帶<#ff9028ff>回春<>時消耗減半且目標加速20%。被動<#ff9028ff>群星指路<>：施放後<#ffb900ff>2秒<>內<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>跑速提高30%<>。",
+        "ult": "<#ff9028ff>祈願<>：為全圖所有友方英雄（包括自己）回復<#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% 魔法強度<>的<#6aff55ff>生命<>。"
       }
     },
     "skill_name": {
@@ -104,6 +123,11 @@
         "skill1": "虎嘯龍吟",
         "skill2": "狂風暴雨",
         "ult": "神龍擺尾"
+      },
+      "league_soraka": {
+        "skill1": "殞星召喚",
+        "skill2": "星之祝福",
+        "ult": "祈願"
       }
     }
   },
@@ -136,6 +160,13 @@
         "skill": "<#ff9028ff>Sonic Wave<>: Sends out a wave of sound that deals <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90% AD<> <#ff9028ff>physical damage<> to the first enemy hit and marks it. <#ff9028ff>Resonating Strike<>: <#ffb900ff>0.2s<> later Lee Sin flies at the marked enemy with a kick, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>.",
         "skill2": "<#ff9028ff>Tempest<>: Lee Sin leaps and smashes the ground, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> to nearby enemies; <#ff9028ff>Cripple<>: enemies hit are <#ef5350ff>slowed<> by <#ffb900ff>40%<> for <#ffb900ff>2s<>. Also casts <#ff9028ff>Safeguard<>: Lee Sin and nearby allied champions gain a <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60% AD<> <#e8d44dff>shield<> for <#ffb900ff>2s<>, and <#ff9028ff>Iron Will<>: Lee Sin gains <#6aff55ff>20% life steal<> for <#ffb900ff>3s<>.",
         "ult": "<#ff9028ff>Dragon's Rage<>: A spinning jump kick deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> to the target champion and <#ef5350ff>kicks it back<>. Enemies it crashes into take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80% AD<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<> for <#ffb900ff>0.75s<>."
+      },
+      "league_soraka": {
+        "name": "Soraka",
+        "attack": "Basic attacks fire a bolt of starlight from her staff that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>.",
+        "skill": "Deals <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50% Ability Power<> <#a974ffff>magic damage<> and <#ef5350ff>slows<> by 30%. Hitting a champion grants <#ff9028ff>Rejuvenation<>: she heals <#6aff55ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25% Ability Power<> and gains 20% Move Speed. Once per <#ffb900ff>16s<> it adds <#ff9028ff>Equinox<>: <#ef5350ff>silences<> enemies inside; those still inside after <#ffb900ff>1.5s<> are <#ef5350ff>rooted<> for 1s and take <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30% Ability Power<> <#a974ffff>magic damage<>.",
+        "skill2": "Spends <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>8% of her max health<> (never fatal) to heal another allied champion for <#6aff55ff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60% Ability Power<>. With <#ff9028ff>Rejuvenation<> the cost is halved and the target gains 20% Move Speed. Passive <#ff9028ff>Salvation<>: <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>30% Move Speed<> for <#ffb900ff>2s<> after casting.",
+        "ult": "<#ff9028ff>Wish<>: Restores <#6aff55ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55% Ability Power<> <#6aff55ff>health<> to every allied champion on the map, Soraka included."
       }
     },
     "skill_name": {
@@ -158,6 +189,11 @@
         "skill1": "Sonic Wave",
         "skill2": "Tempest",
         "ult": "Dragon's Rage"
+      },
+      "league_soraka": {
+        "skill1": "Starcall",
+        "skill2": "Astral Infusion",
+        "ult": "Wish"
       }
     }
   },
@@ -190,6 +226,13 @@
         "skill": "<#ff9028ff>음파<>: 음파를 발사해 처음 맞은 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 90%<> <#ff9028ff>물리 피해<>를 입히고 표식을 남깁니다. <#ff9028ff>공명의 일격<>: <#ffb900ff>0.2초<> 뒤 리 신이 표식이 남은 적에게 날아차기로 돌격해 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다.",
         "skill2": "<#ff9028ff>폭풍<>: 리 신이 뛰어올라 바닥을 내리쳐 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 입힙니다. <#ff9028ff>무력화<>: 맞은 적은 <#ffb900ff>2초<> 동안 <#ffb900ff>40%<> <#ef5350ff>둔화<>됩니다. 동시에 <#ff9028ff>방호<>를 사용해 리 신과 주변 아군 챔피언이 <#ffb900ff>2초<> 동안 <#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 60%<> <#e8d44dff>보호막<>을 얻고, <#ff9028ff>강철의 의지<>로 리 신이 <#ffb900ff>3초<> 동안 <#6aff55ff>20% 생명력 흡수<>를 얻습니다.",
         "ult": "<#ff9028ff>용의 분노<>: 강력한 돌려차기로 대상 챔피언에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입히고 <#ef5350ff>뒤로 밀어냅니다<>. 날아간 대상과 부딪힌 적은 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 80%<> <#ff9028ff>물리 피해<>를 입고 <#ffb900ff>0.75초<> 동안 <#ef5350ff>공중에 떠오릅니다<>."
+      },
+      "league_soraka": {
+        "name": "소라카",
+        "attack": "기본 공격으로 지팡이에서 별빛 탄환을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다.",
+        "skill": "<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 50%<> <#a974ffff>마법 피해<>를 입히고 <#ef5350ff>30% 둔화<>시킵니다. 적 챔피언 적중 시 <#ff9028ff>별의 가호<>: <#6aff55ff>체력 30<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 25%<> 회복, 이동 속도 20% 증가. <#ffb900ff>16초<>에 한 번 <#ff9028ff>별의 균형<>: 범위 안의 적을 <#ef5350ff>침묵<>시키고 <#ffb900ff>1.5초<> 뒤에도 남은 적은 <#ef5350ff>1초 속박<>되며 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 30%<> <#a974ffff>마법 피해<>를 입습니다.",
+        "skill2": "<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 8%<>를 소모해(죽지 않음) 다른 아군 챔피언 하나의 <#6aff55ff>체력을 110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 60%<> 회복시킵니다. <#ff9028ff>별의 가호<> 중에는 소모량 절반, 대상 이동 속도 20% 증가. 기본 지속 효과 <#ff9028ff>구원<>: 사용 후 <#ffb900ff>2초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도 30%<> 증가.",
+        "ult": "<#ff9028ff>기원<>: 거리와 관계없이 모든 아군 챔피언(소라카 포함)의 <#6aff55ff>체력을 150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 55%<>만큼 회복시킵니다."
       }
     },
     "skill_name": {
@@ -212,6 +255,11 @@
         "skill1": "음파",
         "skill2": "폭풍",
         "ult": "용의 분노"
+      },
+      "league_soraka": {
+        "skill1": "별부름",
+        "skill2": "은하의 마력",
+        "ult": "기원"
       }
     }
   },
@@ -220,7 +268,7 @@
       "league_garen": {
         "name": "ガレン",
         "attack": "通常攻撃は<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。",
-        "skill": "<#ff9028ff>断固たる一撃<>：ガレンは<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与えて対象を<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>状態にする。さらに<#ff9028ff>勇気<>を得て、<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の6%<>の<#e8d44dff>シールド<>を得る。",
+        "skill": "<#ff9028ff>断固たる一撃<>：<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>にする。<#ff9028ff>勇気<>：<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の6%<>の<#e8d44dff>シールド<>を得る。",
         "skill2": "<#ff9028ff>審判<>：ガレンは<#ffb900ff>3秒<>間剣を振り回して回転し、回転しながら対象を追いかける。<#ffb900ff>7<>回の回転ごとに周囲の敵に<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の32%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>7<>回目の回転は<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御<>を<#ffb900ff>4秒<>間<#ffb900ff>25%<>低下させる。自動効果 <#ff9028ff>忍耐<>：ガレンは非常に高い<#6aff55ff>体力自動回復<>を持つ。",
         "ult": "<#ff9028ff>デマーシアの正義<>：対象の敵チャンピオンに巨大な剣を落とし、<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<> + <#f5f5f5ff>対象の最大体力の12%<>の<#f5f5f5ff>確定ダメージ<>を与える。"
       },
@@ -242,8 +290,15 @@
         "name": "リー・シン",
         "attack": "通常攻撃は拳で殴り、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>練気<>：スキル使用後、<#ffb900ff>3秒<>以内の次の通常攻撃<#ffb900ff>2<>回の<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が40%<>増加する。",
         "skill": "<#ff9028ff>響掌<>：音波を放ち、最初に当たった敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の90%<>の<#ff9028ff>物理ダメージ<>を与えて印を残す。<#ff9028ff>共鳴撃<>：<#ffb900ff>0.2秒<>後、印の付いた敵に飛び蹴りで素早く接近し、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。",
-        "skill2": "<#ff9028ff>破風<>：跳び上がって地面を強打し、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を与える。<#ff9028ff>縛脚<>：命中した敵を<#ffb900ff>2秒<>間<#ffb900ff>40%<>の<#ef5350ff>スロウ<>状態にする。同時に<#ff9028ff>守りの型<>を発動し、自身と周囲の味方チャンピオンが<#ffb900ff>2秒<>間<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#e8d44dff>シールド<>を得る。さらに<#ff9028ff>鉄の意志<>で<#ffb900ff>3秒<>間<#6aff55ff>20%のライフスティール<>を得る。",
+        "skill2": "<#ff9028ff>破風<>：跳び上がって地面を強打し、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を与える。<#ff9028ff>縛脚<>：命中した敵を<#ffb900ff>2秒<>間<#ffb900ff>40%<>の<#ef5350ff>スロウ<>にする。同時に<#ff9028ff>守りの型<>を発動し、自身と周囲の味方チャンピオンが<#ffb900ff>2秒<>間<#e8d44dff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の60%<>の<#e8d44dff>シールド<>を得る。<#ff9028ff>鉄の意志<>で<#ffb900ff>3秒<>間<#6aff55ff>20%のライフスティール<>を得る。",
         "ult": "<#ff9028ff>龍の怒り<>：強力な回し蹴りで対象のチャンピオンに<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与え、後方へ<#ef5350ff>ノックバック<>させる。蹴り飛ばされた対象と衝突した敵は<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の80%<>の<#ff9028ff>物理ダメージ<>を受け、<#ffb900ff>0.75秒<>間<#ef5350ff>ノックアップ<>状態になる。"
+      },
+      "league_soraka": {
+        "name": "ソラカ",
+        "attack": "通常攻撃は杖から星の光弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。",
+        "skill": "<#a974ffff>70<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の50%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>30%スロウ<>を与える。敵チャンピオンに命中すると<#ff9028ff>「再生」<>：<#6aff55ff>体力を30<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の25%<>回復し移動速度20%増加。<#ffb900ff>16秒<>に1回<#ff9028ff>星の静寂<>を伴う：範囲内の敵を<#ef5350ff>サイレンス<>にし、<#ffb900ff>1.5秒<>後も残った敵を<#ef5350ff>1秒スネア<>にして<#a974ffff>40<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の30%<>の<#a974ffff>魔法ダメージ<>を与える。",
+        "skill2": "<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の8%<>を消費し（倒れることはない）、自分以外の味方チャンピオン1体の<#6aff55ff>体力を110<>+<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の60%<>回復する。<#ff9028ff>「再生」<>中はコスト半分、対象の移動速度20%増加。パッシブ<#ff9028ff>救済の足音<>：発動後<#ffb900ff>2秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が30%<>増加。",
+        "ult": "<#ff9028ff>星に願いを<>：距離に関係なく、すべての味方チャンピオン（ソラカを含む）の<#6aff55ff>体力を150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の55%<>回復する。"
       }
     },
     "skill_name": {
@@ -266,6 +321,11 @@
         "skill1": "響掌",
         "skill2": "破風",
         "ult": "龍の怒り"
+      },
+      "league_soraka": {
+        "skill1": "星のささやき",
+        "skill2": "星霊の癒し",
+        "ult": "星に願いを"
       }
     }
   }

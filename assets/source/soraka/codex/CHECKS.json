@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "png_count": 18,
+  "character_frames": 52,
+  "effect_frames": 59,
+  "exact_8x8_grid": true,
+  "binary_alpha_only": true,
+  "character_palette_union_count": 17,
+  "all_character_heads_match_approved_opaque_pixels_except_prone_death": true,
+  "unused_cells_transparent": true,
+  "approved_design_unchanged": true,
+  "source_pivots_and_timings_unchanged": true,
+  "game_import_tested": false
+}

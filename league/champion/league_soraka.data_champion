@@ -1,0 +1,597 @@
+{
+  "id": "league_soraka",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Heal",
+    "Magic",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_soraka",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_soraka_skill",
+    "asset/league/icons/league_soraka_skill2",
+    "asset/league/icons/league_soraka_ult"
+  ],
+  "stat": {
+    "attack": 75,
+    "magic_power": 30,
+    "hp": 880,
+    "defence": 20,
+    "magic_resistance": 20,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 15,
+    "hp": 95,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_soraka.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 15,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_soraka_attack_shot"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "league_soraka_bolt",
+          "speed": 5500,
+          "y_offset": 2000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_soraka_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_soraka_attack_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_soraka.skill",
+    "duration": 33,
+    "cooltime": 480,
+    "start_timing": 16,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Position",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_soraka_q_cast"
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_soraka_e_cooldown",
+          "effect_buff": {
+            "type": "RangeProjectile",
+            "name": "league_soraka_q_star",
+            "shape": {
+              "Circle": {
+                "radius": 30000
+              }
+            },
+            "delay": 24,
+            "apply": 10,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ApAttack",
+                  "damage": 70,
+                  "attack_ratio": 50
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_soraka_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    },
+                    "move_speed_mult": -30
+                  }
+                }
+              }
+            ],
+            "end_effects": []
+          },
+          "effect_none": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "league_soraka_e_cooldown",
+                  "duration": {
+                    "Time": {
+                      "tick": 960
+                    }
+                  },
+                  "is_hidden": true
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "RangeProjectile",
+                "name": "league_soraka_q_star",
+                "shape": {
+                  "Circle": {
+                    "radius": 30000
+                  }
+                },
+                "delay": 24,
+                "apply": 10,
+                "applied_target": "EnemyWithoutTower",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ApAttack",
+                      "damage": 70,
+                      "attack_ratio": 50
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_soraka_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -30
+                      }
+                    }
+                  }
+                ],
+                "end_effects": [
+                  {
+                    "type": "Sfx",
+                    "name": "league_soraka_e_cast"
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_soraka_e_field",
+                    "shape": {
+                      "Circle": {
+                        "radius": 30000
+                      }
+                    },
+                    "tick": 90,
+                    "period": 10,
+                    "first_delay": 0,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "BlockSkill",
+                          "tick": 15
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "RangePeriodProjectile",
+                    "name": "league_soraka_e_root",
+                    "shape": {
+                      "Circle": {
+                        "radius": 30000
+                      }
+                    },
+                    "tick": 92,
+                    "period": 300,
+                    "first_delay": 90,
+                    "applied_target": "EnemyWithoutTower",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Bind",
+                          "duration": 60
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ApAttack",
+                          "damage": 40,
+                          "attack_ratio": 30
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_soraka_e_bind"
+                        }
+                      }
+                    ],
+                    "end_effects": []
+                  },
+                  {
+                    "type": "Delayed",
+                    "tick": 90,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_soraka_e_root"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "RangeProjectile",
+          "name": "league_soraka_q_rejuv",
+          "shape": {
+            "Circle": {
+              "radius": 30000
+            }
+          },
+          "delay": 24,
+          "apply": 10,
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "SwitchByBuff",
+                "buff_name": "league_soraka_rejuv_lock",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": []
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_soraka_rejuv_lock",
+                        "duration": {
+                          "Time": {
+                            "tick": 20
+                          }
+                        },
+                        "is_hidden": true
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Heal",
+                      "amount": 30,
+                      "ap_ratio": 25,
+                      "heal_type": "Caster"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_soraka_rejuvenation",
+                        "duration": {
+                          "Time": {
+                            "tick": 150
+                          }
+                        },
+                        "move_speed_mult": 20
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "league_soraka_rejuv"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "league_soraka_q_heal"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "end_effects": []
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "league_soraka_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_soraka.skill2",
+    "duration": 35,
+    "cooltime": 300,
+    "start_timing": 13,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "AllyNotSelf",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_soraka_w_cast"
+        },
+        {
+          "type": "Heal",
+          "amount": 110,
+          "ap_ratio": 60,
+          "heal_type": "Ally"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "league_soraka_w_heal"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_soraka_w_guard",
+            "duration": {
+              "Time": {
+                "tick": 3
+              }
+            },
+            "undying": true,
+            "is_hidden": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_soraka_rejuvenation",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "WithSelf",
+                "effects": [
+                  {
+                    "type": "FixedAttack",
+                    "damage": 0,
+                    "attack_ratio": 0,
+                    "target_hp_ratio": 4,
+                    "attack_effect_type": "Target"
+                  }
+                ]
+              },
+              {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_soraka_w_rejuvenation",
+                  "duration": {
+                    "Time": {
+                      "tick": 150
+                    }
+                  },
+                  "move_speed_mult": 20
+                }
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "WithSelf",
+            "effects": [
+              {
+                "type": "FixedAttack",
+                "damage": 0,
+                "attack_ratio": 0,
+                "target_hp_ratio": 8,
+                "attack_effect_type": "Target"
+              }
+            ]
+          }
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_soraka_salvation",
+            "duration": {
+              "Time": {
+                "tick": 120
+              }
+            },
+            "move_speed_mult": 30
+          },
+          "only_to_enemy": false
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_soraka.ult",
+    "duration": 52,
+    "cooltime": 3000,
+    "start_timing": 16,
+    "cancelable": false,
+    "range": 960000,
+    "casting_type": "Targeting",
+    "casting_target": "AllyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_soraka_r_cast"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "league_soraka_r_cast"
+        },
+        {
+          "type": "Sfx",
+          "name": "league_soraka_r_heal"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 960000
+            }
+          },
+          "target": "AllyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Heal",
+              "amount": 150,
+              "ap_ratio": 55,
+              "heal_type": "Ally"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "league_soraka_r_heal"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_soraka_bolt",
+      "anim": "asset/league/effects/league_soraka_fx",
+      "tag": "bolt",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_soraka_q_star",
+      "anim": "asset/league/effects/league_soraka_zone",
+      "tag": "q_star",
+      "repeat": false,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_soraka_e_field",
+      "anim": "asset/league/effects/league_soraka_zone",
+      "tag": "e_field",
+      "repeat": false,
+      "z": -1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_soraka_hit",
+      "anim": "asset/league/effects/league_soraka_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_rejuv",
+      "anim": "asset/league/effects/league_soraka_fx",
+      "tag": "rejuv",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_e_bind",
+      "anim": "asset/league/effects/league_soraka_fx",
+      "tag": "e_bind",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_w_heal",
+      "anim": "asset/league/effects/league_soraka_fx",
+      "tag": "w_heal",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_r_cast",
+      "anim": "asset/league/effects/league_soraka_r",
+      "tag": "cast",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_soraka_r_heal",
+      "anim": "asset/league/effects/league_soraka_r",
+      "tag": "heal",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
