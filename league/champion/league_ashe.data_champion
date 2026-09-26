@@ -294,8 +294,8 @@
     "cooltime": 480,
     "start_timing": 12,
     "cancelable": false,
-    "range": 60000,
-    "casting_type": "Targeting",
+    "range": 70000,
+    "casting_type": "Direction",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
@@ -306,18 +306,20 @@
           "name": "league_ashe_w_cast"
         },
         {
-          "type": "TargetProjectile",
-          "name": "league_ashe_arrow",
-          "speed": 5200,
-          "y_offset": 1200,
-          "applied_target": "Enemy",
+          "type": "LineRangeProjectile",
+          "name": "league_ashe_volley",
+          "width": 45000,
+          "length": 80000,
+          "delay": 14,
+          "apply": 3,
+          "applied_target": "EnemyWithoutTower",
           "applied_effects": [
             {
               "casting_type": "Targeting",
               "effect": {
                 "type": "Attack",
-                "damage": 10,
-                "attack_ratio": 40
+                "damage": 40,
+                "attack_ratio": 100
               }
             },
             {
@@ -348,194 +350,6 @@
                 "type": "TargetSfx",
                 "name": "league_ashe_w_hit"
               }
-            }
-          ]
-        },
-        {
-          "type": "RandomTarget",
-          "range": 65000,
-          "casting_target": "EnemyWithoutTower",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "TargetProjectile",
-              "name": "league_ashe_arrow",
-              "speed": 5200,
-              "y_offset": 1200,
-              "applied_target": "Enemy",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 10,
-                    "attack_ratio": 40
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_ashe_frost",
-                      "duration": {
-                        "Time": {
-                          "tick": 90
-                        }
-                      },
-                      "move_speed_mult": -25
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_ashe_hit"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "RandomTarget",
-          "range": 65000,
-          "casting_target": "EnemyWithoutTower",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "TargetProjectile",
-              "name": "league_ashe_arrow",
-              "speed": 5200,
-              "y_offset": 1200,
-              "applied_target": "Enemy",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 10,
-                    "attack_ratio": 40
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_ashe_frost",
-                      "duration": {
-                        "Time": {
-                          "tick": 90
-                        }
-                      },
-                      "move_speed_mult": -25
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_ashe_hit"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "RandomTarget",
-          "range": 65000,
-          "casting_target": "EnemyWithoutTower",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "TargetProjectile",
-              "name": "league_ashe_arrow",
-              "speed": 5200,
-              "y_offset": 1200,
-              "applied_target": "Enemy",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 10,
-                    "attack_ratio": 40
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_ashe_frost",
-                      "duration": {
-                        "Time": {
-                          "tick": 90
-                        }
-                      },
-                      "move_speed_mult": -25
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_ashe_hit"
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "RandomTarget",
-          "range": 65000,
-          "casting_target": "EnemyWithoutTower",
-          "from_projectile": false,
-          "effects": [
-            {
-              "type": "TargetProjectile",
-              "name": "league_ashe_arrow",
-              "speed": 5200,
-              "y_offset": 1200,
-              "applied_target": "Enemy",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 10,
-                    "attack_ratio": 40
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_ashe_frost",
-                      "duration": {
-                        "Time": {
-                          "tick": 90
-                        }
-                      },
-                      "move_speed_mult": -25
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "league_ashe_hit"
-                  }
-                }
-              ]
             }
           ]
         }
@@ -661,6 +475,14 @@
       "anim": "asset/league/effects/league_ashe_fx",
       "tag": "flurry",
       "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_ashe_volley",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "volley",
+      "repeat": false,
       "z": 0
     },
     {

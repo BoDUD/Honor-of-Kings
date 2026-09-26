@@ -104,11 +104,11 @@ def showcase(out, z=3, step=40):
         shoot(start + tick(8), "league_ashe_fx", "flurry", 5.2)
         t = start + tick(24)
         a("idle", tick(46 - 24), loop=True)
-    start = t                                          # W: 5 arrows on the release frame (tick 12)
-    a("skill2")
-    for dy in (-4, -2, 0, 2, 4):
-        shoot(start + tick(12), "league_ashe_fx", "arrow", 5.2, dy=dy, hit=None)
-    effects.append(Anim(frames_of(fx["league_ashe_fx"], "hit"), start + tick(12 + 13), tx, gy, z=1))
+    start = t                                          # W: the volley fan on the release frame (tick 12),
+    a("skill2")                                        # centred on its 80 px rectangle; hits 14 ticks later
+    effects.append(Anim(frames_of(fx["league_ashe_fx"], "volley"), start + tick(12), ax + 40, gy, z=1))
+    flinch.append(Anim(frames_of(ashe, "hit"), start + tick(12 + 14), tx, gy, flip=True))
+    effects.append(Anim(frames_of(fx["league_ashe_fx"], "hit"), start + tick(12 + 14), tx, gy, z=1))
     a("idle", tick(40), loop=True)
     start = t                                          # R: crystal arrow at tick 22, freeze, death
     a("ult")

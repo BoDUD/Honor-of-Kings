@@ -268,12 +268,54 @@ def anchors_r_hit(frames):
     return [(bbox_centre(f)[0], 512.0) for f in frames]
 
 
-# sprite: {tag: (source strip, frames, scale x/y, anchor rule, pivot-relative spot, ms, cut[, "vote"])}
+# W Volley as League draws it: 9 frost arrows fanning out in a cone. The kit casts it as a
+# LineRangeProjectile, whose sprite the game centres on the rectangle and turns to the cast
+# direction (oppi's Swain Q fan and Lux beam are laid out that way), so the fan's apex - Ashe -
+# sits half the rectangle's length behind the pivot.
+VOLLEY_ANGLES = [-28, -21, -14, -7, 0, 7, 14, 21, 28]   # degrees
+VOLLEY_RADII = [16, 26, 36, 46, 56, 66, 75]              # px from the apex to the arrow tips, per frame
+                                                         # (the arrows are ~15 px: frame 0 leaves the bow)
+VOLLEY_LENGTH = 80                                       # px, = the LineRangeProjectile's length
+
+
+def fan_frames(strip, s, cut):
+    """The frost arrow of `strip` rotated at source resolution (so the pixels come out clean) and
+    fanned out from the apex, one frame per radius."""
+    f = G.split_strip(G.load_rgba(src(strip)), 4, blob_thresh=0.05)[0]
+    x0, y0, x1, y1 = biggest_blob_box(f)
+    tipx, tipy = x1 - f.ox, (y0 + y1) / 2.0 - f.oy
+    a8 = (np.clip(f.a, 0, 1) * 255).astype(np.uint8)
+    R = int(max(a8.shape[:2]) + 4)
+    canvas = np.zeros((2 * R, 2 * R, 4), np.uint8)          # the tip at the centre
+    oy, ox = int(round(R - tipy)), int(round(R - tipx))
+    canvas[oy:oy + a8.shape[0], ox:ox + a8.shape[1]] = a8
+    base = Image.fromarray(canvas, "RGBA")
+    rots = {a: G.Frame(np.asarray(base.rotate(-a, resample=Image.BICUBIC)).astype(np.float32) / 255.0, 0, 0, 0)
+            for a in VOLLEY_ANGLES}                          # PIL turns counter-clockwise; +y is down
+    apex = -VOLLEY_LENGTH / 2.0
+    out = []
+    for r in VOLLEY_RADII:
+        layers = [G.render(rots[a], s, s, R, R, apex + r * np.cos(np.radians(a)), r * np.sin(np.radians(a)),
+                           cut=cut, keep=0.9) for a in VOLLEY_ANGLES]
+        u0, r0 = min(l[1] for l in layers), min(l[2] for l in layers)
+        u1 = max(l[1] + l[0].shape[1] for l in layers)
+        r1 = max(l[2] + l[0].shape[0] for l in layers)
+        acc = np.zeros((r1 - r0, u1 - u0, 4), np.uint8)
+        for arr, lu, lr in layers:
+            sub = acc[lr - r0:lr - r0 + arr.shape[0], lu - u0:lu - u0 + arr.shape[1]]
+            sub[arr[..., 3] > 0] = arr[arr[..., 3] > 0]
+        out.append((acc, u0, r0))
+    return out
+
+
+# sprite: {tag: (source strip, frames, scale x/y, anchor rule, pivot-relative spot, ms, cut[, mode])}
 # "vote": strips.render_vote with the arrows' saturated blue weighted up - averaged, the five
 # arrows of the flurry and their white streaks melted into one pale blob
+# "fan": fan_frames() - the W volley, until GPT draws its own
 FX = {
     "league_ashe_fx": {
         "arrow": ("fx_arrow", 4, (0.05, 0.05), anchors_arrow, (0, 0), [70] * 4, 0.4),
+        "volley": ("fx_arrow", 4, (0.04, 0.04), None, (0, 0), [40] * 7, 0.4, "fan"),
         "flurry": ("fx_flurry", 4, (0.06, 0.06), anchors_arrow, (0, 0), [70] * 4, 0.4, "vote"),
         "hit": ("fx_hit", 5, (0.05, 0.05), anchors_centre, (0, -6), [60] * 5, 0.4),
         "focus": ("fx_focus", 6, (0.094, 0.094), anchors_ring, (0, 11), [83] * 6, 0.4),
@@ -291,6 +333,9 @@ def build_fx():
     for sprite, tags in FX.items():
         raw = {}
         for tag, (strip, n, (sx, sy), rule, (X0, Y0), ms, cut, *mode) in tags.items():
+            if mode == ["fan"]:
+                raw[tag] = list(zip(fan_frames(strip, sx, cut), ms))
+                continue
             frames = G.split_strip(G.load_rgba(src(strip)), n, blob_thresh=0.05)
             if mode == ["vote"]:
                 pix = np.concatenate([(f.a[..., :3][f.a[..., 3] > 0.5] * 255).astype(np.uint8) for f in frames])

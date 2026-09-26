@@ -12,7 +12,7 @@
         "name": "艾希",
         "attack": "普攻射出冰霜箭，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>冰霜射击<>：普攻使目标<#ef5350ff>减速<><#ffb900ff>20%<>，持续<#ffb900ff>1秒<>。",
         "skill": "<#ff9028ff>射手的专注<>：艾希获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻击速度<>，持续<#ffb900ff>4秒<>。期间普攻变为连射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，并使目标<#ef5350ff>减速<><#ffb900ff>30%<>。",
-        "skill2": "<#ff9028ff>万箭齐发<>：射出<#ffb900ff>5<>支箭，一支射向目标，其余射向范围内随机的敌人。每支箭造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻击力<>的<#ff9028ff>物理伤害<>，并使其<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>1.5秒<>。",
+        "skill2": "<#ff9028ff>万箭齐发<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，对扇形内每个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>（每个敌人只会被命中一次），并使其<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>1.5秒<>。",
         "ult": "<#ff9028ff>魔法水晶箭<>：向目标方向射出一支飞得很远的水晶箭，命中第一个敌方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1.75秒<>。水晶箭在命中处炸开，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>50%<>，持续<#ffb900ff>2秒<>。"
       }
     },
@@ -42,7 +42,7 @@
         "name": "艾希",
         "attack": "普攻射出冰霜箭，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>冰霜射擊<>：普攻使目標<#ef5350ff>緩速<><#ffb900ff>20%<>，持續<#ffb900ff>1秒<>。",
         "skill": "<#ff9028ff>專注射擊<>：艾希獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻擊速度<>，持續<#ffb900ff>4秒<>。期間普攻變為連射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，並使目標<#ef5350ff>緩速<><#ffb900ff>30%<>。",
-        "skill2": "<#ff9028ff>萬箭齊發<>：射出<#ffb900ff>5<>支箭，一支射向目標，其餘射向範圍內隨機的敵人。每支箭造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% 攻擊力<>的<#ff9028ff>物理傷害<>，並使其<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>1.5秒<>。",
+        "skill2": "<#ff9028ff>萬箭齊發<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，對扇形內每個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>（每個敵人只會被命中一次），並使其<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>1.5秒<>。",
         "ult": "<#ff9028ff>魔法水晶箭<>：向目標方向射出一支飛得很遠的水晶箭，命中第一個敵方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.75秒<>。水晶箭在命中處炸開，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>50%<>，持續<#ffb900ff>2秒<>。"
       }
     },
@@ -72,7 +72,7 @@
         "name": "Ashe",
         "attack": "Basic attacks fire frost arrows that deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Frost Shot<>: basic attacks <#ef5350ff>slow<> the target by <#ffb900ff>20%<> for <#ffb900ff>1s<>.",
         "skill": "<#ff9028ff>Ranger's Focus<>: Ashe gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% attack speed<> for <#ffb900ff>4s<>. Meanwhile her basic attacks become a flurry that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>slows<> the target by <#ffb900ff>30%<>.",
-        "skill2": "<#ff9028ff>Volley<>: Fires <#ffb900ff>5<> arrows: one at the target, the rest at random enemies in range. Each arrow deals <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>slows<> by <#ffb900ff>25%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "<#ff9028ff>Volley<>: Fires <#ffb900ff>9<> frost arrows in a cone ahead, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to each enemy in the cone (once per enemy) and <#ef5350ff>slowing<> them by <#ffb900ff>25%<> for <#ffb900ff>1.5s<>.",
         "ult": "<#ff9028ff>Enchanted Crystal Arrow<>: Fires a far-flying crystal arrow that stops at the first enemy champion, dealing <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1.75s<>. The arrow bursts where it stops, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> to nearby enemies and <#ef5350ff>slowing<> them by <#ffb900ff>50%<> for <#ffb900ff>2s<>."
       }
     },
@@ -102,7 +102,7 @@
         "name": "애쉬",
         "attack": "기본 공격으로 서리 화살을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>서리 화살<>: 기본 공격이 대상을 <#ffb900ff>1초<> 동안 <#ffb900ff>20%<> <#ef5350ff>둔화<>시킵니다.",
         "skill": "<#ff9028ff>궁사의 집중<>: 애쉬가 <#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 30%<> 증가합니다. 그동안 기본 공격이 연사로 바뀌어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입히고 대상을 <#ffb900ff>30%<> <#ef5350ff>둔화<>시킵니다.",
-        "skill2": "<#ff9028ff>일제 사격<>: 화살 <#ffb900ff>5<>발을 쏩니다. 한 발은 대상에게, 나머지는 사거리 안의 무작위 적에게 날아갑니다. 화살마다 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 40%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다.",
+        "skill2": "<#ff9028ff>일제 사격<>: 전방 부채꼴로 서리 화살 <#ffb900ff>9<>발을 쏩니다. 부채꼴 안의 적마다 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고(적마다 한 번만 적중) <#ffb900ff>1.5초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다.",
         "ult": "<#ff9028ff>마법의 수정화살<>: 멀리 날아가는 수정 화살을 쏘아 처음 맞은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1.75초<> 동안 <#ef5350ff>기절<>시킵니다. 화살이 멈춘 곳에서 터져 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>50%<> <#ef5350ff>둔화<>시킵니다."
       }
     },
@@ -132,7 +132,7 @@
         "name": "アッシュ",
         "attack": "通常攻撃は氷の矢を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>フロストショット<>：通常攻撃は対象を<#ffb900ff>1秒<>間<#ffb900ff>20%<><#ef5350ff>スロウ<>にする。",
         "skill": "<#ff9028ff>レンジャーフォーカス<>：アッシュは<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が30%<>増加する。その間、通常攻撃は連射になり、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与えて対象を<#ffb900ff>30%<><#ef5350ff>スロウ<>にする。",
-        "skill2": "<#ff9028ff>ボレー<>：矢を<#ffb900ff>5<>本放つ。1本は対象に、残りは射程内のランダムな敵に飛ぶ。各矢は<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の40%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>1.5秒<>間<#ffb900ff>25%<><#ef5350ff>スロウ<>にする。",
+        "skill2": "<#ff9028ff>ボレー<>：前方に扇状に氷の矢を<#ffb900ff>9<>本放つ。範囲内の敵それぞれに<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与え（1体につき1回まで）、<#ffb900ff>1.5秒<>間<#ffb900ff>25%<><#ef5350ff>スロウ<>にする。",
         "ult": "<#ff9028ff>エンチャント クリスタルアロー<>：遠くまで飛ぶ水晶の矢を放ち、最初に当たった敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>1.75秒<>間<#ef5350ff>スタン<>させる。矢は止まった場所で砕け、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>2秒<>間<#ffb900ff>50%<><#ef5350ff>スロウ<>にする。"
       }
     },

@@ -66,6 +66,9 @@ Offsets in sprite pixels measured **up from the feet** (negative y = higher). `c
 body centre (base default y -12, where hits/health bar anchor); `face` is the head centre
 (~ -(height - 2); -34 for a 35-37 px hero, -45 to -54 for giants). Base also has an optional
 `banpick_center`. Adjust `face.x` when the head is not above the feet (quadrupeds, big weapons).
+Measure it on idle frame 0: on 12 base heroes `face.y` sits 0-7 px below the top of the head
+(median 2; the ogre is the exception at 10 px above it). league_garen had -38, 2 px above his
+hair; it is -33 now (3 px below the top), league_ashe -32 (2 px below her hood tip).
 
 ## Sounds (sound/sfx)
 
