@@ -1,0 +1,460 @@
+{
+ "blindfold_offset_from_head_joint": [
+  0.9,
+  1.6
+ ],
+ "tags": {
+  "idle": [
+   {
+    "kept": true
+   },
+   {
+    "kept": true
+   },
+   {
+    "kept": true
+   },
+   {
+    "kept": true
+   },
+   {
+    "kept": true
+   },
+   {
+    "kept": true
+   }
+  ],
+  "run": [
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     3,
+     -5
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     2,
+     -7
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     1,
+     -9
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     -4
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     -1,
+     -1
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -4
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -7
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     0
+    ]
+   }
+  ],
+  "attack": [
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     -4
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     -5,
+     -7
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     -8,
+     -8
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     0
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     0
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -5,
+     1
+    ]
+   }
+  ],
+  "skill": [
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     -3
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     -3
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold",
+    "move": [
+     0,
+     -8
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     -3
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -6,
+     0
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -7,
+     0
+    ]
+   },
+   {
+    "scale": 1.4,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     0,
+     0
+    ]
+   }
+  ],
+  "q2": [
+   {
+    "scale": 1.0,
+    "placed_by": "blindfold",
+    "move": [
+     1,
+     -6
+    ]
+   },
+   {
+    "scale": 1.0,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -1
+    ]
+   },
+   {
+    "scale": 1.0,
+    "placed_by": "blindfold",
+    "move": [
+     0,
+     0
+    ]
+   },
+   {
+    "scale": 1.0,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -1
+    ]
+   },
+   {
+    "scale": 1.0,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     2
+    ]
+   },
+   {
+    "scale": 1.18,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     1
+    ]
+   },
+   {
+    "scale": 1.18,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -4,
+     1
+    ]
+   }
+  ],
+  "skill2": [
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     -4
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold",
+    "move": [
+     0,
+     -12
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold",
+    "move": [
+     -4,
+     -7
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -4,
+     -5
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     2
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     2
+    ]
+   },
+   {
+    "scale": 1.34,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -3,
+     2
+    ]
+   }
+  ],
+  "ult": [
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -5,
+     -6
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -15
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold",
+    "move": [
+     1,
+     -18
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold",
+    "move": [
+     0,
+     -19
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold",
+    "move": [
+     -4,
+     -11
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -12
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -1,
+     -1
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -4,
+     -1
+    ]
+   }
+  ],
+  "hit": [
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -2,
+     -4
+    ]
+   },
+   {
+    "scale": 1.38,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     1,
+     -4
+    ]
+   }
+  ],
+  "dead": [
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     0,
+     -6
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold",
+    "move": [
+     -3,
+     -17
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold",
+    "move": [
+     -5,
+     -14
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -6,
+     -4
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -6,
+     0
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -6,
+     1
+    ]
+   },
+   {
+    "scale": 1.35,
+    "placed_by": "blindfold, soles on the line",
+    "move": [
+     -8,
+     1
+    ]
+   }
+  ]
+ }
+}

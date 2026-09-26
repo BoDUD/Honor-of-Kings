@@ -42,6 +42,7 @@ HEAD_ROWS = 12                  # idle frame 1's top rows: the head
 SURE = 0.9                      # share of the head's pixels that must match exactly
 STEADY = ("idle", "run")
 ORDER = {("lux", "idle"): [0, 1, 2, 3, 5, 4]}
+CROWN = {"leesin"}              # heroes whose head template starts at the crown (a braid stands above it)
 
 
 def blocks(path):
@@ -71,9 +72,18 @@ def cells(hero, tag, n, cell=CELL):
             for k in range(n)]
 
 
-def head_of(frame):
-    ys = np.nonzero(frame[..., 3].any(1))[0]
-    band = frame[ys[0]:ys[0] + HEAD_ROWS]
+def head_of(frame, crown=False):
+    """The top HEAD_ROWS rows of the frame. crown=True starts at the crown instead - the first row
+    at least half as wide as the widest of the rows below it - for a hero with a thin braid standing
+    above the head (Lee Sin): its tip moves a pixel between idle frames and matched one frame 1 px
+    off. (Lux and Ashe keep the old rule; the crown rule would move a Lux idle frame.)"""
+    op = frame[..., 3] > 0
+    ys = np.nonzero(op.any(1))[0]
+    top = ys[0]
+    if crown:
+        widths = [op[y].sum() for y in range(ys[0], min(ys[0] + 16, ys[-1] + 1))]
+        top = ys[0] + next(i for i, w in enumerate(widths) if w >= 0.5 * max(widths))
+    band = frame[top:top + HEAD_ROWS]
     xs = np.nonzero(band[..., 3].any(0))[0]
     return band[:, xs[0]:xs[-1] + 1]
 
@@ -96,7 +106,7 @@ def build(hero):
     with open(os.path.join(SRC, f"{hero}_cells.json"), encoding="utf-8") as f:
         spec = json.load(f)
     table, cell = spec["tags"], tuple(spec.get("cell", CELL))
-    head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0])
+    head = head_of(cells(hero, "idle", len(table["idle"]), cell)[0], crown=hero in CROWN)
     sheet, report = {}, {}
     for tag, rows in table.items():
         fr = cells(hero, tag, len(rows), cell)

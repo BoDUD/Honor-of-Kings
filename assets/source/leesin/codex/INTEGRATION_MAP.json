@@ -1,0 +1,280 @@
+[
+  {
+    "file": "leesin_idle.png",
+    "frames": 6,
+    "target": "idle",
+    "milliseconds": [
+      130,
+      100,
+      130,
+      170,
+      130,
+      70
+    ]
+  },
+  {
+    "file": "leesin_run.png",
+    "frames": 8,
+    "target": "run",
+    "milliseconds": [
+      192,
+      192,
+      192,
+      192,
+      192,
+      192,
+      192,
+      192
+    ]
+  },
+  {
+    "file": "leesin_attack.png",
+    "frames": 6,
+    "target": "attack",
+    "milliseconds": [
+      60,
+      60,
+      70,
+      80,
+      50,
+      40
+    ],
+    "impact_frame_1based": 4,
+    "source_impact_tick": 12
+  },
+  {
+    "file": "leesin_skill.png",
+    "frames": 7,
+    "target": "skill",
+    "milliseconds": [
+      60,
+      70,
+      80,
+      60,
+      90,
+      180,
+      170
+    ],
+    "release_frame_1based": 5,
+    "source_release_tick": 16
+  },
+  {
+    "file": "leesin_q2.png",
+    "frames": 7,
+    "target": "q2",
+    "milliseconds": [
+      60,
+      60,
+      70,
+      90,
+      80,
+      80,
+      80
+    ]
+  },
+  {
+    "file": "leesin_skill2.png",
+    "frames": 7,
+    "target": "skill2",
+    "milliseconds": [
+      80,
+      100,
+      110,
+      120,
+      100,
+      80,
+      80
+    ],
+    "impact_frame_1based": 4,
+    "source_impact_tick": 17
+  },
+  {
+    "file": "leesin_ult.png",
+    "frames": 8,
+    "target": "ult",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      80,
+      130,
+      100,
+      100,
+      100
+    ],
+    "impact_frame_1based": 5,
+    "source_impact_tick": 18
+  },
+  {
+    "file": "leesin_hit.png",
+    "frames": 2,
+    "target": "hit",
+    "milliseconds": [
+      120,
+      120
+    ]
+  },
+  {
+    "file": "leesin_dead.png",
+    "frames": 7,
+    "target": "dead",
+    "milliseconds": [
+      100,
+      100,
+      100,
+      120,
+      120,
+      200,
+      400
+    ]
+  },
+  {
+    "file": "leesin_fx_hit.png",
+    "frames": 5,
+    "target": "league_leesin_hit",
+    "milliseconds": [
+      60,
+      60,
+      60,
+      60,
+      60
+    ]
+  },
+  {
+    "file": "leesin_fx_q_wave.png",
+    "frames": 4,
+    "target": "league_leesin_q_wave",
+    "milliseconds": [
+      60,
+      60,
+      60,
+      60
+    ],
+    "loop": true
+  },
+  {
+    "file": "leesin_fx_q_mark.png",
+    "frames": 6,
+    "target": "league_leesin_q_mark",
+    "milliseconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "phase_frames_1based": {
+      "appear": [
+        1
+      ],
+      "loop_until_q2": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fade": [
+        6
+      ]
+    }
+  },
+  {
+    "file": "leesin_fx_q2_hit.png",
+    "frames": 6,
+    "target": "league_leesin_q2_hit",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
+  },
+  {
+    "file": "leesin_fx_e_wave.png",
+    "frames": 7,
+    "target": "league_leesin_e_wave",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
+  },
+  {
+    "file": "leesin_fx_shield.png",
+    "frames": 8,
+    "target": "league_leesin_shield",
+    "milliseconds": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "phase_frames_1based": {
+      "appear": [
+        1,
+        2
+      ],
+      "loop_twice": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "fade": [
+        7,
+        8
+      ]
+    },
+    "total_effect_duration_ms": 2000
+  },
+  {
+    "file": "leesin_fx_r_kick.png",
+    "frames": 7,
+    "target": "league_leesin_r_kick",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
+  },
+  {
+    "file": "leesin_fx_r_dragon.png",
+    "frames": 4,
+    "target": "league_leesin_r_dragon",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      70
+    ],
+    "loop": true
+  },
+  {
+    "file": "leesin_fx_knockup.png",
+    "frames": 6,
+    "target": "league_leesin_knockup",
+    "milliseconds": [
+      70,
+      70,
+      70,
+      70,
+      70,
+      70
+    ]
+  }
+]

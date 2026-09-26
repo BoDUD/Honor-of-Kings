@@ -15,7 +15,8 @@ is opaque). Per tag of the spec it writes
 and <hero>_native_design.png (the design pose on a 128x128 canvas at 8x, feet line 28 px above the
 bottom, like native_refs.py's <hero>_now_design.png), <hero>_pose_design.png (the same at 8x
 render), and <hero>_cells.json: each frame's pivot in its cell and its duration, the table
-tools/art/import_native.py cuts the redrawn frames out with.
+tools/art/import_native.py cuts the redrawn frames out with, plus where League's head joint is in
+the cell (tools/art/fit_native.py puts a redrawn frame's head there).
 
 Placement: the unit stands at the world origin. Every frame keeps League's height (jumps,
 landings, the death fall) and one vertical offset puts the design pose's soles on the feet line.
@@ -198,6 +199,7 @@ def main():
         pv, glob, _ = ch.posed(frame_spec, chibi, turn)
         hi = render(ch, pv, cam, scale, dy)
         lo = blocks(hi)
+        down = 0
         if flat:   # lowest point as high above the feet line as it is above League's floor
             lift = int(round(max(0.0, pv[:, 1].min()) * unit * np.cos(np.radians(cam["pitch"]))))
             down = (FEET_ROW - 1 - lift) - np.nonzero(lo[..., 3].any(1))[0].max()
@@ -205,6 +207,7 @@ def main():
                 hi = render(ch, pv, cam, scale, dy + down * Z)
                 lo = blocks(hi)
         hx = head_x(glob)
+        head_y = FEET_ROW + dy / Z + down - (rot @ glob[ch.head][:3, 3])[1] * unit
         pivot = CELL[0] + int(round((1.0 - lunge) * (hx - base) + (base - ref_head)))
         ys, xs = np.nonzero(lo[..., 3])
         if len(xs) == 0:
@@ -218,7 +221,7 @@ def main():
         x0 = min(max(x0, 0), lo.shape[1] - CELL[0])
         lo = lo[:, x0:x0 + CELL[0]]
         hi = np.clip(hi, 0, 255).astype(np.uint8)[:, x0 * Z:(x0 + CELL[0]) * Z]
-        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped
+        return lo, hi, (pivot - x0, PIVOT_ROW), hx - ref_head, clipped, (CELL[0] + 0.5 + hx - x0, head_y)
 
     table = {}
     tags = args.tag or list(spec["tags"])
@@ -232,18 +235,19 @@ def main():
         cols, nrows = layout(len(frames))
         lo_img = Image.new("RGB", (cols * CELL[0], nrows * CELL[1]), BG)
         hi_img = Image.new("RGB", (cols * CELL[0] * Z, nrows * CELL[1] * Z), BG)
-        for k, (lo, hi, _, _, _) in enumerate(frames):
+        for k, (lo, hi, *_) in enumerate(frames):
             cx, cy = k % cols, k // cols
             lo_img.paste(on_bg(lo), (cx * CELL[0], cy * CELL[1]))
             hi_img.paste(on_bg(hi), (cx * CELL[0] * Z, cy * CELL[1] * Z))
         lo_img.resize((lo_img.width * Z, lo_img.height * Z), Image.NEAREST).save(
             os.path.join(args.out, f"{hero}_native_{tag}.png"))
         hi_img.save(os.path.join(args.out, f"{hero}_pose_{tag}.png"))
-        table[tag] = [{"pivot": list(map(int, p)), "ms": int(ms)} for (_, _, p, _, _), (_, ms, *_) in zip(frames, t["frames"])]
+        table[tag] = [{"pivot": list(map(int, p)), "ms": int(ms), "head": [round(float(h[0]), 1), round(float(h[1]), 1)]}
+                      for (_, _, p, _, _, h), (_, ms, *_) in zip(frames, t["frames"])]
         colours = len(np.unique(np.concatenate([lo[lo[..., 3] > 0][:, :3] for lo, *_ in frames]), axis=0))
         print(f"{hero}_native_{tag}.png  {len(frames)} frames, {cols}x{nrows} cells, {colours} colours; head x from the "
-              f"design pose " + " ".join(f"{hx:+.1f}" for *_, hx, _ in frames) +
-              "".join(f"\n  frame {k + 1} touches the cell's {' and '.join(c)}" for k, (*_, c) in enumerate(frames) if c))
+              f"design pose " + " ".join(f"{fr[3]:+.1f}" for fr in frames) +
+              "".join(f"\n  frame {k + 1} touches the cell's {' and '.join(fr[4])}" for k, fr in enumerate(frames) if fr[4]))
 
     if not args.tag:
         canvas = np.zeros((128, 128, 4), np.uint8)
@@ -260,7 +264,8 @@ def main():
         w = min(hi.shape[1] - sx0, big.shape[1] - max(0, x0))
         big[max(0, y0):max(0, y0) + h, max(0, x0):max(0, x0) + w] = hi[sy0:sy0 + h, sx0:sx0 + w]
         on_bg(big).save(os.path.join(args.out, f"{hero}_pose_design.png"))
-        lines = [f'  "{tag}": [' + ", ".join(f'{{"pivot": [{r["pivot"][0]}, {r["pivot"][1]}], "ms": {r["ms"]}}}'
+        lines = [f'  "{tag}": [' + ", ".join(f'{{"pivot": [{r["pivot"][0]}, {r["pivot"][1]}], "ms": {r["ms"]}, '
+                                             f'"head": [{r["head"][0]}, {r["head"][1]}]}}'
                                              for r in rows_) + "]" for tag, rows_ in table.items()]
         text = f'{{"cell": [{CELL[0]}, {CELL[1]}], "scale": {Z}, "tags": {{\n' + ",\n".join(lines) + "\n}}\n"
         json.loads(text)
