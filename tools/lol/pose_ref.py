@@ -277,23 +277,52 @@ LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hang
 HAIR = re.compile(r"hair|braid|ponytail", re.I)             # chains hanging from the head
 
 
-def chibi(joints, local, head=1.0, legs=1.0, hair=1.0):
+def chibi(joints, local, head=1.0, legs=1.0, hair=1.0, hair_re=None):
     """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
     cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
     the big head and short legs of the sprite to draw instead of pulling the image model back to
     realistic proportions. `hair` scales the hair chains hanging from the head on top of the head's
     scale: a long braid would otherwise grow with the head (Lee Sin's reached the ground at 2x),
-    so --hair 0.5 with --head 2.0 keeps it at League's length."""
+    so --hair 0.5 with --head 2.0 keeps it at League's length. `hair_re` (default HAIR) names those
+    chains; keep_parts() adds parts such as a horn."""
     if head == 1.0 and legs == 1.0:
         return local
+    hair_re = hair_re or HAIR
     out = []
     for j, (t, r, s) in zip(joints, local):
         parent = joints[j["parent"]]["name"] if j["parent"] >= 0 else ""
         k = head if j["name"].lower() == "head" else \
-            hair if parent.lower() == "head" and HAIR.search(j["name"]) else \
+            hair if parent.lower() == "head" and hair_re.search(j["name"]) else \
             legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
         out.append((t, r, np.asarray(s, float) * k))
     return out
+
+
+def keep_parts(joints, influences, v, keep):
+    """Let --hair also hold head parts that ride on the head's skin weights (Soraka's horn has a
+    `horn` joint under Head but no vertex follows it, so --head 2.0 doubled it and made its tip the
+    crown). `keep` maps a joint name to a radius: the vertices mainly weighted to the joint's parent,
+    above the joint and within that many units of it across (bind pose), are bound to the joint
+    alone. Returns the influence list (the joint appended when the skin never used it) and the hair
+    pattern extended with those names, for chibi() and for measuring the crown without them."""
+    if not keep:
+        return influences, HAIR
+    influences = list(influences)
+    by_name = {j["name"].lower(): i for i, j in enumerate(joints)}
+    bind = globals_(joints, [trs(j["t"], j["r"], j["s"]) for j in joints])
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]
+    main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
+    for name, radius in keep.items():
+        k = by_name[name.lower()]
+        px, py, pz = bind[k][:3, 3]
+        p = v["pos"]
+        sel = (main == joints[k]["parent"]) & (p[:, 1] > py - 1.0) & (np.hypot(p[:, 0] - px, p[:, 2] - pz) < radius)
+        if k not in influences:
+            influences.append(k)
+        v["bones"][sel] = influences.index(k)
+        v["w"][sel] = (1.0, 0.0, 0.0, 0.0)
+        print(f"keep {joints[k]['name']}: {int(sel.sum())} vertices bound to it (were on {joints[joints[k]['parent']]['name']})")
+    return influences, re.compile(HAIR.pattern + "|" + "|".join(re.escape(n) for n in keep), re.I)
 
 
 def chain_vertices(joints, influences, v, pattern):
@@ -454,6 +483,9 @@ def main():
     ap.add_argument("--hair", type=float, default=1.0,
                     help="scale the hair chains hanging from the head on top of --head (Lee Sin's braid: 0.5 "
                          "keeps League's length)")
+    ap.add_argument("--keep", action="append", default=[], metavar="JOINT:RADIUS",
+                    help="a head part riding on the head's skin weights that --hair should hold at League's size "
+                         "(Soraka: horn:4); see keep_parts()")
     ap.add_argument("--track", type=float, metavar="PX",
                     help="with --frame: print each frame's head joint x, in game px from the unit, for a hero "
                          "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
@@ -473,6 +505,7 @@ def main():
     texs = [p for p in refs(skin_bin, rb"(?:tex|dds)") if "/Base/" in p and re.search(r"_tx_cm|_cm_tx", p, re.I)]
     tris, verts = read_skn(w.read_path(skn.lower()))
     joints, influences = read_skl(w.read_path(skl.lower()))
+    influences, hair_re = keep_parts(joints, influences, verts, {k: float(r) for k, r in (x.split(":") for x in args.keep)})
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))
     bind = globals_(joints, [trs(j["t"], j["r"], j["s"]) for j in joints])
     bind_inv = [np.linalg.inv(m) for m in bind]
@@ -483,7 +516,7 @@ def main():
     if small:
         legv = leg_vertices(joints, influences, verts)
         tall = skin(verts, influences, bind_inv, globals_(joints, [
-            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs, args.hair)]))
+            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs, args.hair, hair_re)]))
         height = tall[:, 1].max() - tall[:, 1].min()
     else:
         height = rest[:, 1].max() - rest[:, 1].min()
@@ -493,7 +526,7 @@ def main():
     draw = render_hq if args.hq else render
 
     def cell(local):
-        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs, args.hair)]))
+        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs, args.hair, hair_re)]))
         if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
             adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
             pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
@@ -546,11 +579,11 @@ def main():
             head = next(i for i, j in enumerate(joints) if j["name"].lower() == "head")
             headv = chain_vertices(joints, influences, verts, re.compile(r"^head$", re.I))
             legv = chain_vertices(joints, influences, verts, LEG)
-            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs, args.hair)])) @ rot.T
+            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs, args.hair, hair_re)])) @ rot.T
             px = args.track / (pv[headv, 1].max() - pv[legv, 1].min())
             xs = []
             for p in poses:
-                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs, args.hair)])
+                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs, args.hair, hair_re)])
                 xs.append(sign * (rot @ glob[head][:3, 3])[0] * px)
             print(f"{args.name}: head x, game px for a {args.track:g} px hero: [" + ", ".join(f"{x:.1f}" for x in xs) + "]")
 

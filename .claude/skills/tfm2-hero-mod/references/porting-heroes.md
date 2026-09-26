@@ -35,6 +35,10 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Dash / blink / leap to target / charge | `MoveTo`, `DirTeleport`, `MoveToTarget`, `RushTime` | OK |
 | Stun, knock-up, root, slow, silence, disarm, fear, charm, taunt, knockback, pull | `Stun`, `Airborne`, `Bind`, buff `move_speed_mult`, `BlockSkill`, `BlockAttack`, `Fear`, `Charm`, `Taunt`, `Knockback`, `Pull` | OK |
 | Shield, heal, lifesteal, burn/poison | `Shield`, `Heal`, buff `vamp`, `AddCasted` | OK |
+| Heal the ally who needs it (Soraka W) | `Targeting` + `AllyNotSelf`; the AI scores a heal by the target's missing health (champion-data "Which ally gets an ally skill") | ~ (AI choice) |
+| Health cost (Soraka W) | `WithSelf` + `FixedAttack target_hp_ratio`, a short `undying` caster buff first | ~ |
+| Global heal (Soraka R) | `Targeting AllyChampion` range 960000 + `RangeEffect` 960000 on `AllyChampion`; no bonus on low-health targets | ~ |
+| Move faster toward low-health allies (Soraka passive) | no move direction or ally health in data: a move-speed caster buff after the ally heal | ~ |
 | Passive stacks, every Nth attack | `SwitchByBuff` chain on hidden buffs | OK |
 | Skill empowers next attack | ready-buff + `SwitchByBuff` in `attack` | OK |
 | Mark on the target that the next attack detonates (Lux's Illumination) | `SwitchByBuff` only sees the caster's buffs and no effect removes a target's buff, so skill hits add a hidden caster ready-buff (the next attack on any enemy detonates it) and play a short mark `ViewEffect` on the hit target | ~ |
@@ -113,7 +117,9 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   `SelectorClipData`), and the non-atomic ones list other clip hashes. Lee Sin: `Idle1` = sequence
   `Idle_Active` (combat stance) then `Idle_Passive`; `Run` = `Run_Homeguard` or, by speed,
   `Run_Base.anm` (its haste branch plays the same file); `Crit` = `Attack4`; Q2 = `Spell1_B` then
-  `Spell1_B_Loop`. TFM2 heroes are always fighting, so take the combat idle.
+  `Spell1_B_Loop`. TFM2 heroes are always fighting, so take the combat idle. Older champions have
+  only atomic clips (Soraka: `Idle1`, a single `Run`, `Attack1/2`, `Spell1`-`Spell4`, `Death`),
+  so there is no combat-run branch to look for.
 - **Walk or run: measure it.** During stance a planted foot slides back at the clip's ground
   speed; compare it with the champion's movement speed, and look for frames where both feet are
   off the ground (a run) or one foot always down (a walk). Ashe's jog/run clips move ~305 units/s
@@ -142,6 +148,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   first prompt of every new hero; the redraw of both heroes came back right in one round.
   Everything below the head joint grows with it: Lee Sin's long braid (`Hair1`..`Hair12` under
   `Head`) reached the ground at 2x. `--hair 0.5` scales the hair chains back to League's length.
+  Check where the hair hangs from: Soraka's ponytail chain starts at `Chest`, so it keeps League's
+  length by itself. Her horn has a `horn` joint under `Head` but no skin weights of its own - it
+  rides on the head and doubled with it, its tip becoming the crown. `--keep horn:4`
+  (`"keep": {"horn": 4.0}` in `chibi` of a native_pose spec) binds the head vertices above that
+  joint and within 4 units of it to the joint, so `--hair` holds the horn at League's size and the
+  crown is measured without it (`pose_ref.keep_parts`).
 - **Game size straight from League (Lee Sin: worked, one GPT round).** The native-size
   redraw needed a first GPT round only to turn League's poses into game frames.
   `tools/lol/native_pose.py <hero>/poses.json` renders the clips at game size instead: the chibi
@@ -152,7 +164,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   actions), `anchor: first` (Lee Sin's death starts 140 units in front of the unit), `flat`
   (each frame's lowest point as high above the feet line as above League's floor - a body lying
   diagonally in depth otherwise floats or sinks through the pitch); per frame `turn` degrees
-  toward the camera for spins and bent-over slams that would show the back. Cells can be bigger
+  toward the camera for spins and bent-over slams that would show the back, and `head_like`
+  (per tag or per frame) to turn the head the way it faces in another pose, the body untouched:
+  a chibi head bowed toward the ground shows only its crown (Soraka's Q and R bows keep her face
+  with `"head_like": "Soraka_Idle1@0"`). Cells can be bigger
   than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
   League's head joint per frame. GPT followed the poses but drew every action except idle about
   1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
