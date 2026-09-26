@@ -125,8 +125,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   front of the face and a dark pair on the chin row: at card size the user saw a strange nose and
   mouth. Base faces draw no nose and a 1-2 square mouth. Under a band or mask, close the outline
   along the face's front, put a 2-square mouth two rows under the band, shade under the chin so it
-  separates from the neck, and keep other dark squares out of the lower face. Look at the face at
-  card size (`tfm2_ase.py face`) as well as zoomed. Single-pixel fixes can go in
+  separates from the neck, and keep other dark squares out of the lower face. Give the face side a curve: the champion card
+  is near-black, so the outline vanishes and only the skin shape reads; Lee Sin's straight 8 px
+  right edge and square crown corner looked like half a head until the crown stepped in, the
+  blindfold and nose tip stood out a pixel and the mouth and chin stepped back. Look at the face at
+  card size (`tfm2_ase.py face`, and on a dark background) as well as zoomed. Single-pixel fixes can go in
   `assets/source/native/<hero>_face.json`, which `import_native.py` applies after cutting the
   frames; it stops if a source pixel changed.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
