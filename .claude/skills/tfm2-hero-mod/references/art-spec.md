@@ -110,11 +110,16 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 - **Proportions: show them, don't only name them.** TFM2 heroes are ~3 heads tall with a big,
   flat-lit face (33-36 px heroes: head 12-13 px, 2x2 px eyes). Every Garen and Ashe prompt said
   "chibi", but the attached references (League renders, then the previous design sheet) were
-  adult-proportioned, and the model followed the images: heads 1/5 of the height, faces two or three
-  rows of skin without eyes in game, Ashe's also shaded by her hood - the user could not see either face. Attach a sheet of
-  base heroes (idle + attack, 8x) to the design prompt, render the pose references with a big
-  head (`pose_ref.py --head 2.0 --legs 0.8`), ask for a face that stays readable at 35 px, and
-  check the design sheet's head size before generating any strip.
+  adult-proportioned, and the model followed the images: heads 1/5 of the height, faces two or
+  three rows of skin without eyes in game, Ashe's also shaded by her hood - the user could not
+  see either face. Attach a sheet of base heroes (idle + attack, 8x) to the design prompt, render
+  the pose references with a big head (`pose_ref.py --head 2.0 --legs 0.8`), ask for a face that
+  stays readable at 35 px (hood and bangs off the eyes), and check the design sheet's head size
+  before generating any strip. The redraw (`assets/source/CHIBI_REDRAW.md`) came back right in the
+  first round. After importing, `tfm2_ase.py face <sprite> --out face.png` puts the hero next to
+  base champions at 1x and zoomed: look for the eyes before shipping. Counting skin-coloured
+  pixels does not replace looking - the small-headed Garen scored more "skin" in his upper body
+  than most base heroes, because his gold trim has skin tones.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
@@ -143,6 +148,17 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   stance most strips start or end in), render it next to idle at game size at a few scales and
   choose by eye - head widths and hair-to-soles numbers were off by up to 2x on small or glowing
   frames. 36 px suits a big human (base humans ~31 px, the ogre ~38); 42 px looked like a giant.
+  For chibi strips, scale by the **head**: GPT's head-to-body ratio also drifts between strips
+  (Ashe's redraw: ~10%), so matching heights makes the head grow and shrink - the thing the user
+  notices. Correlate idle's head (crown to chin) over each frame at a range of scales; within a
+  strip the best scale agreed to 0.03 wherever the match was sure (>0.85). Where the head turns or
+  bows (Garen's attack and death) the match is unsure: compare face and hair width at source size
+  instead (the frame resized by 1/scale next to idle's head).
+- **Lunges.** League blends back to idle over ~0.2 s; a sprite snaps back at once. Garen's attack
+  head track (a 15 px lunge) made him jump back every swing, so attack, Q and R keep 65-70% of
+  League's travel around idle's head, like the round the user approved. Get the tracks with
+  `pose_ref.py --frame ... --track <hero px> --track-ref <idle clip@0>` (same camera, `--mirror`,
+  `--head`, `--legs` as the references); it reproduces the tracks measured by hand before.
 - **One look per hero.** Strips from different generation rounds disagree on proportions (round
   1 Garen: big head, broad shoulders; round 3: smaller head for the same height). No scale hides
   it - in-game he visibly grew and shrank between animations. When the look changes, regenerate

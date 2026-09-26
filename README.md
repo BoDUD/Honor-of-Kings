@@ -17,7 +17,7 @@
 | 技能1 | Q「致命打击」：加速；下一次普攻变成跃起重击并沉默目标。合并 W「勇气」：减伤、韧性、护盾 |
 | 技能2 | E「审判」：旋转 3 秒，边转边追着目标走，共 7 次伤害，最后一次降低护甲。被动「坚韧」：高生命回复 |
 | 大招 | R「德玛西亚正义」：巨剑从天而降，造成真实伤害 |
-| 精灵图 | 9 个动作 56 帧：待机、走路、普攻、Q 跃斩、战吼、E 旋转、R 施放、受击、死亡。身高约 36 px（原版人类英雄约 31 px）。全部是正面 3/4 朝右，同一套造型和大小；除战吼和受击外，都按英雄联盟原版动作重画 |
+| 精灵图 | 9 个动作 56 帧：待机、走路、普攻、Q 跃斩、战吼、E 旋转、R 施放、受击、死亡。身高约 36 px（原版人类英雄约 31 px），和原版一样是 Q 版大头（头约占身高 1/3），脸和眼睛在游戏里看得清。全部是正面 3/4 朝右，同一套造型和大小；除战吼和受击外，都按英雄联盟原版动作重画 |
 | 特效 | 命中火花、Q 重击与沉默、Q 强化光环、W 护盾、E 剑风、R 天降巨剑 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 | 音频 | 从本地客户端提取的 9 条技能音效和 4 条中文语音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
@@ -44,7 +44,7 @@ python tools/lol/extract_garen.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstr
 
 ### 美术：GPT 生成，再导入成像素图
 
-16 张原图在 [`assets/source/garen/`](assets/source/garen/)。提示词见 [`PROMPTS.md`](assets/source/garen/PROMPTS.md)，生成记录见 `GENERATION_PROMPTS.md` 和 `HANDOFF.md`。
+原图在 [`assets/source/garen/`](assets/source/garen/)。角色图是和艾希同一批的 Q 版重画，提示词见 [`CHIBI_REDRAW.md`](assets/source/CHIBI_REDRAW.md)，生成记录在 [`assets/source/chibi/`](assets/source/chibi/)；特效图和之前几轮的提示词见 [`PROMPTS.md`](assets/source/garen/PROMPTS.md)。
 
 ```bash
 pip install pillow numpy
@@ -54,9 +54,10 @@ python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图�
 
 导入脚本做这些事：
 - 切帧：按空白列切开，连在一起的剑、光效整块归到同一帧。
-- 缩放：每张图单独缩放，保证身高一致。
-- 对齐：脚底统一放在帧中心下方 11.5 px（和原版一致）。待机、战吼、受击按腿部和待机第一帧对齐；照英雄联盟动作画的走路、普攻、Q、R、死亡，按原版骨骼里头部的位置摆放；E 旋转按两脚中点固定。
+- 缩放：每张图单独缩放，保证头一样大（GPT 每张图的头身比略有出入，按身高对齐会让头忽大忽小）。
+- 对齐：脚底统一放在帧中心下方 11.5 px（和原版一致）。待机、战吼、受击按腿部和待机第一帧对齐；照英雄联盟动作画的走路、普攻、Q、R、死亡，按原版骨骼里头部的位置摆放（`pose_ref.py --track`）；普攻、Q、R 的前冲保留约 70%，免得收招时弹回待机太明显；E 旋转按两脚中点固定。
 - 像素化：硬边、共享 64 色调色板、1 px 黑描边。
+- 头像截取点（`champion_view` 的 `face`）用 `tfm2_ase.py face` 按原版英雄的规律定在头顶，`lint_mod.py` 会检查。
 
 通用部分在 skill 的 `scripts/strips.py`，以后做别的英雄可以直接用。
 
@@ -71,14 +72,14 @@ python tools/art/preview_garen.py         # 写出 docs/preview 里的预览图�
 | 技能2 | W「万箭齐发」：向目标方向扇形射出 9 支冰霜箭，范围内每个敌人受到一次伤害并减速。数据里没有扇形判定，用的是矩形范围技能（`LineRangeProjectile`，长 80、宽 45），画面上是扇形箭雨 |
 | 大招 | R「魔法水晶箭」：远距离直线飞行，眩晕第一个命中的敌方英雄，并在命中处炸开，减速周围敌人 |
 | 去掉 | E「鹰击长空」：侦察视野，团战经理2 没有战争迷雾 |
-| 精灵图 | 9 个动作 56 帧：待机、跑步、普攻、Q 连射、Q 发动、W、R、受击、死亡。身高 34 px（含兜帽）。全部正面 3/4 朝右，同一套造型；除受击外，每个动作都按英雄联盟原版动画的时间点渲染姿势参考后生成，首尾帧是原版「待机 ↔ 动作」的过渡姿势 |
-| 特效 | 冰霜箭、W 扇形箭雨（暂时用冰霜箭拼成，等 GPT 重画）、Q 连射、命中冰花、Q 专注光环、R 水晶箭、R 命中冰冻 |
+| 精灵图 | 9 个动作 56 帧：待机、跑步、普攻、Q 连射、Q 发动、W、R、受击、死亡。身高 34 px（含兜帽），和原版一样是 Q 版大头，兜帽不遮脸，蓝眼睛在游戏里看得见。全部正面 3/4 朝右，同一套造型；除受击外，每个动作都按英雄联盟原版动画的时间点渲染姿势参考后生成，首尾帧是原版「待机 ↔ 动作」的过渡姿势 |
+| 特效 | 冰霜箭、W 扇形箭雨（用冰霜箭按 9 个角度拼成：GPT 画的扇形只有 8 支箭、箭长不一，没采用）、Q 连射、命中冰花、Q 专注光环、R 水晶箭、R 命中冰冻 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
 | 音频 | 从本地客户端提取的 9 条技能音效和 2 条中文语音（Q、W；国服语音包里 R 没有语音）。不提交到仓库，按下面的命令在本地生成 |
 
 ```bash
 python tools/lol/extract_ashe.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
-python tools/art/import_ashe.py           # 16 张原图在 assets/source/ashe/，提示词见其中的 PROMPTS.md
+python tools/art/import_ashe.py           # 原图在 assets/source/ashe/；角色图提示词见 assets/source/CHIBI_REDRAW.md，特效见 ashe/PROMPTS.md
 python tools/art/preview_ashe.py
 ```
 

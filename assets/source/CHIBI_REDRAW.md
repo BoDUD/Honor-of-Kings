@@ -318,3 +318,11 @@ $P --champ Ashe --yaw 55 --pitch 25 --size 360 --width 1.0 --ground 0.86 --fit 0
 
 三视图 `*_model_chibi.png`：待机第 0 帧（`garen_2013_idle1@0` 加 `--mirror`、`ashe_idle1@0`），`--yaw 40`、`100`、`200` 各渲染一张横向拼接，都用 `--pitch 10 --size 800 --width 0.75 --fit 0.8 --ground 0.92`。
 `tfm2_style_ref.png`：原版 archer、crossbowman、harpooner、knight、spellbreaker、fighter、swordman、priest 的待机第 1 帧和攻击中间帧，脚底对齐，放大 8 倍（从游戏的 `bundle.game_data` 读取）。
+
+## 结果（2026-09-26 导入）
+
+- 20 张角色图（两张造型图 + 18 张动作）这一轮就对了（Codex 只为留白重生成过几张）：头约占身高 1/3，缩到游戏尺寸后两人都能看到眼睛。原图覆盖了同名旧图，生成记录（交接说明、清单、实际用的提示词）在 [`chibi/`](chibi/)。
+- `ashe_fx_volley.png` 没有采用：每帧只有 8 支箭，箭长和位置也不符合要求（交接说明里已标注）。W 继续用导入脚本拼的扇形：上一轮的冰霜箭按 9 个角度旋转、逐帧外移，箭数、角度和箭长都准确。
+- 缩放按头对齐：GPT 每张图的头身比略有出入（艾希约 10%），按身高对齐会让头忽大忽小。每张图把待机的头按不同比例做相关匹配，再在原图尺寸下并排核对。
+- 头部轨迹用大头骨骼重算（`pose_ref.py --track`）。盖伦的普攻、Q、R 保留原版前冲距离的 65–70%，收招弹回待机不明显。
+- 头像截取点按原版英雄的规律重定：盖伦 (−1, −35)，艾希 (1, −32)。`tfm2_ase.py face` 给出建议值，`lint_mod.py` 会检查。

@@ -1,0 +1,503 @@
+[
+  {
+    "file": "garen_ref_chibi.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "expected_frames": 1,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      89,
+      294,
+      1185,
+      1227
+    ],
+    "sha256": "a88038a29969d510fd2d2b492f0d214a778d1b52df31853ac0ae19f29ae7815f",
+    "timing_policy": "Reference only; not an animation."
+  },
+  {
+    "file": "garen_idle.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      20,
+      227,
+      2146,
+      531
+    ],
+    "sha256": "d7606bf667e495846d0f36bc3770e35caaa5ffcd71570a4c1ae2fe503540f2d9",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_run.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 8,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      10,
+      234,
+      2163,
+      510
+    ],
+    "sha256": "4c97e06564aeb416c7096eac9636d17f47cfca029528d335df290d41f7919deb",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      117,
+      117,
+      117,
+      117,
+      117,
+      117,
+      117,
+      117
+    ]
+  },
+  {
+    "file": "garen_attack.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      12,
+      192,
+      2161,
+      531
+    ],
+    "sha256": "1ea1940ef3fa472c458c0501b258e832392d132a0976d37c5f31947d8d16fcbb",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_q_attack.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 7,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      25,
+      94,
+      2162,
+      608
+    ],
+    "sha256": "2aeb94f8f40a664ac231d7e143a2222b87a6aaa737e8e733db680f39fe450318",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_skill.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 4,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      30,
+      20,
+      2142,
+      711
+    ],
+    "sha256": "a5711b162c341920f0fde75fdb1460bbaad9b2b2a54c99060367babbb9d74c06",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_spin.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 8,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      32,
+      221,
+      2139,
+      490
+    ],
+    "sha256": "2b61f1a40f9a4780133445a5b28137aec4facc8f1254e0bde103fda9143d7bdc",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_ult.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 8,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      42,
+      200,
+      2141,
+      547
+    ],
+    "sha256": "fbb51c562e259b1fbd830551390c01d47d2a845f3eacab3a6870f6dde7a44254",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_hit.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "expected_frames": 2,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      64,
+      166,
+      1735,
+      842
+    ],
+    "sha256": "ca9d4e1ae25a19de38b5f5e35cd5ed15987931c486fef8521af64cb67d972ce4",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "garen_dead.png",
+    "size": [
+      2098,
+      749
+    ],
+    "mode": "RGBA",
+    "expected_frames": 7,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      24,
+      243,
+      2069,
+      583
+    ],
+    "sha256": "e526e41221c77d3c4c2774d1d71cdac8cf10e5b778df357e586f228ad7ff25d5",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": null,
+    "timing_source": "The redraw brief does not repeat these Garen timings; retain existing import_garen.py values."
+  },
+  {
+    "file": "ashe_ref_chibi.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "expected_frames": 1,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      321,
+      191,
+      1062,
+      1196
+    ],
+    "sha256": "1a09ecbc87a33056643014bb269fab2d16687704d91ed38c56a044a71202b320",
+    "timing_policy": "Reference only; not an animation."
+  },
+  {
+    "file": "ashe_idle.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      60,
+      160,
+      2159,
+      585
+    ],
+    "sha256": "56dbcc06ac68d27bfdfa626a2a8b7efde1c96c06ab376d17c325db189e5a9fc1",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      267,
+      267,
+      267,
+      267,
+      267,
+      267
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_run.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 8,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      36,
+      252,
+      2126,
+      493
+    ],
+    "sha256": "8a59df7e6ab01ce49ce7ca870550d8559df7319ceac29236dbe2d3baa69587f3",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125,
+      125
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_attack.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      55,
+      151,
+      2144,
+      551
+    ],
+    "sha256": "267e3c6ce651067810fc8697acc8fecd4fe787f1ec7febbc6f82d044829d622f",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      50,
+      100,
+      60,
+      60,
+      65,
+      65
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_q_attack.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      25,
+      187,
+      2152,
+      560
+    ],
+    "sha256": "2c889adc3ab4f010cf1593440ceb7cd88b683fc6eb155e83d40b80974b5e9046",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      50,
+      80,
+      60,
+      70,
+      70,
+      70
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_skill.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 6,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      60,
+      186,
+      2149,
+      546
+    ],
+    "sha256": "5453b650affaaf319154d705c64f5288d62ce4b0b867e14fb232d84a9b715124",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      67,
+      67,
+      67,
+      67,
+      67,
+      67
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_skill2.png",
+    "size": [
+      1659,
+      948
+    ],
+    "mode": "RGBA",
+    "expected_frames": 7,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      61,
+      394,
+      1623,
+      634
+    ],
+    "sha256": "8a2823da106ffe501719bf65a5716c35e77f8741dafe094bbe3ae54b17688b15",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      60,
+      70,
+      70,
+      60,
+      70,
+      90,
+      80
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_ult.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 8,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      39,
+      155,
+      2150,
+      560
+    ],
+    "sha256": "51a0de9addf4df8610b89d7aa25d03f4679aa37d683489eed2e153e83929409c",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      60,
+      100,
+      100,
+      100,
+      70,
+      90,
+      100,
+      80
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_hit.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "expected_frames": 2,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      181,
+      104,
+      1695,
+      860
+    ],
+    "sha256": "7073197a5f0164326ff963d488d3003fc2db41208b148bfabf816ec23e0a00ff",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      120,
+      120
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_dead.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "expected_frames": 7,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      68,
+      246,
+      2131,
+      558
+    ],
+    "sha256": "e3dcf0aa81432b8bee91312e02c2a58798ddcd6fa881b6014a5e08be1261a572",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      100,
+      120,
+      120,
+      120,
+      150,
+      200,
+      400
+    ],
+    "timing_source": "Previous Ashe pack; unchanged."
+  },
+  {
+    "file": "ashe_fx_volley.png",
+    "size": [
+      1659,
+      948
+    ],
+    "mode": "RGBA",
+    "expected_frames": 7,
+    "has_transparency": true,
+    "visible_bbox_alpha_gt_128": [
+      16,
+      314,
+      1652,
+      650
+    ],
+    "sha256": "3cf696746c57d93ce73d93b84f522a041b2a1e138f86c287646b16717fd5c84c",
+    "timing_policy": "Preserve previous importer frame timings; PNG carries no playback timing.",
+    "frame_durations_ms": [
+      40,
+      40,
+      40,
+      40,
+      40,
+      40,
+      40
+    ],
+    "qa_status": "NEEDS_CORRECTION_DO_NOT_IMPORT_AS_FINAL",
+    "qa_issues": [
+      "Approximately eight arrows per frame instead of required nine.",
+      "Constant arrow length and specified radial positions are not satisfied reliably."
+    ]
+  }
+]

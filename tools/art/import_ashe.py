@@ -1,22 +1,23 @@
 #!/usr/bin/env python3
-"""Import Ashe's generated source art (assets/source/ashe, see PROMPTS.md) into game sprites.
+"""Import Ashe's generated source art (assets/source/ashe; prompts in ../CHIBI_REDRAW.md) into game sprites.
 
     python tools/art/import_ashe.py [--review DIR]
 
 Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred on the unit)
   league/champions/league_ashe       idle run attack q_attack skill skill2 ult hit dead
-  league/effects/league_ashe_fx      arrow flurry hit focus
+  league/effects/league_ashe_fx      arrow volley flurry hit focus
   league/effects/league_ashe_r       arrow hit
 
-Body: every strip was drawn from one design reference (ashe_ref.png) and a front-view render of
-League's own clip at fixed times (PROMPTS.md). GPT drew each strip at its own size, so each gets
-its own scale: `tall` is the source height of her standing pose, hood tip to soles, measured on the
-strip's upright frames (34 px in game; base humans ~31 px, the hood adds the rest). The feet sit
-11.5 px below the frame centre (base-game convention). Horizontally, idle and hit stand on the
-middle of their stance / line their legs up with idle; every other strip puts each frame's head
-where League's skeleton has it at that frame's time (pose_ref camera: yaw 55, pitch 25, not
-mirrored), shifted once so idle's own head lands where League puts it - so lunges, the wide Q
-stance and the fall of the death come out as in the game and nothing jumps against idle.
+Body: the chibi redraw - every strip was drawn from one design reference (ashe_ref_chibi.png) and
+a front-view render of League's own clip at fixed times with the head enlarged to TFM2 proportions
+(pose_ref.py --head 2.0 --legs 0.8). GPT drew each strip at its own size, so each gets its own
+scale: `tall` is her standing height at that strip's size (hood tip to soles, 34 px in game), set so
+her head is as big as in idle. The feet sit 11.5 px below the frame centre (base-game convention).
+Horizontally, idle and hit stand on the middle of their stance / line their legs up with idle;
+every other strip puts each frame's head where League's skeleton has it at that frame's time
+(pose_ref.py --track, camera yaw 55, pitch 25, not mirrored), shifted once so idle's own head lands
+where League puts it - so lunges, the wide Q stance and the fall of the death come out as in the
+game and nothing jumps against idle.
 Pixels: GPT drew her ~12 source px per game px with thin bright details (crystal bow, silver hair
 on a black hood), which an area average turns into brown mud. So every game pixel takes one
 colour of a shared 56-colour palette - the colour covering most of it, with the bow's ice-blue,
@@ -45,39 +46,44 @@ SUP = 4         # alignment works at 4x game resolution
 BAND = 12       # px of legs used to line frames up
 LEAGUE_IDLE_HEAD = 0.4   # League idle1@0: head joint x, px from the unit
 
-# tall: source px of her standing height in that strip (hood tip to soles)
+# tall: source px of her standing height (hood tip to soles) at that strip's drawing size. GPT
+#       drew every strip at its own size and with slightly different head-to-body ratios, so each
+#       strip is scaled to make her HEAD as big as in idle (the most visible part of a chibi; its
+#       size changing between actions reads as the hero growing and shrinking): idle's head matched
+#       over each frame at several scales (normalized cross-correlation), checked side by side
 # anchor: feet = line the legs up with idle f0 (idle f0 itself: middle of its stance)
 #         head = put each frame's head `head[i]` px from the pivot: League's head joint at the
-#                frame times of the pose reference (PROMPTS.md), camera of the references
+#                frame times of the pose reference, camera of the references, from the big-head
+#                skeleton they were drawn from (pose_ref.py --head 2.0 --legs 0.8 --track 34)
 # ground: per-frame lowest pixel, or "strip" = median of the grounded frames
 # air: frames in the air; they keep their drawn height above the ground of the others
 # specks: drop detached blobs up to this many game px (loose sparkles around the body)
 CHAR = {
     # idle1 0-1333 ms: the 1.6 s breathing loop
-    "idle":     dict(n=6, tall=404, ms=[267] * 6, anchor="feet"),
+    "idle":     dict(n=6, tall=424, ms=[267] * 6, anchor="feet"),
     # Run2 (ashe_run_jog) 0-875 ms: a run, both feet off the ground in frames 3 and 7
-    "run":      dict(n=8, tall=240, ms=[125] * 8, anchor="head", ground="strip", air=[2, 6],
-                     head=[2.9, 3.0, 2.8, 2.6, 2.3, 1.8, 1.9, 2.4]),
+    "run":      dict(n=8, tall=242, ms=[125] * 8, anchor="head", ground="strip", air=[2, 6],
+                     head=[3.1, 3.1, 2.9, 2.7, 2.4, 1.9, 2.0, 2.5]),
     # idle>attack1 blend, attack1 0/367/533/800, attack1>idle blend; the arrow leaves in frame 3 (tick 9)
-    "attack":   dict(n=6, tall=381, ms=[50, 100, 60, 60, 65, 65], anchor="head", ground="strip",
-                     head=[0.5, 0.7, 0.9, 1.2, 2.0, 1.5]),
+    "attack":   dict(n=6, tall=411, ms=[50, 100, 60, 60, 65, 65], anchor="head", ground="strip",
+                     head=[0.5, 0.7, 0.9, 1.3, 2.0, 1.5]),
     # idle>spell1 blend, spell1 0/67/267/500, spell1>idle blend: she steps back into the wide stance
-    "q_attack": dict(n=6, tall=340, ms=[50, 80, 60, 70, 70, 70], anchor="head", ground="strip",
-                     head=[-0.6, -2.5, -2.7, -3.7, -5.3, -2.1]),
+    "q_attack": dict(n=6, tall=416, ms=[50, 80, 60, 70, 70, 70], anchor="head", ground="strip",
+                     head=[-0.6, -2.6, -2.8, -3.8, -5.5, -2.2]),
     # idle, Ashe_spell1_IN 83/167/250/333, blend back
-    "skill":    dict(n=6, tall=369, ms=[67] * 6, anchor="head", ground="strip", specks=12,
-                     head=[0.4, 0.3, -0.3, -1.4, -2.5, -0.6]),
+    "skill":    dict(n=6, tall=343, ms=[67] * 6, anchor="head", ground="strip", specks=12,
+                     head=[0.4, 0.3, -0.3, -1.5, -2.5, -0.6]),
     # idle>spell2 blend, spell2 0/267/333/450/700, blend back; the volley leaves in frame 4 (tick 12)
-    "skill2":   dict(n=7, tall=347, ms=[60, 70, 70, 60, 70, 90, 80], anchor="head", ground="strip",
-                     head=[0.5, 0.7, 0.7, 1.1, 1.3, 1.2, 0.8]),
+    "skill2":   dict(n=7, tall=259, ms=[60, 70, 70, 60, 70, 90, 80], anchor="head", ground="strip",
+                     head=[0.5, 0.7, 0.8, 1.1, 1.4, 1.3, 0.9]),
     # idle>crit1 blend, crit1 0/200/300/367/500/700, blend back; the crystal arrow leaves in frame 5 (tick 22)
-    "ult":      dict(n=8, tall=292, ms=[60, 100, 100, 100, 70, 90, 100, 80], anchor="head", ground="strip",
-                     head=[0.5, 0.7, 0.5, 0.5, 0.7, 1.1, 2.1, 1.5]),
-    "hit":      dict(n=2, tall=720, ms=[120, 120], anchor="feet", ground="strip"),
+    "ult":      dict(n=8, tall=343, ms=[60, 100, 100, 100, 70, 90, 100, 80], anchor="head", ground="strip",
+                     head=[0.5, 0.7, 0.6, 0.5, 0.7, 1.2, 2.2, 1.5]),
+    "hit":      dict(n=2, tall=780, ms=[120, 120], anchor="feet", ground="strip"),
     # death 0/500/700/900/1100/1300/1900 ms: struck, thrown back, lands and lies. League throws her
-    # 29 px back (head 0.9 -> -28.3); kept at 75% so the body stays near where she fell
-    "dead":     dict(n=7, tall=345, ms=[100, 120, 120, 120, 150, 200, 400], anchor="head", air=[3, 4],
-                     head=[0.9, -7.7, -10.1, -11.6, -17.9, -21.1, -21.0]),
+    # 29 px back (head 0.9 -> -29.4); kept at 75% so the body stays near where she fell
+    "dead":     dict(n=7, tall=297, ms=[100, 120, 120, 120, 150, 200, 400], anchor="head", air=[3, 4],
+                     head=[0.7, -8.3, -10.7, -12.2, -18.8, -22.1, -22.1]),
 }
 CHAR_COLORS = 56
 # palette entries per colour class (the rest come from the other pixels) and each class's vote

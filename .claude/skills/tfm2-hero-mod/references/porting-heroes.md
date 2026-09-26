@@ -123,7 +123,13 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   heroes: 1/3), so in-game their faces were two or three rows of skin without eyes.
   `--head 2.0 --legs 0.8` scales the head joint and every leg, cape, skirt and cloth chain and
   keeps the legs' lowest point where League has it (landings and jump heights unchanged) - the
-  references then show the proportions to draw (`assets/source/CHIBI_REDRAW.md`).
+  references then show the proportions to draw (`assets/source/CHIBI_REDRAW.md`). Use it from the
+  first prompt of every new hero; the redraw of both heroes came back right in one round.
+- **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
+  --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
+  hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
+  the references (the importers place each frame's drawn head there). The chibi skeleton moves the
+  head 3-4% less than the adult one; Garen's hand-measured tracks had been 0.69x too small.
 - **Official names** live in `Game/DATA/FINAL/Localized/Global.<locale>.wad.client` ->
   `data/menu/en_us/lol.stringtable` (RST v5: 38-bit xxh64 key hashes; the Chinese WADs keep the
   `en_us` path, like their voice banks). Find a string by its English text and read the same key
