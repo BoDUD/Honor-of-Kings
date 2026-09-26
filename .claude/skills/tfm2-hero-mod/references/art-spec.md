@@ -143,6 +143,11 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   and the spacing drifts (Garen: the body moved up to 13 px at game scale, the spacing
   drifted about 0.5 px per frame). Split
   at empty columns and keep connected blobs whole (`split_strip`); never place frames by cell.
+- **Props that leave the body cross the cells.** Lux's Final Spark wand floats a third of a cell
+  to her right, so `split_strip` handed frame 5's wand and blast to frame 6. Split such a strip by
+  blobs instead: a blob holding the body's signature colour (her navy bodysuit) is a body, every
+  other blob (prop, glow, sparks) joins the nearest body on its left (`split_bodies` in
+  tools/art/import_lux.py).
 - **Scale per strip.** Every generated strip comes at its own size (Garen round 4: the Q strip at
   half of idle's size, battle cry and hit far bigger). Pick a frame in idle's pose (the ready
   stance most strips start or end in), render it next to idle at game size at a few scales and
@@ -183,11 +188,31 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   2.3, skin and gold 1.3); build that palette with a median cut per colour class (the lavender
   hair otherwise merges into light skin) and pass the prop's colours to `outline(keep=...)`.
   `metrics` then reports a lower outline share - it is the prop's edge, check which colours.
+- **Detail density: have the body drawn at the game's size.** A vote does not save a strip drawn
+  ~100 blocks tall (GPT's "pixel art") and squeezed 3:1 into 34 px: Ashe and Lux shipped at 41-42
+  colours per idle frame with 15-18% of pixels matching their right neighbour (15 base heroes:
+  16-33 colours, 18-46%, median 32%; Garen's big armour stayed readable at 63 and 15%), and the
+  user saw both blurry in game. A second round drawn at native size fixed it (TFM2-League-Heroes
+  `assets/source/NATIVE_REDRAW.md`): the current game frames at 8x in 56x64 cells as pose
+  references, base heroes at 8x for style, "34 squares tall, every pixel one 8x8 square, at most
+  20 colours, 2x2-square eyes", the design sheet first. The model's own output drifts off the grid
+  (block pitch 7.4-8.6 px, narrowed faces); have it cleaned to exact 8x8 blocks, check that, then
+  read one pixel per block - no resampling, palette or outline pass (`tools/art/import_native.py`:
+  18-19 colours, 29-31%). Record where each reference frame's pivot sits in its cell when the
+  references are drawn (`native_refs.py` writes `<hero>_cells.json`) so each redrawn frame lands
+  where the old one stood, and steady idle and run on the head column: frames placed by their
+  bounding box twitched 1-2 px in those loops.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
   impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`). Find a ring by its biggest
   connected blob: by row extent, motes rising at both sides make rows above the ring look wide.
+  For effects drawn in place (bursts, marks, bubbles, ground fields) anchor each frame on its
+  cell: GPT centres every frame in its equal-width cell (within 8 px on all seven of Lux's), while
+  a frame's own box drifts with its loose sparks - take the cell centre plus the strip's median
+  offset across, and one height for the strip. A single anchor in strip coordinates puts every
+  frame at its own cell's distance from the pivot (Lux's first import: the hit walked 5 cells).
+  Projectiles keep a per-frame anchor on their head (arrow tip, orb).
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 

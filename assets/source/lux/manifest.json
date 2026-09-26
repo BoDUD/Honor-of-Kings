@@ -1,0 +1,382 @@
+[
+  {
+    "file": "lux_ref.png",
+    "status": "generated",
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      299,
+      267,
+      996,
+      1196
+    ],
+    "expected_frames": 1,
+    "layout": "row",
+    "sha256": "21be2fddfd9f079aeadf8369dc33211c88003cb927b5760de4b3ec1dafc606b7"
+  },
+  {
+    "file": "lux_idle.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      21,
+      182,
+      2152,
+      593
+    ],
+    "expected_frames": 6,
+    "layout": "row",
+    "sha256": "d6ee667b8724267bf8d0f0a54f3a8d2ed60b7903145033cbbdb8a0608a5ae8ef"
+  },
+  {
+    "file": "lux_run.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      16,
+      207,
+      2140,
+      544
+    ],
+    "expected_frames": 8,
+    "layout": "row",
+    "sha256": "4fa52a58f30cc6632076e3f6e101e441e0aeadc2d75a0cb9776ec4b2c8e85fda"
+  },
+  {
+    "file": "lux_attack.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      24,
+      200,
+      2138,
+      576
+    ],
+    "expected_frames": 6,
+    "layout": "row",
+    "sha256": "7c8156e6f74ba2e2ca65165522398fba9edc8085d08ae9bc3096705210124b43"
+  },
+  {
+    "file": "lux_skill.png",
+    "status": "generated",
+    "width": 1659,
+    "height": 948,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      9,
+      280,
+      1650,
+      686
+    ],
+    "expected_frames": 7,
+    "layout": "row",
+    "sha256": "38a8ac54a8952465d40aad8b45209c70e3cd71bc5830e6fe164419158ae5ef13"
+  },
+  {
+    "file": "lux_skill2.png",
+    "status": "generated",
+    "width": 2175,
+    "height": 723,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      70,
+      236,
+      2044,
+      494
+    ],
+    "expected_frames": 7,
+    "layout": "row",
+    "sha256": "cec6073086875e37fbc4e07773949afa53a278bb60f51f508005ff39cffdd141"
+  },
+  {
+    "file": "lux_ult.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      12,
+      227,
+      2137,
+      565
+    ],
+    "expected_frames": 8,
+    "layout": "row",
+    "sha256": "fcd164d145c27080c8692df151c0b13bb870f9606c54479f265867af34b640ac"
+  },
+  {
+    "file": "lux_hit.png",
+    "status": "generated",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      176,
+      114,
+      1649,
+      851
+    ],
+    "expected_frames": 2,
+    "layout": "row",
+    "sha256": "44e4cd05bdcbca4704e6e758d31748c0f6d3256714842defc2eb7ad998e3c9d6"
+  },
+  {
+    "file": "lux_dead.png",
+    "status": "generated",
+    "width": 2073,
+    "height": 758,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      9,
+      248,
+      2056,
+      548
+    ],
+    "expected_frames": 7,
+    "layout": "row",
+    "sha256": "6d93331f45bf9ca98872949ac4df1dd59e52ace1d65dc60c163461aa522680d4"
+  },
+  {
+    "file": "lux_fx_bolt.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      96,
+      287,
+      2106,
+      431
+    ],
+    "expected_frames": 4,
+    "layout": "row",
+    "sha256": "876de92bbed0cad0dcb30e8f82fb3f2e3bb499f3056d175922b2f81856e57dcf"
+  },
+  {
+    "file": "lux_fx_hit.png",
+    "status": "generated",
+    "width": 1983,
+    "height": 793,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      128,
+      214,
+      1873,
+      578
+    ],
+    "expected_frames": 5,
+    "layout": "row",
+    "sha256": "0bbaaa3d41ee3541280c9d69dd51647d5d6667a24663173415d6be0aacef2757"
+  },
+  {
+    "file": "lux_fx_q_orb.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      40,
+      257,
+      2156,
+      449
+    ],
+    "expected_frames": 4,
+    "layout": "row",
+    "sha256": "452b165ee7c604a264159cbbbd085854f13782a6847ce2dc2c6252f52fdb94bb"
+  },
+  {
+    "file": "lux_fx_q_bind.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      252
+    ],
+    "content_bbox_alpha_gt_32": [
+      15,
+      162,
+      2144,
+      561
+    ],
+    "expected_frames": 8,
+    "layout": "row",
+    "sha256": "a57eb14b12e6b1daf2246df963448686063fc2b65e55532777e3a3c228816c41"
+  },
+  {
+    "file": "lux_fx_shield.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      26,
+      163,
+      2142,
+      546
+    ],
+    "expected_frames": 8,
+    "layout": "row",
+    "sha256": "6173d6c7757f79732632972de693dbc5e3402464504d32d70d5f07f3655d8d86"
+  },
+  {
+    "file": "lux_fx_e_orb.png",
+    "status": "generated",
+    "width": 1983,
+    "height": 793,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      30,
+      171,
+      1933,
+      592
+    ],
+    "expected_frames": 4,
+    "layout": "row",
+    "sha256": "3df20c9384726e8d7088d596dbdf9bdfcc6314c7f72c391e41ba5d0217f22a31"
+  },
+  {
+    "file": "lux_fx_e_zone.png",
+    "status": "generated",
+    "width": 2079,
+    "height": 756,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      32,
+      242,
+      2027,
+      494
+    ],
+    "expected_frames": 8,
+    "layout": "row",
+    "sha256": "4049f5a869a10e7ebf4d2b28c6723e1f9f3ac314ea98771263a77c7133bfc172"
+  },
+  {
+    "file": "lux_fx_r_beam.png",
+    "status": "generated",
+    "width": 1774,
+    "height": 887,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      21,
+      68,
+      1753,
+      861
+    ],
+    "expected_frames": 6,
+    "layout": "column",
+    "sha256": "396279bf37ccbfa5a75385266639a708c75e5e5df8923ac71024361e52b013b3"
+  },
+  {
+    "file": "lux_fx_mark.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      127,
+      209,
+      2108,
+      515
+    ],
+    "expected_frames": 6,
+    "layout": "row",
+    "sha256": "ab87ce4ed5fe8f02ee5a6f024c2622466c6078e203be127d6ebf92ff4b33b08f"
+  },
+  {
+    "file": "lux_fx_ignite.png",
+    "status": "generated",
+    "width": 2172,
+    "height": 724,
+    "mode": "RGBA",
+    "alpha_range": [
+      0,
+      255
+    ],
+    "content_bbox_alpha_gt_32": [
+      79,
+      177,
+      2101,
+      547
+    ],
+    "expected_frames": 6,
+    "layout": "row",
+    "sha256": "ca2cbd5561aec052e55d536219a38c6a0385bbaaf4d22c8e4b4c0864b724b415"
+  }
+]

@@ -74,7 +74,8 @@ count; median 0 px below it) - and ~1.5 px ahead of the head centre. `lint_mod.p
 face point is more than 4 px above the crown, 10 below or 8 aside (62 of the 68 base champions
 pass; the rest are a mount, the ogre, the werewolf, two big hats and the strongman). league_garen
 shipped with -38, above his hair (the portrait showed hair and air); a small head fails this check
-too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (1, -32).
+too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (0, -33),
+league_lux (1, -31) (both re-measured after the native-size redraw).
 
 ## Sounds (sound/sfx)
 
