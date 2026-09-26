@@ -232,6 +232,40 @@ def blend_pose(a, b, w):
     return out
 
 
+LEG = re.compile(r"(^|_)(hip|thigh)$", re.I)
+LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hangs down to them
+
+
+def chibi(joints, local, head=1.0, legs=1.0):
+    """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
+    cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
+    the big head and short legs of the sprite to draw instead of pulling the image model back to
+    realistic proportions."""
+    if head == 1.0 and legs == 1.0:
+        return local
+    out = []
+    for j, (t, r, s) in zip(joints, local):
+        parent = joints[j["parent"]]["name"] if j["parent"] >= 0 else ""
+        k = head if j["name"].lower() == "head" else \
+            legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
+        out.append((t, r, np.asarray(s, float) * k))
+    return out
+
+
+def leg_vertices(joints, influences, v):
+    """Vertices that mostly follow a leg (a hip/thigh joint or anything below it)."""
+    leg = set()
+    for i in range(len(joints)):
+        k = i
+        while k >= 0 and not LEG.search(joints[k]["name"]):
+            k = joints[k]["parent"]
+        if k >= 0:
+            leg.add(i)
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]
+    main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
+    return np.isin(main, sorted(leg))
+
+
 def pose(joints, anim, t):
     return globals_(joints, [trs(*p) for p in local_pose(joints, anim, t)])
 
@@ -365,6 +399,9 @@ def main():
                          "(w = weight of clipB); clip = .anm name without extension. Needs --name")
     ap.add_argument("--name", help="file name (without .png) of the --frame strip")
     ap.add_argument("--hq", action="store_true", help="per-pixel textured render (clearer face and trim; slower)")
+    ap.add_argument("--head", type=float, default=1.0,
+                    help="scale the head (about 2 gives the big-headed TFM2 proportions)")
+    ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.frame and not args.name:
@@ -385,14 +422,24 @@ def main():
     anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
     # frame the character once, from the bind pose: height -> cell height
     rest = skin(verts, influences, bind_inv, bind)
-    height = rest[:, 1].max() - rest[:, 1].min()
+    small = args.head != 1.0 or args.legs != 1.0
+    if small:
+        legv = leg_vertices(joints, influences, verts)
+        tall = skin(verts, influences, bind_inv, globals_(joints, [
+            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs)]))
+        height = tall[:, 1].max() - tall[:, 1].min()
+    else:
+        height = rest[:, 1].max() - rest[:, 1].min()
     scale = args.size * args.fit / height
     ground = args.size * args.ground
     os.makedirs(args.out, exist_ok=True)
     draw = render_hq if args.hq else render
 
     def cell(local):
-        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
+        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs)]))
+        if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
+            adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
+            pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
         pv[:, 1] -= rest[:, 1].min()
         size = (int(args.size * args.width), args.size)
         if args.mirror:

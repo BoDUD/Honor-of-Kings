@@ -376,3 +376,7 @@ Pose reference: the SECOND attached image is a 3D render of Garen's real in-game
 Animation: WALK to the right, 8 frames, seamless loop: a heavy, steady armored march - this is a WALK, NOT a run or a sprint. Upright torso, chest out, head up; do NOT lean forward or hunch. Moderate steps like the reference, one foot always on the ground (contact, down, passing, up for each leg); the body rises and sinks only 1 pixel. The greatsword is held low in front of him in his hand, blade pointing down and forward, swaying slightly with each step; the other arm swings a little; the cape sways behind him. The legs keep the same length and shape in every frame.
 Layout: one horizontal row of 8 equal square cells, no gaps, no borders, no labels. The character is exactly as big as in the first image: about 60% of the cell height; feet on an invisible ground line at 88% of the cell height; body horizontally centered; the whole sword stays inside its own cell. Transparent background (if not possible: solid #FF00FF magenta).
 ```
+
+## 第六轮：按原版 Q 版比例重画（脸看得清）
+
+游戏里看不清盖伦的脸：原版英雄的头约占身高 1/3，这几轮画出来只有约 1/5。所有角色图按新比例整批重画，提示词、附图和渲染命令见 [`../CHIBI_REDRAW.md`](../CHIBI_REDRAW.md)（和艾希同一轮）。

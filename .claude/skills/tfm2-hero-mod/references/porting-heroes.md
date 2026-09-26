@@ -39,7 +39,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Skill empowers next attack | ready-buff + `SwitchByBuff` in `attack` | OK |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
-| Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): one projectile at the target + `RandomTarget` projectiles at nearby enemies | ~ |
+| Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Invisible` on self + `cc_immune` / `damaged_reduce` buff | ~ |
 | Execute / missing-HP scaling | `FixedAttack target_hp_ratio`, flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
@@ -118,6 +118,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   renders that blend, so each strip can open and close half-way to idle instead of popping.
   `--hq` textures per pixel (face and trim readable) - better pose references and a design sheet
   (three `--yaw` views of the idle frame).
+- **Render them chibi.** League's adult proportions pull the image model to a small head even
+  when the prompt says "chibi": Garen and Ashe came out with heads 1/5 of their height (base
+  heroes: 1/3), so in-game their faces were two or three rows of skin without eyes.
+  `--head 2.0 --legs 0.8` scales the head joint and every leg, cape, skirt and cloth chain and
+  keeps the legs' lowest point where League has it (landings and jump heights unchanged) - the
+  references then show the proportions to draw (`assets/source/CHIBI_REDRAW.md`).
 - **Official names** live in `Game/DATA/FINAL/Localized/Global.<locale>.wad.client` ->
   `data/menu/en_us/lol.stringtable` (RST v5: 38-bit xxh64 key hashes; the Chinese WADs keep the
   `en_us` path, like their voice banks). Find a string by its English text and read the same key

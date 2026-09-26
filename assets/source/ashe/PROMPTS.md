@@ -244,3 +244,7 @@ python tools/lol/pose_ref.py --champ Ashe --hq --yaw 55 --pitch 25 --size 720 --
 ```
 
 `ashe_model.png` 是同一待机姿势（`ashe_idle1@0`）从三个角度的 `--hq` 渲染并排拼在一起：`--yaw 40`（正面）、`--yaw 100`（侧面）、`--yaw 200`（背面），都用 `--pitch 10 --size 800 --width 0.75 --fit 0.8 --ground 0.92`。
+
+## 第二轮：按原版 Q 版比例重画（脸看得清），W 改成扇形
+
+游戏里看不清艾希的脸：原版英雄的头约占身高 1/3，第一轮画出来只有约 1/5，兜帽和刘海还挡住了脸。所有角色图按新比例整批重画，另加 W 的扇形箭雨特效 `ashe_fx_volley.png`。提示词、附图和渲染命令见 [`../CHIBI_REDRAW.md`](../CHIBI_REDRAW.md)（和盖伦同一轮）。

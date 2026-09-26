@@ -107,6 +107,14 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 - **Prompts.** One row of N frames per animation, real transparent background, feet on the same
   line in every cell, 3/4 view facing right. Generate a reference sheet first and attach it to
   every character prompt, or the hero drifts between animations.
+- **Proportions: show them, don't only name them.** TFM2 heroes are ~3 heads tall with a big,
+  flat-lit face (33-36 px heroes: head 12-13 px, 2x2 px eyes). Every Garen and Ashe prompt said
+  "chibi", but the attached references (League renders, then the previous design sheet) were
+  adult-proportioned, and the model followed the images: heads 1/5 of the height, faces two or three
+  rows of skin without eyes in game, Ashe's also shaded by her hood - the user could not see either face. Attach a sheet of
+  base heroes (idle + attack, 8x) to the design prompt, render the pose references with a big
+  head (`pose_ref.py --head 2.0 --legs 0.8`), ask for a face that stays readable at 35 px, and
+  check the design sheet's head size before generating any strip.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
