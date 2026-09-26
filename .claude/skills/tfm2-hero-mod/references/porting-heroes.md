@@ -173,7 +173,13 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
   shrinks each strip back by the head (a 16-colour vote, still flat pixels) and puts each frame's
   blindfold on League's head joint, soles back on the line where the reference stands - check
-  every strip's head against idle before importing.
+  every strip's head against idle before importing. Soraka's delivery went the other way: Codex
+  pasted the approved design's head into every frame (no size drift, steady loops), so a flaw in that
+  head showed in all 52 frames at once; one template swap fixed them all (find the pasted head exactly
+  in each cut frame, recolour the changed pixels through `<hero>_retouch.json` - `soraka_retouch.json`
+  adds a fringe and a side lock). `import_native.py` starts its idle head search at the top row, which
+  for Soraka is her staff's crescent, so the other strips report no head column - harmless when the
+  delivery already keeps it steady.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as

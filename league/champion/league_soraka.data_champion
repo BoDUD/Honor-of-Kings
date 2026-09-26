@@ -114,7 +114,7 @@
             "name": "league_soraka_q_star",
             "shape": {
               "Circle": {
-                "radius": 24000
+                "radius": 30000
               }
             },
             "delay": 24,
@@ -168,7 +168,7 @@
                 "name": "league_soraka_q_star",
                 "shape": {
                   "Circle": {
-                    "radius": 24000
+                    "radius": 30000
                   }
                 },
                 "delay": 24,
@@ -209,7 +209,7 @@
                     "name": "league_soraka_e_field",
                     "shape": {
                       "Circle": {
-                        "radius": 24000
+                        "radius": 30000
                       }
                     },
                     "tick": 90,
@@ -232,7 +232,7 @@
                     "name": "league_soraka_e_root",
                     "shape": {
                       "Circle": {
-                        "radius": 24000
+                        "radius": 30000
                       }
                     },
                     "tick": 92,
@@ -285,7 +285,7 @@
           "name": "league_soraka_q_rejuv",
           "shape": {
             "Circle": {
-              "radius": 24000
+              "radius": 30000
             }
           },
           "delay": 24,
