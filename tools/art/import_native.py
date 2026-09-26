@@ -16,6 +16,9 @@ Two fixes for the loops, where every pixel of jitter shows:
     head is idle frame 1's top rows, found by exact match (Codex pasted one verified head into every
     frame); frames placed by their bounding box had it 1-2 px off.
   - ORDER: Lux's idle arrived breathing down, down, down, up, down, up; its frames 5 and 6 swap.
+Then <hero>_face.json, when there is one, retouches single pixels of the cut frames (Lee Sin's mouth
+and nose): x, y from the pivot, the colour expected there and the new one. A pixel that no longer has
+the expected colour stops the import, so edits made for one version of the strips never land on another.
 Writes league/champions/league_<hero>. The effects still come from tools/art/import_<hero>.py, which
 writes the round-1 body only with --body.
 --review DIR writes <hero>_native.png: every frame at 4x around its pivot (pivot column, feet line).
@@ -124,6 +127,29 @@ def build(hero):
     return sheet, report
 
 
+def touch_up(hero, sheet):
+    """Apply <hero>_face.json to the cut frames in place; the number of pixels changed."""
+    path = os.path.join(SRC, f"{hero}_face.json")
+    if not os.path.exists(path):
+        return 0
+    with open(path, encoding="utf-8") as f:
+        spec = json.load(f)
+    pal = {k: tuple(int(v[i:i + 2], 16) for i in (1, 3, 5)) for k, v in spec["palette"].items()}
+    n = 0
+    for tag, frames in spec["frames"].items():
+        for k, pixels in enumerate(frames):
+            a = sheet[tag][k][0]
+            hh, hw = a.shape[0] // 2, a.shape[1] // 2
+            for x, y, was, now in pixels:
+                r, c = hh + y, hw + x
+                p = a[r, c] if 0 <= r < a.shape[0] and 0 <= c < a.shape[1] else None
+                if p is None or (p[3] != 0 if was == "." else p[3] == 0 or tuple(p[:3]) != pal[was]):
+                    sys.exit(f"{os.path.basename(path)}: {tag} frame {k + 1} at ({x}, {y}) is not '{was}' any more")
+                a[r, c] = (0, 0, 0, 0) if now == "." else pal[now] + (255,)
+                n += 1
+    return n
+
+
 def flatness(frames):
     """Share of opaque pixels whose right neighbour is opaque and the same colour."""
     same = n = 0
@@ -163,6 +189,9 @@ def main():
                                  for p in glob.glob(os.path.join(SRC, "*_cells.json")))
     for hero in heroes:
         sheet, report = build(hero)
+        touched = touch_up(hero, sheet)
+        if touched:
+            print(f"{hero}_face.json: {touched} pixels retouched")
         w, h = G.write_sheet(os.path.join(MOD, "champions", f"league_{hero}"), sheet)
         frames = [a for fr in sheet.values() for a, _ in fr]
         colours = len(np.unique(np.concatenate([a[a[..., 3] > 0][:, :3] for a in frames]), axis=0))

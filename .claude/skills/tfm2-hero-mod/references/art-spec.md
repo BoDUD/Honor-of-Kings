@@ -120,6 +120,15 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   base champions at 1x and zoomed: look for the eyes before shipping. Counting skin-coloured
   pixels does not replace looking - the small-headed Garen scored more "skin" in his upper body
   than most base heroes, because his gold trim has skin tones.
+- **A face without eyes has only its mouth left.** Lee Sin's blindfold hides the eyes, so every
+  dark square under it reads as a feature. His delivered design had a 2 px dark stroke down the
+  front of the face and a dark pair on the chin row: at card size the user saw a strange nose and
+  mouth. Base faces draw no nose and a 1-2 square mouth. Under a band or mask, close the outline
+  along the face's front, put a 2-square mouth two rows under the band, shade under the chin so it
+  separates from the neck, and keep other dark squares out of the lower face. Look at the face at
+  card size (`tfm2_ase.py face`) as well as zoomed. Single-pixel fixes can go in
+  `assets/source/native/<hero>_face.json`, which `import_native.py` applies after cutting the
+  frames; it stops if a source pixel changed.
 - **Pose references from the source game.** Without one the model invents the motion: Garen's
   first run trailed the sword and his idle rested it on the shoulder, while in League both hold
   it forward at the waist - the user spotted it at once. Render the real clips (for LoL:
