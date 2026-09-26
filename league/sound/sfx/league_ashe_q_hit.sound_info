@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "league_ashe_sfx_q_hit",
+      "volume": 0.7
+    }
+  ]
+}

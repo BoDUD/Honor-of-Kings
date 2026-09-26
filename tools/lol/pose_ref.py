@@ -8,6 +8,15 @@ the clip (or --t0..--t1 seconds; attack clips hold a long recovery after the swi
 model seen from a 3/4 view facing right (like TFM2 sprites), with the frame times. Use them to judge a sprite's motion, or attach them to image-model
 prompts as the pose to copy. The renders show Riot's model: keep them local, never commit them.
 
+An exact strip instead, with League-style cross-fades into and out of a clip (so a sprite action can
+start and end near the idle pose), and per-pixel texturing that shows the face and trim:
+
+    python tools/lol/pose_ref.py --champ Ashe --hq --name ashe_pose_attack --out ref/ \\
+        --frame "ashe_idle1@0>ashe_attack1@0:0.5" --frame ashe_attack1@0 --frame ashe_attack1@367
+
+A frame is <clip>@<ms> or <clipA>@<ms>><clipB>@<ms>:<weight of B>; <clip> is the .anm file name
+without extension (case-insensitive).
+
 Reads (read-only) Champions/<Champ>.wad.client: the skin bin (-> .skn/.skl/texture), the
 animation bin (-> .anm list). Formats handled: SKN 1.x-4.x, SKL (0x22FD4FC3), compressed ANM
 ("r3d2canm" v1-3) and legacy "r3d2anmd" v5, TEX (DXT1/DXT5/BGRA8). Needs numpy + Pillow.
@@ -197,7 +206,8 @@ def globals_(joints, local):
     return g
 
 
-def pose(joints, anim, t):
+def local_pose(joints, anim, t):
+    """(translation, rotation, scale) of every joint relative to its parent at clip time t."""
     by_hash = {h: k for k, h in enumerate(anim["hashes"])}
     local = []
     for j in joints:
@@ -208,8 +218,61 @@ def pose(joints, anim, t):
             tr = sample(kk[(k, 1)], t) if (k, 1) in kk else tr
             rot = sample(kk[(k, 0)], t) if (k, 0) in kk else rot
             sc = sample(kk[(k, 2)], t) if (k, 2) in kk else sc
-        local.append(trs(tr, rot, sc))
-    return globals_(joints, local)
+        local.append((np.asarray(tr, float), np.asarray(rot, float), np.asarray(sc, float)))
+    return local
+
+
+def blend_pose(a, b, w):
+    """Cross-fade two local poses the way League blends clips: lerp translation and scale, nlerp rotation."""
+    out = []
+    for (ta, ra, sa), (tb, rb, sb) in zip(a, b):
+        rb = rb if np.dot(ra, rb) >= 0 else -rb
+        q = ra * (1 - w) + rb * w
+        out.append((ta * (1 - w) + tb * w, q / np.linalg.norm(q), sa * (1 - w) + sb * w))
+    return out
+
+
+LEG = re.compile(r"(^|_)(hip|thigh)$", re.I)
+LOWER = re.compile(r"hip|thigh|cape|skirt|cloth", re.I)     # legs and what hangs down to them
+
+
+def chibi(joints, local, head=1.0, legs=1.0):
+    """TFM2 proportions from League's adult ones: scale the head joint, and the root of every leg,
+    cape, skirt and cloth chain (meshes and child bones scale with it), so the reference already shows
+    the big head and short legs of the sprite to draw instead of pulling the image model back to
+    realistic proportions."""
+    if head == 1.0 and legs == 1.0:
+        return local
+    out = []
+    for j, (t, r, s) in zip(joints, local):
+        parent = joints[j["parent"]]["name"] if j["parent"] >= 0 else ""
+        k = head if j["name"].lower() == "head" else \
+            legs if LOWER.search(j["name"]) and not LOWER.search(parent) else 1.0
+        out.append((t, r, np.asarray(s, float) * k))
+    return out
+
+
+def chain_vertices(joints, influences, v, pattern):
+    """Vertices that mostly follow a joint whose name matches `pattern`, or anything below it."""
+    chain = set()
+    for i in range(len(joints)):
+        k = i
+        while k >= 0 and not pattern.search(joints[k]["name"]):
+            k = joints[k]["parent"]
+        if k >= 0:
+            chain.add(i)
+    joint_of = np.array(influences)[v["bones"].astype(np.int64)]
+    main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
+    return np.isin(main, sorted(chain))
+
+
+def leg_vertices(joints, influences, v):
+    """Vertices that mostly follow a leg (a hip/thigh joint or anything below it)."""
+    return chain_vertices(joints, influences, v, LEG)
+
+
+def pose(joints, anim, t):
+    return globals_(joints, [trs(*p) for p in local_pose(joints, anim, t)])
 
 
 def skin(v, influences, bind_inv, glob):
@@ -256,6 +319,65 @@ def render(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
     return img.resize(size, Image.LANCZOS)
 
 
+def render_hq(verts, tris, uv, tex, yaw, pitch, size, scale, ground, shift=0.0):
+    """Like render(), but z-buffered and textured per pixel: faces, hair and trim stay readable."""
+    cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+    cp, sp = np.cos(np.radians(pitch)), np.sin(np.radians(pitch))
+    ry = np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+    rx = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]])
+    v = verts @ (rx @ ry).T
+    ss = 2
+    W, H = size[0] * ss, size[1] * ss
+    x = (v[:, 0] * scale + size[0] * (0.5 + shift)) * ss
+    y = (ground - v[:, 1] * scale) * ss
+    z = v[:, 2]
+    tv = v[tris]
+    n = np.cross(tv[:, 1] - tv[:, 0], tv[:, 2] - tv[:, 0])
+    n /= np.maximum(np.linalg.norm(n, axis=1, keepdims=True), 1e-9)
+    light = np.array([-0.35, 0.55, 0.75])
+    light /= np.linalg.norm(light)
+    shade = 0.8 + 0.55 * np.abs(n @ light)
+    texa = np.asarray(tex.convert("RGBA")).astype(np.float32)
+    th, tw = texa.shape[:2]
+    uv = uv.astype(np.float64)
+    img = np.zeros((H, W, 4), np.float32)
+    zbuf = np.full((H, W), -np.inf)
+    for i, (i0, i1, i2) in enumerate(tris):
+        xs, ys = x[[i0, i1, i2]], y[[i0, i1, i2]]
+        x0, x1 = max(int(xs.min()), 0), min(int(np.ceil(xs.max())), W - 1)
+        y0, y1 = max(int(ys.min()), 0), min(int(np.ceil(ys.max())), H - 1)
+        den = (ys[1] - ys[2]) * (xs[0] - xs[2]) + (xs[2] - xs[1]) * (ys[0] - ys[2])
+        if x1 < x0 or y1 < y0 or abs(den) < 1e-9:
+            continue
+        gx, gy = np.meshgrid(np.arange(x0, x1 + 1) + 0.5, np.arange(y0, y1 + 1) + 0.5)
+        l0 = ((ys[1] - ys[2]) * (gx - xs[2]) + (xs[2] - xs[1]) * (gy - ys[2])) / den
+        l1 = ((ys[2] - ys[0]) * (gx - xs[2]) + (xs[0] - xs[2]) * (gy - ys[2])) / den
+        l2 = 1 - l0 - l1
+        zz = l0 * z[i0] + l1 * z[i1] + l2 * z[i2]
+        zb = zbuf[y0:y1 + 1, x0:x1 + 1]
+        m = (l0 >= -1e-4) & (l1 >= -1e-4) & (l2 >= -1e-4) & (zz > zb)
+        if not m.any():
+            continue
+        u = (l0 * uv[i0, 0] + l1 * uv[i1, 0] + l2 * uv[i2, 0]) % 1.0
+        vv = (l0 * uv[i0, 1] + l1 * uv[i1, 1] + l2 * uv[i2, 1]) % 1.0
+        col = texa[np.clip((vv * th).astype(int), 0, th - 1), np.clip((u * tw).astype(int), 0, tw - 1)]
+        m &= col[..., 3] >= 40                                # cut-out texels (hair tips, fringes)
+        zb[m] = zz[m]
+        blk = img[y0:y1 + 1, x0:x1 + 1]
+        blk[m, :3] = np.clip(col[..., :3] * shade[i], 0, 255)[m]
+        blk[m, 3] = 255
+    return Image.fromarray(img.astype(np.uint8), "RGBA").resize(size, Image.LANCZOS)
+
+
+def parse_frame(spec):
+    """'clip@ms' or 'clipA@ms>clipB@ms:w' -> (clipA, seconds, clipB, seconds, w)."""
+    m = re.fullmatch(r"([\w.]+)@([\d.]+)(?:>([\w.]+)@([\d.]+):([\d.]+))?", spec.strip())
+    if not m:
+        raise SystemExit(f"bad --frame {spec!r}: use clip@ms or clipA@ms>clipB@ms:weight")
+    a, ta, b, tb, w = m.groups()
+    return a, float(ta) / 1000, b, (float(tb) / 1000 if tb else 0.0), (float(w) if w else 0.0)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--lol", default=r"D:\WeGameApps\lol", help="League install folder")
@@ -277,8 +399,23 @@ def main():
     ap.add_argument("--mirror", action="store_true",
                     help="render the other side (yaw -> -yaw) and flip it, so a pose whose chest faces the "
                          "champion's right still shows its front while facing right (TFM2 sprites show the front)")
+    ap.add_argument("--frame", action="append", default=[],
+                    help="explicit frame, repeatable, in order: clip@ms, or clipA@ms>clipB@ms:w to cross-fade "
+                         "(w = weight of clipB); clip = .anm name without extension. Needs --name")
+    ap.add_argument("--name", help="file name (without .png) of the --frame strip")
+    ap.add_argument("--hq", action="store_true", help="per-pixel textured render (clearer face and trim; slower)")
+    ap.add_argument("--head", type=float, default=1.0,
+                    help="scale the head (about 2 gives the big-headed TFM2 proportions)")
+    ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
+    ap.add_argument("--track", type=float, metavar="PX",
+                    help="with --frame: print each frame's head joint x, in game px from the unit, for a hero "
+                         "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
+                         "importers' head tracks; same camera, --mirror, --head and --legs as the references)")
+    ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
+    if args.frame and not args.name:
+        ap.error("--frame needs --name")
     champ = args.champ
     wad_path = os.path.join(args.lol, "Game", "DATA", "FINAL", "Champions", f"{champ}.wad.client")
     w = Wad(wad_path)
@@ -295,10 +432,88 @@ def main():
     anims = refs(w.read_path(f"data/characters/{champ.lower()}/animations/skin0.bin"), rb"anm")
     # frame the character once, from the bind pose: height -> cell height
     rest = skin(verts, influences, bind_inv, bind)
-    height = rest[:, 1].max() - rest[:, 1].min()
+    small = args.head != 1.0 or args.legs != 1.0
+    if small:
+        legv = leg_vertices(joints, influences, verts)
+        tall = skin(verts, influences, bind_inv, globals_(joints, [
+            trs(*p) for p in chibi(joints, [(j["t"], j["r"], j["s"]) for j in joints], args.head, args.legs)]))
+        height = tall[:, 1].max() - tall[:, 1].min()
+    else:
+        height = rest[:, 1].max() - rest[:, 1].min()
     scale = args.size * args.fit / height
     ground = args.size * args.ground
     os.makedirs(args.out, exist_ok=True)
+    draw = render_hq if args.hq else render
+
+    def cell(local):
+        pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, local, args.head, args.legs)]))
+        if small:   # shorter legs lift the body: put the lowest point of the legs where League has it
+            adult = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in local]))
+            pv[:, 1] += adult[legv, 1].min() - pv[legv, 1].min()
+        pv[:, 1] -= rest[:, 1].min()
+        size = (int(args.size * args.width), args.size)
+        if args.mirror:
+            return draw(pv, tris, verts["uv"], tex, -args.yaw, args.pitch, size, scale, ground,
+                        -args.shift).transpose(Image.FLIP_LEFT_RIGHT)
+        return draw(pv, tris, verts["uv"], tex, args.yaw, args.pitch, size, scale, ground, args.shift)
+
+    def save(cells, labels, name):
+        cw, chh = cells[0].size
+        bg = tuple(int(c) for c in args.bg.split(",")) + (255,)
+        sheet = Image.new("RGBA", (cw * len(cells), chh + (0 if args.no_labels else 16)), bg)
+        dr = ImageDraw.Draw(sheet)
+        for i, (cimg, label) in enumerate(zip(cells, labels)):
+            sheet.alpha_composite(cimg, (i * cw, 0))
+            if not args.no_labels:
+                dr.text((i * cw + 4, chh + 2), f"{i + 1}: {label}", fill=(255, 255, 255, 255))
+        out = os.path.join(args.out, f"{name}.png")
+        sheet.save(out)
+        return out
+
+    if args.frame:
+        by_name = {os.path.splitext(os.path.basename(a))[0].lower(): a for a in anims}
+        loaded = {}
+
+        def clip(name):
+            if name.lower() not in by_name:
+                raise SystemExit(f"no clip {name!r}; clips: {', '.join(sorted(by_name))}")
+            if name.lower() not in loaded:
+                loaded[name.lower()] = read_anim(w.read_path(by_name[name.lower()].lower()))
+            return loaded[name.lower()]
+
+        def frame_pose(spec):
+            a, ta, b, tb, wgt = parse_frame(spec)
+            local = local_pose(joints, clip(a), ta)
+            if b:
+                local = blend_pose(local, local_pose(joints, clip(b), tb), wgt)
+            return local
+
+        def head_track(poses, ref):
+            """Head joint x per pose in game px from the unit (the world origin), scaled so that
+            `ref` is args.track px from the head top to the soles, seen through the render camera."""
+            yaw = -args.yaw if args.mirror else args.yaw
+            cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+            cp, sp = np.cos(np.radians(args.pitch)), np.sin(np.radians(args.pitch))
+            rot = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]]) @ np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+            sign = -1.0 if args.mirror else 1.0
+            head = next(i for i, j in enumerate(joints) if j["name"].lower() == "head")
+            headv = chain_vertices(joints, influences, verts, re.compile(r"^head$", re.I))
+            legv = chain_vertices(joints, influences, verts, LEG)
+            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs)])) @ rot.T
+            px = args.track / (pv[headv, 1].max() - pv[legv, 1].min())
+            xs = []
+            for p in poses:
+                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs)])
+                xs.append(sign * (rot @ glob[head][:3, 3])[0] * px)
+            print(f"{args.name}: head x, game px for a {args.track:g} px hero: [" + ", ".join(f"{x:.1f}" for x in xs) + "]")
+
+        poses = [frame_pose(spec) for spec in args.frame]
+        cells = [cell(p) for p in poses] if not args.track else []
+        if cells:
+            print(f"{args.name}: {len(cells)} frames -> {save(cells, args.frame, args.name)}")
+        if args.track:
+            head_track(poses, frame_pose(args.track_ref) if args.track_ref else poses[0])
+        return
     wanted = [a for a in anims if any(s.lower() in os.path.basename(a).lower() for s in args.anim)] or anims[:1]
     for path in wanted:
         try:
@@ -310,29 +525,9 @@ def main():
         ts = [args.t0 + (t1 - args.t0) * i / args.frames for i in range(args.frames)]
         if args.times:
             ts = [float(x) / 1000.0 for x in args.times.split(",")]
-        cells = []
-        for t in ts:
-            g = pose(joints, anim, t)
-            pv = skin(verts, influences, bind_inv, g)
-            pv[:, 1] -= rest[:, 1].min()
-            if args.mirror:
-                cell = render(pv, tris, verts["uv"], tex, -args.yaw, args.pitch,
-                              (int(args.size * args.width), args.size), scale, ground, -args.shift)
-                cells.append(cell.transpose(Image.FLIP_LEFT_RIGHT))
-            else:
-                cells.append(render(pv, tris, verts["uv"], tex, args.yaw, args.pitch,
-                                    (int(args.size * args.width), args.size), scale, ground, args.shift))
-        cw, chh = cells[0].size
-        bg = tuple(int(c) for c in args.bg.split(",")) + (255,)
-        sheet = Image.new("RGBA", (cw * len(cells), chh + (0 if args.no_labels else 16)), bg)
-        dr = ImageDraw.Draw(sheet)
-        for i, (cimg, t) in enumerate(zip(cells, ts)):
-            sheet.alpha_composite(cimg, (i * cw, 0))
-            if not args.no_labels:
-                dr.text((i * cw + 4, chh + 2), f"{i + 1}: {t * 1000:.0f} ms", fill=(255, 255, 255, 255))
+        cells = [cell(local_pose(joints, anim, t)) for t in ts]
         name = os.path.splitext(os.path.basename(path))[0]
-        out = os.path.join(args.out, f"{name}.png")
-        sheet.save(out)
+        out = save(cells, [f"{t * 1000:.0f} ms" for t in ts], name)
         print(f"{name}: {anim['duration']:.2f}s @ {anim['fps']:.0f} fps -> {out}")
 
 

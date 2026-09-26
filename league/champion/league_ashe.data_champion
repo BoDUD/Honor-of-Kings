@@ -1,0 +1,523 @@
+{
+  "id": "league_ashe",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "Range",
+    "CC"
+  ],
+  "sprite": "asset/league/champions/league_ashe",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/league/icons/league_ashe_skill",
+    "asset/league/icons/league_ashe_skill2",
+    "asset/league/icons/league_ashe_ult"
+  ],
+  "stat": {
+    "attack": 100,
+    "magic_power": 0,
+    "hp": 900,
+    "defence": 20,
+    "magic_resistance": 15,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 18,
+    "magic_power": 0,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.league_ashe.attack",
+    "duration": 24,
+    "cooltime": 60,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "league_ashe_focus",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "CasterAnimation",
+            "name": "q_attack",
+            "tick": 24
+          },
+          {
+            "type": "Delayed",
+            "tick": 7,
+            "effects": [
+              {
+                "type": "Sfx",
+                "name": "league_ashe_q_shot"
+              },
+              {
+                "type": "TargetProjectile",
+                "name": "league_ashe_flurry",
+                "speed": 5200,
+                "y_offset": 1200,
+                "applied_target": "Enemy",
+                "applied_effects": [
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 130
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "league_ashe_frost",
+                        "duration": {
+                          "Time": {
+                            "tick": 60
+                          }
+                        },
+                        "move_speed_mult": -30
+                      }
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "ViewEffect",
+                      "name": "league_ashe_hit"
+                    }
+                  },
+                  {
+                    "casting_type": "Targeting",
+                    "effect": {
+                      "type": "TargetSfx",
+                      "name": "league_ashe_q_hit"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "Delayed",
+        "tick": 8,
+        "effects": [
+          {
+            "type": "Sfx",
+            "name": "league_ashe_attack_shot"
+          },
+          {
+            "type": "TargetProjectile",
+            "name": "league_ashe_arrow",
+            "speed": 5200,
+            "y_offset": 1200,
+            "applied_target": "Enemy",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "league_ashe_frost",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    },
+                    "move_speed_mult": -20
+                  }
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "league_ashe_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "league_ashe_attack_hit"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.league_ashe.skill",
+    "duration": 24,
+    "cooltime": 420,
+    "start_timing": 2,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ashe_q_cast"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_ashe_focus",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            },
+            "attack_speed_mult": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 0,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 30,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 60,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 90,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 120,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 150,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 180,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 210,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "league_ashe_focus"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.league_ashe.skill2",
+    "duration": 30,
+    "cooltime": 480,
+    "start_timing": 12,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ashe_w_cast"
+        },
+        {
+          "type": "LineRangeProjectile",
+          "name": "league_ashe_volley",
+          "width": 45000,
+          "length": 80000,
+          "delay": 14,
+          "apply": 3,
+          "applied_target": "EnemyWithoutTower",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 40,
+                "attack_ratio": 100
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "AddBuff",
+                "buff_state": {
+                  "name": "league_ashe_frost",
+                  "duration": {
+                    "Time": {
+                      "tick": 90
+                    }
+                  },
+                  "move_speed_mult": -25
+                }
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_ashe_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_ashe_w_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.league_ashe.ult",
+    "duration": 42,
+    "cooltime": 3000,
+    "start_timing": 22,
+    "cancelable": false,
+    "range": 150000,
+    "casting_type": "Direction",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "league_ashe_r_cast"
+        },
+        {
+          "type": "LinearProjectile",
+          "name": "league_ashe_crystal",
+          "speed": 4200,
+          "range": 150000,
+          "penetrate": false,
+          "shape": {
+            "Circle": {
+              "radius": 9000
+            }
+          },
+          "applied_target": "EnemyChampion",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 150,
+                "attack_ratio": 100
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Stun",
+                "duration": 105
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "league_ashe_r_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "league_ashe_r_hit"
+              }
+            }
+          ],
+          "end_effects": [
+            {
+              "type": "RangeProjectile",
+              "name": "league_ashe_r_blast",
+              "delay": 1,
+              "apply": 1,
+              "shape": {
+                "Circle": {
+                  "radius": 25000
+                }
+              },
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 60,
+                    "attack_ratio": 50
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "league_ashe_frost",
+                      "duration": {
+                        "Time": {
+                          "tick": 120
+                        }
+                      },
+                      "move_speed_mult": -50
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "league_ashe_arrow",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "arrow",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_ashe_flurry",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "flurry",
+      "repeat": true,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_ashe_volley",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "volley",
+      "repeat": false,
+      "z": 0
+    },
+    {
+      "type": "Animated",
+      "name": "league_ashe_crystal",
+      "anim": "asset/league/effects/league_ashe_r",
+      "tag": "arrow",
+      "repeat": true,
+      "z": 0
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "league_ashe_hit",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "hit",
+      "z": 1
+    },
+    {
+      "type": "Animation",
+      "name": "league_ashe_focus",
+      "anim": "asset/league/effects/league_ashe_fx",
+      "tag": "focus",
+      "z": 1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_ashe_r_hit",
+      "anim": "asset/league/effects/league_ashe_r",
+      "tag": "hit",
+      "z": 1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}

@@ -271,9 +271,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 26
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 27
             },
             {
               "type": "Sfx",
@@ -316,9 +327,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 25
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 26
             },
             {
               "type": "RangeEffect",
@@ -357,9 +379,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 26
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 27
             },
             {
               "type": "Sfx",
@@ -402,9 +435,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 26
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 27
             },
             {
               "type": "RangeEffect",
@@ -443,9 +487,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 26
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 27
             },
             {
               "type": "Sfx",
@@ -488,9 +543,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 25
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 26
             },
             {
               "type": "RangeEffect",
@@ -529,9 +595,20 @@
                   "type": "MoveToTarget",
                   "speed": 1400,
                   "range": 60000,
-                  "end_effects": []
+                  "end_effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "spin",
+                      "tick": 26
+                    }
+                  ]
                 }
               ]
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "spin",
+              "tick": 27
             },
             {
               "type": "Sfx",

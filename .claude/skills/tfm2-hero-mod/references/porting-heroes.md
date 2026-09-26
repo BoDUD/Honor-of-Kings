@@ -39,6 +39,7 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Skill empowers next attack | ready-buff + `SwitchByBuff` in `attack` | OK |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
+| Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
 | Untargetable / invulnerable | `Invisible` on self + `cc_immune` / `damaged_reduce` buff | ~ |
 | Execute / missing-HP scaling | `FixedAttack target_hp_ratio`, flat bonus | ~ |
 | Effect scaling with distance / charge time | fixed middle value | ~ |
@@ -97,5 +98,42 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   first ~0.4 s - pick frame times with `--times`. Use `--mirror` when the pose turns the chest
   toward the champion's right (Garen's idle and Attack_01): it renders the other side and flips
   it, so the sprite still faces right with its front showing.
+- **Which clip plays when.** The animation bin maps clip names to files as `FNV-1a(lowercase
+  name) -> AtomicClipData { path }`; hash candidate names (`Run`, `Run2`, `Spell4`...) and read the
+  path that follows. Ashe: `Run` = `ashe_run_walk`, `Run2` = `ashe_run_jog`, `Run3` = `ashe_run`;
+  `Spell4` (R) reuses `ashe_crit1`; Q is `Ashe_spell1_IN` then `ashe_spell1`.
+- **Walk or run: measure it.** During stance a planted foot slides back at the clip's ground
+  speed; compare it with the champion's movement speed, and look for frames where both feet are
+  off the ground (a run) or one foot always down (a walk). Ashe's jog/run clips move ~305 units/s
+  (her base move speed is 325) with a flight phase, so she runs; the walk (~250) is her slowed
+  gait. Time the TFM2 loop from the clip's own cycle (Ashe: 1.0 s, 8 x 125 ms).
+- **Render side, per champion.** Some champions show their chest from one side, some from the
+  other (Garen needed `--mirror`, Ashe does not) - render idle both ways and look for the face.
+  Then use that same side for *every* clip of the hero: the renders appear to be mirror images of
+  the game (Ashe's bow hangs off her `R_hand` joint but shows in her left hand), so switching
+  sides between clips moves a one-handed prop to the other hand. TFM2 flips sprites that face
+  left anyway, so the handedness itself does not matter.
+- **Start and end near idle.** League cross-fades clips (about 0.2 s), and many clips start
+  mid-action (Ashe's attack opens at full draw). `pose_ref.py --frame "idle@0>attack@0:0.5"`
+  renders that blend, so each strip can open and close half-way to idle instead of popping.
+  `--hq` textures per pixel (face and trim readable) - better pose references and a design sheet
+  (three `--yaw` views of the idle frame).
+- **Render them chibi.** League's adult proportions pull the image model to a small head even
+  when the prompt says "chibi": Garen and Ashe came out with heads 1/5 of their height (base
+  heroes: 1/3), so in-game their faces were two or three rows of skin without eyes.
+  `--head 2.0 --legs 0.8` scales the head joint and every leg, cape, skirt and cloth chain and
+  keeps the legs' lowest point where League has it (landings and jump heights unchanged) - the
+  references then show the proportions to draw (`assets/source/CHIBI_REDRAW.md`). Use it from the
+  first prompt of every new hero; the redraw of both heroes came back right in one round.
+- **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
+  --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
+  hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
+  the references (the importers place each frame's drawn head there). The chibi skeleton moves the
+  head 3-4% less than the adult one; Garen's hand-measured tracks had been 0.69x too small.
+- **Official names** live in `Game/DATA/FINAL/Localized/Global.<locale>.wad.client` ->
+  `data/menu/en_us/lol.stringtable` (RST v5: 38-bit xxh64 key hashes; the Chinese WADs keep the
+  `en_us` path, like their voice banks). Find a string by its English text and read the same key
+  in the other locale. The Tencent client has zh_CN, the Riot client here zh_MY (whose names
+  differ in places: Ashe's Q is 射手的专注 in zh_CN, 专注射击 in zh_MY).
 - Riot allows non-commercial fan content; keep extracted audio out of public repos anyway
   (re-extract with the tool) and add the disclaimer (League of Legends (c) Riot Games).

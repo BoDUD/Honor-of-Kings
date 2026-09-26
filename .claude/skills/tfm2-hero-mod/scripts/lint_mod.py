@@ -215,6 +215,26 @@ def untargeted_moves(node, under_random=False):
     return 0
 
 
+def check_face(rep, where, sprite_stem, face):
+    """champion_view `face` against the sprite's idle head (tfm2_ase.suggest_face: base champions
+    put it at the crown, ~1.5 px ahead of the head centre). A point above the head makes every
+    portrait show hair and empty space - league_garen shipped with one."""
+    if not isinstance(face, dict):
+        rep.warn(where, "champion_view entry has no 'face'")
+        return
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import tfm2_ase
+        sug = tfm2_ase.suggest_face(tfm2_ase.load_sprite(sprite_stem))
+    except (ImportError, SystemExit, Exception) as e:  # noqa: BLE001 - Pillow missing or unreadable sheet
+        rep.info(where, f"face point not checked ({e})")
+        return
+    if not tfm2_ase.face_ok(face, sug):
+        above, dx = sug["y"] - face.get("y", 0), face.get("x", 0) - sug["x"]
+        rep.warn(where, f"champion_view face {face} is {above:+d} px above / {dx:+d} px right of the idle head's crown "
+                        f"{sug} - portraits crop around it (tfm2_ase.py face <sprite> --out shows both)")
+
+
 def walk_effects(node, out):
     if isinstance(node, dict):
         t = node.get("type")
@@ -568,6 +588,8 @@ def main(argv=None):
                 rep.info(W, "no skill_name entry (skill titles shown in UI)")
         if cv_target is not None and cid not in cview:
             rep.warn(W, "no champion_view entry (face/center offsets fall back to defaults)")
+        elif cid in cview and isinstance(tags, list) and mod.local(sprite) is not None:
+            check_face(rep, W, mod.local(sprite), (cview[cid] or {}).get("face"))
 
     return 1 if rep.dump(args.verbose) else 0
 

@@ -7,6 +7,13 @@
         "skill": "<#ff9028ff>致命打击<>：盖伦获得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移动速度<>，持续<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>内的下一次普攻变为跃起重击，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>沉默<>目标<#ffb900ff>1.5秒<>。同时获得<#ff9028ff>勇气<>：<#ffb900ff>2秒<>内受到的伤害降低<#ffb900ff>30%<>、韧性提高<#ffb900ff>60%<>，并获得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% 最大生命值<>的<#e8d44dff>护盾<>。",
         "skill2": "<#ff9028ff>审判<>：盖伦挥剑旋转<#ffb900ff>3秒<>，边转边追着目标移动，共转<#ffb900ff>7<>圈，每圈对周围敌人造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% 攻击力<>的<#ff9028ff>物理伤害<>。第<#ffb900ff>7<>圈命中的敌人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>护甲<>降低<#ffb900ff>25%<>，持续<#ffb900ff>4秒<>。被动 <#ff9028ff>坚韧<>：盖伦拥有很高的<#6aff55ff>生命回复<>。",
         "ult": "<#ff9028ff>德玛西亚正义<>：召唤巨剑从天而降，对目标敌方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻击力<> + <#f5f5f5ff>12% 目标最大生命值<>的<#f5f5f5ff>真实伤害<>。"
+      },
+      "league_ashe": {
+        "name": "艾希",
+        "attack": "普攻射出冰霜箭，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>冰霜射击<>：普攻使目标<#ef5350ff>减速<><#ffb900ff>20%<>，持续<#ffb900ff>1秒<>。",
+        "skill": "<#ff9028ff>射手的专注<>：艾希获得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻击速度<>，持续<#ffb900ff>4秒<>。期间普攻变为连射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻击力<>的<#ff9028ff>物理伤害<>，并使目标<#ef5350ff>减速<><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>万箭齐发<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，对扇形内每个敌人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>（每个敌人只会被命中一次），并使其<#ef5350ff>减速<><#ffb900ff>25%<>，持续<#ffb900ff>1.5秒<>。",
+        "ult": "<#ff9028ff>魔法水晶箭<>：向目标方向射出一支飞得很远的水晶箭，命中第一个敌方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>眩晕<><#ffb900ff>1.75秒<>。水晶箭在命中处炸开，对周围敌人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻击力<>的<#ff9028ff>物理伤害<>并<#ef5350ff>减速<><#ffb900ff>50%<>，持续<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -14,6 +21,11 @@
         "skill1": "致命打击",
         "skill2": "审判",
         "ult": "德玛西亚正义"
+      },
+      "league_ashe": {
+        "skill1": "射手的专注",
+        "skill2": "万箭齐发",
+        "ult": "魔法水晶箭"
       }
     }
   },
@@ -25,6 +37,13 @@
         "skill": "<#ff9028ff>致命打擊<>：蓋倫獲得<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% 移動速度<>，持續<#ffb900ff>1.5秒<>。<#ffb900ff>4.5秒<>內的下一次普攻變為躍起重擊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>沉默<>目標<#ffb900ff>1.5秒<>。同時獲得<#ff9028ff>勇氣<>：<#ffb900ff>2秒<>內受到的傷害降低<#ffb900ff>30%<>、韌性提高<#ffb900ff>60%<>，並獲得<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% 最大生命值<>的<#e8d44dff>護盾<>。",
         "skill2": "<#ff9028ff>審判<>：蓋倫揮劍旋轉<#ffb900ff>3秒<>，邊轉邊追著目標移動，共轉<#ffb900ff>7<>圈，每圈對周圍敵人造成<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% 攻擊力<>的<#ff9028ff>物理傷害<>。第<#ffb900ff>7<>圈命中的敵人<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>護甲<>降低<#ffb900ff>25%<>，持續<#ffb900ff>4秒<>。被動 <#ff9028ff>堅韌<>：蓋倫擁有很高的<#6aff55ff>生命回復<>。",
         "ult": "<#ff9028ff>德瑪西亞正義<>：召喚巨劍從天而降，對目標敵方英雄造成<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% 攻擊力<> + <#f5f5f5ff>12% 目標最大生命值<>的<#f5f5f5ff>真實傷害<>。"
+      },
+      "league_ashe": {
+        "name": "艾希",
+        "attack": "普攻射出冰霜箭，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>冰霜射擊<>：普攻使目標<#ef5350ff>緩速<><#ffb900ff>20%<>，持續<#ffb900ff>1秒<>。",
+        "skill": "<#ff9028ff>專注射擊<>：艾希獲得<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% 攻擊速度<>，持續<#ffb900ff>4秒<>。期間普攻變為連射，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% 攻擊力<>的<#ff9028ff>物理傷害<>，並使目標<#ef5350ff>緩速<><#ffb900ff>30%<>。",
+        "skill2": "<#ff9028ff>萬箭齊發<>：向前方扇形射出<#ffb900ff>9<>支冰霜箭，對扇形內每個敵人造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>（每個敵人只會被命中一次），並使其<#ef5350ff>緩速<><#ffb900ff>25%<>，持續<#ffb900ff>1.5秒<>。",
+        "ult": "<#ff9028ff>魔法水晶箭<>：向目標方向射出一支飛得很遠的水晶箭，命中第一個敵方英雄，造成<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>暈眩<><#ffb900ff>1.75秒<>。水晶箭在命中處炸開，對周圍敵人造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% 攻擊力<>的<#ff9028ff>物理傷害<>並<#ef5350ff>緩速<><#ffb900ff>50%<>，持續<#ffb900ff>2秒<>。"
       }
     },
     "skill_name": {
@@ -32,6 +51,11 @@
         "skill1": "致命打擊",
         "skill2": "審判",
         "ult": "德瑪西亞正義"
+      },
+      "league_ashe": {
+        "skill1": "專注射擊",
+        "skill2": "萬箭齊發",
+        "ult": "魔法水晶箭"
       }
     }
   },
@@ -43,6 +67,13 @@
         "skill": "<#ff9028ff>Decisive Strike<>: Garen gains <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>35% movement speed<> for <#ffb900ff>1.5s<>. His next basic attack within <#ffb900ff>4.5s<> becomes a leaping strike that deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>silences<> the target for <#ffb900ff>1.5s<>. He also gains <#ff9028ff>Courage<>: <#ffb900ff>30%<> damage reduction and <#ffb900ff>60%<> tenacity for <#ffb900ff>2s<>, plus a <#e8d44dff>shield<> of <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>6% max health<>.",
         "skill2": "<#ff9028ff>Judgment<>: Garen spins his sword for <#ffb900ff>3s<> and chases his target while spinning. Each of the <#ffb900ff>7<> spins deals <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>32% AD<> <#ff9028ff>physical damage<> to nearby enemies; the <#ffb900ff>7th<> spin lowers their <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>armor<> by <#ffb900ff>25%<> for <#ffb900ff>4s<>. Passive <#ff9028ff>Perseverance<>: Garen has very high <#6aff55ff>health regeneration<>.",
         "ult": "<#ff9028ff>Demacian Justice<>: Calls a giant sword down on the target enemy champion, dealing <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120% AD<> + <#f5f5f5ff>12% of its max health<> <#f5f5f5ff>true damage<>."
+      },
+      "league_ashe": {
+        "name": "Ashe",
+        "attack": "Basic attacks fire frost arrows that deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Frost Shot<>: basic attacks <#ef5350ff>slow<> the target by <#ffb900ff>20%<> for <#ffb900ff>1s<>.",
+        "skill": "<#ff9028ff>Ranger's Focus<>: Ashe gains <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>30% attack speed<> for <#ffb900ff>4s<>. Meanwhile her basic attacks become a flurry that deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>slows<> the target by <#ffb900ff>30%<>.",
+        "skill2": "<#ff9028ff>Volley<>: Fires <#ffb900ff>9<> frost arrows in a cone ahead, dealing <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> to each enemy in the cone (once per enemy) and <#ef5350ff>slowing<> them by <#ffb900ff>25%<> for <#ffb900ff>1.5s<>.",
+        "ult": "<#ff9028ff>Enchanted Crystal Arrow<>: Fires a far-flying crystal arrow that stops at the first enemy champion, dealing <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<> and <#ef5350ff>stunning<> it for <#ffb900ff>1.75s<>. The arrow bursts where it stops, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50% AD<> <#ff9028ff>physical damage<> to nearby enemies and <#ef5350ff>slowing<> them by <#ffb900ff>50%<> for <#ffb900ff>2s<>."
       }
     },
     "skill_name": {
@@ -50,6 +81,11 @@
         "skill1": "Decisive Strike",
         "skill2": "Judgment",
         "ult": "Demacian Justice"
+      },
+      "league_ashe": {
+        "skill1": "Ranger's Focus",
+        "skill2": "Volley",
+        "ult": "Enchanted Crystal Arrow"
       }
     }
   },
@@ -61,6 +97,13 @@
         "skill": "<#ff9028ff>결정타<>: 가렌이 <#ffb900ff>1.5초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>이동 속도가 35%<> 증가합니다. <#ffb900ff>4.5초<> 안의 다음 기본 공격은 도약 강타가 되어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 150%<> <#ff9028ff>물리 피해<>를 주고 대상을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>침묵<>시킵니다. 또한 <#ff9028ff>용기<>를 얻어 <#ffb900ff>2초<> 동안 받는 피해가 <#ffb900ff>30%<> 감소하고 강인함이 <#ffb900ff>60%<> 증가하며, <#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>최대 체력의 6%<>의 <#e8d44dff>보호막<>을 얻습니다.",
         "skill2": "<#ff9028ff>심판<>: 가렌이 <#ffb900ff>3초<> 동안 검을 휘두르며 회전하고, 회전하며 대상을 쫓아갑니다. <#ffb900ff>7<>번의 회전마다 주변 적에게 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 32%<> <#ff9028ff>물리 피해<>를 주며, <#ffb900ff>7<>번째 회전은 <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>방어력<>을 <#ffb900ff>4초<> 동안 <#ffb900ff>25%<> 낮춥니다. 기본 지속 효과 <#ff9028ff>인내<>: 가렌은 <#6aff55ff>체력 재생<>이 매우 높습니다.",
         "ult": "<#ff9028ff>데마시아의 정의<>: 대상 적 챔피언에게 거대한 검을 내리꽂아 <#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 120%<> + <#f5f5f5ff>대상 최대 체력의 12%<> <#f5f5f5ff>고정 피해<>를 줍니다."
+      },
+      "league_ashe": {
+        "name": "애쉬",
+        "attack": "기본 공격으로 서리 화살을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>서리 화살<>: 기본 공격이 대상을 <#ffb900ff>1초<> 동안 <#ffb900ff>20%<> <#ef5350ff>둔화<>시킵니다.",
+        "skill": "<#ff9028ff>궁사의 집중<>: 애쉬가 <#ffb900ff>4초<> 동안 <i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>공격 속도가 30%<> 증가합니다. 그동안 기본 공격이 연사로 바뀌어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 130%<> <#ff9028ff>물리 피해<>를 입히고 대상을 <#ffb900ff>30%<> <#ef5350ff>둔화<>시킵니다.",
+        "skill2": "<#ff9028ff>일제 사격<>: 전방 부채꼴로 서리 화살 <#ffb900ff>9<>발을 쏩니다. 부채꼴 안의 적마다 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고(적마다 한 번만 적중) <#ffb900ff>1.5초<> 동안 <#ffb900ff>25%<> <#ef5350ff>둔화<>시킵니다.",
+        "ult": "<#ff9028ff>마법의 수정화살<>: 멀리 날아가는 수정 화살을 쏘아 처음 맞은 적 챔피언에게 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>1.75초<> 동안 <#ef5350ff>기절<>시킵니다. 화살이 멈춘 곳에서 터져 주변 적에게 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 50%<> <#ff9028ff>물리 피해<>를 입히고 <#ffb900ff>2초<> 동안 <#ffb900ff>50%<> <#ef5350ff>둔화<>시킵니다."
       }
     },
     "skill_name": {
@@ -68,6 +111,11 @@
         "skill1": "결정타",
         "skill2": "심판",
         "ult": "데마시아의 정의"
+      },
+      "league_ashe": {
+        "skill1": "궁사의 집중",
+        "skill2": "일제 사격",
+        "ult": "마법의 수정화살"
       }
     }
   },
@@ -79,6 +127,13 @@
         "skill": "<#ff9028ff>断固たる一撃<>：ガレンは<#ffb900ff>1.5秒<>間<i#asset/base/ui/banpick/champion_stat_icon:speed_0><#ffffffff>移動速度が35%<>増加する。<#ffb900ff>4.5秒<>以内の次の通常攻撃は跳躍斬りになり、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の150%<>の<#ff9028ff>物理ダメージ<>を与えて対象を<#ffb900ff>1.5秒<>間<#ef5350ff>サイレンス<>状態にする。さらに<#ff9028ff>勇気<>を得て、<#ffb900ff>2秒<>間受けるダメージが<#ffb900ff>30%<>減少し、行動妨害耐性が<#ffb900ff>60%<>増加し、<#e8d44dff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#6aff55ff>最大体力の6%<>の<#e8d44dff>シールド<>を得る。",
         "skill2": "<#ff9028ff>審判<>：ガレンは<#ffb900ff>3秒<>間剣を振り回して回転し、回転しながら対象を追いかける。<#ffb900ff>7<>回の回転ごとに周囲の敵に<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の32%<>の<#ff9028ff>物理ダメージ<>を与え、<#ffb900ff>7<>回目の回転は<i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ffdd8eff>物理防御<>を<#ffb900ff>4秒<>間<#ffb900ff>25%<>低下させる。自動効果 <#ff9028ff>忍耐<>：ガレンは非常に高い<#6aff55ff>体力自動回復<>を持つ。",
         "ult": "<#ff9028ff>デマーシアの正義<>：対象の敵チャンピオンに巨大な剣を落とし、<#f5f5f5ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の120%<> + <#f5f5f5ff>対象の最大体力の12%<>の<#f5f5f5ff>確定ダメージ<>を与える。"
+      },
+      "league_ashe": {
+        "name": "アッシュ",
+        "attack": "通常攻撃は氷の矢を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>フロストショット<>：通常攻撃は対象を<#ffb900ff>1秒<>間<#ffb900ff>20%<><#ef5350ff>スロウ<>にする。",
+        "skill": "<#ff9028ff>レンジャーフォーカス<>：アッシュは<#ffb900ff>4秒<>間<i#asset/base/ui/banpick/champion_stat_icon:attack_speed_0><#ceff99ff>攻撃速度が30%<>増加する。その間、通常攻撃は連射になり、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の130%<>の<#ff9028ff>物理ダメージ<>を与えて対象を<#ffb900ff>30%<><#ef5350ff>スロウ<>にする。",
+        "skill2": "<#ff9028ff>ボレー<>：前方に扇状に氷の矢を<#ffb900ff>9<>本放つ。範囲内の敵それぞれに<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与え（1体につき1回まで）、<#ffb900ff>1.5秒<>間<#ffb900ff>25%<><#ef5350ff>スロウ<>にする。",
+        "ult": "<#ff9028ff>エンチャント クリスタルアロー<>：遠くまで飛ぶ水晶の矢を放ち、最初に当たった敵チャンピオンに<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>1.75秒<>間<#ef5350ff>スタン<>させる。矢は止まった場所で砕け、周囲の敵に<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の50%<>の<#ff9028ff>物理ダメージ<>を与えて<#ffb900ff>2秒<>間<#ffb900ff>50%<><#ef5350ff>スロウ<>にする。"
       }
     },
     "skill_name": {
@@ -86,6 +141,11 @@
         "skill1": "断固たる一撃",
         "skill2": "審判",
         "ult": "デマーシアの正義"
+      },
+      "league_ashe": {
+        "skill1": "レンジャーフォーカス",
+        "skill2": "ボレー",
+        "ult": "エンチャント クリスタルアロー"
       }
     }
   }

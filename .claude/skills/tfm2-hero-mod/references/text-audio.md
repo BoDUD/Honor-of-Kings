@@ -66,6 +66,15 @@ Offsets in sprite pixels measured **up from the feet** (negative y = higher). `c
 body centre (base default y -12, where hits/health bar anchor); `face` is the head centre
 (~ -(height - 2); -34 for a 35-37 px hero, -45 to -54 for giants). Base also has an optional
 `banpick_center`. Adjust `face.x` when the head is not above the feet (quadrupeds, big weapons).
+Measure it, don't guess: `python scripts/tfm2_ase.py face <sprite> [--view <champion_view>]`
+prints the point the base game would use and `--out x.png` draws your hero next to base champions
+with every face point marked. On all 68 base champions `face` sits at the **crown** - the first
+row of idle frame 0 at least half as wide as the head (so buns, hat tips and pointed hoods don't
+count; median 0 px below it) - and ~1.5 px ahead of the head centre. `lint_mod.py` warns when a
+face point is more than 4 px above the crown, 10 below or 8 aside (62 of the 68 base champions
+pass; the rest are a mount, the ogre, the werewolf, two big hats and the strongman). league_garen
+shipped with -38, above his hair (the portrait showed hair and air); a small head fails this check
+too, because its crown is found at the shoulders. Now: league_garen (-1, -35), league_ashe (1, -32).
 
 ## Sounds (sound/sfx)
 

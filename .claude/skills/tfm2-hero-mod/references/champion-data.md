@@ -220,8 +220,18 @@ For different 1st/2nd casts, add a short `x_recast` buff on first cast and `Swit
 **Dash then hit.** `MoveTo` (direction) or `MoveToTarget` (unit) with `end_effects:
 [ViewEffect, RangeEffect{Attack, Stun}]`. Add `CasterAnimation` with a dash tag for the travel.
 
-**Telegraphed AoE.** `RangeProjectile {delay, apply}` / `LineRangeProjectile {delay}` /
-`ParabolicProjectile {travel_time}`; or `ViewEffect warning` + `Delayed {tick} RangeEffect`.
+**Telegraphed AoE.** `RangeProjectile {delay, apply}` / `LineRangeProjectile {width, length,
+delay, apply}` / `ParabolicProjectile {travel_time}`; or `ViewEffect warning` + `Delayed {tick}
+RangeEffect`. `apply` is how many ticks the area stays live after `delay`; each unit is hit once
+(base spellbreaker Q: delay 8, apply 3, one hit per its tooltip).
+
+**Cone / fan (Ashe W).** No projectile takes an angle, but `LineRangeProjectile` in a
+`casting_type: Direction` action is a rectangle from the caster toward the target, and its view
+sprite is centred on the rectangle and turned to the cast direction: drawn pointing right from
+x = -length/2 to +length/2 (measured on LoL Reborn's Swain Q fan, Lux R and Jhin W sprites). So a
+fan sprite with its apex at x = -length/2 starts at the caster. The hit area stays a rectangle;
+draw the fan a little wider than `width` (oppi's Swain does). league_ashe W: width 45000, length
+80000, delay 14, apply 3, 9 arrows over +-28 deg, 7 frames x 40 ms, view `repeat: false`.
 
 **Zone / aura.** `RangePeriodProjectile {tick, period}` for a placed field;
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
@@ -241,12 +251,27 @@ to its `RangeEffect`: `RandomTarget {range: 60000, casting_target: EnemyChampion
 chasing only the cast target left Garen spinning in place once it died - at once when it was a
 minion. Cast it with `casting_target: EnemyChampion` so it opens on champions; minions still take
 the spin damage. See league_garen E.
+Once the dashes worked, the user saw Garen chase *without* turning: one 180-tick `CasterAnimation`
+issued at the start did not survive the dashes. Base Nightmare plays its forced animation from the
+dash's `end_effects`, so league_garen E now re-issues `CasterAnimation spin` on every pulse (after
+its `RandomTarget`) and in each `MoveToTarget`'s `end_effects`, each lasting until the next pulse
+*(inferred: a dash ending drops the forced animation; not yet confirmed in-game)*.
 
 **`MoveToTarget` needs a target.** It dashes to the action's target, so use it in `Targeting`
 actions (Nocturne R, Gragas E). Under `casting_type: None` there is none and nothing moves (seen
 in-game); LoL Reborn Jax Q wraps it in `RandomTarget {casting_target, range}` instead.
 
 **Multi-hit on random enemies.** Several `Delayed` blocks each holding a `RandomTarget`.
+
+**Projectiles at random enemies.** `RandomTarget {range, casting_target, effects:
+[TargetProjectile]}` fires from the caster at the picked unit (LoL Reborn Ezreal E). A unit can be
+picked more than once. league_ashe W started this way (one arrow at the target plus four random
+ones); the user saw homing arrows, not League's cone, so it became the fan above.
+
+**Burst where a skillshot stops.** `LinearProjectile {penetrate: false, applied_target:
+EnemyChampion}` stops on the first champion; its `end_effects` run where it stopped, so a
+`RangeProjectile {delay: 1, apply: 1, shape}` there is the splash (LoL Reborn Jinx R, Fizz R;
+league_ashe R). It also fires at the end of the range when nothing was hit.
 
 ## 8. Gotchas
 

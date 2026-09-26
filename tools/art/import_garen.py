@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Import Garen's generated source art (assets/source/garen, see PROMPTS.md) into game sprites.
+"""Import Garen's generated source art (assets/source/garen; prompts in ../CHIBI_REDRAW.md) into game sprites.
 
     python tools/art/import_garen.py [--review DIR]
 
@@ -10,14 +10,15 @@ Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred 
   league/effects/league_garen_spin    loop
   league/effects/league_garen_r       impact
 
-Body: every strip is drawn from the same design reference (garen_ref_v3.png) and, where League
-has the clip, from a front-view pose render of it (PROMPTS.md rounds 3-5). Each strip gets its own
-scale so Garen is as big as in idle (~36 px); the feet sit 11.5 px below the frame centre (the
-base-game convention). Horizontally, idle stands on the middle of its stance, skill and hit line
-their legs up with idle, and the League-drawn strips put each frame's head where League's skeleton
-has it for that frame (tools/lol/pose_ref.py, same camera), so their own body motion (lunges,
-leaps, the spin's lean) comes out as in the game. Pixels: area downscale, hard alpha, one shared
-palette, 1 px dark outline.
+Body: the chibi redraw - every strip is drawn from the same design reference (garen_ref_chibi.png)
+and, where League has the clip, from a front-view pose render of it with the head enlarged to TFM2
+proportions (pose_ref.py --head 2.0 --legs 0.8). Each strip gets its own scale so Garen's head is as
+big as in idle (~36 px tall); the feet sit 11.5 px below the frame centre (the base-game
+convention). Horizontally, idle stands on the middle of its stance, skill and hit line their legs up
+with idle, and the League-drawn strips put each frame's head where League's skeleton has it for
+that frame (tools/lol/pose_ref.py --track, same camera), so their own body motion (lunges, leaps,
+the spin's lean) comes out as in the game. Pixels: area downscale, hard alpha, one shared palette,
+1 px dark outline.
 Effects: own palette each, no outline, anchored on their impact point / ring centre.
 --review DIR writes one alignment sheet per strip (pivot + feet lines, idle silhouette in red).
 """
@@ -40,42 +41,53 @@ FEET = 11.5     # feet (bottom edge) below the pivot
 SUP = 4         # alignment works at 4x game resolution
 BAND = 12       # px of legs used to line frames up
 
-# tall: source px that make Garen as big as in idle (head, pauldrons and height compared by eye
-#       against idle at game size - one number per strip, GPT drew each strip at its own size)
+# tall: source px of his standing height (hair to soles, idle stance) at that strip's drawing size.
+#       GPT drew every strip at its own size and with slightly different head-to-body ratios, so
+#       each strip is scaled to make his HEAD as big as in idle (the most visible part of a chibi;
+#       its size changing between actions reads as the hero growing and shrinking): idle's head
+#       matched over each frame at several scales, checked side by side at source size (attack
+#       and death by face and hair width: their heads turn and bow, the match was unsure)
 # anchor: feet = line the legs up with idle f0 (idle f0 itself: middle of its stance)
 #         feetmid = head=("track", [x per frame]): put the middle of both feet there instead (the
 #                spin: its body leans less than League's, so the head path would make it wobble)
 #         head = head=("track", [x per frame]): put each frame's head x px from the pivot, taken
-#                from League's skeleton for the frame times of the pose reference (mirrored yaw
-#                55: the camera of every reference); R and death are re-based so their first
-#                frame starts where idle stands (League starts R 12 px behind the unit)
+#                from League's skeleton for the frame times of the pose reference, big-head
+#                skeleton and camera of the references (pose_ref.py --mirror --yaw 55 --pitch 25
+#                --head 2.0 --legs 0.8 --track 36), plus one shift that puts idle's drawn head where
+#                League has it (LEAGUE_IDLE_HEAD)
 # ground: per-frame lowest pixel, or "strip" = median of the grounded frames (keeps a run
 #         bounce; ignores a sword tip or burst below the feet)
 # air: frames in the air; they keep their drawn height above the ground of the others
 CHAR = {
-    "idle":     dict(n=6, tall=250, ms=[150] * 6, anchor="feet"),
+    "idle":     dict(n=6, tall=300, ms=[150] * 6, anchor="feet"),
     # League Run: a walk, 8 frames over its 0.933 s cycle (0-817 ms)
-    "run":      dict(n=8, tall=250, ms=[117] * 8, anchor="head", ground="strip",
-                     head=("track", [4.0, 4.6, 4.2, 3.4, 3.6, 4.0, 3.7, 3.3])),
-    # Attack_01 0/300/333/367/400/560 ms; damage lands in the slash frame (tick 13)
-    "attack":   dict(n=6, tall=226, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
-                     head=("track", [-3.5, 0.3, 2.2, 6.8, 7.3, 7.1])),
-    # spell1 (Decisive Strike) 0-810 ms; 500 ms = the 30-tick CasterAnimation, impact at 200 ms
-    "q_attack": dict(n=7, tall=177, ms=[45, 45, 50, 60, 90, 110, 100], anchor="head", ground="strip",
-                     air=[0, 1, 2, 3], head=("track", [-3.5, -3.5, -3.3, -2.5, 6.3, 5.2, 1.2])),
-    "skill":    dict(n=4, tall=357, ms=[80, 90, 80, 83], anchor="feet"),
+    "run":      dict(n=8, tall=255, ms=[117] * 8, anchor="head", ground="strip",
+                     head=("track", [5.6, 6.4, 5.7, 4.7, 5.0, 5.5, 5.1, 4.6])),
+    # Attack_01 0/300/333/367/400/560 ms; damage lands in the slash frame (tick 13). League lunges
+    # 15 px (raw -4.9, 0.3, 3.0, 9.4, 10.2, 9.9) and blends back over 0.2 s; a sprite snaps back to
+    # idle at once, so the lunge is kept at 70% around idle's head (the look of the previous round)
+    "attack":   dict(n=6, tall=240, ms=[50, 60, 50, 60, 70, 77], anchor="head", ground="strip",
+                     head=("track", [-1.9, 0.7, 2.6, 7.0, 7.6, 7.4])),
+    # spell1 (Decisive Strike) 0-810 ms; 500 ms = the 30-tick CasterAnimation, impact at 200 ms;
+    # the leap likewise at 70% (raw -4.9, -4.8, -4.6, -3.4, 8.7, 7.2, 1.6)
+    "q_attack": dict(n=7, tall=237, ms=[45, 45, 50, 60, 90, 110, 100], anchor="head", ground="strip",
+                     air=[0, 1, 2, 3], head=("track", [-3.0, -2.9, -2.8, -1.9, 6.6, 5.5, 1.6])),
+    "skill":    dict(n=4, tall=417, ms=[80, 90, 80, 83], anchor="feet"),
     # spell3 one turn (8 x 45 deg); League's pelvis stays put and the feet's middle within 2 px
-    "spin":     dict(n=8, tall=182, ms=[50] * 8, anchor="feetmid", ground="strip",
+    "spin":     dict(n=8, tall=219, ms=[50] * 8, anchor="feetmid", ground="strip",
                      head=("track", [-0.4, 0.6, 1.3, 1.0, 0.2, -1.0, -1.8, -1.8])),
-    # spell4: lunge forward and slam (League's 12 px step compressed to start and end in place);
-    # the slam frame (4th) comes at 320 ms, when the giant sword lands
-    "ult":      dict(n=8, tall=198, ms=[90, 110, 120, 90, 90, 80, 50, 37], anchor="head", ground="strip",
-                     air=[2], head=("track", [-4.2, -8.9, 2.4, 15.3, 15.1, 15.1, 12.3, 3.1])),
-    "hit":      dict(n=2, tall=560, ms=[70, 70], anchor="feet", ground="strip"),
-    # Death 0-2340 ms, re-based so the first frame stands where idle does
-    "dead":     dict(n=7, tall=238, ms=[120, 150, 150, 160, 160, 200, 400], anchor="head",
-                     head=("track", [5.9, -1.7, -4.5, -6.4, -5.6, 4.8, 6.2])),
+    # spell4: leap forward and slam. League starts it 23 px behind the unit and ends 2 px ahead;
+    # re-based with a ramp so the first frame stands where idle does, and the leap kept at 65%
+    # (-23.2, -30.2, -5.8, 9.0, 8.9, 9.0, 10.4, 3.5 raw) so the body lands near the unit; the slam
+    # frame (4th) comes at 320 ms, when the giant sword lands
+    "ult":      dict(n=8, tall=188, ms=[90, 110, 120, 90, 90, 80, 50, 37], anchor="head", ground="strip",
+                     air=[2], head=("track", [1.5, -5.4, 8.2, 15.5, 13.2, 11.0, 9.6, 2.8])),
+    "hit":      dict(n=2, tall=666, ms=[70, 70], anchor="feet", ground="strip"),
+    # Death 0-2340 ms (raw -1.0 ... -0.6), re-based by +2.5 so the first frame stands where idle does
+    "dead":     dict(n=7, tall=294, ms=[120, 150, 150, 160, 160, 200, 400], anchor="head",
+                     head=("track", [1.5, -9.0, -12.9, -15.6, -14.5, -0.1, 1.9])),
 }
+LEAGUE_IDLE_HEAD = 1.5   # League idle1@0: head joint x, px from the unit (same camera and skeleton)
 CHAR_COLORS = 64
 
 
@@ -124,19 +136,24 @@ def load_char():
     ref = G.leg_band(f0, idle["s"], G.feet_mid(f0, idle["s"]), idle["gy"][0], BAND, sup=SUP)
     for tag, st in strips.items():
         c, s = CHAR[tag], st["s"]
-        if c["anchor"] == "head":
-            track = c["head"][1]
-            st["ax"] = [head_x(fr) - track[i] / s for i, fr in enumerate(st["frames"])]
-        elif c["anchor"] == "feetmid":
+        if c["anchor"] == "feetmid":
             track = c["head"][1]
             st["ax"] = [G.feet_mid(fr, s, px=3.0) - track[i] / s for i, fr in enumerate(st["frames"])]
-        else:
+        elif c["anchor"] != "head":
             ax = []
             for i, fr in enumerate(st["frames"]):
                 guess = G.feet_mid(fr, s)
                 band = G.leg_band(fr, s, guess, st["gy"][i], BAND, sup=SUP)
                 ax.append(guess + G.best_shift(ref, band, 10 * SUP) / (SUP * s))
             st["ax"] = ax
+    # where idle's own drawn head stands against its feet, relative to League's idle head
+    shift = (head_x(f0) - idle["ax"][0]) * idle["s"] - LEAGUE_IDLE_HEAD
+    for tag, st in strips.items():
+        c, s = CHAR[tag], st["s"]
+        if c["anchor"] == "head":
+            track = c["head"][1]
+            st["ax"] = [head_x(fr) - (track[i] + shift) / s for i, fr in enumerate(st["frames"])]
+    print(f"idle head vs League: {shift:+.2f} px (added to every head track)")
     return strips
 
 
