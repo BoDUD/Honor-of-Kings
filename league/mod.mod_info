@@ -6,9 +6,9 @@
       "version": ">=0.4.11"
     }
   ],
-  "description": "League of Legends champions for Teamfight Manager 2: Garen, Ashe and Lux. Kits rebuilt for TFM2 the LoL Reborn way (two basic abilities + ultimate, the rest folded in). Non-commercial fan project; League of Legends (c) Riot Games.",
+  "description": "League of Legends champions for Teamfight Manager 2: Garen, Ashe, Lux and Lee Sin. Kits rebuilt for TFM2 the LoL Reborn way (two basic abilities + ultimate, the rest folded in). Non-commercial fan project; League of Legends (c) Riot Games.",
   "last_updated": "2026-09-26",
   "mod_id": "league",
   "name": "League of Legends Heroes",
-  "version": "0.3.0"
+  "version": "0.4.0"
 }

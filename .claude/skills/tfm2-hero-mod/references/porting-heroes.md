@@ -142,7 +142,7 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   first prompt of every new hero; the redraw of both heroes came back right in one round.
   Everything below the head joint grows with it: Lee Sin's long braid (`Hair1`..`Hair12` under
   `Head`) reached the ground at 2x. `--hair 0.5` scales the hair chains back to League's length.
-- **Game size straight from League (Lee Sin; untested until his delivery).** The native-size
+- **Game size straight from League (Lee Sin: worked, one GPT round).** The native-size
   redraw needed a first GPT round only to turn League's poses into game frames.
   `tools/lol/native_pose.py <hero>/poses.json` renders the clips at game size instead: the chibi
   model through one camera, the design pose `height` px from crown to soles (hair chains not
@@ -153,7 +153,12 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   (each frame's lowest point as high above the feet line as above League's floor - a body lying
   diagonally in depth otherwise floats or sinks through the pitch); per frame `turn` degrees
   toward the camera for spins and bent-over slams that would show the back. Cells can be bigger
-  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick).
+  than 56x64 (`"cell": [64, 72]` for the braid and the flying kick). The cells table also records
+  League's head joint per frame. GPT followed the poses but drew every action except idle about
+  1.4x the design (heads more than bodies) and its jumps too low; `tools/art/fit_native.py`
+  shrinks each strip back by the head (a 16-colour vote, still flat pixels) and puts each frame's
+  blindfold on League's head joint, soles back on the line where the reference stands - check
+  every strip's head against idle before importing.
 - **Head tracks for the importer.** `pose_ref.py --frame <clip@ms> ... --track <hero px>
   --track-ref <idle clip@0>` prints each frame's head joint x in game px from the unit, for a
   hero that many px tall in idle, through the same camera and `--mirror` / `--head` / `--legs` as
