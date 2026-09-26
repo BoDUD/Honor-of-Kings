@@ -19,7 +19,8 @@ without extension (case-insensitive).
 
 Reads (read-only) Champions/<Champ>.wad.client: the skin bin (-> .skn/.skl/texture), the
 animation bin (-> .anm list). Formats handled: SKN 1.x-4.x, SKL (0x22FD4FC3), compressed ANM
-("r3d2canm" v1-3) and legacy "r3d2anmd" v5, TEX (DXT1/DXT5/BGRA8). Needs numpy + Pillow.
+("r3d2canm" v1-3) and uncompressed "r3d2anmd" v3 (named tracks, Lux's clips), v4 and v5, TEX
+(DXT1/DXT5/BGRA8). Needs numpy + Pillow.
 """
 import argparse
 import io
@@ -118,12 +119,51 @@ def read_anmd_v5(b):
     return dict(duration=(nframes - 1) * dt, fps=1.0 / dt, hashes=hashes, keys=keys)
 
 
+def read_anmd_v4(b):
+    """Legacy uncompressed "r3d2anmd" v4: per frame and track, joint hash + indices into a vector and a
+    full-quaternion palette (Lux's spell4)."""
+    (_res, _tok, _ver, _flags, ntracks, nframes, dt, _tracks, _asset, _time, vec_off, quat_off,
+     frames_off) = struct.unpack_from("<IIIIiifiiiiii", b, 12)
+    vecs = np.frombuffer(b, "<f4", (quat_off - vec_off) // 4, vec_off + 12).reshape(-1, 3)
+    quats = np.frombuffer(b, "<f4", (frames_off - quat_off) // 4, quat_off + 12).reshape(-1, 4)
+    fr = np.frombuffer(b, np.dtype([("h", "<u4"), ("t", "<u2"), ("s", "<u2"), ("r", "<u2"), ("pad", "<u2")]),
+                       nframes * ntracks, frames_off + 12)
+    hashes = list(dict.fromkeys(int(h) for h in fr["h"]))
+    track = {h: k for k, h in enumerate(hashes)}
+    keys = {}
+    for i, e in enumerate(fr):
+        tr, t = track[int(e["h"])], (i // ntracks) * dt
+        keys.setdefault((tr, 1), []).append((t, vecs[e["t"]].astype(float)))
+        keys.setdefault((tr, 2), []).append((t, vecs[e["s"]].astype(float)))
+        keys.setdefault((tr, 0), []).append((t, quats[e["r"]].astype(float)))
+    return dict(duration=(nframes - 1) * dt, fps=1.0 / dt, hashes=hashes, keys=keys)
+
+
+def read_anmd_v3(b):
+    """Oldest "r3d2anmd" (v1-3, most of Lux's clips): per named track, every frame's rotation and
+    translation; tracks are matched to joints by the ELF hash of their name."""
+    _skl, ntracks, nframes, fps = struct.unpack_from("<Iiii", b, 12)
+    p, hashes, keys = 28, [], {}
+    for tr in range(ntracks):
+        hashes.append(elf(b[p:p + 32].split(b"\0")[0].decode("latin1")))
+        data = np.frombuffer(b, "<f4", nframes * 7, p + 36).reshape(nframes, 7).astype(float)
+        p += 36 + 28 * nframes
+        keys[(tr, 0)] = [(f / fps, data[f, :4]) for f in range(nframes)]
+        keys[(tr, 1)] = [(f / fps, data[f, 4:]) for f in range(nframes)]
+    return dict(duration=(nframes - 1) / fps, fps=float(fps), hashes=hashes, keys=keys)
+
+
 def read_anim(b):
     if b[:8] == b"r3d2canm":
         return read_canm(b)
-    if b[:8] == b"r3d2anmd" and struct.unpack_from("<I", b, 8)[0] == 5:
+    ver = struct.unpack_from("<I", b, 8)[0]
+    if b[:8] == b"r3d2anmd" and ver == 5:
         return read_anmd_v5(b)
-    raise ValueError(f"unsupported animation {b[:8]!r} v{struct.unpack_from('<I', b, 8)[0]}")
+    if b[:8] == b"r3d2anmd" and ver == 4:
+        return read_anmd_v4(b)
+    if b[:8] == b"r3d2anmd" and ver in (1, 2, 3):
+        return read_anmd_v3(b)
+    raise ValueError(f"unsupported animation {b[:8]!r} v{ver}")
 
 
 def read_canm(b):
@@ -423,7 +463,7 @@ def main():
     refs = lambda blob, ext: sorted(set(m.decode("latin1") for m in re.findall(rb"[A-Za-z0-9_/\.\-]+\." + ext, blob)))
     skn = [p for p in refs(skin_bin, rb"skn") if "/Base/" in p][0]
     skl = [p for p in refs(skin_bin, rb"skl") if "/Base/" in p][0]
-    texs = [p for p in refs(skin_bin, rb"(?:tex|dds)") if "/Base/" in p and "_TX_CM" in p]
+    texs = [p for p in refs(skin_bin, rb"(?:tex|dds)") if "/Base/" in p and re.search(r"_tx_cm|_cm_tx", p, re.I)]
     tris, verts = read_skn(w.read_path(skn.lower()))
     joints, influences = read_skl(w.read_path(skl.lower()))
     tex = read_tex(w.read_path(texs[0].lower())) if texs else Image.new("RGB", (4, 4), (180, 180, 180))

@@ -37,6 +37,8 @@ OK = direct, ~ = approximate, X = not possible in data-only mods.
 | Shield, heal, lifesteal, burn/poison | `Shield`, `Heal`, buff `vamp`, `AddCasted` | OK |
 | Passive stacks, every Nth attack | `SwitchByBuff` chain on hidden buffs | OK |
 | Skill empowers next attack | ready-buff + `SwitchByBuff` in `attack` | OK |
+| Mark on the target that the next attack detonates (Lux's Illumination) | `SwitchByBuff` only sees the caster's buffs and no effect removes a target's buff, so skill hits add a hidden caster ready-buff (the next attack on any enemy detonates it) and play a short mark `ViewEffect` on the hit target | ~ |
+| Skillshot that stops after N targets (Lux Q: two) | `LinearProjectile` only has `penetrate` true/false; the mod SDK's `LinearProjectileEffect` has no hit-count field | ~ |
 | Stealth | `Invisible` / `CasterInvisible` | OK |
 | 2-3 stage recast | `cooltime_use_count` or recast buff + `SwitchByBuff` | ~ (AI timing) |
 | Cone / fan of projectiles (Ashe W) | no angle field on any projectile (base harpooner's fan is `Native`): a `LineRangeProjectile` rectangle cast by `Direction`, drawn as a fan sprite centred on it (champion-data "Cone / fan"); the hit area stays a rectangle | ~ |
@@ -91,8 +93,10 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
 - Chinese voice: `<Champ>.zh_CN.wad.client` in the Tencent (WeGame) client; inside it the banks
   keep the `vo/en_us/` path.
 - Real animations as pose references: `tools/lol/pose_ref.py --anim Run --frames 6` skins the
-  champion's `.skn`/`.skl` with an `.anm` clip (compressed `r3d2canm` or legacy `r3d2anmd` v5)
-  and renders textured 3/4-view frames. Clip names come from
+  champion's `.skn`/`.skl` with an `.anm` clip (compressed `r3d2canm`, or uncompressed
+  `r3d2anmd` v3 / v4 / v5 - most of Lux's clips are v3, her R is v4) and renders textured
+  3/4-view frames. The diffuse texture is `*_TX_CM` (Garen, Ashe) or `*_CM_TX` (Lux); without
+  one the model renders grey. Clip names come from
   `data/characters/<champ>/animations/skin0.bin` (Garen: `Idle1`, `Run`, `Run_Spell1`,
   `Attack_01/02`, `Crit`, `spell1/3/4`, `Death`). Attack clips are ~2 s with the swing in the
   first ~0.4 s - pick frame times with `--times`. Use `--mirror` when the pose turns the chest
@@ -106,9 +110,11 @@ How LoL Reborn (all 32 heroes, both authors) fits four abilities into three slot
   speed; compare it with the champion's movement speed, and look for frames where both feet are
   off the ground (a run) or one foot always down (a walk). Ashe's jog/run clips move ~305 units/s
   (her base move speed is 325) with a flight phase, so she runs; the walk (~250) is her slowed
-  gait. Time the TFM2 loop from the clip's own cycle (Ashe: 1.0 s, 8 x 125 ms).
+  gait. Time the TFM2 loop from the clip's own cycle (Ashe: 1.0 s, 8 x 125 ms). Lux has a single
+  `lux_run` (a 4.8 s file holding six 0.8 s cycles): both feet are off the ground for about half
+  of each cycle, so she runs (8 x 100 ms).
 - **Render side, per champion.** Some champions show their chest from one side, some from the
-  other (Garen needed `--mirror`, Ashe does not) - render idle both ways and look for the face.
+  other (Garen and Lux need `--mirror`, Ashe does not) - render idle both ways and look for the face.
   Then use that same side for *every* clip of the hero: the renders appear to be mirror images of
   the game (Ashe's bow hangs off her `R_hand` joint but shows in her left hand), so switching
   sides between clips moves a one-handed prop to the other hand. TFM2 flips sprites that face
