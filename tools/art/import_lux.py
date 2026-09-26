@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Import Lux's generated source art (assets/source/lux, prompts in PROMPTS.md) into game sprites.
 
-    python tools/art/import_lux.py [--review DIR]
+    python tools/art/import_lux.py [--body] [--review DIR]
 
 Writes (exported sheet format: name#sheet.png + name#anim.fanim, frames centred on the unit)
-  league/champions/league_lux     idle run attack skill skill2 ult hit dead
+  league/champions/league_lux     idle run attack skill skill2 ult hit dead   (only with --body)
   league/effects/league_lux_fx    bolt hit q_orb q_bind shield e_orb e_zone mark ignite
   league/effects/league_lux_r     beam
 
+The body sheet now comes from the native-size redraw (tools/art/import_native.py, drawn over
+this round's frames); --body writes this round-1 body again.
 Body: every strip was drawn from one design sheet (lux_ref.png) and a front-view render of League's
 own clip at fixed times, head enlarged to TFM2 proportions (pose_ref.py --head 2.0 --legs 0.8
 --mirror). GPT drew each strip at its own size, so each gets its own scale: `tall` is her standing
@@ -384,19 +386,27 @@ def build_fx():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--review", help="write alignment review sheets to this folder")
+    ap.add_argument("--body", action="store_true", help="also write the round-1 body sheet "
+                    "(replaced by tools/art/import_native.py)")
+    ap.add_argument("--review", help="write alignment review sheets of the round-1 body to this folder")
     args = ap.parse_args()
+    if args.body or args.review:
+        body(args)
+    for sprite, tags in build_fx().items():
+        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
+        print(f"league/effects/{sprite}#sheet.png {w}x{h}: " +
+              ", ".join(f"{t} {len(v)}f" for t, v in tags.items()))
+
+
+def body(args):
     strips, shift = load_char()
     print(f"idle head vs League: {shift:+.2f} px (added to every head track)")
     for tag, st in strips.items():
         print(f"{tag:7s} scale {st['s']:.4f}  {len(st['frames'])} frames")
     char = build_char(strips)
-    w, h = G.write_sheet(os.path.join(MOD, "champions", "league_lux"), char)
-    print(f"league/champions/league_lux#sheet.png {w}x{h}, {sum(len(v) for v in char.values())} frames")
-    for sprite, tags in build_fx().items():
-        w, h = G.write_sheet(os.path.join(MOD, "effects", sprite), tags)
-        print(f"league/effects/{sprite}#sheet.png {w}x{h}: " +
-              ", ".join(f"{t} {len(v)}f" for t, v in tags.items()))
+    if args.body:
+        w, h = G.write_sheet(os.path.join(MOD, "champions", "league_lux"), char)
+        print(f"league/champions/league_lux#sheet.png {w}x{h}, {sum(len(v) for v in char.values())} frames")
     if args.review:
         review(char, args.review)
 

@@ -188,6 +188,20 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
   2.3, skin and gold 1.3); build that palette with a median cut per colour class (the lavender
   hair otherwise merges into light skin) and pass the prop's colours to `outline(keep=...)`.
   `metrics` then reports a lower outline share - it is the prop's edge, check which colours.
+- **Detail density: have the body drawn at the game's size.** A vote does not save a strip drawn
+  ~100 blocks tall (GPT's "pixel art") and squeezed 3:1 into 34 px: Ashe and Lux shipped at 41-42
+  colours per idle frame with 15-18% of pixels matching their right neighbour (15 base heroes:
+  16-33 colours, 18-46%, median 32%; Garen's big armour stayed readable at 63 and 15%), and the
+  user saw both blurry in game. A second round drawn at native size fixed it (TFM2-League-Heroes
+  `assets/source/NATIVE_REDRAW.md`): the current game frames at 8x in 56x64 cells as pose
+  references, base heroes at 8x for style, "34 squares tall, every pixel one 8x8 square, at most
+  20 colours, 2x2-square eyes", the design sheet first. The model's own output drifts off the grid
+  (block pitch 7.4-8.6 px, narrowed faces); have it cleaned to exact 8x8 blocks, check that, then
+  read one pixel per block - no resampling, palette or outline pass (`tools/art/import_native.py`:
+  18-19 colours, 29-31%). Record where each reference frame's pivot sits in its cell when the
+  references are drawn (`native_refs.py` writes `<hero>_cells.json`) so each redrawn frame lands
+  where the old one stood, and steady idle and run on the head column: frames placed by their
+  bounding box twitched 1-2 px in those loops.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the

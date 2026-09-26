@@ -7,12 +7,14 @@ For every animation of league/champions/league_<hero> writes <hero>_now_<tag>.pn
 game frames at 8x (every game pixel an 8x8 block), in a grid of 56x64-pixel cells read left to
 right, top to bottom (2 frames: 2x1, 6: 3x2, 7-8: 4x2), each frame centred across its cell with its
 feet on the cell's line 10 px above the bottom. <hero>_now_design.png: idle frame 1 on a 128x128
-canvas at 8x (1024x1024). The redraw keeps these cells, so tools/art/import_native.py can put each
-redrawn frame back where the current one stands.
+canvas at 8x (1024x1024). <hero>_cells.json: where each frame's pivot stands in its cell, and its
+duration - the redraw keeps these cells, so tools/art/import_native.py cuts each redrawn frame out
+around the same pivot and it lands where the current one stands (commit it with the redraw).
 --style writes tfm2_style_ref.png / tfm2_style_ref_mage.png: base heroes' idle frame 1 (top row)
 and attack middle frame (bottom row), feet aligned, at 8x - read from the game's bundle, keep local.
 """
 import argparse
+import json
 import os
 import sys
 
@@ -42,7 +44,8 @@ def layout(n):
 
 
 def cells(sp, tag):
-    """[(frame image cropped to its content, (x, y) of the crop in the cell)] for a tag."""
+    """[(frame image cropped to its content, (x, y) of the crop in the cell, (x, y) of the pivot in
+    the cell)] for a tag."""
     out = []
     for i in sp.tag_frames(tag):
         f = sp.frames[i]
@@ -50,15 +53,23 @@ def cells(sp, tag):
         feet = sp.h // 2 + 12                       # pivot row + 11.5 -> the row under the soles
         top = FEET_ROW - (feet - y0)
         left = (CELL[0] - (x1 - x0)) // 2
-        out.append((f.crop((x0, y0, x1, y1)), (left, top)))
+        out.append((f.crop((x0, y0, x1, y1)), (left, top), (left + sp.w // 2 - x0, top + sp.h // 2 - y0)))
     return out
+
+
+def table(sp):
+    """<hero>_cells.json text: per tag, each frame's pivot in its cell and its duration (ms)."""
+    lines = [f'  "{t["name"]}": [' + ", ".join(
+        f'{{"pivot": [{p[0]}, {p[1]}], "ms": {sp.durations[i]}}}'
+        for (_, _, p), i in zip(cells(sp, t["name"]), sp.tag_frames(t["name"]))) + "]" for t in sp.tags]
+    return f'{{"cell": [{CELL[0]}, {CELL[1]}], "scale": {Z}, "tags": {{\n' + ",\n".join(lines) + "\n}}\n"
 
 
 def grid(sp, tag):
     items = cells(sp, tag)
     cols, rows = layout(len(items))
     img = Image.new("RGBA", (cols * CELL[0], rows * CELL[1]), BG)
-    for k, (f, (x, y)) in enumerate(items):
+    for k, (f, (x, y), _) in enumerate(items):
         cx, cy = (k % cols) * CELL[0], (k // cols) * CELL[1]
         img.alpha_composite(f, (cx + x, cy + y))
     return img.resize((img.width * Z, img.height * Z), Image.NEAREST)
@@ -99,6 +110,10 @@ def main():
     for hero in args.hero:
         sp = T.load_sprite(os.path.join(ROOT, "league", "champions", f"league_{hero}#sheet.png"))
         design(sp).convert("RGB").save(os.path.join(args.out, f"{hero}_now_design.png"))
+        text = table(sp)
+        json.loads(text)                             # hand-formatted: one line per tag
+        with open(os.path.join(args.out, f"{hero}_cells.json"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(text)
         for t in sp.tags:
             img = grid(sp, t["name"])
             img.convert("RGB").save(os.path.join(args.out, f"{hero}_now_{t['name']}.png"))
