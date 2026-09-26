@@ -10,8 +10,11 @@ TFM2-League-Heroes repo); see references/art-spec.md "Generated art". Needs nump
                 line frames up by their legs (generated frames are not evenly spaced)
   render        area-downscale a frame so a chosen source point lands on a chosen sub-pixel of the
                 output grid (pivot-relative), hard alpha, no anti-aliasing
+  render_vote   same geometry, but each output pixel takes the palette colour that covers most of
+                it (weighted): keeps thin bright lines (a bow, hair) that averaging turns to mud
   Palette       one shared palette per sprite (median cut), nearest-colour mapping
-  outline       1 px near-black silhouette outline (glowing pixels are left alone)
+  median_cut    median-cut colours of a pixel list (build a palette per colour class)
+  outline       1 px near-black silhouette outline (glowing pixels, and a `keep` mask, are left alone)
   centre_frame  trim to an odd size centred on the pivot (the exported-sheet convention)
   write_sheet   pack frames into name#sheet.png + name#anim.fanim
 """
@@ -239,6 +242,44 @@ def render(fr, sx, sy, ax, ay, X0=0.0, Y0=0.0, cut=0.5, keep=None, pad=2):
     return out, u0, r0
 
 
+def render_vote(fr, sx, sy, ax, ay, X0, Y0, pal, weights, cut=0.5, thin=0.22, pad=2):
+    """render() geometry, but every output pixel takes ONE colour of `pal` (K x 3): the one whose
+    source pixels cover most of it, times its weight. Averaging a 10x10 block of thin bright lines
+    on dark cloth (a crystal bow, silver hair on a black hood) gives mud; the vote keeps the line
+    when its colour is weighted up (weights > 1 for the few colours that must read at 1x).
+    A pixel under `cut` alpha coverage stays opaque when a weighted-up colour covers at least
+    `thin` of it, so a thin limb reaching past the body does not break up."""
+    a = fr.a
+    x0, y0, x1, y1 = fr.bbox(0.05)
+    u0 = int(np.floor((x0 - ax) * sx + X0 + 0.5)) - pad
+    u1 = int(np.ceil((x1 - ax) * sx + X0 - 0.5)) + pad
+    r0 = int(np.floor((y0 - ay) * sy + Y0 + 0.5)) - pad
+    r1 = int(np.ceil((y1 - ay) * sy + Y0 - 0.5)) + pad
+    W, H = u1 - u0 + 1, r1 - r0 + 1
+    box = (ax + (u0 - 0.5 - X0) / sx - fr.ox, ay + (r0 - 0.5 - Y0) / sy - fr.oy,
+           ax + (u1 + 0.5 - X0) / sx - fr.ox, ay + (r1 + 0.5 - Y0) / sy - fr.oy)
+    al = a[..., 3]
+    cov_a = resample(al, box, (W, H))
+    solid = al > 0.5
+    px = a[..., :3][solid] * 255
+    idx = np.full(al.shape, -1, np.int32)
+    idx[solid] = ((px[:, None, :] - pal[None]) ** 2).sum(-1).argmin(1)
+    best_s = np.zeros((H, W), np.float32)
+    best_k = np.zeros((H, W), np.int32)
+    best_c = np.zeros((H, W), np.float32)
+    for k in np.unique(idx[idx >= 0]):
+        cov = resample((idx == k).astype(np.float32), box, (W, H))
+        score = cov * weights[k]
+        better = score > best_s
+        best_s[better], best_k[better], best_c[better] = score[better], k, cov[better]
+    opaque = (cov_a >= cut) | ((weights[best_k] > 1.0) & (best_c >= thin))
+    out = np.zeros((H, W, 4), np.uint8)
+    out[..., :3] = np.asarray(pal)[best_k].astype(np.uint8)
+    out[..., 3] = np.where(opaque, 255, 0)
+    out[~opaque, :3] = 0
+    return out, u0, r0
+
+
 # ----------------------------------------------------------------------------- colour
 class Palette:
     """Median-cut palette over the opaque pixels of many frames; nearest-colour mapping."""
@@ -263,18 +304,29 @@ class Palette:
         return out
 
 
+def median_cut(pix, n):
+    """Median-cut palette (up to n x 3 float32) of an (N, 3) uint8 pixel list."""
+    n = max(1, min(n, len(np.unique(pix, axis=0))))
+    q = Image.fromarray(np.ascontiguousarray(pix).reshape(1, -1, 3), "RGB").quantize(
+        colors=n, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    return np.array(q.getpalette()[:n * 3], np.float32).reshape(-1, 3)
+
+
 def lum(rgb):
     rgb = rgb.astype(np.float32)
     return 0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]
 
 
-def outline(f, color=OUTLINE, glow=205):
-    """Silhouette-edge pixels become `color`, except glowing ones (luminance > glow)."""
+def outline(f, color=OUTLINE, glow=205, keep=None):
+    """Silhouette-edge pixels become `color`, except glowing ones (luminance > glow) and those
+    in the boolean mask `keep` (e.g. a thin crystal bow that is all edge)."""
     out = f.copy()
     op = out[..., 3] > 0
     p = np.pad(op, 1)
     edge = op & ~(p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:])
     edge &= lum(out[..., :3]) <= glow
+    if keep is not None:
+        edge &= ~keep
     out[edge, :3] = color
     return out
 

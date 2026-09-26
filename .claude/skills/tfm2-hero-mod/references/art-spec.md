@@ -152,10 +152,18 @@ The route used for Garen in TFM2-League-Heroes: prompts in `assets/source/<hero>
 - **Pixels.** Premultiplied area downscale, alpha cut 0.5, one median-cut palette for all body
   frames (64 colours), then a 1 px near-black edge except on glowing pixels, then drop lonely
   pixels. Effects: alpha cut 0.4 plus tiny-spark keeping, own 32-colour palette, no outline.
+- **Thin bright details need a vote, not an average.** Ashe's strips were ~12 source px per game
+  px with a thin crystal bow and silver hair on a black hood: the average turned her into brown
+  mud, the hair grey and the bow black (all edge, so all outline). `strips.render_vote` gives each
+  game pixel the one palette colour covering most of it, times a class weight (bow blue 2.2, hair
+  2.3, skin and gold 1.3); build that palette with a median cut per colour class (the lavender
+  hair otherwise merges into light skin) and pass the prop's colours to `outline(keep=...)`.
+  `metrics` then reports a lower outline share - it is the prop's edge, check which colours.
 - **Effect anchors.** Effect and buff frames are drawn centred on the unit's pivot, 11.5 px above
   the feet (base: `levelup_effect` ring at +9..+16, `shield_receive_effect` bubble -22..+13).
   Ground rings at about +10, hits and shields at -3..-6, overhead marks around -25. Time the
-  impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`).
+  impact frame to the damage tick (wrap the `ViewEffect` in `Delayed`). Find a ring by its biggest
+  connected blob: by row extent, motes rising at both sides make rows above the ring look wide.
 - **Review before shipping.** Per-strip sheets with the idle silhouette overlaid, `metrics`,
   a side-by-side with base champions at 1x and 3x, and a scripted showcase against a dummy.
 
