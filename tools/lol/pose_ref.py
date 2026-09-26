@@ -252,18 +252,23 @@ def chibi(joints, local, head=1.0, legs=1.0):
     return out
 
 
-def leg_vertices(joints, influences, v):
-    """Vertices that mostly follow a leg (a hip/thigh joint or anything below it)."""
-    leg = set()
+def chain_vertices(joints, influences, v, pattern):
+    """Vertices that mostly follow a joint whose name matches `pattern`, or anything below it."""
+    chain = set()
     for i in range(len(joints)):
         k = i
-        while k >= 0 and not LEG.search(joints[k]["name"]):
+        while k >= 0 and not pattern.search(joints[k]["name"]):
             k = joints[k]["parent"]
         if k >= 0:
-            leg.add(i)
+            chain.add(i)
     joint_of = np.array(influences)[v["bones"].astype(np.int64)]
     main = joint_of[np.arange(len(v)), np.argmax(v["w"], axis=1)]
-    return np.isin(main, sorted(leg))
+    return np.isin(main, sorted(chain))
+
+
+def leg_vertices(joints, influences, v):
+    """Vertices that mostly follow a leg (a hip/thigh joint or anything below it)."""
+    return chain_vertices(joints, influences, v, LEG)
 
 
 def pose(joints, anim, t):
@@ -402,6 +407,11 @@ def main():
     ap.add_argument("--head", type=float, default=1.0,
                     help="scale the head (about 2 gives the big-headed TFM2 proportions)")
     ap.add_argument("--legs", type=float, default=1.0, help="scale each leg from the hip down (TFM2: about 0.8)")
+    ap.add_argument("--track", type=float, metavar="PX",
+                    help="with --frame: print each frame's head joint x, in game px from the unit, for a hero "
+                         "PX px tall (head top to soles) in the pose of --track-ref, instead of rendering (the "
+                         "importers' head tracks; same camera, --mirror, --head and --legs as the references)")
+    ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
     if args.frame and not args.name:
@@ -471,14 +481,38 @@ def main():
                 loaded[name.lower()] = read_anim(w.read_path(by_name[name.lower()].lower()))
             return loaded[name.lower()]
 
-        cells = []
-        for spec in args.frame:
+        def frame_pose(spec):
             a, ta, b, tb, wgt = parse_frame(spec)
             local = local_pose(joints, clip(a), ta)
             if b:
                 local = blend_pose(local, local_pose(joints, clip(b), tb), wgt)
-            cells.append(cell(local))
-        print(f"{args.name}: {len(cells)} frames -> {save(cells, args.frame, args.name)}")
+            return local
+
+        def head_track(poses, ref):
+            """Head joint x per pose in game px from the unit (the world origin), scaled so that
+            `ref` is args.track px from the head top to the soles, seen through the render camera."""
+            yaw = -args.yaw if args.mirror else args.yaw
+            cy, sy = np.cos(np.radians(yaw)), np.sin(np.radians(yaw))
+            cp, sp = np.cos(np.radians(args.pitch)), np.sin(np.radians(args.pitch))
+            rot = np.array([[1, 0, 0], [0, cp, -sp], [0, sp, cp]]) @ np.array([[cy, 0, sy], [0, 1, 0], [-sy, 0, cy]])
+            sign = -1.0 if args.mirror else 1.0
+            head = next(i for i, j in enumerate(joints) if j["name"].lower() == "head")
+            headv = chain_vertices(joints, influences, verts, re.compile(r"^head$", re.I))
+            legv = chain_vertices(joints, influences, verts, LEG)
+            pv = skin(verts, influences, bind_inv, globals_(joints, [trs(*p) for p in chibi(joints, ref, args.head, args.legs)])) @ rot.T
+            px = args.track / (pv[headv, 1].max() - pv[legv, 1].min())
+            xs = []
+            for p in poses:
+                glob = globals_(joints, [trs(*q) for q in chibi(joints, p, args.head, args.legs)])
+                xs.append(sign * (rot @ glob[head][:3, 3])[0] * px)
+            print(f"{args.name}: head x, game px for a {args.track:g} px hero: [" + ", ".join(f"{x:.1f}" for x in xs) + "]")
+
+        poses = [frame_pose(spec) for spec in args.frame]
+        cells = [cell(p) for p in poses] if not args.track else []
+        if cells:
+            print(f"{args.name}: {len(cells)} frames -> {save(cells, args.frame, args.name)}")
+        if args.track:
+            head_track(poses, frame_pose(args.track_ref) if args.track_ref else poses[0])
         return
     wanted = [a for a in anims if any(s.lower() in os.path.basename(a).lower() for s in args.anim)] or anims[:1]
     for path in wanted:

@@ -324,6 +324,101 @@ def cmd_metrics(sp, tag, kind):
     return 1 if warn else 0
 
 
+# ----------------------------------------------------------------------------- face / portrait point
+FACE_BASE = ("archer", "knight", "priest", "fighter")   # heroes drawn next to yours by `face --out`
+
+
+def head_of(sp, tag="idle"):
+    """On the tag's first frame: (feet row, crown row, head centre x from the canvas centre).
+    The crown is the first row at least half as wide as the widest of the top 12 rows, so a hair
+    bun, a hat tip or a pointed hood does not count as the head."""
+    f = sp.frames[(sp.tag_frames(tag) or [0])[0]].convert("RGBA")
+    px, W = f.load(), f.width
+    bb = f.getbbox()
+    widths = [sum(1 for x in range(W) if px[x, y][3]) for y in range(bb[1], min(bb[1] + 12, bb[3]))]
+    crown = bb[1] + next(i for i, w in enumerate(widths) if w >= 0.5 * max(widths))
+    xs = [x for y in range(crown, min(crown + 6, bb[3])) for x in range(W) if px[x, y][3]]
+    return bb[3], crown, sum(xs) / len(xs) - W / 2.0
+
+
+def suggest_face(sp):
+    """champion_view `face` the way the 68 base champions set it: at the crown (median 0 px below
+    it) and ~1.5 px ahead of the head centre."""
+    feet, crown, cx = head_of(sp)
+    return {"x": int(round(cx + 1.5)), "y": -(feet - crown)}
+
+
+def face_ok(face, sug):
+    """Within the base champions' spread: at most 4 px above the crown, 10 below, 8 aside (62 of
+    the 68 pass; the others are a mount, the ogre, the werewolf, two big hats and the strongman).
+    A small head fails too: its crown is found at the shoulders, below the head (league_garen
+    before the chibi redraw: 6 px above)."""
+    above = sug["y"] - face.get("y", 0)
+    return -10 <= above <= 4 and abs(face.get("x", 0) - sug["x"]) <= 8
+
+
+def face_sheet(sp, face, out, game=None, z=4, hz=10):
+    """Your hero next to base champions: idle at 1x and z x with each face point (red cross), and
+    their heads at hz x - look for a head about a third of the height and eyes you can see at 1x."""
+    rows = [(sp, face)]
+    try:
+        import bundle_tool
+        views = bundle_tool.Bundle(bundle_tool.find_game_dir(game)).read_json(
+            "asset/base/style/champion_view", "champion_view")["entries"]
+        rows += [(load_sprite(f"asset/base/aseprite_resources/champions/{n}", game), views[n]["face"])
+                 for n in FACE_BASE]
+    except Exception as e:  # noqa: BLE001 - the comparison is optional
+        print(f"  (no base heroes to compare: {e})")
+    H, HH = 48, 16                   # rows above the feet shown; rows of the head strip
+    cells = []                       # (1x crop, face point in crop px, crown row in crop)
+    for s, fc in rows:
+        f = s.frames[(s.tag_frames("idle") or [0])[0]].convert("RGBA")
+        x0, _, x1, feet = f.getbbox()
+        x0, x1 = x0 - 2, x1 + 2
+        cell = Image.new("RGBA", (x1 - x0, H), ARENA_BG)
+        cell.alpha_composite(f.crop((x0, feet - H + 1, x1, feet + 1)))
+        _, crown, _ = head_of(s)
+        pt = (f.width / 2.0 + fc["x"] - x0, H - 1 + fc["y"]) if fc else None
+        cells.append((cell, pt, crown - (feet - H + 1)))
+    gap = 3
+    W1 = sum(c.width + gap for c, *_ in cells)
+    img = Image.new("RGBA", (max(W1 * z, W1 * hz // 2), H + 4 + H * z + 4 + HH * hz // 2), (28, 28, 28, 255))
+    d = ImageDraw.Draw(img)
+    x = 0
+    for cell, pt, crown in cells:
+        img.alpha_composite(cell, (x, 0))                                           # 1x
+        img.alpha_composite(cell.resize((cell.width * z, H * z), Image.NEAREST), (x * z, H + 4))
+        if pt:
+            cx, cy = x * z + (pt[0] + 0.5) * z, H + 4 + (pt[1] + 0.5) * z
+            d.line((cx - 2 * z, cy, cx + 2 * z, cy), fill=(255, 40, 40, 255), width=2)
+            d.line((cx, cy - 2 * z, cx, cy + 2 * z), fill=(255, 40, 40, 255), width=2)
+        top = max(0, crown - 2)                                                     # head, hz/2 x
+        head = cell.crop((0, top, cell.width, min(H, top + HH)))
+        img.alpha_composite(head.resize((head.width * hz // 2, head.height * hz // 2), Image.NEAREST),
+                            (x * hz // 2, H + 8 + H * z))
+        x += cell.width + gap
+    img.save(long_path(out))
+
+
+def cmd_face(sp, face=None, out=None, game=None):
+    feet, crown, cx = head_of(sp)
+    sug = suggest_face(sp)
+    print(f"{sp.source}: crown {feet - crown} px above the feet, head centre x {cx:+.1f}")
+    print(f"  suggested champion_view face: {{\"x\": {sug['x']}, \"y\": {sug['y']}}}  "
+          f"(base heroes: at the crown, ~1.5 px ahead of the head centre)")
+    bad = 0
+    if face:
+        ok = face_ok(face, sug)
+        bad += not ok
+        print(("  PASS  " if ok else "  WARN  ") + f"face {face} is {sug['y'] - face['y']:+d} px above / "
+              f"{face['x'] - sug['x']:+d} px right of the suggestion (base: at most 4 above, 10 below, 8 aside; "
+              f"portraits crop around it - above the head they show hair and empty space)")
+    if out:
+        face_sheet(sp, face or sug, out, game)
+        print(f"  wrote {out}: look at the 1x row - is the head about a third of the height and are the eyes visible?")
+    return 1 if bad else 0
+
+
 # ----------------------------------------------------------------------------- render
 def render(sp, out, scale=3, only_tag=None, maxcols=10):
     tags = [t for t in sp.tags if not only_tag or t["name"] == only_tag] or \
@@ -364,6 +459,12 @@ def main(argv=None):
     p.add_argument("sprite")
     p.add_argument("--tag", default="idle")
     p.add_argument("--kind", choices=("champion", "effect"), default="champion")
+    p = sub.add_parser("face", help="suggest/check the champion_view face point; --out draws the hero next to "
+                                    "base champions (head size, eyes at 1x, portrait points)")
+    p.add_argument("sprite")
+    p.add_argument("--view", help="your champion_view file, to check the face point already set")
+    p.add_argument("--id", help="champion id in --view (default: the sprite's file name)")
+    p.add_argument("--out", help="write the comparison PNG here")
     args = ap.parse_args(argv)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(errors="backslashreplace")
@@ -379,6 +480,16 @@ def main(argv=None):
         print("wrote", args.out, render(sp, args.out, args.scale, args.tag))
     elif args.cmd == "metrics":
         sys.exit(cmd_metrics(sp, args.tag, args.kind))
+    elif args.cmd == "face":
+        face = None
+        if args.view:
+            with open(long_path(args.view), encoding="utf-8-sig") as fh:
+                entries = json.load(fh).get("entries", {})
+            cid = args.id or os.path.basename(args.sprite.replace("#sheet.png", "").rstrip("/\\"))
+            face = (entries.get(cid) or {}).get("face")
+            if face is None:
+                print(f"  no face for '{cid}' in {args.view}")
+        sys.exit(cmd_face(sp, face, args.out, args.game))
 
 
 if __name__ == "__main__":
